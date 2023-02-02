@@ -14,7 +14,7 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
     <link rel="icon" href="" type="images/x-icon">
-    <link rel="stylesheet" href="CSS/ForgotPass.css">
+    <link rel="stylesheet" href="CSS/ResetPass.css">
 </head>
 
 
@@ -88,22 +88,29 @@
                         <div class="myform form">
                             <div class="logo mb-3">
                                 <div class="col-md-12 text-center newpass">
-                                    <h4>New Password</h4>
-                                    <p>Please enter a new password in the fields below.</p>
+                                    <h4 style="font-size: 22px;">New Password</h4>
+                                    <p style="font-size: 12px;">Please enter a new password in the fields below.</p>
                                 </div>
                             </div>
                             <form action="" method="post" name="login">
-                                <div class="form-group" style="padding-bottom: 4%;">
-                                    <label for="exampleInputEmail1"
-                                        style="font-size: 1rem; color: #8d8a8a; padding-left: 2%; padding-bottom: 1%;">New Password</label>
-                                    <input type="password" name="password" id="password" class="form-control"
-                                        aria-describedby="emailHelp" placeholder="Enter Password">
+                                <div class="form-group" style="padding-bottom: 4%;" >
+                                    <label for="exampleInputEmail1" class="box">New Password</label>
+                                    <input type="password" name="password" id="password" class="form-control" 
+                                        aria-describedby="emailHelp" placeholder="**********">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"
-                                        style="font-size: 1rem; color: #8d8a8a; padding-left: 2%; padding-bottom: 1%;">Confirm Password</label>
+                                    <label for="exampleInputEmail1" class="box">Confirm Password</label>
                                     <input type="password" name="password" id="password" class="form-control"
-                                        aria-describedby="emailHelp" placeholder="Enter Password">
+                                        aria-describedby="emailHelp" placeholder="**********">
+                                </div>
+                                <div class="col-md-12 d-grid gap-2 text-center mt-4">
+                                    <button type="submit" class=" btn btn-block mybtn btn-outline-warning tx-tfm"
+                                        style="border-radius: 50px;">Change password</button>
+                                </div>
+                                <div class="form-group mt-3 link">
+                                    <p class="text-center lostpass" style="font-size: 14px; color: #8d8a8a;"><a
+                                            href="/D:/Project/SRS/HTML/ForgotPass.html"
+                                            style="color: grey !important; font-weight: 500;">Login</a></p>
                                 </div>
                             </form>
 

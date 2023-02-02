@@ -15,6 +15,13 @@ h3 {
     font-family: 'Kaushan Script', cursive;
 }
 
+.form-control{
+    line-height: 0;
+    width: 70%;
+    margin-left: 15%;
+    padding-top: 2% !important;
+}
+
 .myform {
     position: relative;
     display: -ms-flexbox;
@@ -37,6 +44,14 @@ h3 {
 
 .mybtn {
     border-radius: 50px;
+    width: 70%;
+    margin-left: 15%;
+}
+.box{
+    font-size: 16px; 
+    color: #8d8a8a; 
+    padding-left: 17%; 
+    padding-bottom: 1%;
 }
 
 .login-or {
@@ -47,6 +62,7 @@ h3 {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
 
 .span-or {
     display: block;
@@ -92,8 +108,27 @@ form .error {
     height: 100vh;
 }
 
+
 @media screen and (max-width:767px) {
     .size-fix {
         height: auto;
     }
+    .mybtn {
+        border-radius: 50px;
+        width: 90%;
+        margin-left: 5%;
+    }
+    .box{
+        font-size: 1rem; 
+        color: #8d8a8a; 
+        padding-left: 6%; 
+        padding-bottom: 1%;
+    }
+    
+.form-control{
+    line-height: 0;
+    width: 90%;
+    margin-left: 5%;
+    padding-top: 0.3% !important;
+}
 }
