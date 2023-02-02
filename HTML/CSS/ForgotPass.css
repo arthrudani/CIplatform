@@ -1,6 +1,9 @@
-body {
-    
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
 
 a {
     text-decoration: none !important;
@@ -11,9 +14,21 @@ h2,
 h3 {
     font-family: 'Kaushan Script', cursive;
 }
-.images{
-    padding-left: 0% !important;
-    padding-right: 0% !important;
+
+.myform {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 1rem;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0px solid rgba(0, 0, 0, .2);
+    border-radius: 1.1rem;
+    outline: 0;
 }
 
 .tx-tfm {
@@ -66,90 +81,19 @@ form .error {
 #second {
     display: none;
 }
-.side{
-    padding-left: 4% !important;
-    padding-right: 4% !important;
-}
-.email{
-    
-    padding-bottom: 1%;
-    text-align: left;
-    letter-spacing: 0px;
-    color: #414141;
-}
-#email{
 
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 0px 10px #2B64B11F;
-    border: 1px solid #2B64B1;
-    border-radius: 3px;
+.privacylogin {
+    margin-top: 25%;
+    display: flex;
+    justify-content: center;
 }
 
-.login{
-    margin-top: 6%;
-    width: 100%;
-    /* UI Properties */
-    background: #F8863400 0% 0% no-repeat padding-box;
-    border: 2px solid #F88634 !important;
-    border-radius: 24px !important;
-}
-#login{
-    color: #F88634;
-}
-.btn{
-    background-color: #FFFFFF !important;
-}
-.lostpassword{
-    padding-top: 4%;
-    margin-bottom: -2%;
-    width: 100%;
-    /* UI Properties */
-    text-align: center;
-    letter-spacing: 0px;
-    color: #414141;
-    font-size: 14px;
-}
-.last{
-    width: 100%;
-    /* UI Properties */
-    text-align: left;
-    letter-spacing: 0px;
-    color: #414141;
-    font-size: 14px;
-}
-#signup{
-    font-size: 14px;
-    width: 115px;
-    height: 19px;
-    /* UI Properties */
-    text-align: left;
-    letter-spacing: 0px;
-    color: #2B64B1;
+.size-fix {
+    height: 100vh;
 }
 
-.forgot{
-    font-size: 22px;
-    /* padding-top: 30%; */
-    text-align: center;
-    letter-spacing: 0px;
-    color: #414141;
-}
-.forgotcontent{
-    font-size: 14px;
-    text-align: center;
-    letter-spacing: 0px;
-    color: #414141;
-    opacity: 1;
-}
-@media screen and (max-width: 768px)
-{
-    .forgot{
-        padding-top: 0%;
-        text-align: center ;
-        letter-spacing: 0px;
-        color: #414141;
-    }
-    .images{
-        padding-bottom: 2%;
+@media screen and (max-width:767px) {
+    .size-fix {
+        height: auto;
     }
 }

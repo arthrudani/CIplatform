@@ -1,3 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.form-control{
+    line-height: 0;
+    width: 70%;
+    margin-left: 15%;
+    padding-top: 0.3% !important;
+}
+#fname
+{
+    color: #ff0000 !important;
+}
+.first{
+    margin-top: 12%;
+}
+
 a {
     text-decoration: none !important;
 }
@@ -7,17 +28,34 @@ h2,
 h3 {
     font-family: 'Kaushan Script', cursive;
 }
-.images{
-    padding-left: 0% !important;
-    padding-right: 0% !important;
+
+.myform {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0px solid rgba(0, 0, 0, .2);
+    border-radius: 1.1rem;
+    outline: 0;
 }
 
 .tx-tfm {
     text-transform: uppercase;
 }
+.lostpass{
+    margin-bottom: 1%;
+    font-weight: 500;
+}
 
 .mybtn {
     border-radius: 50px;
+    width: 72%;
+    margin-left: 14%;
 }
 
 .login-or {
@@ -52,7 +90,7 @@ h3 {
     height: 40px;
     text-align: center;
     outline: none;
-    border: 1px solid lightgrey;
+    border: 0px solid lightgrey;
 }
 
 form .error {
@@ -62,101 +100,32 @@ form .error {
 #second {
     display: none;
 }
-.side{
-    padding-left: 4% !important;
-    padding-right: 4% !important;
-}
-.email{
-    margin-left: 2%;
-    padding-bottom: 1%;
-    text-align: left;
-    letter-spacing: 0px;
-    color: #414141;
-}
-#primary{
-    margin-bottom: 2%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 0px 10px #2B64B11F;
-    border: 1px solid #2B64B1;
-    border-radius: 3px;
-}
-#secondary{
-    margin-bottom: 2%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 0px 10px #2B64B11F;
-    border: 1px solid gray;
-    border-radius: 3px;
+
+.privacylogin {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
 }
 
-.login{
-    margin-top: 6%;
-    width: 100%;
-    /* UI Properties */
-    background: #F8863400 0% 0% no-repeat padding-box;
-    border: 2px solid #F88634 !important;
-    border-radius: 24px !important;
+.size-fix {
+    height: 100vh;
 }
-#login{
-    color: #F88634;
+p{
+    font-size: 12px;
 }
-.btn{
-    background-color: #FFFFFF !important;
-}
-.lostpassword{
-    padding-top: 4%;
-    margin-bottom: -2%;
-    width: 100%;
-    /* UI Properties */
-    text-align: center;
-    letter-spacing: 0px;
-    color: #414141;
-    font-size: 14px;
-    text-decoration: none;
-}
-a{
-    text-decoration: none;
-}
-.last{
-    width: 100%;
-    /* UI Properties */
-    text-align: left;
-    letter-spacing: 0px;
-    color: #414141;
-    font-size: 14px;
-}
-#signup{
-    font-size: 14px;
-    width: 115px;
-    height: 19px;
-    /* UI Properties */
-    text-align: left;
-    letter-spacing: 0px;
-    color: #2B64B1;
+input::placeholder{
+    font-size: 10px;
 }
 
-.new{
-    font-size: 22px;
-    /* padding-top: 30%; */
-    text-align: center;
-    letter-spacing: 0px;
-    color: #414141;
-}
-.newcontent{
-    font-size: 14px;
-    text-align: center;
-    letter-spacing: 0px;
-    color: #414141;
-    opacity: 1;
-}
-@media screen and (max-width: 768px)
-{
-    .forgot{
-        padding-top: 0%;
-        text-align: center ;
-        letter-spacing: 0px;
-        color: #414141;
+@media screen and (max-width:767px) {
+    .size-fix {
+        height: auto;
     }
-    .images{
-        padding-bottom: 2%;
+    .myform{
+        padding-top: 0;
+    }
+    .first{
+        margin-top: 0%;
     }
 }
