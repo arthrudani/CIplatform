@@ -24,13 +24,6 @@
     display: none;
 }
 
-.searchimg img {
-    height: 22px;
-    width: 22px;
-    margin: 5%;
-}
-
-
 .header2 {
     border: 1px solid black;
 }
@@ -157,6 +150,92 @@
     flex-direction: row;
 }
 
+.rightHeader {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.searchimg img {
+    height: 22px;
+    width: 22px;
+    margin: 5%;
+}
+
+.header2 {
+    border: 1px solid black;
+}
+
+.H2P1 {
+    width: 50%;
+    border: 1px solid black;
+}
+
+.H2P2 {
+    width: 50%;
+    border: 1px solid black;
+}
+
+.options {
+    justify-content: space-between;
+    width: 500%;
+    /* padding-left: 20%; */
+    padding-top: 1.1%;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+.options a {
+    justify-content: space-between;
+}
+
+.rightbutton {
+    display: none !important;
+}
+
+.blocking {
+    display: block;
+}
+
+#dropdownMenuButton1 {
+    background-color: white !important;
+    color: black;
+    border: 0;
+    width: 45%;
+}
+
+.searchboxh2 {
+    padding-top: 2%;
+}
+
+.searchBoxPh {
+    border: 0;
+}
+
+.staticAbs {
+    position: absolute !important;
+}
+
+.vl {
+    border: 1px;
+    float: left;
+    height: 100vh;
+}
+
+
+.searchiconB {
+    display: block;
+}
+
+.borderH2 {
+    padding: 0.05%;
+    border-bottom: 1px solid #333333;
+    border-top: 0.2px solid #333333;
+}
+
 
 @media only screen and (max-width: 767px) {
     .rightbutton {
@@ -174,17 +253,4 @@
     .spacearound {
         justify-content: end;
     }
-}
-@media (max-width: 575.98px) {
-    .list-view .card {
-        flex-direction: column;
-    }
-}
-
-.list-view .card>.card-img-top {
-    width: auto;
-}
-
-.list-view .card .card-body {
-    display: inline-block;
 }
