@@ -268,11 +268,11 @@
 
 .likeBox {
     color: white;
-    border-radius: 25px;
+    border-radius: 50px;
     background-color: black;
     opacity: 0.5;
     right: 4%;
-    top: 20%;
+    top: 15%;
     padding: 2%;
 }
 
@@ -282,7 +282,7 @@
     background-color: black;
     opacity: 0.5;
     right: 4%;
-    top: 30%;
+    top: 25%;
     padding: 3%;
     font-size: 18px;
 }
@@ -307,20 +307,25 @@
 
 .durationofmission {
     background-color: rgb(255, 255, 255);
+    justify-content: center;
     color: #333333;
-    max-width: fit-content;
-    margin-left: 34%;
+    min-width: max-content;
+    font-size: 10px;
     border: 0.3px solid #333333;
     border-radius: 25px;
     padding: 1%;
-    z-index: 11;
+    position: absolute;
+    top: 74%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
 }
 
 
 .lineintext {
     display: flex;
     flex-direction: row;
-    margin-top: -5%;
+    margin-top: -6%;
 
 }
 
@@ -330,7 +335,8 @@
     content: "";
     flex: 1 1;
     border-bottom: 2px solid #000;
-
+    margin-top: 7%;
+    z-index: -1;
 }
 
 .seatsleft {
@@ -340,16 +346,17 @@
 .seatsleft img {
     height: 35px;
     width: 35px;
+    align-items: center;
 }
 
 .seatleftcontent11 {
-    margin-top: -7%;
+    margin-top: -2%;
     margin-left: 5%;
     width: max-content;
 }
 
 .seatleftcontent12 {
-    margin-top: -7%;
+    margin-top: -2%;
     margin-left: 5%;
     width: max-content;
 }
@@ -375,6 +382,43 @@
     padding-left: 5%;
 }
 
+.nomissionfound{
+    border-radius: 25px;
+}
+.durationofmission p{
+    margin: 0 !important;
+}
+
+.gridimg{
+    border: 0;
+    background-color: #E8E8E8;
+    border-radius: 25px;
+    height: 35px;
+    width: 35px;
+}
+.gridimg img{
+    height: 25px;
+    width: 25px;
+       
+}
+.listimg{
+    border: 0;
+    background-color: white;
+    border-radius: 25px;
+    height: 35px;
+    width: 35px;
+}
+.listimg img{
+    height: 20px;
+    width: 20px;
+       
+}
+
+.sortbybutton{
+    border: 1px solid #333333;
+    margin-right: 4%;
+    border-radius: 5px;
+}
 @media only screen and (min-width: 992px) {
     .likeBox {
         color: white;
@@ -382,7 +426,7 @@
         background-color: black;
         opacity: 0.5;
         right: 4%;
-        top: 20%;
+        top: 15%;
         padding: 2%;
     }
 
@@ -392,7 +436,7 @@
         background-color: black;
         opacity: 0.5;
         right: 4%;
-        top: 30%;
+        top: 23%;
         padding: 3%;
         font-size: 18px;
     }
@@ -431,7 +475,7 @@
         background-color: black;
         opacity: 0.5;
         right: 4%;
-        top: 30%;
+        top: 23%;
         padding: 2%;
     }
 
@@ -441,9 +485,12 @@
         background-color: black;
         opacity: 0.5;
         right: 4%;
-        top: 42%;
+        top: 35%;
         padding: 3%;
         font-size: 18px;
+    }
+    .durationofmission {
+        top: 75%;
     }
 
 }
@@ -456,7 +503,7 @@
         background-color: black;
         opacity: 0.5;
         right: 4%;
-        top: 20%;
+        top: 17%;
         padding: 2%;
     }
 
@@ -466,8 +513,11 @@
         background-color: black;
         opacity: 0.5;
         right: 4%;
-        top: 32%;
+        top: 27%;
         padding: 3%;
         font-size: 18px;
+    }
+    .durationofmission {
+        min-width: max-content;
     }
 }
