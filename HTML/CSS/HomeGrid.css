@@ -16,7 +16,7 @@
 }
 
 .rightHeader {
-    flex-direction: row;
+    flex-direction: row !important;
     align-items: flex-start;
 }
 
@@ -63,15 +63,9 @@
 }
 
 .blocking {
-    display: block;
+    display: block !important;
 }
 
-#dropdownMenuButton1 {
-    background-color: white !important;
-    color: black;
-    border: 0;
-    width: 45%;
-}
 
 .searchboxh2 {
     padding-top: 2%;
@@ -141,7 +135,7 @@
 }
 
 .spacearound {
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .card {
@@ -157,16 +151,8 @@
     flex-direction: row;
 }
 
-
-
-
-.rightHeader {
-    flex-direction: row;
-    align-items: flex-start;
-}
-
 .dropdown-toggle::after {
-    display: none;
+    display: none !important;
 }
 
 .searchimg img {
@@ -206,14 +192,14 @@
     display: none !important;
 }
 
-.blocking {
-    display: block;
-}
+
 
 #dropdownMenuButton1 {
     background-color: white !important;
     color: black;
-    border: 0;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 0;
     width: 45%;
 }
 
@@ -317,7 +303,7 @@
     position: absolute;
     top: 74%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 
 }
 
@@ -367,57 +353,130 @@
     margin-bottom: 0;
 }
 
-.apply{
-    width: 40%;
+.apply {
+    width: 50%;
     border: 1px solid #F88634;
     color: #F88634;
     background: white;
     margin-top: 3%;
     border-radius: 25px;
     padding: 3%;
-    justify-content:space-around;
+    justify-content: space-around;
 }
 
-.apply img{
+.closeoropen {
+    width: 25%;
+    top: 2%;
+    color: white;
+    background-color: #F88634;
+    font-size: 15px;
+    padding: 2%;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    justify-content: flex-start !important;
+}
+
+.relatedmission {
+    font-size: 30px;
+}
+
+.apply img {
     padding-left: 5%;
 }
 
-.nomissionfound{
+.nomissionfound {
     border-radius: 25px;
 }
-.durationofmission p{
+
+.durationofmission p {
     margin: 0 !important;
 }
 
-.gridimg{
+.gridimg {
     border: 0;
     background-color: #E8E8E8;
     border-radius: 25px;
     height: 35px;
     width: 35px;
 }
-.gridimg img{
+
+.gridimg img {
     height: 25px;
     width: 25px;
-       
+
 }
-.listimg{
+
+.listimg {
     border: 0;
     background-color: white;
     border-radius: 25px;
     height: 35px;
     width: 35px;
 }
-.listimg img{
+
+.listimg img {
     height: 20px;
     width: 20px;
-       
+
 }
 
-.sortbybutton{
+.sortbybutton {
     border: 1px solid #333333;
     margin-right: 4%;
     border-radius: 5px;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.swiper-slide-container {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    height: 100%;
+    max-width: 600px;
+    margin: auto;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+
+.gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.gallery-thumbs .swiper-slide {
+    width: 20%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+.gallery-thumbs .swiper-slide-active {
+    opacity: 1;
+}
+
+.borderH2 .dropdown{
+    display: flex !important;
 }
 @media only screen and (min-width: 992px) {
     .likeBox {
@@ -446,7 +505,6 @@
     .rightbutton {
         display: block !important;
     }
-
     .blocking {
         display: none !important;
     }
@@ -454,7 +512,9 @@
     .searchiconB {
         display: none;
     }
-
+    .borderH2 .dropdown{
+        display: none !important;
+    }
     .spacearound {
         justify-content: end;
     }
@@ -489,6 +549,7 @@
         padding: 3%;
         font-size: 18px;
     }
+
     .durationofmission {
         top: 75%;
     }
@@ -517,6 +578,7 @@
         padding: 3%;
         font-size: 18px;
     }
+
     .durationofmission {
         min-width: max-content;
     }
