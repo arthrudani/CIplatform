@@ -1,0 +1,171 @@
+.width-100 {
+    width: 100% !important;
+  }
+  .custom-img-container-width {
+    width: 35rem !important;
+  }
+  .image-height {
+    height: 100% !important;
+  }
+  .flex-direction-row {
+      /* / flex-wrap: wrap !important; / */
+    flex-direction: row !important;
+    overflow: visible;
+  }
+  .mission-Dates {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: space-between !important;
+  }
+  .fromToList {
+    border: 1px solid gray;
+    position: relative;
+    background-color: white;
+    width: fit-content;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 0;
+  }
+  .bottom-content-width
+  {
+      width: 66% !important;
+  }
+  .Mission-name-rating
+  {
+      width: 16rem !important;
+  }
+  .info__Apply__List
+  {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      align-items: center;
+  }
+  .Apply_mission_remove_margin
+  {
+      margin-left: 1rem !important;
+  }
+  .remove-margin
+  {
+      margin-bottom: 0;
+  }
+  .card-col
+  {
+      margin-top: 2rem !important;
+  }
+
+  #slider,#thumbnail_slider{
+    width: 100%;
+    /* margin: 0 auto 10px; */
+  }
+  .slide-item img{
+      width: 100%;
+  }
+  .thumbnail-item img{
+      width: 98%;
+      margin: 0 auto; 
+  }
+
+
+  .deadline
+  {
+    position: relative;
+  }
+
+
+  .fromto
+  {
+    position: absolute;
+    top: -13px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 50px;
+    padding: 0 10px;
+  }
+
+  .recommend-items
+  {
+    border: 2px solid gray;
+    border-radius: 50px;
+    padding: 0 15px;
+  }
+
+  .recommendation
+  {
+    position:relative;
+  }
+
+  .rating
+  {
+    position: absolute;
+    bottom: -13px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    border-radius: 50px;
+    background-color: white;
+  }
+  .right-content
+  {
+    padding-left: 3rem !important;
+  }
+
+  .common-loc
+  {
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 20%;
+    margin-top: 25px;
+    padding:10px;
+  }
+
+  .Information
+  {
+    border: 1px solid gray;
+    padding: 10px 20px;
+  }
+  .rating img:hover
+  {
+    background-color: rgba(255, 187, 0, 0.541);
+    border-radius: 50px;
+  }
+
+
+
+  @media(max-width:490px)
+  {
+    .seat-deadline
+    {
+      padding: 0 !important;
+    }
+
+    .locations
+    {
+      flex-direction: column;
+
+    }
+
+    .common-loc{
+      width: 50%;
+    }
+
+    .docs
+    {
+      width: 70% !important;
+    }
+
+    .twobutton
+    {
+      width: 100% !important;
+      margin-bottom: 10px;
+    }
+
+  }

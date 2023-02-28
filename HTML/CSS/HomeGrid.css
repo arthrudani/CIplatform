@@ -81,12 +81,7 @@
 
 }
 
-.posStatic {
-    position: static !important;
-    transition: 2s !important;
-    transform: translate3d(0, 10px, 0) !important;
-    border: 0;
-}
+
 
 .vl {
     border: 1px;
@@ -282,8 +277,21 @@
     margin-left: 34%;
     margin-top: -10%;
 }
+.strcategory {
+    background-color: rgb(255, 255, 255);
+    color: #333333;
+    border-radius: 25px;
+    padding: 1.5%;
+    max-width: fit-content;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .category p {
+    margin: 0 !important;
+}
+.strcategory p {
     margin: 0 !important;
 }
 
@@ -478,6 +486,86 @@
 .borderH2 .dropdown{
     display: flex !important;
 }
+.strmainimg{
+    flex-direction: column;
+    align-items: center !important;
+    background: hsl(0deg 0% 0%);
+}
+.posRelative{
+    position: relative;
+}
+
+.strmainimg img{
+    opacity: 0.5;
+}
+.strShareStr1{
+    color: #ffffff;
+    font-size: 70%;
+    justify-content: center;
+    text-align: center;
+
+}
+.strShareStr2{
+    border: 1px solid white;
+    border-radius: 25px;
+    padding: 0.45%;
+    color: #fff;
+    font-size: 70%;
+    justify-content: center;
+    margin-left: 46%;
+    max-width: fit-content;
+}
+.strShareStr2 button{
+    background: none;
+    border: none;
+}
+.arrowright2{
+    height: 10px;
+    width: 10px;
+}
+
+.strCardFooter img{
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+}
+.strCardFooter p{
+   margin-top: 2%;
+   margin-left: 1%;
+}
+
+.strViewDetails{
+    display: none;
+    border: 1px solid white;
+    border-radius: 25px;
+    padding: 2%;
+    color: #fff;
+    font-size: 100%;
+    max-width: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+.strViewDetails button{
+    background: none;
+    border: none;
+}
+
+.card:hover .img1{
+    /* background-color: rgb(0, 0, 0,0);
+     */
+     opacity: 0.5;
+    /* filter: brightness(50%); */
+}
+.card:hover .strViewDetails{
+    display: block;  
+}
+
+.card:hover .strCardBgBlack{
+    background: rgb(0, 0, 0.5);
+}
+
 @media only screen and (min-width: 992px) {
     .likeBox {
         color: white;
@@ -549,11 +637,15 @@
         padding: 3%;
         font-size: 18px;
     }
-
+    .filter1{
+        justify-content: center !important;
+    }
     .durationofmission {
         top: 75%;
     }
-
+    .strShareStr2{
+        margin-left: 41%;
+    }
 }
 
 @media only screen and (max-width: 576px) {
@@ -581,5 +673,8 @@
 
     .durationofmission {
         min-width: max-content;
+    }
+    .strShareStr2{
+        margin-left: 38%;
     }
 }
