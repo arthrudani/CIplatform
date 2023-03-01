@@ -15,13 +15,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="CSS/ShareYourStory.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="js/home.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
 
 
-    <div class="container-fluid p-0">
+    <div class="container p-0">
 
 
         <!-- upper nav side open bar -->
@@ -54,21 +62,16 @@
         </div>
 
         <!-- upper nav bar -->
-        <div class="container-fluid borderH2 d-flex ">
+        <div class=" container-fluid col borderH2 d-flex ">
             <div class="container d-flex justify-content-around  ">
 
                 <div class="d-flex ">
-
                     <button class="w3-button " onclick="openRightMenu()"><img class="rightbutton"
                             src="images/filter.png"></button>
                 </div>
-
-
-
-
                 <div class="col d-flex justify-content-between">
-                    <div>
-                        <img src="images/logo.png" class="blocking" style="padding-top: 19%;">
+                    <div class="blocking">
+                        <img src="images/logo.png" style="padding-top: 19%;">
                     </div>
 
                     <div class="leftHeader ">
@@ -92,9 +95,8 @@
                     </div>
 
                     <div class="d-flex ">
-                        <ul class="navbar-nav rightHeader align-items-between">
-                            <img class="rightbutton " style="padding-top: 22% !important; padding-right: 10%; "
-                                src="images/search.png">
+                        <ul class="navbar-nav rightHeader d-flex align-items-center">
+                            <img class="rightbutton" src="images/search.png">
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
@@ -123,13 +125,14 @@
         </div>
 
         <!-- Share your story -->
-        <div class="container title">
-            Share your story
+        <div class=" title1">
+            <div> Share your story</div>
         </div>
 
         <!-- select mission my story title date -->
-        <div class="d-flex container justify-content-between" style="margin-top: 10px;">
-            <div>
+        <div class="d-flex row missionStoryDate" style="margin-top: 10px;">
+
+            <div class="col">
                 <div>Select mission</div>
                 <div><select name="Mission" id="mission">
                         <option value="1">1</option>
@@ -137,18 +140,69 @@
                         <option value="3">3</option>
                     </select></div>
             </div>
-            <div>
+            <div class="col">
                 <div>My story title</div>
                 <input type="text" class="form-control" id="Storytitle">
             </div>
-            <div>
+            <div class="col">
                 <div>Date</div>
-
-                <form action="/action_page.php">
-                    <input type="date" id="birthday" name="birthday">
+                <form action="POST">
+                    <input type="date" id="birthday" name="birthday" placeholder="Select Date">
                 </form>
             </div>
+
         </div>
+
+        <!-- My story editor -->
+        <div class="title2">
+            <div>My story</div>
+        </div>
+        <div id="editor" class="w-100"></div>
+
+        <!-- Enter video url -->
+        <div class="title2">
+            <div>Enter video url</div>
+            <input type="text" class="form-control" id="Videourl">
+        </div>
+
+        <!-- Drag and drop -->
+        <div class="title2">
+            <div>Enter video url</div>
+            <div class="container strUploadBox">
+                <fieldset class="d-flex justify-content-center">
+                    <a href="javascript:void(0)" onclick="$('#pro-image').click()" >
+                        <div class="strUploadImg d-flex align-items-center flex-column"><i class="bi bi-plus"></i></div>
+                        <div class="UploadText">Drag and drop pictures and videos here</div>
+                    </a>
+                    <input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control"
+                        multiple>
+                </fieldset>
+                <div class="preview-images-zone">
+                </div>
+            </div>
+        </div>
+
+        <!-- save submit cancel  -->
+        <div>
+            <div class="d-flex justify-content-between" style="padding-top: 20px;">
+                <div class="strLeft">
+                    <button class="strCancel">
+                        cancel
+                    </button>
+                </div>
+                <div class="strRight">
+                    <button class="strSave">
+                        save
+                    </button>
+                    <button class="strSubmit">
+                        submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -159,6 +213,17 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </body>
 
 </html>
