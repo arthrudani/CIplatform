@@ -235,7 +235,10 @@ select{
 /* .preview-image{
     width: 10% !important;
 } */
-
+.preview-images-zone{
+    width: 102% !important;
+    border: none !important;
+}
 @media only screen and (max-width: 767px) {
     .rightbutton {
         display: block !important;
