@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+
+.mp0 {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.userimage {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+
+}
+
+.rightHeader {
+    flex-direction: row !important;
+    align-items: flex-start;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.searchimg img {
+    height: 22px;
+    width: 22px;
+
+}
+
+.rightbutton {
+    display: none !important;
+}
+
+.blocking {
+    display: block !important;
+}
+
+.posAbsolute {
+    position: absolute !important;
+    transition: 2s;
+
+}
+
+.posStatic {
+    position: static !important;
+    transition: 2s !important;
+    transform: translate3d(0, 10px, 0) !important;
+    border: 0;
+}
+
+.card {
+    margin: 1% !important;
+}
+
+.rightbutton {
+    display: none !important;
+}
+
+.staticAbs {
+    position: absolute !important;
+}
+
+.searchiconB {
+    display: block;
+}
+
+.borderH2 {
+    /* padding: 0.05%; */
+    border-bottom: 1px solid #333333;
+    border-top: 0.2px solid #333333;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+/**********************************************/
+
+.VTheading {
+    font-size: 25px;
+}
+
+.title {
+    font-size: 15px;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.row {
+    margin: 0 !important;
+}
+
+.lowertext {
+    font-size: 10px;
+}
+
+.uppertext {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.table button {
+    background-color: white;
+    border: none;
+}
+
+.boxcard {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    border: 0 !important;
+}
+.table>tbody>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        font-size: 13px !important;
+    }
+
+@media only screen and (max-width: 767px) {
+    .rightbutton {
+        display: block !important;
+    }
+
+    .blocking {
+        display: none !important;
+    }
+
+    .table>tbody>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        font-size: 10px !important;
+    }
+
+    .table>tbody>tr>td,
+    .table>tbody>tr>th {
+        font-size: 7px !important;
+    }
+}

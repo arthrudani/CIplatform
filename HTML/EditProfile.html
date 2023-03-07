@@ -41,7 +41,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn changepass">Change password</button>
+                    <button type="button" class="btn changepass" data-bs-dismiss="modal"
+                    aria-label="Close">Change password</button>
                 </div>
             </div>
         </div>
@@ -88,12 +89,43 @@
                 </div>
                 <div class="modal-footer justify-content-start">
                     <button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" id="saveSkills" class="btn changepass" data-bs-dismiss="modal" aria-label="Close">Save</button>
+                    <button type="button" id="saveSkills" class="btn changepass" data-bs-dismiss="modal"
+                        aria-label="Close">Save</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- modal for contact us -->
+
+    <div class="modal " id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Contact us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Name*</p>
+                    <input type="text" name="name" class="form-control " id="name"
+                        aria-describedby="emailHelp" placeholder="Enter username">
+                    <p>Email address*</p>
+                    <input type="email" name="email" class="form-control " id="email"
+                        aria-describedby="emailHelp" placeholder="Enter email address">
+                    <p>Subject*</p>
+                    <input type="text" name="subject" class="form-control " id="subject"
+                        aria-describedby="emailHelp" placeholder="Enter your subject">
+                    <p>Message*</p>
+                    <textarea name="subject" id="subject" class="form-control  " aria-describedby="emailHelp" placeholder="Enter your message"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn changepass" data-bs-dismiss="modal"
+                    aria-label="Close">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- upper nav side open bar -->
     <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;" id="rightMenu">
@@ -336,8 +368,6 @@
                         <select multiple="multiple" id="selectedSkills">
                         </select>
                     </div>
-
-
                 </div>
 
                 <!-- footer button -->
@@ -357,7 +387,8 @@
         <div class="EPfooterline "></div>
         <div class="EPprivacypolicy d-flex justify-content-start mt-3 gap-3">
             <div class="privacypolicy"><a href="#">Privacy policy</a></div>
-            <div class="contactus"><a href="#"> Contact us</a></div>
+            <div class="contactus"><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3" id="contactus">
+                    Contact us</a></div>
         </div>
 
 

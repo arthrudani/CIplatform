@@ -20,7 +20,14 @@ body {
     border-radius: 50%;
 
 }
+.EPfooterline {
+    border-bottom: 0.5px solid #D9D9D9;
+    margin-top: 50px;
+}
 
+.EPprivacypolicy {
+    font-size: 12px;
+}
 .rightHeader {
     flex-direction: row !important;
     align-items: flex-start;

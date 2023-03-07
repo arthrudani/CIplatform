@@ -212,7 +212,12 @@ body {
 .EPprivacypolicy {
     font-size: 12px;
 }
-
+.modal-body p{
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
+    margin-left: 10px !important;
+    font-weight: 100;
+}
 .modal-content {
     margin-top: 30% !important;
 }
