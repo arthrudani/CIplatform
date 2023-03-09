@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+.sidebar{
+    background-color: #F88634 ;
+}
+#menu{
+    width: 100%;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 4px !important;
+}
+.nav-item {
+    width: 100%;
+}
+.nav .nav-item:hover{
+    background-color:white !important;
+    color: #F88634 !important;
+}
+.nav-item i{
+    color: white;
+}
+.nav-item:hover{
+    color: #F88634 !important;
+    background-color: blue !important;
+}
+
+.sidebarbuttons{
+    color: white;
+}
+
+@media only screen and (max-width: 767px) {
+
+}
