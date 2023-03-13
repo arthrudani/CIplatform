@@ -8,24 +8,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
-    <title>Admin User</title>
+    <title>Admin mission application</title>
     <link rel="stylesheet" href="CSS/Admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.3.2/css/rowReorder.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-
 
             <!-- sidebar -->
             <div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
@@ -92,7 +90,6 @@
 
             <!-- main content -->
             <div class="col py-3">
-
                 <div class="headerbar d-flex justify-content-between">
                     <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
                     <div class="d-flex justify-content-between align-items-center ">
@@ -118,70 +115,88 @@
                 <div class="headerborder"></div>
 
                 <div class="EPbasicInfo">
-                    <p> User</p>
+                    <p>Mission application</p>
                 </div>
                 <div class="userborder"></div>
 
                 <!-- searchbar -->
                 <div class="d-flex justify-content-between">
                     <div class="searchBoxborder">
-                        <div class="searchboxh2">
+                        <div class="searchboxh2" id="searchboxing">
                             <button class="w3-button ">
                                 <img src="images/search.png">
                             </button>
                             <input type="text" placeholder=" Search missions..." id="searchboxing" name="search"
-                                class="searchBoxPh" id="example_filter">
+                                class="searchBoxPh">
                         </div>
                     </div>
                     <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
                 </div>
 
                 <!-- table -->
-                <table id="example" class="display mt-4">
+                <table id="example1" class="display mt-4" style="width:100%">
                     <thead>
                         <tr>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Email</th>
-                            <th>Employee id</th>
-                            <th>Department</th>
-                            <th>Status</th>
+                            <th>Mission Title</th>
+                            <th>Mission Id</th>
+                            <th>User Id</th>
+                            <th>User name</th>
+                            <th>Applied date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Arth</td>
-                            <td>Rudani</td>
-                            <td>arthrudani200q@gmail.com</td>
+                            <td>tatvasoft</td>
                             <td>004</td>
-                            <td>Java</td>
-                            <td>Active</td>
-                            <td class="d-flex gap-3"><button class="d-flex ju"><img src="images/editing.png"
-                                        alt=""></button><button><img src="images/delete.png" alt="" ></button></td>
+                            <td>@arth._.rudani</td>
+                            <td>Arth Rudani</td>
+                            <td>00-00-0000</td>
+                            <td class="d-flex gap-3">
+                                <button class="view">View</button>
+                                <button class="checkbs"><i class="bi bi-check-circle"></i></button>
+                                <button class="circlebs"><i class="bi bi-x-circle"></i></button>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Arth</td>
-                            <td>Rudani</td>
-                            <td>arthrudani200q@gmail.com</td>
+                            <td>tatvasoft</td>
                             <td>004</td>
-                            <td>Java</td>
-                            <td>Active</td>
-                            <td class="d-flex gap-3"><button><img src="images/editing.png" alt=""></button><button><img
-                                        src="images/delete.png" alt=""></button></td>
+                            <td>@arth._.rudani</td>
+                            <td>Arth Rudani</td>
+                            <td>00-00-0000</td>
+                            <td class="d-flex gap-3">
+                                <button class="view">View</button>
+                                <button class="checkbs"><i class="bi bi-check-circle"></i></button>
+                                <button class="circlebs"><i class="bi bi-x-circle"></i></button>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Arth</td>
-                            <td>Rudani</td>
-                            <td>arthrudani200q@gmail.com</td>
+                            <td>tatvasoft</td>
                             <td>004</td>
-                            <td>Java</td>
-                            <td>Active</td>
-                            <td class="d-flex gap-3"><button><img src="images/editing.png" alt=""></button><button><img
-                                        src="images/delete.png" alt=""></button></td>
+                            <td>@arth._.rudani</td>
+                            <td>Arth Rudani</td>
+                            <td>00-00-0000</td>
+                            <td class="d-flex gap-3">
+                                <button class="view">View</button>
+                                <button class="checkbs"><i class="bi bi-check-circle"></i></button>
+                                <button class="circlebs"><i class="bi bi-x-circle"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>tatvasoft</td>
+                            <td>004</td>
+                            <td>@arth._.rudani</td>
+                            <td>Arth Rudani</td>
+                            <td>00-00-0000</td>
+                            <td class="d-flex gap-3">
+                                <button class="view">View</button>
+                                <button class="checkbs"><i class="bi bi-check-circle"></i></button>
+                                <button class="circlebs"><i class="bi bi-x-circle"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+
 
             </div>
         </div>
@@ -206,7 +221,7 @@
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function () {
-            var table = $('#example').DataTable({
+            var table = $('#example1').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },

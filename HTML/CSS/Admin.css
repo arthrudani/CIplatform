@@ -136,6 +136,58 @@ li {
     color: #ffffff !important;
     border: 1px solid #757575;
 }
+.addbox{
+    border: 1px solid #E8E8E8;
+}
+.addtext{
+    border: 1px solid #E8E8E8;
+}
+.addtext p{
+    border: 0;
+}
+.titleOfAddbox{
+    font-size: 14px;
+}
+
+.titlebox{
+    min-width: -webkit-fill-available;
+}
+.ck-blurred , .ck-content{
+    height: 370px !important;
+}
+
+.modal-header{
+    border: 0 !important;
+}
+.modal-footer{
+    border: 0 !important;
+}
+.modal-footer .cancel {
+    border: 2px solid #333333;
+    border-radius: 25px;
+}
+
+.modal-footer .changepass {
+    color: #F88634;
+    border: 2px solid #F88634;
+    border-radius: 25px;
+}
+.view {
+    color: #F88634;
+    border: 1px solid #F88634 !important;
+    border-radius: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.checkbs{
+    color: green;
+    font-size: 20px !important;
+}
+.circlebs{
+    color: rgb(255, 0, 0);  
+    font-size: 20px !important;
+}
+
 @media only screen and (max-width: 767px) {
     .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
         padding: 1px !important;
