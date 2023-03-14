@@ -60,3 +60,19 @@ function readImage() {
 }
 
 
+// verify password
+
+function verifyPassword() {  
+  var pw = document.getElementById("password").value;
+  var cpw = document.getElementById("confpassword").value;
+
+  //check empty password field  
+  if(pw != cpw) {  
+     document.getElementById("message").innerHTML = "Confirm password is not same";  
+     return false;  
+  }  
+  else{
+    return true;
+  }
+ 
+}  

@@ -32,11 +32,19 @@ body {
 }
 
 .nav-item :hover {
-    color: #F88634 !important;
-    background-color: rgb(255, 255, 255) !important;
+    background-color: #f5b485 !important;
 }
 
-
+.activepage {
+    background-color: white !important;
+    color: #F88634 !important;
+    border-radius: 4px !important;
+}
+.activepage :hover{
+    background-color: rgb(214, 214, 214) !important;
+    color: #F88634 !important;
+    border-radius: 4px !important;
+}
 .sidebarbuttons {
     color: white;
 }
@@ -119,7 +127,7 @@ li {
 }
 .pagination>li>a{
     color: #757575 !important;
-    margin-left: 8px !important;
+    /* margin-left: 8px !important; */
 }
 .dataTables_wrapper{
     margin-top: 15px !important;
