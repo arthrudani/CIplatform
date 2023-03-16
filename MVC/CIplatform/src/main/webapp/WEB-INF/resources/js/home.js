@@ -60,3 +60,31 @@ function readImage() {
 }
 
 
+// verify password
+
+function verifyPassword() {  
+  var pw = document.getElementById("password").value;
+  var cpw = document.getElementById("confpassword").value;
+  if(pw != cpw) {  
+      	alert("Confirm password is not same"); 
+     	cpw.focus();
+     	return false;  
+  }  
+  else{
+    return true;
+  }
+ 
+}   
+
+
+// function verifyPassword() {  
+//   var pw = document.getElementById("password").value;
+//   var cpw = document.getElementById("confpassword").value;
+//   //check empty password field  
+//   if(pw != cpw) {  
+//      alert("Confirm password is not same");  
+//      cpw.focus();
+//      return false;  
+//   }
+//     return true;
+// }  

@@ -76,3 +76,14 @@ function verifyPassword() {
   }
  
 }  
+// function verifyPassword() {  
+//   var pw = document.getElementById("password").value;
+//   var cpw = document.getElementById("confpassword").value;
+//   //check empty password field  
+//   if(pw != cpw) {  
+//      alert("Confirm password is not same");  
+//      cpw.focus();
+//      return false;  
+//   }
+//     return true;
+// }  

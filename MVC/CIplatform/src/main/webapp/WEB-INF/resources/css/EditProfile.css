@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+
+.mp0 {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.userimage {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+
+}
+
+.rightHeader {
+    flex-direction: row !important;
+    align-items: flex-start;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.searchimg img {
+    height: 22px;
+    width: 22px;
+
+}
+
+.rightbutton {
+    display: none !important;
+}
+
+.blocking {
+    display: block !important;
+}
+
+.posAbsolute {
+    position: absolute !important;
+    transition: 2s;
+
+}
+
+.posStatic {
+    position: static !important;
+    transition: 2s !important;
+    transform: translate3d(0, 10px, 0) !important;
+    border: 0;
+}
+
+.card {
+    margin: 1% !important;
+}
+
+.rightbutton {
+    display: none !important;
+}
+
+.staticAbs {
+    position: absolute !important;
+}
+
+.searchiconB {
+    display: block;
+}
+
+.borderH2 {
+    /* padding: 0.05%; */
+    border-bottom: 1px solid #333333;
+    border-top: 0.2px solid #333333;
+}
+
+/**********************************************/
+.EPuserimg {
+    border: 1px solid #D9D9D9;
+    height: 30%;
+    padding: 2%;
+}
+
+.EPuserimg img {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+
+.EDchangepass {
+    text-decoration: none;
+    font-size: 10px;
+    border: none;
+    background-color: white;
+}
+
+.EPbasicInfo {
+    font-size: 18px;
+    font-weight: 400;
+    border-bottom: 0.5px solid #D9D9D9;
+}
+
+.EPbasicInfo p {
+    border-bottom: 2px solid #D9D9D9;
+    max-width: fit-content;
+    margin-bottom: 0;
+}
+
+.EPnameSurname span {
+    font-size: 10px;
+}
+
+.form-control {
+    height: 27px !important;
+}
+
+.EPmyprofile {
+    height: 100px !important;
+}
+
+.EPmyprofile ::placeholder {
+    margin-top: 1% !important;
+}
+
+.EPddborder {
+    border: 1.5px solid #D9D9D9;
+    width: 100%;
+    height: 28px !important;
+}
+
+.EPddborder img {
+    height: 8px;
+    width: 12px;
+}
+
+.EPskills {
+    border: 1.5px solid #D9D9D9;
+}
+
+.navbar-nav {
+    margin: 0 !important;
+}
+
+.EPnameSurname textarea {
+    border: 1.5px solid #D9D9D9;
+    border-radius: 4px;
+    min-height: 100px;
+    color: #757575;
+    padding-left: 1%;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.EPmyskilltextarea {
+    border: 1.5px solid #D9D9D9;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #757575;
+    background-color: #fff;
+}
+
+.EPmyskilltextarea select{
+    border: 0 !important;
+    width: 100% !important;
+}
+
+.EPmyskilltextarea ul {
+    list-style: none;
+    padding: 0;
+}
+
+.EPaddskill button {
+    font-size: 15px;
+    border: 2px solid #757575;
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 2%;
+    padding-top: 0.5%;
+    padding-right: 2%;
+    padding-bottom: 0.5%;
+}
+
+.EPsave button {
+    font-size: 12px;
+    color: #F88634;
+    border: 2px solid #F88634;
+    background-color: white;
+    border-radius: 25px;
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-right: 3%;
+    padding-bottom: 1%;
+}
+
+.EPfooterline {
+    border-bottom: 0.5px solid #D9D9D9;
+    margin-top: 50px;
+}
+
+.EPprivacypolicy {
+    font-size: 12px;
+}
+.modal-body p{
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
+    margin-left: 10px !important;
+    font-weight: 100;
+}
+.modal-content {
+    margin-top: 30% !important;
+}
+
+.transferBtns {
+    margin: auto !important;
+}
+
+.modal-header {
+    border: none !important;
+}
+
+.modal-footer {
+    border: none !important;
+}
+
+.modal-body {
+    padding-top: 0 !important;
+}
+
+.modal-footer .cancel {
+    border: 2px solid #333333;
+    border-radius: 25px;
+}
+
+.modal-footer .changepass {
+    color: #F88634;
+    border: 2px solid #F88634;
+    border-radius: 25px;
+}
+
+.modal-dialog {
+    margin: 10px auto !important;
+}
+
+.allskills {
+    border: 1px solid #D9D9D9;
+}
+
+.selectedskills {
+    border: 1px solid #D9D9D9;
+}
+
+.leftrightarrow {
+
+    transform: translate(15%, 40%);
+}
+
+#lstBox1,
+#lstBox2 {
+    height: 300px;
+    width: 200px;
+    padding: 10px;
+}
+#lstBox1 option,
+#lstBox2 option{
+    margin-top: 5px !important;
+}
+.approveTermsContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.transferBtns {
+    margin: 5px !important;
+}
+
+.transferBtns {
+    float: left;
+    align-self: center;
+}
+.transferBtns #btnRight,
+.transferBtns #btnLeft{
+    border: none !important;
+    background-color: white !important;
+}
+@media only screen and (max-width: 767px) {
+    .rightbutton {
+        display: block !important;
+    }
+
+    .blocking {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+
+    #lstBox1,
+    #lstBox2 {
+        height: 300px;
+        width: 150px !important;
+    }
+}
