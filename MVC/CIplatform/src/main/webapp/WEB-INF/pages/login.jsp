@@ -27,9 +27,9 @@
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="" type="images/x-icon">
-<link href="<c:url value="/resources/CSS/Login.css" />">
+<link rel="stylesheet" href="css/Login.css">
 <script src="js/home.js"></script>
-</head>
+</head> 
 
 
 <body>
@@ -116,7 +116,15 @@
 				</div>
 				<div
 					class="col-md-4 col-sm-12 d-flex flex-column justify-content-between">
-					<div class="row"></div>
+
+
+					<div class="row">
+						<c:if test="${not empty msg }">
+							<div class="alert alert-warning">
+								<b><c:out value="${msg }"></c:out></b>
+							</div>
+						</c:if>
+					</div>
 					<div class="row">
 						<div class="myform form">
 							<div class="myform form">
@@ -132,13 +140,13 @@
 										<label for="exampleInputEmail1" class="box">Email
 											address</label> <input type="email" name="email" class="form-control"
 											id="email" aria-describedby="emailHelp"
-											placeholder="Enter email">
+											placeholder="Enter email" required>
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail1" class="box">Password</label> <input
 											type="password" name="password" id="password"
 											class="form-control" aria-describedby="emailHelp"
-											placeholder="Enter Password">
+											placeholder="Enter Password" required>
 									</div>
 									<div class="col-md-12 d-grid gap-2 text-center mt-4">
 										<button type="submit"

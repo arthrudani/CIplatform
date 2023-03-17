@@ -77,9 +77,6 @@
 					com.entities.mission
 				</value>
 				<value>
-					com.entities.favourite_mission
-				</value>
-				<value>
 					com.entities.password_reset
 				</value>
 			</list>

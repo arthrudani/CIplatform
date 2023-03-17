@@ -112,6 +112,16 @@
 				<div
 					class="col-md-4 col-sm-12 d-flex flex-column justify-content-between">
 					<div class="row"></div>
+					<c:if test="${not empty msg }">
+						<div class="alert alert-success">
+							<b><c:out value="${msg }"></c:out></b>
+						</div>
+					</c:if>
+					<c:if test="${not empty tokenStatus }">
+						<div class="alert alert-success">
+							<b><c:out value="${tokenStatus}"></c:out></b>
+						</div>
+					</c:if>
 					<div class="row">
 						<div class="myform form">
 							<div class="logo mb-3">
@@ -134,7 +144,6 @@
 									<input type="submit"
 										class=" btn btn-block mybtn btn-outline-warning"
 										style="border-radius: 50px;" value="Reset my Password">
-
 								</div>
 								<div class="form-group mt-3 text-center">
 									<a href="login"

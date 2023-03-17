@@ -31,7 +31,8 @@ public class HomeCtrl {
 	@RequestMapping(path = "/savedata", method = RequestMethod.POST)
 	public String myFormHandler(@ModelAttribute("user") user user, Model m) {
 		this.registrationDao.save(user);
-		return "homeGrid";
+		m.addAttribute("msg" , "Successfully registered");
+		return "registration";
 	}
 
 	@RequestMapping(path = "/login")
@@ -55,35 +56,45 @@ public class HomeCtrl {
 	}
 
 	@RequestMapping(path = "/verifyuser", method = RequestMethod.POST)
-	public String myUserverifier(@RequestParam("email") String email, @RequestParam("password") String password) {
+	public String myUserverifier(@RequestParam("email") String email, @RequestParam("password") String password,Model m) {
 		String vr = "";
 		vr = this.registrationDao.verifyuser(email, password);
 		System.out.println(vr);
 
 		if (vr == "true") {
+			m.addAttribute("username" , email);
 			return "homeGrid";
 		} else {
+			m.addAttribute("msg" , "Email id or password is incorrect");
 			return "login";
 		}
 	}
 
 	@RequestMapping(path = "/ForgotPassword", method = RequestMethod.POST)
-	public String myResetPass(@RequestParam("email") String email) {
+	public String myResetPass(@RequestParam("email") String email,Model m) {
 		String vremail = "";
 		vremail = this.registrationDao.ResetPass(email);
 		if (vremail != "false") {
 			System.out.println("email exists in database");
+			m.addAttribute("msg" , "Email sent to your registered email");
 		} else {
 			System.out.println("email does not exists in database");
 		}
-		return "";
+		return "ForgotPass";
 	}
 
 	@RequestMapping(path = "/ResetPassword/{token}")
 	public String myResetPassword(@PathVariable("token") String token,Model m) {
 		System.out.println(token);
+		
 		String email=this.registrationDao.tokencheck(token);
-		if (email != "") {	
+		
+		if (email == "false") {	
+			System.out.println("generate new token");
+			m.addAttribute("email","Please send new mail");
+			return "ForgotPass";
+		}
+		else if (email != "") {	
 			System.out.println("email and token exists in database");
 			m.addAttribute("email",email);
 			return "ResetPassword";

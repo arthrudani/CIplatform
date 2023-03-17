@@ -28,7 +28,7 @@
 	crossorigin="anonymous"></script>
 <link rel="icon" href="" type="images/x-icon">
 <link rel="stylesheet" href="css/ResetPass.css">
-<script type="text/javascript" src="<c:url value='/js/home.js'/>"></script>
+<script type="text/javascript" src="<c:url value='../js/home.js'/>"></script>
 </head>
 
 
@@ -123,7 +123,7 @@
 								</div>
 							</div>
 							<form action="../passwordReset" method="POST" name="login">
-							<input type="hidden" name="email" value="${email}">
+								<input type="hidden" name="email" value="${email}">
 								<div class="form-group" style="padding-bottom: 4%;">
 									<label for="exampleInputEmail1" class="box">New
 										Password</label> <input type="password" name="password" id="password"
@@ -132,14 +132,15 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="box">Confirm
-										Password</label> <input type="password" name="confpassword" id="password"
-										class="form-control" aria-describedby="emailHelp"
-										placeholder="**********" required>
+										Password</label> <input type="password" name="confpassword"
+										id="password" class="form-control"
+										aria-describedby="emailHelp" placeholder="**********" required>
 								</div>
 								<div class="col-md-12 d-grid gap-2 text-center mt-4">
 									<button type="submit"
 										class=" btn btn-block mybtn btn-outline-warning tx-tfm"
-										style="border-radius: 50px;" onclick="return verifyPassword()">Change password</button>
+										style="border-radius: 50px;" onclick="return verifyPassword()">Change
+										password</button>
 								</div>
 								<div class="form-group mt-3 link">
 									<p class="text-center lostpass"
@@ -174,15 +175,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
 		integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
 		crossorigin="anonymous"></script>
-
 </body>
 
 </html>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-	integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-	crossorigin="anonymous"></script>

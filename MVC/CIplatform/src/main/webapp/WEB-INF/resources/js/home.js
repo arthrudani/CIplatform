@@ -14,16 +14,16 @@ function openRightMenu() {
 function closeRightMenu() {
   document.getElementById("rightMenu").style.display = "none";
 }
-$(document).ready(function() {
-  document.getElementById('pro-image').addEventListener('change', readImage, false);
-  
-  $( ".preview-images-zone" ).sortable();
-  
-  $(document).on('click', '.image-cancel', function() {
-      let no = $(this).data('no');
-      $(".preview-image.preview-show-"+no).remove();
-  });
-});
+//$(document).ready(function() {
+//  document.getElementById('pro-image').addEventListener('change', readImage, false);
+//  
+//  $( ".preview-images-zone" ).sortable();
+//  
+//  $(document).on('click', '.image-cancel', function() {
+//      let no = $(this).data('no');
+//      $(".preview-image.preview-show-"+no).remove();
+//  });
+//});
 
 
 
@@ -58,33 +58,16 @@ function readImage() {
       console.log('Browser not support');
   }
 }
-
-
-// verify password
-
 function verifyPassword() {  
+	
   var pw = document.getElementById("password").value;
   var cpw = document.getElementById("confpassword").value;
   if(pw != cpw) {  
-      	alert("Confirm password is not same"); 
-     	cpw.focus();
-     	return false;  
-  }  
-  else{
-    return true;
+	  	alert("password are not same");
+		console.log("passwords are not same"); 
+     	return false;
+     	
   }
- 
+    return true;
 }   
 
-
-// function verifyPassword() {  
-//   var pw = document.getElementById("password").value;
-//   var cpw = document.getElementById("confpassword").value;
-//   //check empty password field  
-//   if(pw != cpw) {  
-//      alert("Confirm password is not same");  
-//      cpw.focus();
-//      return false;  
-//   }
-//     return true;
-// }  

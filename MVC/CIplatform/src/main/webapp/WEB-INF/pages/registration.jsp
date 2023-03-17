@@ -26,7 +26,7 @@
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="" type="images/x-icon">
-<link rel="stylesheet" href="CSS/Registration.css">
+<link rel="stylesheet" href="css/Registration.css">
 <script type="text/javascript" src="<c:url value='/js/home.js'/>"></script>
 </head>
 
@@ -113,50 +113,57 @@
 					</div>
 
 				</div>
+				
+				
 				<div
 					class="col-md-4 col-sm-12 d-flex flex-column justify-content-between">
+					<c:if test="${not empty msg }">
+						<div class="alert alert-success">
+							<b><c:out value="${msg }"></c:out></b>
+						</div>
+					</c:if>
 					<div class="row"></div>
 					<div class="row">
 						<div class="myform">
-							<form action="savedata" method="POST" name="login" >
+							<form action="savedata" method="POST" name="login" onsubmit="return verifyPassword()">
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="first"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 3%; padding-bottom: -1%;">First
-										name</label> <input type="Text" name="fname" class="form-control "
+										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">First
+										name</label> <input type="Text" name="first_name" class="form-control "
 										id="fname" aria-describedby="emailHelp"
 										placeholder="Enter first name" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 3%; padding-bottom: -1%;">Last
-										name</label> <input type="text" name="lname" class="form-control"
+										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Last
+										name</label> <input type="text" name="last_name" class="form-control"
 										id="lname" aria-describedby="emailHelp"
 										placeholder="Enter last name" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 3%; padding-bottom: -1%;">Phone
-										number</label> <input type="tel" name="number" id="number"
+										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Phone
+										number</label> <input type="tel" name="phone_number" id="number"
 										class="form-control" aria-describedby="emailHelp"
 										placeholder="Enter phone number">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 3%; padding-bottom: -1%;">Email
+										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Email
 										address</label> <input type="email" name="email" class="form-control"
 										id="email" aria-describedby="emailHelp"
 										placeholder="Enter email" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 3%; padding-bottom: -1%;">New
+										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">New
 										Password</label> <input type="password" name="password" id="password"
 										class="form-control" aria-describedby="emailHelp"
 										placeholder="**************" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 3%; padding-bottom: -1%;">Confirm
+										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Confirm
 										Password</label> <input type="password" name="confpassword"
 										id="confpassword" class="form-control"
 										aria-describedby="emailHelp" placeholder="**************"
@@ -165,7 +172,7 @@
 								<div class="col-md-12 d-grid gap-2 text-center mt-4">
 									<button type="submit"
 										class=" btn btn-block mybtn btn-outline-warning "
-										style="border-radius: 50px;" onclick="return verifyPassword()">Register</button>
+										style="border-radius: 50px;" >Register</button>
 								</div>
 								<div class="form-group mt-3 link">
 									<p class="text-center lostpass"
