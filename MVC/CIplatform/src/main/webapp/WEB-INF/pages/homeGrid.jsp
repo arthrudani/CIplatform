@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page isELIgnored="false"%>
 
 
@@ -49,9 +50,11 @@
 			</button>
 			<ul class="dropdown-menu posStatic"
 				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
+				<li><input type="checkbox">Ahmedabad</li>
+				<li><input type="checkbox">Surat</li>
+				<li><input type="checkbox">Mumbai</li>
+				<li><input type="checkbox">New york</li>
+				<li><input type="checkbox">London</li>
 			</ul>
 			<br />
 			<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -61,21 +64,21 @@
 			</button>
 			<ul class="dropdown-menu posStatic"
 				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">&nbsp; Action</li>
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
+				<li><input type="checkbox">USA</li>
+				<li><input type="checkbox">India</li>
+				<li><input type="checkbox">UK</li>
 			</ul>
 			<br />
 			<button class="btn btn-secondary dropdown-toggle" type="button"
 				id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">
-				Themes <img src="images/drop-down.png">
+				Theme <img src="images/drop-down.png">
 			</button>
 			<ul class="dropdown-menu posStatic"
 				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
+				<li><input type="checkbox">Action1</li>
+				<li><input type="checkbox">Action2</li>
+				<li><input type="checkbox">Action3</li>
 			</ul>
 			<br />
 			<button class="btn btn-secondary dropdown-toggle" type="button"
@@ -171,22 +174,30 @@
 						style="padding-top: 22% !important; padding-right: 10%;"
 						src="images/search.png">
 
-					<li class="nav-item dropdown">
-					<a
-						class="nav-link dropdown-toggle d-flex align-items-center"
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle d-flex align-items-center g-2"
 						href="#" id="navbarDropdownMenuLink" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false" style="display:flex !important"> 
-							<div><img src="images/user-img.png" class="userimage "> </div>
-							<div><span class="blocking uNameuImage" class="uNameuImage" ><c:out value="${username}"></c:out></span></div>
-							<div><img src="images/drop-down.png" class="uNameuImage"></div>
+						data-bs-toggle="dropdown" aria-expanded="false"
+						style="display: flex !important">
+							<div>
+								<img src="images/<c:out value="${avatar}"></c:out>"
+									class="userimage ">
+							</div>
+							<div>
+								<span class="blocking uNameuImage" class="uNameuImage"><c:out
+										value="${first_name} ${last_name}"></c:out></span>
+							</div>
+							<div>
+								<img src="images/drop-down.png" class="uNameuImage">
+							</div>
 					</a>
 
 						<ul class="dropdown-menu posAbsolute dropdown-menu-end"
 							aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
+							<li><a class="dropdown-item" href="#">Edit Profile</a></li>
+							<li><a class="dropdown-item" href="#">Volunteering
+									timesheet</a></li>
+							<li><a class="dropdown-item" href="login">Logout</a></li>
 						</ul></li>
 				</ul>
 
@@ -203,60 +214,65 @@
 		<div class="d-flex justify-content-around">
 
 			<div class="d-flex">
-				<form action="post " class="searchboxh2">
-					<button class="w3-button ">
-						<img class="blocking " src="images/search.png">
-					</button>
-					<input type="text" placeholder=" Search missions..." name="search"
-						class="searchBoxPh">
 
-				</form>
+				<button class="w3-button ">
+					<img class="blocking " src="images/search.png"
+						onclick="findsearchmission()">
+				</button>
+				<input type="search" placeholder=" Search missions..."
+					name="searchmission" id="searchmission" class="searchBoxPh">
+
 				<button class="w3-button" onclick="openLeftMenu()">
 					<img class="rightbutton" src="images/filter.png">
 				</button>
 			</div>
 
 			<div class="dropdown d-flex blocking">
-
 				<button class="btn btn-secondary dropdown-toggle" type="button"
-					id="dropdownMenuButton1" class="vl" data-bs-toggle="dropdown"
+					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					City <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
+				<ul class="dropdown-menu posStatic"
+					aria-labelledby="dropdownMenuButton1">
+					<li><input type="checkbox">Ahmedabad</li>
+					<li><input type="checkbox">Surat</li>
+					<li><input type="checkbox">Mumbai</li>
+					<li><input type="checkbox">New york</li>
+					<li><input type="checkbox">London</li>
 				</ul>
 				<br />
 				<button class="btn btn-secondary dropdown-toggle" type="button"
-					id="dropdownMenuButton1" class="vl" data-bs-toggle="dropdown"
+					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					Country <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu">
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
+				<ul class="dropdown-menu posStatic"
+					aria-labelledby="dropdownMenuButton1">
+					<li><input type="checkbox">USA</li>
+					<li><input type="checkbox">India</li>
+					<li><input type="checkbox">UK</li>
 				</ul>
 				<br />
 				<button class="btn btn-secondary dropdown-toggle" type="button"
-					id="dropdownMenuButton1" class="vl" data-bs-toggle="dropdown"
+					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
-					Themes <img src="images/drop-down.png">
+					Theme <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
+				<ul class="dropdown-menu posStatic"
+					aria-labelledby="dropdownMenuButton1">
+					<li><input type="checkbox">Action1</li>
+					<li><input type="checkbox">Action2</li>
+					<li><input type="checkbox">Action3</li>
 				</ul>
 				<br />
 				<button class="btn btn-secondary dropdown-toggle" type="button"
-					id="dropdownMenuButton1" class="vl" data-bs-toggle="dropdown"
+					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					Skills <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				<ul class="dropdown-menu posStatic"
+					aria-labelledby="dropdownMenuButton1">
 					<li><input type="checkbox">Action</li>
 					<li><input type="checkbox">Action</li>
 					<li><input type="checkbox">Action</li>
@@ -346,18 +362,26 @@
 			</ul>
 		</div>
 
-		<a href="http://localhost:8080/CIplatform/homeGrid"><button
-				class="gridimg">
-				<img src="images/grid.png" alt="">
-			</button></a> <a href="http://localhost:8080/CIplatform/homeList"><button
-				class="listimg">
-				<img src="images/list.png" alt="">
-			</button></a>
+		<button class="gridimg" onclick="gridlist()">
+			<img src="images/grid.png" alt="">
+		</button>
+		<button class="listimg" onclick="listgrid()">
+			<img src="images/list.png" alt="">
+		</button>
 
+	</div>
+	<div class="container">
+		Explore all
+		<c:out value="${fn:length(mission)}"></c:out>
+		missions
 	</div>
 
 	<div class="container grid-container">
-		<div class="row">
+
+		<c:forEach var="mission" begin="1" end="${fn:length(mission)}">
+			<c:out value="${mission}" />
+		</c:forEach>
+		<div class="row" id="listgrid">
 
 			<div class="col-12 col-md-6 col-lg-4">
 				<div class="card ">
@@ -365,7 +389,9 @@
 						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
 					<div class="posAbsolute locationBox d-flex ">
 						<i class="bi bi-geo-alt locicon"></i>
-						<p>Toronto</p>
+						<p>
+							<c:out value="${mission}"></c:out>
+						</p>
 					</div>
 					<div class="posAbsolute likeBox">
 						<img src="images/heart.png" alt="">
@@ -375,7 +401,9 @@
 					</div>
 					<div class="card-body">
 						<div class="category">
-							<p>Environment</p>
+							<p>
+								<c:out value="${mission}"></c:out>
+							</p>
 						</div>
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">This is a wider card with supporting text
@@ -450,7 +478,9 @@
 						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
 					<div class="posAbsolute locationBox d-flex ">
 						<i class="bi bi-geo-alt locicon"></i>
-						<p>Toronto</p>
+						<p>
+							<c:out value="${city_id.name}"></c:out>
+						</p>
 					</div>
 					<div class="posAbsolute likeBox">
 						<img src="images/heart.png" alt="">
@@ -460,7 +490,9 @@
 					</div>
 					<div class="card-body">
 						<div class="category">
-							<p>Environment</p>
+							<p>
+								<c:out value="${mission_theme.title}"></c:out>
+							</p>
 						</div>
 						<h5 class="card-title">Card title</h5>
 						<p class="card-text">This is a wider card with supporting text
@@ -529,349 +561,234 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-					<div class="posAbsolute locationBox d-flex ">
-						<i class="bi bi-geo-alt locicon"></i>
-						<p>Toronto</p>
-					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
-					</div>
-					<div class="posAbsolute addBox">
-						<i class="bi bi-person-plus"></i>
-					</div>
-					<div class="card-body">
-						<div class="category">
-							<p>Environment</p>
-						</div>
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text
-							below as a natural lead-in to additional content. This content is
-							a little bit longer.</p>
-						<div class="d-flex justify-content-between"
-							style="margin-bottom: 5%;">
-							<div>
-								<p class="card-text">Tree canada</p>
-							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-							</div>
-						</div>
-						<hr class="lineintext">
-						<div class="d-felx durationofmission">
-							<div>
-								<p>from 00-00-0000 untill 00-00-0000</p>
-							</div>
-						</div>
 
-						<div class="d-flex justify-content-between "
-							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
-								</div>
-							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
-							</div>
-						</div>
-						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-					<div class="posAbsolute locationBox d-flex ">
-						<i class="bi bi-geo-alt locicon"></i>
-						<p>Toronto</p>
-					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
-					</div>
-					<div class="posAbsolute addBox">
-						<i class="bi bi-person-plus"></i>
-					</div>
-					<div class="card-body">
-						<div class="category">
-							<p>Environment</p>
-						</div>
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text
-							below as a natural lead-in to additional content. This content is
-							a little bit longer.</p>
-						<div class="d-flex justify-content-between"
-							style="margin-bottom: 5%;">
-							<div>
-								<p class="card-text">Tree canada</p>
-							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-							</div>
-						</div>
-						<hr class="lineintext">
-						<div class="d-felx durationofmission">
-							<div>
-								<p>from 00-00-0000 untill 00-00-0000</p>
-							</div>
-						</div>
-
-						<div class="d-flex justify-content-between "
-							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
-								</div>
-							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
-							</div>
-						</div>
-						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-					<div class="posAbsolute locationBox d-flex ">
-						<i class="bi bi-geo-alt locicon"></i>
-						<p>Toronto</p>
-					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
-					</div>
-					<div class="posAbsolute addBox">
-						<i class="bi bi-person-plus"></i>
-					</div>
-					<div class="card-body">
-						<div class="category">
-							<p>Environment</p>
-						</div>
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text
-							below as a natural lead-in to additional content. This content is
-							a little bit longer.</p>
-						<div class="d-flex justify-content-between"
-							style="margin-bottom: 5%;">
-							<div>
-								<p class="card-text">Tree canada</p>
-							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-							</div>
-						</div>
-						<hr class="lineintext">
-						<div class="d-felx durationofmission">
-							<div>
-								<p>from 00-00-0000 untill 00-00-0000</p>
-							</div>
-						</div>
-
-						<div class="d-flex justify-content-between "
-							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
-								</div>
-							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
-							</div>
-						</div>
-						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-					<div class="posAbsolute locationBox d-flex ">
-						<i class="bi bi-geo-alt locicon"></i>
-						<p>Toronto</p>
-					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
-					</div>
-					<div class="posAbsolute addBox">
-						<i class="bi bi-person-plus"></i>
-					</div>
-					<div class="card-body">
-						<div class="category">
-							<p>Environment</p>
-						</div>
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text
-							below as a natural lead-in to additional content. This content is
-							a little bit longer.</p>
-						<div class="d-flex justify-content-between"
-							style="margin-bottom: 5%;">
-							<div>
-								<p class="card-text">Tree canada</p>
-							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-							</div>
-						</div>
-						<hr class="lineintext">
-						<div class="d-felx durationofmission">
-							<div>
-								<p>from 00-00-0000 untill 00-00-0000</p>
-							</div>
-						</div>
-
-						<div class="d-flex justify-content-between "
-							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
-								</div>
-							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
-							</div>
-						</div>
-						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
 
 		</div>
 
+		<div class="row" id="gridlist">
+			<div class="row ListViewCard">
+				<div class="card">
+					<div class="row g-0">
+						<div class="col-md-3 missionImg">
+							<p class="missionCityListView">
+								<i class="bi bi-geo-alt"></i> London
+							</p>
+							<p class="missionAppliedListView">Applied</p>
+							<div class="missionLikeListView d-flex flex-column">
+								<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+							</div>
+							<div
+								class="d-flex justify-content-center missionCategoryListView">
+								<p>Environment</p>
+							</div>
+							<img
+								src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+								class="img-fluid rounded-start" alt="...">
+						</div>
+						<div class="col-md-9">
+							<div class="card-body">
+								<div class="row w-100 d-flex ">
+									<div class="col">
+										<div
+											class="row d-flex justify-content-start firstInfoContainerListView">
+											<div class="col d-flex">
+												<i class="bi bi-geo-alt"> </i>
+												<p>Atlanta</p>
+											</div>
+											<div class="col d-flex">
+												<i class="bi bi-globe"> </i>
+												<p>Environment</p>
+											</div>
+											<div class="col d-flex">
+												<i class="bi bi-people"> </i>
+												<p>Smith Caring Foundation</p>
+											</div>
+										</div>
+									</div>
+									<div class="col d-flex justify-content-end">
+										<div class="row ratingDivGridView">
+											<div class="col">
+												<div class="row d-flex flex-row ratingStar flex-nowrap">
+													<div class="col">
+														<img src="images/selected-star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/selected-star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/selected-star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/star.png" alt="" srcset="">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h5 class="card-title">Education Supplies for Every Pair of
+									Shoes Sold</h5>
+								<p class="card-text">This is a wider card with supporting
+									text below as a natural lead-in to additional content. This
+									content is a little bit longer.</p>
+								<div
+									class="d-flex justify-content-between viewdetailsandfourbutton"
+									style="margin-top: 7%;">
+									<div class="d-flex justify-content-between">
+										<div class="d-flex align-items-center HLfouricon">
+											<img src="images/Seats-left.png" alt="">
+										</div>
+										<div class="HLfouricontext">
+											<div>397</div>
+											<div>seats left</div>
+										</div>
+										<div class="d-flex align-items-center HLfouricon">
+											<img src="images/achieved.png" alt="">
+										</div>
+										<div class="HLfouricontext">
+											<div>397</div>
+											<div>Achieved</div>
+										</div>
+										<div class="d-flex align-items-center HLfouricon">
+											<img src="images/calender.png" alt="">
+										</div>
+										<div class="HLfouricontext">
+											<div>From 00-00-0000</div>
+											<div>untill 00-00-0000</div>
+										</div>
+										<div class="d-flex align-items-center HLfouricon">
+											<i class="fa-solid fa-screwdriver-wrench"></i>
+										</div>
+										<div class="HLfouricontext">
+											<div>Skills</div>
+											<div>botany</div>
+										</div>
+									</div>
+									<div class="d-flex HLviewdetailslist">
+										View details <img src="images/right-arrow.png" alt="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row ListViewCard">
+				<div class="card">
+					<div class="row g-0">
+						<div class="col-md-3 missionImg">
+							<p class="missionCityListView">
+								<i class="bi bi-geo-alt"></i> London
+							</p>
+							<p class="missionAppliedListView">Applied</p>
+							<div class="missionLikeListView d-flex flex-column">
+								<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+							</div>
+							<div
+								class="d-flex justify-content-center missionCategoryListView">
+								<p>Environment</p>
+							</div>
+							<img
+								src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+								class="img-fluid rounded-start" alt="...">
+						</div>
+						<div class="col-md-9">
+							<div class="card-body">
+								<div class="row w-100 d-flex ">
+									<div class="col">
+										<div
+											class="row d-flex justify-content-start firstInfoContainerListView">
+											<div class="col d-flex">
+												<i class="bi bi-geo-alt"> </i>
+												<p>Atlanta</p>
+											</div>
+											<div class="col d-flex">
+												<i class="bi bi-globe"> </i>
+												<p>Environment</p>
+											</div>
+											<div class="col d-flex">
+												<i class="bi bi-people"> </i>
+												<p>Smith Caring Foundation</p>
+											</div>
+										</div>
+									</div>
+									<div class="col d-flex justify-content-end">
+										<div class="row ratingDivGridView">
+											<div class="col">
+												<div class="row d-flex flex-row ratingStar flex-nowrap">
+													<div class="col">
+														<img src="images/selected-star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/selected-star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/selected-star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/star.png" alt="" srcset="">
+													</div>
+													<div class="col">
+														<img src="images/star.png" alt="" srcset="">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<h5 class="card-title">Education Supplies for Every Pair of
+									Shoes Sold</h5>
+								<p class="card-text">This is a wider card with supporting
+									text below as a natural lead-in to additional content. This
+									content is a little bit longer.</p>
+								<div
+									class="d-flex justify-content-between viewdetailsandfourbutton"
+									style="margin-top: 7%;">
+									<div class="d-flex justify-content-between">
+										<div class="d-flex align-items-center HLfouricon">
+											<img src="images/Seats-left.png" alt="">
+										</div>
+										<div class="HLfouricontext">
+											<div>397</div>
+											<div>seats left</div>
+										</div>
+										<div class="d-flex align-items-center HLfouricon">
+											<img src="images/achieved.png" alt="">
+										</div>
+										<div class="HLfouricontext">
+											<div>397</div>
+											<div>Achieved</div>
+										</div>
+										<div class="d-flex align-items-center HLfouricon">
+											<img src="images/calender.png" alt="">
+										</div>
+										<div class="HLfouricontext">
+											<div>From 00-00-0000</div>
+											<div>untill 00-00-0000</div>
+										</div>
+										<div class="d-flex align-items-center HLfouricon">
+											<i class="fa-solid fa-screwdriver-wrench"></i>
+										</div>
+										<div class="HLfouricontext">
+											<div>Skills</div>
+											<div>botany</div>
+										</div>
+									</div>
+									<div class="d-flex HLviewdetailslist">
+										View details <img src="images/right-arrow.png" alt="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
 
 	<!-- footer -->
@@ -886,8 +803,6 @@
 			</div>
 		</div>
 	</div>
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

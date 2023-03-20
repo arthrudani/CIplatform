@@ -1,8 +1,7 @@
 package com.ctrl;
 
 import java.sql.SQLException;
-
-//import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dao.LandingpageDao;
 import com.dao.RegistrationDao;
-import com.entities.password_reset;
+import com.entities.mission;
 import com.entities.user;
 
 @Controller
@@ -22,6 +22,8 @@ public class HomeCtrl {
 
 	@Autowired
 	private RegistrationDao registrationDao;
+	@Autowired
+	private LandingpageDao landingpageDao;
 
 	@RequestMapping("/registration")
 	public String home(Model m) {
@@ -59,26 +61,32 @@ public class HomeCtrl {
 	public String myUserverifier(@RequestParam("email") String email, @RequestParam("password") String password,Model m) {
 		String vr = "";
 		vr = this.registrationDao.verifyuser(email, password);
-		System.out.println(vr);
-
 		if (vr == "true") {
-			m.addAttribute("username" , email);
+			
+			user userdetail = this.landingpageDao.getuserdetails(email);
+			m.addAttribute("first_name" , userdetail.getFirst_name());
+			m.addAttribute("last_name" , userdetail.getLast_name());
+			m.addAttribute("avatar" , userdetail.getAvatar());
+			
+			List<mission> missiondetail=this.landingpageDao.getallmission();
+			m.addAttribute("mission" ,  missiondetail);
+			
 			return "homeGrid";
 		} else {
 			m.addAttribute("msg" , "Email id or password is incorrect");
 			return "login";
 		}
 	}
+	 
 
 	@RequestMapping(path = "/ForgotPassword", method = RequestMethod.POST)
 	public String myResetPass(@RequestParam("email") String email,Model m) {
 		String vremail = "";
 		vremail = this.registrationDao.ResetPass(email);
 		if (vremail != "false") {
-			System.out.println("email exists in database");
 			m.addAttribute("msg" , "Email sent to your registered email");
 		} else {
-			System.out.println("email does not exists in database");
+			m.addAttribute("msg" , "Email does not exist in database");
 		}
 		return "ForgotPass";
 	}

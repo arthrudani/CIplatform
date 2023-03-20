@@ -113,8 +113,7 @@
 					</div>
 
 				</div>
-				
-				
+					
 				<div
 					class="col-md-4 col-sm-12 d-flex flex-column justify-content-between">
 					<c:if test="${not empty msg }">

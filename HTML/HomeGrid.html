@@ -299,16 +299,14 @@
             </ul>
         </div>
 
-        <a href="///D:/Project/SRS/HTML/HomeGrid.html?#"><button class="gridimg"><img src="images/grid.png"
-                    alt=""></button></a>
-        <a href="///D:/Project/SRS/HTML/HomeList.html?#"><button class="listimg"><img src="images/list.png"
-                    alt=""></button></a>
+        <button class="gridimg" onclick="gridlist()"><img src="images/grid.png" alt=""></button>
+        <button class="listimg" onclick="listgrid()"><img src="images/list.png" alt=""></button>
 
     </div>
 
     <div class="container grid-container">
-        <div class="row">
 
+        <div class="row" id="listgrid">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card ">
                     <img class="card-img-top" src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
@@ -657,7 +655,123 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="row" id="gridlist">
+            <div class="row ListViewCard">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-3 missionImg">
+                            <p class="missionCityListView"><i class="bi bi-geo-alt"></i> London</p>
+                            <p class="missionAppliedListView"> Applied</p>
+                            <div class="missionLikeListView d-flex flex-column"><i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+                            </div>
+                            <div class="d-flex justify-content-center missionCategoryListView"><p>Environment</p></div>
+                            <img src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <div class="row w-100 d-flex ">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-start firstInfoContainerListView">
+                                            <div class="col d-flex"><i class="bi bi-geo-alt"> </i><p> Atlanta</p></div>
+                                            <div class="col d-flex"><i class="bi bi-globe"> </i><p> Environment</p></div>
+                                            <div class="col d-flex"><i class="bi bi-people"> </i> <p>Smith Caring Foundation</p></div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <div class="row ratingDivGridView">
+                                            <div class="col">
+                                                <div class="row d-flex flex-row ratingStar flex-nowrap">
+                                                    <div class="col"><img src="images/selected-star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/selected-star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/selected-star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/star.png" alt="" srcset=""></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Education Supplies for Every Pair of Shoes Sold</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between viewdetailsandfourbutton" style="margin-top: 7%;" >
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center HLfouricon"><img src="images/Seats-left.png" alt=""></div>
+                                            <div class="HLfouricontext"><div>397 </div> <div> seats left</div></div>
+                                            <div class="d-flex align-items-center HLfouricon"><img src="images/achieved.png" alt=""></div>
+                                            <div class="HLfouricontext"><div>397 </div> <div>Achieved</div></div>
+                                            <div class="d-flex align-items-center HLfouricon"><img src="images/calender.png" alt=""></div>
+                                            <div class="HLfouricontext"><div>From 00-00-0000 </div> <div>untill 00-00-0000</div></div>
+                                            <div class="d-flex align-items-center HLfouricon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                                            <div class="HLfouricontext"><div>Skills</div> <div>botany</div></div>
+                                        </div>
+                                            <div class="d-flex HLviewdetailslist">View details <img src="images/right-arrow.png" alt=""> </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row ListViewCard">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-3 missionImg">
+                            <p class="missionCityListView"><i class="bi bi-geo-alt"></i> London</p>
+                            <p class="missionAppliedListView"> Applied</p>
+                            <div class="missionLikeListView d-flex flex-column"><i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+                            </div>
+                            <div class="d-flex justify-content-center missionCategoryListView"><p>Environment</p></div>
+                            <img src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <div class="row w-100 d-flex ">
+                                    <div class="col">
+                                        <div class="row d-flex justify-content-start firstInfoContainerListView">
+                                            <div class="col d-flex"><i class="bi bi-geo-alt"> </i><p> Atlanta</p></div>
+                                            <div class="col d-flex"><i class="bi bi-globe"> </i><p> Environment</p></div>
+                                            <div class="col d-flex"><i class="bi bi-people"> </i> <p>Smith Caring Foundation</p></div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <div class="row ratingDivGridView">
+                                            <div class="col">
+                                                <div class="row d-flex flex-row ratingStar flex-nowrap">
+                                                    <div class="col"><img src="images/selected-star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/selected-star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/selected-star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/star.png" alt="" srcset=""></div>
+                                                    <div class="col"><img src="images/star.png" alt="" srcset=""></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Education Supplies for Every Pair of Shoes Sold</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between viewdetailsandfourbutton" style="margin-top: 7%;" >
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center HLfouricon"><img src="images/Seats-left.png" alt=""></div>
+                                            <div class="HLfouricontext"><div>397 </div> <div> seats left</div></div>
+                                            <div class="d-flex align-items-center HLfouricon"><img src="images/achieved.png" alt=""></div>
+                                            <div class="HLfouricontext"><div>397 </div> <div>Achieved</div></div>
+                                            <div class="d-flex align-items-center HLfouricon"><img src="images/calender.png" alt=""></div>
+                                            <div class="HLfouricontext"><div>From 00-00-0000 </div> <div>untill 00-00-0000</div></div>
+                                            <div class="d-flex align-items-center HLfouricon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                                            <div class="HLfouricontext"><div>Skills</div> <div>botany</div></div>
+                                        </div>
+                                            <div class="d-flex HLviewdetailslist">View details <img src="images/right-arrow.png" alt=""> </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
     </div>

@@ -86,4 +86,12 @@ function verifyPassword() {
 //      return false;  
 //   }
 //     return true;
-// }  
+// } 
+function gridlist(){
+  document.getElementById("gridlist").style.display = "none";
+  document.getElementById("listgrid").style.display = "block";
+}
+function listgrid(){
+  document.getElementById("gridlist").style.display = "block";
+  document.getElementById("listgrid").style.display = "none";
+}

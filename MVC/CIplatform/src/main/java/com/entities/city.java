@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,7 +16,7 @@ public class city {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int city_id;
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id")
 	private country country;
 	private String name;

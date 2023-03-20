@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,11 +18,11 @@ public class user {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id")
 	private country country;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "city_id")
 	private city city;
 	
@@ -39,7 +40,9 @@ public class user {
 	private String profile_text;
 	private String linked_in_url;
 	private String title;
+	
 	private int status;
+	
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;

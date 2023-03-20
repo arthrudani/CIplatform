@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
@@ -41,34 +39,22 @@ public class RegistrationDao {
 	}
 
 	public String verifyuser(String email, String password) {
-		SessionFactory sessionFactory=this.hibernateTemplate.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		
-		/* Get record using HQL query */
-
-		Query query = session.createQuery("from user where email=:email and password=:password");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email and password=:password");
 		String result="";
 		query.setParameter("email", email);
 		query.setParameter("password", password);
 		user user1 = (user) query.uniqueResult();
 		if (user1 != null) {
-			System.out.println("email and password are valid");
 			result="true";
 		} else {
-			System.out.println("email and password are not valid");
 			result="false";
 		}
-		session.close();
 		return result;
 	}
 
 	@Transactional
 	public String ResetPass(String email) {
-		SessionFactory sessionFactory=this.hibernateTemplate.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		
-		/* Get record using HQL query */
-		Query query = session.createQuery("from user where email=:email");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email");
 		String result1="";
 		query.setParameter("email", email);
 		user user1 = (user) query.uniqueResult();
@@ -79,21 +65,13 @@ public class RegistrationDao {
 			psrt.setToken(token);
 			psrt.setCreated_at(new Date());
 			this.savePass(psrt);
-//			if(new Date().compareTo(created_at)>10) {
-//				this.deletetoken(psrt);
-//				System.out.println("token expired");
-//			}
-//			else {
-//				System.out.println("token not expired");
-//			}
-//			
+
 			SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", email, "Password reset link","http://localhost:8080/CIplatform/ResetPassword/"+token);
 			result1=token; 
 		} else {
 			System.out.println("email is not valid");
 			result1="false";
 		}
-		session.close();
 		return result1;
 	}
 
@@ -110,13 +88,7 @@ public class RegistrationDao {
 
 	@Transactional
 	public String tokencheck(String token) {
-		
-		SessionFactory sessionFactory=this.hibernateTemplate.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		
-		/* Get record using HQL query */
-		
-		Query query = session.createQuery("from password_reset where token=:token");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from password_reset where token=:token");
 		query.setParameter("token", token);
 		password_reset password_reset = (password_reset) query.uniqueResult();
 		Date tokentime=password_reset.getCreated_at();
