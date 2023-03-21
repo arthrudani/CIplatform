@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.srs.ciplatform</groupId>
-  <artifactId>CIplatform</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>CIplatform Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.srs.ciplatform</groupId>
+	<artifactId>CIplatform</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>CIplatform Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
 		
 		<dependency>
 			<groupId>junit</groupId>
@@ -27,6 +27,13 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.28</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.14.2</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
@@ -49,21 +56,20 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
-
+		
 		<dependency>
 			<groupId>com.main</groupId>
 			<artifactId>springmvcsearch</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
-	    <dependency>
-	            <groupId>com.sun.mail</groupId>
-	            <artifactId>javax.mail</artifactId>
-	            <version>1.6.2</version>
-        </dependency>
-  </dependencies>
-  
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

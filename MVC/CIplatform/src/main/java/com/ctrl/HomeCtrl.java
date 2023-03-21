@@ -3,6 +3,8 @@ package com.ctrl;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dao.LandingpageDao;
 import com.dao.RegistrationDao;
@@ -69,7 +72,7 @@ public class HomeCtrl {
 			m.addAttribute("avatar" , userdetail.getAvatar());
 			
 			List<mission> missiondetail=this.landingpageDao.getallmission();
-			m.addAttribute("mission" ,  missiondetail);
+			m.addAttribute("missionlist" ,  missiondetail);
 			
 			return "homeGrid";
 		} else {
@@ -117,5 +120,11 @@ public class HomeCtrl {
 	public String passwordResetter(@RequestParam("password") String password,@RequestParam("email") String email) throws ClassNotFoundException, SQLException {
 		this.registrationDao.passChanger(password,email);
 		return "login";
+	}
+	
+	@RequestMapping(value = "/searchMissions", method = RequestMethod.POST)
+	public @ResponseBody String searchMissions(@RequestParam("key") String key){
+		System.out.println(key);
+		return "";
 	}
 }

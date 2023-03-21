@@ -53,5 +53,11 @@ public class password_reset {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
+
+	@Override
+	public String toString() {
+		return "password_reset [token=" + token + ", email=" + email + ", created_at=" + created_at + "]";
+	}
+	
 	
 }

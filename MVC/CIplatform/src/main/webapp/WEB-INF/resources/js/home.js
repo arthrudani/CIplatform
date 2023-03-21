@@ -50,7 +50,6 @@ function readImage() {
               output.append(html);
               num = num + 1;
           });
-
           picReader.readAsDataURL(file);
       }
       $("#pro-image").val('');
@@ -58,18 +57,18 @@ function readImage() {
       console.log('Browser not support');
   }
 }
+
 function verifyPassword() {  
-	
   var pw = document.getElementById("password").value;
   var cpw = document.getElementById("confpassword").value;
   if(pw != cpw) {  
 	  	alert("password are not same");
 		console.log("passwords are not same"); 
      	return false;
-     	
   }
     return true;
 }   
+
 function gridlist(){
   document.getElementById("gridlist").style.display = "none";
   document.getElementById("listgrid").style.display = "block";
@@ -79,7 +78,10 @@ function listgrid(){
   document.getElementById("listgrid").style.display = "none";
 }
 
-function findsearchmission(){
-	var searchmission = getElementById('searchmission').value;
-	console.log(searchmission);
+function mySearchText() {
+    var input, filter;
+    input = document.getElementById("mySearchInput");
+    filter = input.value.toUpperCase()
+    console.log(filter);
+	
 }

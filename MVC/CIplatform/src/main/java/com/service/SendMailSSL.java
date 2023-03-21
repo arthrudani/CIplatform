@@ -36,7 +36,5 @@ public class SendMailSSL {
 
 	}
 	public static void main(String[] args) {
-		SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", "darpantatvasoft@gmail.com", "hello javatpoint","How r u?");
-		// change from, password and to
 	}
 }

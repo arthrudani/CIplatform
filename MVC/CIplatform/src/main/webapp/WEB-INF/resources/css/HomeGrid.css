@@ -1,962 +1,928 @@
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .mp0 {
-    margin: 0 !important;
-    padding: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 .userimage {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
 }
 
 .rightHeader {
-    flex-direction: row !important;
-    align-items: flex-start;
+	flex-direction: row !important;
+	align-items: flex-start;
+}
+.missionImg{
+	padding:0 !important;
 }
 
 .dropdown-toggle::after {
-    display: none;
+	display: none;
 }
 
 .searchimg img {
-    height: 22px;
-    width: 22px;
-    margin: 5%;
+	height: 22px;
+	width: 22px;
+	margin: 5%;
 }
 
-
 .header2 {
-    border: 1px solid black;
+	border: 1px solid black;
 }
 
 .H2P1 {
-    width: 50%;
-    border: 1px solid black;
+	width: 50%;
+	border: 1px solid black;
 }
 
 .H2P2 {
-    width: 50%;
-    border: 1px solid black;
+	width: 50%;
+	border: 1px solid black;
 }
 
 .options {
-    justify-content: space-between;
-    width: 500%;
-    /* padding-left: 20%; */
-    padding-top: 1.1%;
-    justify-content: space-between;
-    border: 1px solid black;
+	justify-content: space-between;
+	width: 500%;
+	/* padding-left: 20%; */
+	padding-top: 1.1%;
+	justify-content: space-between;
+	border: 1px solid black;
 }
 
 .options a {
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .rightbutton {
-    display: none !important;
+	display: none !important;
 }
 
 .blocking {
-    display: block !important;
+	display: block !important;
 }
 
-
 .searchboxh2 {
-    padding-top: 2%;
+	padding-top: 2%;
 }
 
 .searchBoxPh {
-    border: 0;
+	border: 0;
 }
 
 .posAbsolute {
-    position: absolute !important;
-    transition: 2s;
-
+	position: absolute !important;
+	transition: 2s;
 }
-
-
 
 .vl {
-    border: 1px;
-    float: left;
-    height: 100vh;
+	border: 1px;
+	float: left;
+	height: 100vh;
 }
 
-
 .searchiconB {
-    display: block;
+	display: block;
 }
 
 .borderH2 {
-    padding: 0.05%;
-    border-bottom: 1px solid #333333;
-    border-top: 0.2px solid #333333;
+	padding: 0.05%;
+	border-bottom: 1px solid #333333;
+	border-top: 0.2px solid #333333;
 }
 
-
-
 .card {
-    margin: 1% !important;
+	margin: 1% !important;
 }
 
 .filter {
-    border: 0.3px solid grey;
-    border-radius: 25px;
-    max-height: fit-content;
-    max-width: fit-content;
-    font-size: 10px;
-    margin-top: 5px;
-    flex: none !important;
+	border: 0.3px solid grey;
+	border-radius: 25px;
+	max-height: fit-content;
+	max-width: fit-content;
+	font-size: 10px;
+	margin-top: 5px;
+	flex: none !important;
 }
 
 .filters .col {
-    margin-top: 1%;
-    margin-left: 1%;
-    margin-right: 1%;
+	margin-top: 1%;
+	margin-left: 1%;
+	margin-right: 1%;
 }
 
 .upperButtons {
-    width: 20%;
+	width: 20%;
 }
 
 .spacearound {
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .card {
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
 .list-view .row>[class*=col-] {
-    max-width: 100%;
-    flex: 0 0 100%;
+	max-width: 100%;
+	flex: 0 0 100%;
 }
 
 .list-view .card {
-    flex-direction: row;
+	flex-direction: row;
 }
 
 .dropdown-toggle::after {
-    display: none !important;
+	display: none !important;
 }
 
 .searchimg img {
-    height: 22px;
-    width: 22px;
-    margin: 5%;
+	height: 22px;
+	width: 22px;
+	margin: 5%;
 }
 
 .header2 {
-    border: 1px solid black;
+	border: 1px solid black;
 }
 
 .H2P1 {
-    width: 50%;
-    border: 1px solid black;
+	width: 50%;
+	border: 1px solid black;
 }
 
 .H2P2 {
-    width: 50%;
-    border: 1px solid black;
+	width: 50%;
+	border: 1px solid black;
 }
 
 .options {
-    justify-content: space-between;
-    width: 500%;
-    /* padding-left: 20%; */
-    padding-top: 1.1%;
-    justify-content: space-between;
-    border: 1px solid black;
+	justify-content: space-between;
+	width: 500%;
+	/* padding-left: 20%; */
+	padding-top: 1.1%;
+	justify-content: space-between;
+	border: 1px solid black;
 }
 
 .options a {
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .rightbutton {
-    display: none !important;
+	display: none !important;
 }
 
-
-
 #dropdownMenuButton1 {
-    background-color: white !important;
-    color: black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-radius: 0;
-    width: 45%;
+	background-color: white !important;
+	color: black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-radius: 0;
+	width: 45%;
 }
 
 .searchboxh2 {
-    padding-top: 2%;
+	padding-top: 2%;
 }
 
 .searchBoxPh {
-    border: 0;
+	border: 0;
 }
 
 .staticAbs {
-    position: absolute !important;
+	position: absolute !important;
 }
 
 .vl {
-    border: 1px;
-    float: left;
-    height: 100vh;
+	border: 1px;
+	float: left;
+	height: 100vh;
 }
 
-
 .searchiconB {
-    display: block;
+	display: block;
 }
 
 .borderH2 {
-    padding: 0.05%;
-    border-bottom: 1px solid #333333;
-    border-top: 0.2px solid #333333;
+	padding: 0.05%;
+	border-bottom: 1px solid #333333;
+	border-top: 0.2px solid #333333;
 }
 
 .locationBox {
-    color: white;
-    border-radius: 25px;
-    background-color: black;
-    opacity: 0.5;
-    right: 4%;
-    top: 3%;
-    height: 28px;
+	color: white;
+	border-radius: 25px;
+	background-color: black;
+	opacity: 0.5;
+	right: 4%;
+	top: 3%;
+	height: 28px;
 }
 
 .locationBox .locicon {
-    margin-top: 3px;
-    margin-left: 10px;
+	margin-top: 3px;
+	margin-left: 10px;
 }
 
 .locationBox p {
-    margin-top: 3px;
-    margin-right: 10px;
+	margin-top: 3px;
+	margin-right: 10px;
 }
 
-
 .HLlocationBox {
-    color: white;
-    border-radius: 25px;
-    background-color: black;
-    opacity: 0.5;
-    right: 67%;
-    top: 3%;
-    height: 20px;
-    font-size: 10px;
+	color: white;
+	border-radius: 25px;
+	background-color: black;
+	opacity: 0.5;
+	right: 67%;
+	top: 3%;
+	height: 20px;
+	font-size: 10px;
 }
 
 .HLlocationBox .locicon {
-    margin-top: 3px;
-    margin-left: 10px;
+	margin-top: 3px;
+	margin-left: 10px;
 }
 
 .HLlocationBox p {
-    margin-top: 3px;
-    margin-right: 10px;
+	margin-top: 3px;
+	margin-right: 10px;
 }
 
 .likeBox {
-    color: white;
-    border-radius: 50px;
-    background-color: black;
-    opacity: 0.5;
-    right: 4%;
-    top: 15%;
-    padding: 2%;
+	color: white;
+	border-radius: 50px;
+	background-color: black;
+	opacity: 0.5;
+	right: 4%;
+	top: 15%;
+	padding: 2%;
 }
 
 .addBox {
-    color: white;
-    border-radius: 25px;
-    background-color: black;
-    opacity: 0.5;
-    right: 4%;
-    top: 25%;
-    padding: 3%;
-    font-size: 18px;
+	color: white;
+	border-radius: 25px;
+	background-color: black;
+	opacity: 0.5;
+	right: 4%;
+	top: 25%;
+	padding: 3%;
+	font-size: 18px;
 }
 
 .category {
-    background-color: rgb(255, 255, 255);
-    color: #333333;
-    border-radius: 25px;
-    padding: 2%;
-    max-width: fit-content;
-    margin-left: 34%;
-    margin-top: -10%;
+	background-color: rgb(255, 255, 255);
+	color: #333333;
+	border-radius: 25px;
+	padding: 2%;
+	max-width: fit-content;
+	transform: translate(85%, -75%);
 }
 
+.missionCityListView {
+	position: absolute;
+	top: 5%;
+	right: 8%;
+	background-color: rgb(0, 0, 0, 0.4);
+	color: white;
+	padding: 3px;
+	border-radius: 25px;
+}
+
+.missionLikeListView {
+	background-color: rgb(0, 0, 0, 0.4);
+	color:white;
+	position: absolute;
+	right: 8%;
+	top: 35%;
+	font-size: 18px;
+	border-radius: 25px;
+	padding: 1%;
+}
+
+.missionCategoryListView {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	bottom: -3%;
+	z-index: 111;
+	background-color: white;
+	max-width: fit-content;
+	border-radius: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 .HLlikeBox {
-    color: white;
-    border-radius: 50px;
-    background-color: black;
-    opacity: 0.5;
-    right: 67%;
-    top: 33%;
-    height: 39px;
-    width: 39px;
-    padding: 1%;
+	color: white;
+	border-radius: 50px;
+	background-color: black;
+	opacity: 0.5;
+	right: 67%;
+	top: 33%;
+	height: 39px;
+	width: 39px;
+	padding: 1%;
 }
 
 .HLaddBox {
-    color: white;
-    border-radius: 50px;
-    background-color: black;
-    opacity: 0.5;
-    right: 67%;
-    top: 57%;
-    height: 39px;
-    width: 39px;
-    padding: 1%;
+	color: white;
+	border-radius: 50px;
+	background-color: black;
+	opacity: 0.5;
+	right: 67%;
+	top: 57%;
+	height: 39px;
+	width: 39px;
+	padding: 1%;
 }
 
 .HLcategory {
-    background-color: rgb(255, 255, 255);
-    color: #333333;
-    border-radius: 25px;
-    padding: 0.4%;
-    max-width: fit-content;
-    top: 102%;
-    left: 18%;
-    transform: translate(-50%, -50%);
+	background-color: rgb(255, 255, 255);
+	color: #333333;
+	border-radius: 25px;
+	padding: 0.4%;
+	max-width: fit-content;
+	top: 102%;
+	left: 18%;
+	transform: translate(-50%, -50%);
 }
 
 .strcategory {
-    background-color: rgb(255, 255, 255);
-    color: #333333;
-    border-radius: 25px;
-    padding: 1.5%;
-    max-width: fit-content;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	background-color: rgb(255, 255, 255);
+	color: #333333;
+	border-radius: 25px;
+	padding: 1.5%;
+	max-width: fit-content;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .category p {
-    margin: 0 !important;
+	margin: 0 !important;
 }
 
 .strcategory p {
-    margin: 0 !important;
+	margin: 0 !important;
 }
 
 .starbutton {
-    border: none !important;
+	border: none !important;
 }
 
 .HLcardtext1 {
-    font-size: 20px;
-    margin-top: 10px;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
 .HLfouricontext {
-    margin-left: 2%;
-    min-width: fit-content;
-    margin-top: 1%;
+	margin-left: 2%;
+	min-width: fit-content;
+	margin-top: 1%;
 }
 
 .HLfouricon {
-    margin-left: 2%;
-
+	margin-left: 2%;
 }
 
 .HLviewdetailslist {
-    border: 1px solid #F88634;
-    color: #F88634;
-    border-radius: 25px;
-    padding: 2%;
-    max-width: fit-content;
-    justify-content: space-evenly;
+	border: 1px solid #F88634;
+	color: #F88634;
+	border-radius: 25px;
+	padding: 2%;
+	max-width: fit-content;
+	justify-content: space-evenly;
 }
 
 .durationofmission {
-    background-color: rgb(255, 255, 255);
-    justify-content: center;
-    color: #333333;
-    min-width: max-content;
-    font-size: 10px;
-    border: 0.3px solid #333333;
-    border-radius: 25px;
-    padding: 1%;
-    position: absolute;
-    top: 74%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
+	background-color: rgb(255, 255, 255);
+	justify-content: center;
+	color: #333333;
+	min-width: max-content;
+	font-size: 10px;
+	border: 0.3px solid #333333;
+	border-radius: 25px;
+	padding: 1%;
+	position: absolute;
+	transform: translate(34%, -33%);
 }
-
 
 .lineintext {
-    display: flex;
-    flex-direction: row;
-    margin-top: -6%;
-
+	display: flex;
+	flex-direction: row;
+	margin-top: -6%;
 }
 
-.lineintext:before,
-.lineintext:after {
-
-    content: "";
-    flex: 1 1;
-    border-bottom: 2px solid #000;
-    margin-top: 7%;
-    z-index: -1;
+.lineintext:before, .lineintext:after {
+	content: "";
+	flex: 1 1;
+	border-bottom: 2px solid #000;
+	margin-top: 7%;
+	z-index: -1;
 }
 
 .seatsleft {
-    margin-top: 5%;
+	margin-top: 5%;
 }
 
 .seatsleft img {
-    height: 35px;
-    width: 35px;
-    align-items: center;
+	height: 35px;
+	width: 35px;
+	align-items: center;
 }
 
 .seatleftcontent11 {
-    margin-top: -2%;
-    margin-left: 5%;
-    width: max-content;
+	margin-top: -2%;
+	margin-left: 5%;
+	width: max-content;
 }
 
 .seatleftcontent12 {
-    margin-top: -2%;
-    margin-left: 5%;
-    width: max-content;
+	margin-top: -2%;
+	margin-left: 5%;
+	width: max-content;
 }
 
 .cardfooterline {
-    border: 0.5px solid #333333;
-    margin-top: 3%;
-    margin-bottom: 0;
+	border: 0.5px solid #333333;
+	margin-top: 3%;
+	margin-bottom: 0;
 }
 
 .apply {
-    width: 50%;
-    border: 1px solid #F88634;
-    color: #F88634;
-    background: white;
-    margin-top: 3%;
-    border-radius: 25px;
-    padding: 3%;
-    justify-content: space-around;
+	width: 50%;
+	border: 1px solid #F88634;
+	color: #F88634;
+	background: white;
+	margin-top: 3%;
+	border-radius: 25px;
+	padding: 3%;
+	justify-content: space-around;
 }
 
 .closeoropen {
-    width: 25%;
-    top: 2%;
-    color: white;
-    background-color: #F88634;
-    font-size: 15px;
-    padding: 2%;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
-    justify-content: flex-start !important;
+	width: 25%;
+	top: 2%;
+	color: white;
+	background-color: #F88634;
+	font-size: 15px;
+	padding: 2%;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	justify-content: flex-start !important;
 }
 
 .relatedmission {
-    font-size: 30px;
+	font-size: 30px;
 }
 
 .apply img {
-    padding-left: 5%;
+	padding-left: 5%;
 }
 
 .nomissionfound {
-    border-radius: 25px;
+	border-radius: 25px;
 }
 
 .durationofmission p {
-    margin: 0 !important;
+	margin: 0 !important;
 }
 
 .gridimg {
-    border: 0;
-    background-color: #E8E8E8;
-    border-radius: 25px;
-    height: 35px;
-    width: 35px;
+	border: 0;
+	background-color: #E8E8E8;
+	border-radius: 25px;
+	height: 35px;
+	width: 35px;
 }
 
 .gridimg img {
-    height: 25px;
-    width: 25px;
-
+	height: 25px;
+	width: 25px;
 }
 
 .listimg {
-    border: 0;
-    background-color: white;
-    border-radius: 25px;
-    height: 35px;
-    width: 35px;
+	border: 0;
+	background-color: white;
+	border-radius: 25px;
+	height: 35px;
+	width: 35px;
 }
 
 .listimg img {
-    height: 20px;
-    width: 20px;
-
+	height: 20px;
+	width: 20px;
 }
 
 .sortbybutton {
-    border: 1px solid #333333;
-    margin-right: 4%;
-    border-radius: 5px;
+	border: 1px solid #333333;
+	margin-right: 4%;
+	border-radius: 5px;
 }
 
 .swiper-container {
-    width: 100%;
-    height: 300px;
-    margin: 20px auto;
+	width: 100%;
+	height: 300px;
+	margin: 20px auto;
 }
-.img-fluid{
-	width:100vh !important;
+
+.img-fluid {
+	width: 100vh !important;
+	height: 100%;
 }
+
 .swiper-slide-container {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    height: 100%;
-    max-width: 600px;
-    margin: auto;
-    /* Center slide text vertically */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	height: 100%;
+	max-width: 600px;
+	margin: auto;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
 }
 
 .gallery-top {
-    height: 80%;
-    width: 100%;
+	height: 80%;
+	width: 100%;
 }
 
 .gallery-thumbs {
-    height: 20%;
-    box-sizing: border-box;
-    padding: 10px 0;
+	height: 20%;
+	box-sizing: border-box;
+	padding: 10px 0;
 }
 
 .gallery-thumbs .swiper-slide {
-    width: 20%;
-    height: 100%;
-    opacity: 0.4;
+	width: 20%;
+	height: 100%;
+	opacity: 0.4;
 }
 
 .gallery-thumbs .swiper-slide-active {
-    opacity: 1;
+	opacity: 1;
 }
 
 .borderH2 .dropdown {
-    display: flex !important;
+	display: flex !important;
 }
 
 .strmainimg {
-    flex-direction: column;
-    align-items: center !important;
-    background: hsl(0deg 0% 0%);
+	flex-direction: column;
+	align-items: center !important;
+	background: hsl(0deg 0% 0%);
 }
 
 .posRelative {
-    position: relative;
+	position: relative;
 }
 
 .strmainimg img {
-    opacity: 0.5;
+	opacity: 0.5;
 }
 
 .strShareStr1 {
-    color: #ffffff;
-    font-size: 70%;
-    justify-content: center;
-    text-align: center;
-
+	color: #ffffff;
+	font-size: 70%;
+	justify-content: center;
+	text-align: center;
 }
 
 .strShareStr2 {
-    border: 1px solid white;
-    border-radius: 25px;
-    padding: 0.45%;
-    color: #fff;
-    font-size: 70%;
-    justify-content: center;
-    margin-left: 46%;
-    max-width: fit-content;
+	border: 1px solid white;
+	border-radius: 25px;
+	padding: 0.45%;
+	color: #fff;
+	font-size: 70%;
+	justify-content: center;
+	margin-left: 46%;
+	max-width: fit-content;
 }
 
 .strShareStr2 button {
-    background: none;
-    border: none;
+	background: none;
+	border: none;
 }
 
 .arrowright2 {
-    height: 10px;
-    width: 10px;
+	height: 10px;
+	width: 10px;
 }
 
 .strCardFooter img {
-    height: 40px;
-    width: 40px;
-    border-radius: 25px;
+	height: 40px;
+	width: 40px;
+	border-radius: 25px;
 }
 
 .strCardFooter p {
-    margin-top: 2%;
-    margin-left: 1%;
+	margin-top: 2%;
+	margin-left: 1%;
 }
 
 .strViewDetails {
-    display: none;
-    border: 1px solid white;
-    border-radius: 25px;
-    padding: 2%;
-    color: #fff;
-    font-size: 100%;
-    max-width: fit-content;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 1;
+	display: none;
+	border: 1px solid white;
+	border-radius: 25px;
+	padding: 2%;
+	color: #fff;
+	font-size: 100%;
+	max-width: fit-content;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 1;
 }
 
 .strViewDetails button {
-    background: none;
-    border: none;
+	background: none;
+	border: none;
 }
 
 .card:hover .img1 {
-    /* background-color: rgb(0, 0, 0,0);
+	/* background-color: rgb(0, 0, 0,0);
      */
-    opacity: 0.5;
-    /* filter: brightness(50%); */
+	opacity: 0.5;
+	/* filter: brightness(50%); */
 }
 
 .card:hover .strViewDetails {
-    display: block;
+	display: block;
 }
 
 .card:hover .strCardBgBlack {
-    background: rgb(0, 0, 0.5);
+	background: rgb(0, 0, 0.5);
 }
 
-
 .EPfooterline {
-    border-bottom: 0.5px solid #D9D9D9;
-    margin-top: 50px;
+	border-bottom: 0.5px solid #D9D9D9;
+	margin-top: 50px;
 }
 
 .EPprivacypolicy {
-    font-size: 12px;
+	font-size: 12px;
 }
 
-
-
 @media only screen and (max-width: 576px) {
-
-    .likeBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 17%;
-        padding: 2%;
-    }
-
-    .addBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 27%;
-        padding: 3%;
-        font-size: 18px;
-    }
-
-    .durationofmission {
-        min-width: max-content;
-    }
-
-    .strShareStr2 {
-        margin-left: 38%;
-    }
-
-
-    .HLlikeBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 13%;
-        padding: 2%;
-    }
-
-    .HLaddBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 21%;
-        padding: 3%;
-        font-size: 18px;
-    }
-
-    .HLdurationofmission {
-        min-width: max-content;
-    }
-
-    .HLlocationBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 3%;
-        height: 20px;
-        font-size: 10px;
-    }
+	.likeBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 17%;
+		padding: 2%;
+	}
+	.addBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 27%;
+		padding: 3%;
+		font-size: 18px;
+	}
+	.durationofmission {
+		min-width: max-content;
+	}
+	.strShareStr2 {
+		margin-left: 38%;
+	}
+	.HLlikeBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 13%;
+		padding: 2%;
+	}
+	.HLaddBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 21%;
+		padding: 3%;
+		font-size: 18px;
+	}
+	.HLdurationofmission {
+		min-width: max-content;
+	}
+	.HLlocationBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 3%;
+		height: 20px;
+		font-size: 10px;
+	}
 }
 
 @media only screen and (max-width: 767px) {
-
-    .HLsearchiconB {
-        display: none;
-    }
-
-    .HLspacearound {
-        justify-content: end;
-    }
-
-    .HLcategory {
-        background-color: rgb(255, 255, 255);
-        color: #333333;
-        border-radius: 25px;
-        padding: 0.5%;
-        max-width: fit-content;
-        margin-left: 50%;
-        margin-top: -2%;
-    }
-
-    .HLlikeBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 68%;
-        top: 23%;
-        padding: 2%;
-    }
-
-    .HLaddBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 68%;
-        top: 35%;
-        padding: 3%;
-        font-size: 18px;
-    }
-
-    .texts {
-        font-size: 8px;
-    }
-
-    .HLdurationofmission {
-        top: 72%;
-    }
-
-    .HLlocationBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 68%;
-        top: 3%;
-        height: 20px;
-        font-size: 10px;
-    }
-
-
-
-    .rightbutton {
-        display: block !important;
-    }
-
-    .blocking {
-        display: none !important;
-    }
-
-    .searchiconB {
-        display: none;
-    }
-
-    .borderH2 .dropdown {
-        display: none !important;
-    }
-
-    .spacearound {
-        justify-content: end;
-    }
-
-    .category {
-        background-color: rgb(255, 255, 255);
-        color: #333333;
-        border-radius: 25px;
-        padding: 2%;
-        max-width: fit-content;
-        margin-left: 34%;
-        margin-top: -6%;
-    }
-
-    .likeBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 9%;
-        padding: 2%;
-    }
-
-    .addBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 17%;
-        padding: 3%;
-        font-size: 18px;
-    }
-
-    .filter1 {
-        justify-content: center !important;
-    }
-
-    .durationofmission {
-        top: 75%;
-    }
-
-    .strShareStr2 {
-        margin-left: 41%;
-    }
-
-
+	.HLsearchiconB {
+		display: none;
+	}
+	.HLspacearound {
+		justify-content: end;
+	}
+	.HLcategory {
+		background-color: rgb(255, 255, 255);
+		color: #333333;
+		border-radius: 25px;
+		padding: 0.5%;
+		max-width: fit-content;
+		margin-left: 50%;
+		margin-top: -2%;
+	}
+	.HLlikeBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 68%;
+		top: 23%;
+		padding: 2%;
+	}
+	.HLaddBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 68%;
+		top: 35%;
+		padding: 3%;
+		font-size: 18px;
+	}
+	.texts {
+		font-size: 8px;
+	}
+	.HLdurationofmission {
+		top: 72%;
+	}
+	.HLlocationBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 68%;
+		top: 3%;
+		height: 20px;
+		font-size: 10px;
+	}
+	.rightbutton {
+		display: block !important;
+	}
+	.blocking {
+		display: none !important;
+	}
+	.searchiconB {
+		display: none;
+	}
+	.borderH2 .dropdown {
+		display: none !important;
+	}
+	.spacearound {
+		justify-content: end;
+	}
+	.category {
+		background-color: rgb(255, 255, 255);
+		color: #333333;
+		border-radius: 25px;
+		padding: 2%;
+		max-width: fit-content;
+		transform: translate(0%, -65%);
+	}
+	.likeBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 9%;
+		padding: 2%;
+	}
+	.addBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 17%;
+		padding: 3%;
+		font-size: 18px;
+	}
+	.filter1 {
+		justify-content: center !important;
+	}
+	.strShareStr2 {
+		margin-left: 41%;
+	}
 }
 
 @media only screen and (max-width: 992px) {
-    .viewdetailsandfourbutton {
-        display: flex;
-        flex-direction: column !important;
-        font-size: 8px;
-    }
-    .HLviewdetailslist {
-        border: 1px solid #F88634;
-        color: #F88634;
-        border-radius: 25px;
-        padding: 2%;
-        max-width: fit-content;
-        justify-content: space-evenly;
-        margin-left: 30%;
-    }
+	.viewdetailsandfourbutton {
+		display: flex;
+		flex-direction: column !important;
+		font-size: 8px;
+	}
+	.HLviewdetailslist {
+		border: 1px solid #F88634;
+		color: #F88634;
+		border-radius: 25px;
+		padding: 2%;
+		max-width: fit-content;
+		justify-content: space-evenly;
+		margin-left: 30%;
+	}
 }
 
 @media only screen and (min-width: 992px) {
-    .likeBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 15%;
-        padding: 2%;
-    }
-
-    .addBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 4%;
-        top: 23%;
-        padding: 3%;
-        font-size: 18px;
-    }
-
-
-
-    .HLlocationBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 68%;
-        top: 3%;
-        height: 20px;
-        font-size: 10px;
-    }
-
-
-    .HLlikeBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 68%;
-        top: 12%;
-        padding: 1%;
-    }
-
-    .HLaddBox {
-        color: white;
-        border-radius: 25px;
-        background-color: black;
-        opacity: 0.5;
-        right: 68%;
-        top: 28%;
-        padding: 1%;
-        font-size: 18px;
-    }
-
-    .HLcategory {
-        background-color: rgb(255, 255, 255);
-        color: #333333;
-        border-radius: 25px;
-        padding: 0.5%;
-        max-width: fit-content;
-        margin-left: 50%;
-        margin-top: 0%;
-    }
-
-    .HLcardtext1 {
-        font-size: 15px;
-    }
-
-    .HLcardtext1 {
-        font-size: 12px;
-    }
+	.likeBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 15%;
+		padding: 2%;
+	}
+	.addBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 4%;
+		top: 23%;
+		padding: 3%;
+		font-size: 18px;
+	}
+	.HLlocationBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 68%;
+		top: 3%;
+		height: 20px;
+		font-size: 10px;
+	}
+	.HLlikeBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 68%;
+		top: 12%;
+		padding: 1%;
+	}
+	.HLaddBox {
+		color: white;
+		border-radius: 25px;
+		background-color: black;
+		opacity: 0.5;
+		right: 68%;
+		top: 28%;
+		padding: 1%;
+		font-size: 18px;
+	}
+	.HLcategory {
+		background-color: rgb(255, 255, 255);
+		color: #333333;
+		border-radius: 25px;
+		padding: 0.5%;
+		max-width: fit-content;
+		margin-left: 50%;
+		margin-top: 0%;
+	}
+	.HLcardtext1 {
+		font-size: 15px;
+	}
+	.HLcardtext1 {
+		font-size: 12px;
+	}
 }

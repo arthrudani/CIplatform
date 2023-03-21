@@ -229,5 +229,16 @@ public class user {
 		this.deleted_at = deleted_at;
 	}
 
+	@Override
+	public String toString() {
+		return "user [user_id=" + user_id + ", country=" + country + ", city=" + city + ", first_name=" + first_name
+				+ ", last_name=" + last_name + ", email=" + email + ", phone_number=" + phone_number + ", password="
+				+ password + ", avatar=" + avatar + ", why_i_volunteer=" + why_i_volunteer + ", employee_id="
+				+ employee_id + ", department=" + department + ", profile_text=" + profile_text + ", linked_in_url="
+				+ linked_in_url + ", title=" + title + ", status=" + status + ", created_at=" + created_at
+				+ ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + "]";
+	}
+
+	
 	
 }

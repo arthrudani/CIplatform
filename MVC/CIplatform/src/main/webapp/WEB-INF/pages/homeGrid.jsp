@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isELIgnored="false"%>
 
 
@@ -34,6 +35,7 @@
 </head>
 
 <body>
+
 	<!-- lower side open bar -->
 	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
 		style="display: none;" id="leftMenu">
@@ -216,15 +218,15 @@
 			<div class="d-flex">
 
 				<button class="w3-button ">
-					<img class="blocking " src="images/search.png"
-						onclick="findsearchmission()">
+					<img class="blocking " src="images/search.png">
 				</button>
-				<input type="search" placeholder=" Search missions..."
-					name="searchmission" id="searchmission" class="searchBoxPh">
 
-				<button class="w3-button" onclick="openLeftMenu()">
-					<img class="rightbutton" src="images/filter.png">
+				<input type="text" id="mySearchInput" placeholder=" Search missions..." name="mySearchInput" class="mySearchInput searchBoxPh">
+
+				<button class="w3-button rightbutton" onclick="openLeftMenu()">
+					<img src="images/filter.png">
 				</button>
+				
 			</div>
 
 			<div class="dropdown d-flex blocking">
@@ -347,7 +349,7 @@
 		</div>
 	</div>
 
-	<!-- missions -->
+	<!-- missions sort and grid list button-->
 	<div class="container mb-3 mt-3 d-flex justify-content-end">
 
 		<div class="dropdown sortbybutton">
@@ -370,426 +372,245 @@
 		</button>
 
 	</div>
+
 	<div class="container">
 		Explore all
-		<c:out value="${fn:length(mission)}"></c:out>
+		<c:out value="${fn:length(missionlist)}"></c:out>
 		missions
 	</div>
 
 	<div class="container grid-container">
 
-		<c:forEach var="mission" begin="1" end="${fn:length(mission)}">
-			<c:out value="${mission}" />
-		</c:forEach>
 		<div class="row" id="listgrid">
-
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-					<div class="posAbsolute locationBox d-flex ">
-						<i class="bi bi-geo-alt locicon"></i>
-						<p>
-							<c:out value="${mission}"></c:out>
-						</p>
-					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
-					</div>
-					<div class="posAbsolute addBox">
-						<i class="bi bi-person-plus"></i>
-					</div>
-					<div class="card-body">
-						<div class="category">
+			<c:forEach var="mission" items="${missionlist}">
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card ">
+						<img class="card-img-top"
+							src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
+						<div class="posAbsolute locationBox d-flex ">
+							<i class="bi bi-geo-alt locicon"></i>
 							<p>
-								<c:out value="${mission}"></c:out>
+								<c:out value="${mission.city.name}"></c:out>
 							</p>
 						</div>
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text
-							below as a natural lead-in to additional content. This content is
-							a little bit longer.</p>
-						<div class="d-flex justify-content-between"
-							style="margin-bottom: 5%;">
-							<div>
-								<p class="card-text">Tree canada</p>
-							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-							</div>
+						<div class="posAbsolute likeBox">
+							<img src="images/heart.png" alt="">
 						</div>
-						<hr class="lineintext">
-						<div class="d-felx durationofmission">
-							<div>
-								<p>from 00-00-0000 untill 00-00-0000</p>
-							</div>
+						<div class="posAbsolute addBox">
+							<i class="bi bi-person-plus"></i>
 						</div>
+						<div class="card-body">
+							<div class="category">
+								<p>
+									<c:out value="${mission.mission_theme.title}"></c:out>
+								</p>
+							</div>
+							<h5 class="card-title">
+								<c:out value="${mission.title}"></c:out>
+							</h5>
+							<p class="card-text">This is a wider card with supporting
+								text below as a natural lead-in to additional content. This
+								content is a little bit longer.</p>
+							<div class="d-flex justify-content-between"
+								style="margin-bottom: 5%;">
+								<div>
+									<p class="card-text">Tree canada</p>
+								</div>
+								<div>
+									<button class="starbutton">
+										<img src="images/star.png" alt="">
+									</button>
+									<button class="starbutton">
+										<img src="images/star.png" alt="">
+									</button>
+									<button class="starbutton">
+										<img src="images/star.png" alt="">
+									</button>
+									<button class="starbutton">
+										<img src="images/star.png" alt="">
+									</button>
+									<button class="starbutton">
+										<img src="images/star.png" alt="">
+									</button>
+								</div>
+							</div>
+							<hr class="lineintext">
+							<div class="d-felx durationofmission">
+								<div>
+									<p>
+										from
+										<fmt:formatDate pattern="dd-MM-yyyy"
+											value="${mission.start_date}" />
+										untill
+										<fmt:formatDate pattern="dd-MM-yyyy"
+											value="${mission.end_date}" />
+									</p>
+								</div>
+							</div>
 
-						<div class="d-flex justify-content-between "
-							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
+							<div class="d-flex justify-content-between "
+								style="margin-top: 2%;">
+								<div class="d-flex seatsleft">
+									<div>
+										<img src="images/Seats-left.png" alt="">
+									</div>
+									<div>
+										<div class="seatleftcontent11">10</div>
+										<div class="seatleftcontent12">seats left</div>
+									</div>
 								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
+								<div class="d-flex seatsleft">
+									<div>
+										<img src="images/deadline.png" alt="">
+									</div>
+									<div>
+										<div class="seatleftcontent11">10-10-2023</div>
+										<div class="seatleftcontent12">Deadline</div>
+									</div>
 								</div>
 							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
+							<hr class="cardfooterline">
+							<div class="d-flex justify-content-center">
+								<button class="d-flex apply ">
+									<div>Apply</div>
+									<div>
+										<img src="images/right-arrow.png" alt="">
+									</div>
+								</button>
 							</div>
-						</div>
-						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-					<div class="posAbsolute locationBox d-flex ">
-						<i class="bi bi-geo-alt locicon"></i>
-						<p>
-							<c:out value="${city_id.name}"></c:out>
-						</p>
-					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
-					</div>
-					<div class="posAbsolute addBox">
-						<i class="bi bi-person-plus"></i>
-					</div>
-					<div class="card-body">
-						<div class="category">
-							<p>
-								<c:out value="${mission_theme.title}"></c:out>
-							</p>
-						</div>
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text
-							below as a natural lead-in to additional content. This content is
-							a little bit longer.</p>
-						<div class="d-flex justify-content-between"
-							style="margin-bottom: 5%;">
-							<div>
-								<p class="card-text">Tree canada</p>
-							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-							</div>
-						</div>
-						<hr class="lineintext">
-						<div class="d-felx durationofmission">
-							<div>
-								<p>from 00-00-0000 untill 00-00-0000</p>
-							</div>
-						</div>
-
-						<div class="d-flex justify-content-between "
-							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
-								</div>
-							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
-							</div>
-						</div>
-						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
+			</c:forEach>
 		</div>
 
 		<div class="row" id="gridlist">
-			<div class="row ListViewCard">
-				<div class="card">
-					<div class="row g-0">
-						<div class="col-md-3 missionImg">
-							<p class="missionCityListView">
-								<i class="bi bi-geo-alt"></i> London
-							</p>
-							<p class="missionAppliedListView">Applied</p>
-							<div class="missionLikeListView d-flex flex-column">
-								<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+			<c:forEach var="mission" items="${missionlist}">
+				<div class="row ListViewCard">
+					<div class="card">
+						<div class="row g-0">
+							<div class="col-md-3 missionImg">
+								<p class="missionCityListView">
+									<i class="bi bi-geo-alt"></i>
+									<c:out value="${mission.city.name}"></c:out>
+								</p>
+								<!-- 								<p class="missionAppliedListView">Applied</p> -->
+								<div class="missionLikeListView d-flex flex-column">
+									<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+								</div>
+								<div
+									class="d-flex justify-content-center missionCategoryListView">
+									<c:out value="${mission.mission_theme.title}"></c:out>
+								</div>
+								<img
+									src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+									class="img-fluid rounded-start" alt="...">
 							</div>
-							<div
-								class="d-flex justify-content-center missionCategoryListView">
-								<p>Environment</p>
-							</div>
-							<img
-								src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-								class="img-fluid rounded-start" alt="...">
-						</div>
-						<div class="col-md-9">
-							<div class="card-body">
-								<div class="row w-100 d-flex ">
-									<div class="col">
-										<div
-											class="row d-flex justify-content-start firstInfoContainerListView">
-											<div class="col d-flex">
-												<i class="bi bi-geo-alt"> </i>
-												<p>Atlanta</p>
-											</div>
-											<div class="col d-flex">
-												<i class="bi bi-globe"> </i>
-												<p>Environment</p>
-											</div>
-											<div class="col d-flex">
-												<i class="bi bi-people"> </i>
-												<p>Smith Caring Foundation</p>
+							<div class="col-md-9">
+								<div class="card-body">
+									<div class="row w-100 d-flex ">
+										<div class="col">
+											<div
+												class="row d-flex justify-content-start firstInfoContainerListView">
+												<div class="col d-flex">
+													<i class="bi bi-geo-alt"> </i>
+													<p>Atlanta</p>
+												</div>
+												<div class="col d-flex">
+													<i class="bi bi-globe"> </i>
+													<p>Environment</p>
+												</div>
+												<div class="col d-flex">
+													<i class="bi bi-people"> </i>
+													<p>Smith Caring Foundation</p>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col d-flex justify-content-end">
-										<div class="row ratingDivGridView">
-											<div class="col">
-												<div class="row d-flex flex-row ratingStar flex-nowrap">
-													<div class="col">
-														<img src="images/selected-star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/selected-star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/selected-star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/star.png" alt="" srcset="">
+										<div class="col d-flex justify-content-end">
+											<div class="row ratingDivGridView">
+												<div class="col">
+													<div class="row d-flex flex-row ratingStar flex-nowrap">
+														<div class="col">
+															<img src="images/selected-star.png" alt="" srcset="">
+														</div>
+														<div class="col">
+															<img src="images/selected-star.png" alt="" srcset="">
+														</div>
+														<div class="col">
+															<img src="images/selected-star.png" alt="" srcset="">
+														</div>
+														<div class="col">
+															<img src="images/star.png" alt="" srcset="">
+														</div>
+														<div class="col">
+															<img src="images/star.png" alt="" srcset="">
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<h5 class="card-title">Education Supplies for Every Pair of
-									Shoes Sold</h5>
-								<p class="card-text">This is a wider card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-								<div
-									class="d-flex justify-content-between viewdetailsandfourbutton"
-									style="margin-top: 7%;">
-									<div class="d-flex justify-content-between">
-										<div class="d-flex align-items-center HLfouricon">
-											<img src="images/Seats-left.png" alt="">
+									<h5 class="card-title">
+										<c:out value="${mission.title}"></c:out>
+									</h5>
+									<p class="card-text">This is a wider card with supporting
+										text below as a natural lead-in to additional content. This
+										content is a little bit longer.</p>
+									<div
+										class="d-flex justify-content-between viewdetailsandfourbutton"
+										style="margin-top: 7%;">
+										<div class="d-flex justify-content-between">
+											<div class="d-flex align-items-center HLfouricon">
+												<img src="images/Seats-left.png" alt="">
+											</div>
+											<div class="HLfouricontext">
+												<div>397</div>
+												<div>seats left</div>
+											</div>
+											<div class="d-flex align-items-center HLfouricon">
+												<img src="images/achieved.png" alt="">
+											</div>
+											<div class="HLfouricontext">
+												<div>397</div>
+												<div>Achieved</div>
+											</div>
+											<div class="d-flex align-items-center HLfouricon">
+												<img src="images/calender.png" alt="">
+											</div>
+											<div class="HLfouricontext">
+												<div>
+													from
+													<fmt:formatDate pattern="dd-MM-yyyy"
+														value="${mission.start_date}" />
+												</div>
+												<div>
+													untill
+													<fmt:formatDate pattern="dd-MM-yyyy"
+														value="${mission.end_date}" />
+												</div>
+											</div>
+											<div class="d-flex align-items-center HLfouricon">
+												<i class="fa-solid fa-screwdriver-wrench"></i>
+											</div>
+											<div class="HLfouricontext">
+												<div>Skills</div>
+												<div>botany</div>
+											</div>
 										</div>
-										<div class="HLfouricontext">
-											<div>397</div>
-											<div>seats left</div>
+										<div class="d-flex HLviewdetailslist">
+											View details <img src="images/right-arrow.png" alt="">
 										</div>
-										<div class="d-flex align-items-center HLfouricon">
-											<img src="images/achieved.png" alt="">
-										</div>
-										<div class="HLfouricontext">
-											<div>397</div>
-											<div>Achieved</div>
-										</div>
-										<div class="d-flex align-items-center HLfouricon">
-											<img src="images/calender.png" alt="">
-										</div>
-										<div class="HLfouricontext">
-											<div>From 00-00-0000</div>
-											<div>untill 00-00-0000</div>
-										</div>
-										<div class="d-flex align-items-center HLfouricon">
-											<i class="fa-solid fa-screwdriver-wrench"></i>
-										</div>
-										<div class="HLfouricontext">
-											<div>Skills</div>
-											<div>botany</div>
-										</div>
-									</div>
-									<div class="d-flex HLviewdetailslist">
-										View details <img src="images/right-arrow.png" alt="">
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-			</div>
-			<div class="row ListViewCard">
-				<div class="card">
-					<div class="row g-0">
-						<div class="col-md-3 missionImg">
-							<p class="missionCityListView">
-								<i class="bi bi-geo-alt"></i> London
-							</p>
-							<p class="missionAppliedListView">Applied</p>
-							<div class="missionLikeListView d-flex flex-column">
-								<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
-							</div>
-							<div
-								class="d-flex justify-content-center missionCategoryListView">
-								<p>Environment</p>
-							</div>
-							<img
-								src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-								class="img-fluid rounded-start" alt="...">
-						</div>
-						<div class="col-md-9">
-							<div class="card-body">
-								<div class="row w-100 d-flex ">
-									<div class="col">
-										<div
-											class="row d-flex justify-content-start firstInfoContainerListView">
-											<div class="col d-flex">
-												<i class="bi bi-geo-alt"> </i>
-												<p>Atlanta</p>
-											</div>
-											<div class="col d-flex">
-												<i class="bi bi-globe"> </i>
-												<p>Environment</p>
-											</div>
-											<div class="col d-flex">
-												<i class="bi bi-people"> </i>
-												<p>Smith Caring Foundation</p>
-											</div>
-										</div>
-									</div>
-									<div class="col d-flex justify-content-end">
-										<div class="row ratingDivGridView">
-											<div class="col">
-												<div class="row d-flex flex-row ratingStar flex-nowrap">
-													<div class="col">
-														<img src="images/selected-star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/selected-star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/selected-star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/star.png" alt="" srcset="">
-													</div>
-													<div class="col">
-														<img src="images/star.png" alt="" srcset="">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title">Education Supplies for Every Pair of
-									Shoes Sold</h5>
-								<p class="card-text">This is a wider card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-								<div
-									class="d-flex justify-content-between viewdetailsandfourbutton"
-									style="margin-top: 7%;">
-									<div class="d-flex justify-content-between">
-										<div class="d-flex align-items-center HLfouricon">
-											<img src="images/Seats-left.png" alt="">
-										</div>
-										<div class="HLfouricontext">
-											<div>397</div>
-											<div>seats left</div>
-										</div>
-										<div class="d-flex align-items-center HLfouricon">
-											<img src="images/achieved.png" alt="">
-										</div>
-										<div class="HLfouricontext">
-											<div>397</div>
-											<div>Achieved</div>
-										</div>
-										<div class="d-flex align-items-center HLfouricon">
-											<img src="images/calender.png" alt="">
-										</div>
-										<div class="HLfouricontext">
-											<div>From 00-00-0000</div>
-											<div>untill 00-00-0000</div>
-										</div>
-										<div class="d-flex align-items-center HLfouricon">
-											<i class="fa-solid fa-screwdriver-wrench"></i>
-										</div>
-										<div class="HLfouricontext">
-											<div>Skills</div>
-											<div>botany</div>
-										</div>
-									</div>
-									<div class="d-flex HLviewdetailslist">
-										View details <img src="images/right-arrow.png" alt="">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
+			</c:forEach>
 		</div>
+
 	</div>
+
 
 	<!-- footer -->
 	<div class="container">
@@ -804,6 +625,8 @@
 		</div>
 	</div>
 
+
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -816,6 +639,28 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- 	search filter scripts -->
+	<script>
+	$( document ).ready(function() {
+			$("#mySearchInput").keyup(function() {
+				console.log("ready!");
+				data1 = {
+					key : $("#mySearchInput").val
+				}
+				$.ajax({
+					url : "searchMissions",
+					type : "POST",
+					data : data1,
+					dataType : 'json',
+					success : function(response) {
+						missions = response;
+						console.log(data1);	
+					}
+				});
+			});
+		});
+	</script>
 
 </body>
 
