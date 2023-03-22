@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.entities.mission;
 import com.entities.user;
 
-
 @Component
 public class LandingpageDao {
 
@@ -25,6 +24,16 @@ public class LandingpageDao {
 
 	public List<mission> getallmission() {
 		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission");
+		return query.list();
+	}
+
+	public List<mission> fetchmissions(String key) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission where title like :key ");
+		query.setParameter("key","%" + key + "%"); 
+//		Query query1 = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission where description like :key ");
+//		query1.setParameter("key","%" + key + "%"); 
+//		query.list().add(query1);
+		query.list();
 		return query.list();
 	}
 }

@@ -19,6 +19,7 @@ import com.dao.LandingpageDao;
 import com.dao.RegistrationDao;
 import com.entities.mission;
 import com.entities.user;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class HomeCtrl {
@@ -55,11 +56,6 @@ public class HomeCtrl {
 		return "homeGrid";
 	}
 
-	@RequestMapping(path = "/homeList")
-	public String homeList() {
-		return "homeList";
-	}
-
 	@RequestMapping(path = "/verifyuser", method = RequestMethod.POST)
 	public String myUserverifier(@RequestParam("email") String email, @RequestParam("password") String password,Model m) {
 		String vr = "";
@@ -73,7 +69,7 @@ public class HomeCtrl {
 			
 			List<mission> missiondetail=this.landingpageDao.getallmission();
 			m.addAttribute("missionlist" ,  missiondetail);
-			
+			homeGrid();
 			return "homeGrid";
 		} else {
 			m.addAttribute("msg" , "Email id or password is incorrect");
@@ -124,7 +120,22 @@ public class HomeCtrl {
 	
 	@RequestMapping(value = "/searchMissions", method = RequestMethod.POST)
 	public @ResponseBody String searchMissions(@RequestParam("key") String key){
-		System.out.println(key);
+		List<mission> result=this.landingpageDao.fetchmissions(key);
+		System.out.println(result.size());
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json=null;
+		try {
+			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+		return json;
+	}
+	
+	
+	@RequestMapping(value = "/searchMissionsByCity", method = RequestMethod.POST)
+	public @ResponseBody String searchMissionsByCity(@RequestParam("key") String key){
 		return "";
 	}
+	
 }

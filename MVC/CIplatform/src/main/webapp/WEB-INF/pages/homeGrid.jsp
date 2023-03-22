@@ -145,9 +145,8 @@
 
 
 			<div class="col d-flex spacearound">
-				<div>
-					<img src="images/logo.png" class="blocking"
-						style="padding-top: 10%;">
+				<div class="d-flex align-items-center">
+					<img src="images/logo.png" class="blocking">
 				</div>
 
 				<div class="leftHeader ">
@@ -210,7 +209,7 @@
 
 		</div>
 	</div>
-
+	
 	<!-- lower nav bar -->
 	<div class="container-fluid borderH2">
 		<div class="d-flex justify-content-around">
@@ -221,16 +220,17 @@
 					<img class="blocking " src="images/search.png">
 				</button>
 
-				<input type="text" id="mySearchInput" placeholder=" Search missions..." name="mySearchInput" class="mySearchInput searchBoxPh">
+				<input type="text" placeholder=" Search missions..."
+					name="mySearchInput" class="mySearchInput searchBoxPh">
 
 				<button class="w3-button rightbutton" onclick="openLeftMenu()">
 					<img src="images/filter.png">
 				</button>
-				
+
 			</div>
 
 			<div class="dropdown d-flex blocking">
-				<button class="btn btn-secondary dropdown-toggle" type="button"
+				<button class="btn btn-secondary dropdown-toggle dropdownCity" type="button"
 					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					City <img src="images/drop-down.png">
@@ -373,7 +373,9 @@
 
 	</div>
 
-	<div class="container">
+
+<!-- explore all mission -->
+	<div class="container"  id="totalmission">
 		Explore all
 		<c:out value="${fn:length(missionlist)}"></c:out>
 		missions
@@ -400,10 +402,10 @@
 							<i class="bi bi-person-plus"></i>
 						</div>
 						<div class="card-body">
-							<div class="category">
-								<p>
+							<div class="d-flex justify-content-center">
+								<div class="category">
 									<c:out value="${mission.mission_theme.title}"></c:out>
-								</p>
+								</div>
 							</div>
 							<h5 class="card-title">
 								<c:out value="${mission.title}"></c:out>
@@ -635,33 +637,309 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
 		integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.js"
+		integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+		crossorigin="anonymous"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-		
-		<!-- 	search filter scripts -->
+
+
+	<!-- 	search filter scripts -->
 	<script>
-	$( document ).ready(function() {
-			$("#mySearchInput").keyup(function() {
-				console.log("ready!");
-				data1 = {
-					key : $("#mySearchInput").val
-				}
+		$(document).ready(function() {
+			$("#gridlist").hide();
+			$("#loader").hide();
+			let missions = "";
+			
+// 			ajax for search bar
+			$(".searchBoxPh").keyup(function() {
+				$("#loader").show();
+				var data1 = {
+					key : $('.searchBoxPh').val()
+				};
 				$.ajax({
 					url : "searchMissions",
 					type : "POST",
 					data : data1,
 					dataType : 'json',
 					success : function(response) {
+						$("#loader").hide();
 						missions = response;
-						console.log(data1);	
+						console.log(missions.length);
+						loopForFetchingMissionDetails(missions);
+						totalMissionCounter(missions);
+					}
+				});
+			});
+			
+// 			ajax for country filter
+			$(".dropdownCity").onclick(function() {
+				var data1 = {
+					key : $('.dropdownCity').val()
+				};
+				$.ajax({
+					url : "searchMissionsByCity",
+					type : "POST",
+					data : data1,
+					dataType : 'json',
+					success : function(response) {
+						missions = response;
+						console.log(data1);
+						console.log("fetched by city");
+						
+// 						loopForFetchingMissionDetails(missions);
+// 						totalMissionCounter(missions);
 					}
 				});
 			});
 		});
-	</script>
+		
+		function totalMissionCounter(missions){
+			var totalmissions = "";
+			var count = missions.length;
+			if(count>0){
+				totalmissions =`Explore all `+missions.length+` missions`;
+			}
+			else{
+				totalmissions =`<div class="d-flex justify-content-center"><h2><b>NO MISSION FOUND</b></h2></div>`;
+			}
+			
+			$("#totalmission").html(totalmissions);
+		}
 
+		function loopForFetchingMissionDetails(missions) {
+			var htmlPageGrid = "";
+			var htmlPageList = "";
+			
+			for (let i = 0; i < missions.length; i++) {
+				
+				htmlPageGrid+=
+				`<div class="col-12 col-md-6 col-lg-4">
+				<div class="card ">
+					<img class="card-img-top"
+						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
+					<div class="posAbsolute locationBox d-flex ">
+						<i class="bi bi-geo-alt locicon"></i>
+						<p>
+						`+missions[i].city.name+`
+						</p>
+					</div>
+					<div class="posAbsolute likeBox">
+						<img src="images/heart.png" alt="">
+					</div>
+					<div class="posAbsolute addBox">
+						<i class="bi bi-person-plus"></i>
+					</div>
+					<div class="card-body">
+					<div class="d-flex justify-content-center">
+						<div class="category">
+							`+missions[i].mission_theme.title+`
+						</div>
+					</div>
+						
+						<h5 class="card-title">
+						`+missions[i].title+`
+						</h5>
+						<p class="card-text">This is a wider card with supporting
+							text below as a natural lead-in to additional content. This
+							content is a little bit longer.</p>
+						<div class="d-flex justify-content-between"
+							style="margin-bottom: 5%;">
+							<div>
+								<p class="card-text">Tree canada</p>
+							</div>
+							<div>
+								<button class="starbutton">
+									<img src="images/star.png" alt="">
+								</button>
+								<button class="starbutton">
+									<img src="images/star.png" alt="">
+								</button>
+								<button class="starbutton">
+									<img src="images/star.png" alt="">
+								</button>
+								<button class="starbutton">
+									<img src="images/star.png" alt="">
+								</button>
+								<button class="starbutton">
+									<img src="images/star.png" alt="">
+								</button>
+							</div>
+						</div>
+						<hr class="lineintext">
+						<div class="d-felx durationofmission">
+							<div>
+								<p>
+									from
+									21-04-2023
+									untill
+									21-05-2023
+								</p>
+							</div>
+						</div>
+
+						<div class="d-flex justify-content-between "
+							style="margin-top: 2%;">
+							<div class="d-flex seatsleft">
+								<div>
+									<img src="images/Seats-left.png" alt="">
+								</div>
+								<div>
+									<div class="seatleftcontent11">10</div>
+									<div class="seatleftcontent12">seats left</div>
+								</div>
+							</div>
+							<div class="d-flex seatsleft">
+								<div>
+									<img src="images/deadline.png" alt="">
+								</div>
+								<div>
+									<div class="seatleftcontent11">10-10-2023</div>
+									<div class="seatleftcontent12">Deadline</div>
+								</div>
+							</div>
+						</div>
+						<hr class="cardfooterline">
+						<div class="d-flex justify-content-center">
+							<button class="d-flex apply ">
+								<div>Apply</div>
+								<div>
+									<img src="images/right-arrow.png" alt="">
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>`;
+			
+			
+				htmlPageList+=
+				`<div class="card">
+				<div class="row g-0">
+					<div class="col-md-3 missionImg">
+						<p class="missionCityListView">
+							<i class="bi bi-geo-alt"></i>
+							`+missions[i].city.name+`
+						</p>
+						
+						<div class="missionLikeListView d-flex flex-column">
+							<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+						</div>
+						<div
+							class="d-flex justify-content-center missionCategoryListView">
+						`+missions[i].mission_theme.title+`
+						</div>
+						<img
+							src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+							class="img-fluid rounded-start" alt="...">
+					</div>
+					<div class="col-md-9">
+						<div class="card-body">
+							<div class="row w-100 d-flex ">
+								<div class="col">
+									<div
+										class="row d-flex justify-content-start firstInfoContainerListView">
+										<div class="col d-flex">
+											<i class="bi bi-geo-alt"> </i>
+											<p>Atlanta</p>
+										</div>
+										<div class="col d-flex">
+											<i class="bi bi-globe"> </i>
+											<p>`+missions[i].title+`</p>
+										</div>
+										<div class="col d-flex">
+											<i class="bi bi-people"> </i>
+											<p>Smith Caring Foundation</p>
+										</div>
+									</div>
+								</div>
+								<div class="col d-flex justify-content-end">
+									<div class="row ratingDivGridView">
+										<div class="col">
+											<div class="row d-flex flex-row ratingStar flex-nowrap">
+												<div class="col">
+													<img src="images/selected-star.png" alt="" srcset="">
+												</div>
+												<div class="col">
+													<img src="images/selected-star.png" alt="" srcset="">
+												</div>
+												<div class="col">
+													<img src="images/selected-star.png" alt="" srcset="">
+												</div>
+												<div class="col">
+													<img src="images/star.png" alt="" srcset="">
+												</div>
+												<div class="col">
+													<img src="images/star.png" alt="" srcset="">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<h5 class="card-title">
+								<c:out value="${mission.title}"></c:out>
+							</h5>
+							<p class="card-text">This is a wider card with supporting
+								text below as a natural lead-in to additional content. This
+								content is a little bit longer.</p>
+							<div
+								class="d-flex justify-content-between viewdetailsandfourbutton"
+								style="margin-top: 7%;">
+								<div class="d-flex justify-content-between">
+									<div class="d-flex align-items-center HLfouricon">
+										<img src="images/Seats-left.png" alt="">
+									</div>
+									<div class="HLfouricontext">
+										<div>397</div>
+										<div>seats left</div>
+									</div>
+									<div class="d-flex align-items-center HLfouricon">
+										<img src="images/achieved.png" alt="">
+									</div>
+									<div class="HLfouricontext">
+										<div>397</div>
+										<div>Achieved</div>
+									</div>
+									<div class="d-flex align-items-center HLfouricon">
+										<img src="images/calender.png" alt="">
+									</div>
+									<div class="HLfouricontext">
+										<div>
+											from
+											<fmt:formatDate pattern="dd-MM-yyyy"
+												value="${mission.start_date}" />
+										</div>
+										<div>
+											untill
+											<fmt:formatDate pattern="dd-MM-yyyy"
+												value="${mission.end_date}" />
+										</div>
+									</div>
+									<div class="d-flex align-items-center HLfouricon">
+										<i class="fa-solid fa-screwdriver-wrench"></i>
+									</div>
+									<div class="HLfouricontext">
+										<div>Skills</div>
+										<div>botany</div>
+									</div>
+								</div>
+								<div class="d-flex HLviewdetailslist">
+									View details <img src="images/right-arrow.png" alt="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>`;
+		
+			}
+			$("#listgrid").html(htmlPageGrid);
+			$("#gridlist").html(htmlPageList);
+			
+		}
+	</script>
 </body>
 
 </html>
