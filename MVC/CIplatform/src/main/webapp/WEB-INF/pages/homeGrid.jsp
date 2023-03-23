@@ -209,7 +209,7 @@
 
 		</div>
 	</div>
-	
+
 	<!-- lower nav bar -->
 	<div class="container-fluid borderH2">
 		<div class="d-flex justify-content-around">
@@ -230,32 +230,33 @@
 			</div>
 
 			<div class="dropdown d-flex blocking">
-				<button class="btn btn-secondary dropdown-toggle dropdownCity" type="button"
-					id="dropdownMenuButton1" data-bs-toggle="dropdown"
+
+				<button class="btn btn-secondary dropdown-toggle dropdownCity"
+					type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					City <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu posStatic"
-					aria-labelledby="dropdownMenuButton1">
-					<li><input type="checkbox">Ahmedabad</li>
-					<li><input type="checkbox">Surat</li>
-					<li><input type="checkbox">Mumbai</li>
-					<li><input type="checkbox">New york</li>
-					<li><input type="checkbox">London</li>
+				<ul class="dropdown-menu posStatic city"
+					aria-labelledby="dropdownMenuButton1" name="city" id="totalCitiesOfCountry  city">
+					<c:forEach var="city" items="${citylist}">
+						<li>
+							<input type="checkbox" class="citycheckbox" value="${city.name}"> 
+							<c:out value="${city.name}"></c:out>
+						</li>
+					</c:forEach>
 				</ul>
-				<br />
-				<button class="btn btn-secondary dropdown-toggle" type="button"
-					id="dropdownMenuButton1" data-bs-toggle="dropdown"
-					aria-expanded="false">
-					Country <img src="images/drop-down.png">
-				</button>
-				<ul class="dropdown-menu posStatic"
-					aria-labelledby="dropdownMenuButton1">
-					<li><input type="checkbox">USA</li>
-					<li><input type="checkbox">India</li>
-					<li><input type="checkbox">UK</li>
-				</ul>
-				<br />
+				<br /> <select name="country" id="country" class="country">
+					<option value="${usercountry}" selected disabled hidden>
+						<c:out value="${usercountry}"></c:out>
+					</option>
+					<c:forEach var="country" items="${countrylist}">
+						<option>
+							<c:out value="${country.name}"></c:out>
+						</option>
+					</c:forEach>
+				</select> <br />
+
+
 				<button class="btn btn-secondary dropdown-toggle" type="button"
 					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
@@ -268,6 +269,8 @@
 					<li><input type="checkbox">Action3</li>
 				</ul>
 				<br />
+
+
 				<button class="btn btn-secondary dropdown-toggle" type="button"
 					id="dropdownMenuButton1" data-bs-toggle="dropdown"
 					aria-expanded="false">
@@ -279,6 +282,7 @@
 					<li><input type="checkbox">Action</li>
 					<li><input type="checkbox">Action</li>
 				</ul>
+
 			</div>
 		</div>
 	</div>
@@ -370,12 +374,11 @@
 		<button class="listimg" onclick="listgrid()">
 			<img src="images/list.png" alt="">
 		</button>
-
 	</div>
 
 
-<!-- explore all mission -->
-	<div class="container"  id="totalmission">
+	<!-- explore all mission -->
+	<div class="container" id="totalmission">
 		Explore all
 		<c:out value="${fn:length(missionlist)}"></c:out>
 		missions
@@ -650,34 +653,66 @@
 		$(document).ready(function() {
 			$("#gridlist").hide();
 			$("#loader").hide();
-			let missions = "";
+			
+			var allfilters={
+					searchedKeyword="";
+					country_id="";
+					searchedcities=[];
+					searchedthemes=[];
+					searchedskills=[];
+			}
 			
 // 			ajax for search bar
 			$(".searchBoxPh").keyup(function() {
 				$("#loader").show();
+				allfilters.searched
 				var data1 = {
-					key : $('.searchBoxPh').val()
+					key : $(allfilters).val()
 				};
+				console.log(data1)
+// 				$.ajax({
+// 					url : "searchMissions",
+// 					type : "POST",
+// 					data : data1,
+// 					dataType : 'json',
+// 					success : function(response) {
+// 						$("#loader").hide();
+// 						missions = response;
+// 						loopForFetchingMissionDetails(missions);
+// 						totalMissionCounter(missions);
+// 					}
+// 				});
+			});
+			
+// 			ajax for country filter
+			$(".country").on('change', function()  {
+				var data1 = {
+						key : $(this).val()
+					};
 				$.ajax({
-					url : "searchMissions",
+					url : "searchMissionsByCountry",
 					type : "POST",
 					data : data1,
 					dataType : 'json',
 					success : function(response) {
-						$("#loader").hide();
 						missions = response;
-						console.log(missions.length);
+						cityOfSelectedCountry(data1);
 						loopForFetchingMissionDetails(missions);
 						totalMissionCounter(missions);
 					}
 				});
 			});
 			
-// 			ajax for country filter
-			$(".dropdownCity").onclick(function() {
+//			ajax for city filter
+			$(".citycheckbox").on('click', function()  {
+				var chkArray = [];
+				$(".citycheckbox:checked").each(function() {
+		            chkArray.push($(this).val());
+		        });
 				var data1 = {
-					key : $('.dropdownCity').val()
-				};
+						key : $(".citycheckbox:checked").val()
+					};
+				console.log(data1);
 				$.ajax({
 					url : "searchMissionsByCity",
 					type : "POST",
@@ -685,15 +720,15 @@
 					dataType : 'json',
 					success : function(response) {
 						missions = response;
-						console.log(data1);
-						console.log("fetched by city");
-						
-// 						loopForFetchingMissionDetails(missions);
-// 						totalMissionCounter(missions);
+						console.log(response);
+						loopForFetchingMissionDetails(missions);
+						totalMissionCounter(missions);
 					}
 				});
 			});
 		});
+		
+	
 		
 		function totalMissionCounter(missions){
 			var totalmissions = "";
@@ -708,6 +743,17 @@
 			$("#totalmission").html(totalmissions);
 		}
 
+		function cityOfSelectedCountry(countryname){
+			var citiesOfSelectedCountry="";
+			citiesOfSelectedCountry=`1234`;
+// 			for (let i = 0; i < missions.length; i++){
+// 				citiesOfSelectedCountry+=`
+// 						<li><input type="checkbox" class="citycheckbox"
+// 							value=`+missions[i].city.name+`> `+missions[i].city.name+`</li>`;
+// 			}
+			$("#totalCitiesOfCountry").html(citiesOfSelectedCountry);
+		}
+		
 		function loopForFetchingMissionDetails(missions) {
 			var htmlPageGrid = "";
 			var htmlPageList = "";
@@ -737,7 +783,6 @@
 							`+missions[i].mission_theme.title+`
 						</div>
 					</div>
-						
 						<h5 class="card-title">
 						`+missions[i].title+`
 						</h5>

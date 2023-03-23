@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dao.LandingpageDao;
 import com.dao.RegistrationDao;
+import com.entities.city;
+import com.entities.country;
 import com.entities.mission;
+import com.entities.mission_theme;
 import com.entities.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -68,7 +71,16 @@ public class HomeCtrl {
 			m.addAttribute("avatar" , userdetail.getAvatar());
 			
 			List<mission> missiondetail=this.landingpageDao.getallmission();
+//			List<country> countrydetails=this.landingpageDao.getcountrydetails();
+//			List<city> citydetails=this.landingpageDao.getcitydetails(userdetail.getCountry().getCountry_id());
+//			List<mission_theme> missionthemedetails=this.landingpageDao.getmissionthemedetails();
+			
 			m.addAttribute("missionlist" ,  missiondetail);
+//			m.addAttribute("countrylist" ,  countrydetails);
+//			m.addAttribute("citylist" ,  citydetails);
+//			m.addAttribute("missionthemelist" ,  missionthemedetails);
+			m.addAttribute("usercountry" ,  userdetail.getCountry().getName());
+			
 			homeGrid();
 			return "homeGrid";
 		} else {
@@ -118,24 +130,47 @@ public class HomeCtrl {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/searchMissions", method = RequestMethod.POST)
-	public @ResponseBody String searchMissions(@RequestParam("key") String key){
-		List<mission> result=this.landingpageDao.fetchmissions(key);
-		System.out.println(result.size());
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json=null;
-		try {
-			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	      }
-		return json;
-	}
-	
-	
-	@RequestMapping(value = "/searchMissionsByCity", method = RequestMethod.POST)
-	public @ResponseBody String searchMissionsByCity(@RequestParam("key") String key){
-		return "";
-	}
-	
+//	@RequestMapping(value = "/searchMissions", method = RequestMethod.POST)
+//	public @ResponseBody String searchMissions(@RequestParam("key") String key){
+//		List<mission> result=this.landingpageDao.fetchmissionsbysearching(key);
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String json=null;
+//		try {
+//			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+//	      } catch(Exception e) {
+//	         e.printStackTrace();
+//	      }
+//		return json;
+//	}
+//	
+//	@RequestMapping(value = "/searchMissionsByCountry", method = RequestMethod.POST)
+//	public @ResponseBody String searchMissionsByCountry(@RequestParam("key") String key){
+//		int countryid=this.landingpageDao.fetchCountryIdbyCountryName(key);
+//		List<mission> result=this.landingpageDao.fetchmissionsbycountry(countryid);
+//		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String json=null;
+//		try {
+//			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+//	      } catch(Exception e) {
+//	         e.printStackTrace();
+//	      }
+//		return json;
+//	}
+//	
+//	@RequestMapping(value = "/searchMissionsByCity", method = RequestMethod.POST)
+//	public @ResponseBody String searchMissionsByCity(@RequestParam("key") String key){
+//		int cityid=this.landingpageDao.fetchCountryIdbyCityName(key);
+//		List<mission> result=this.landingpageDao.fetchmissionsbycity(cityid);
+//		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String json=null;
+//		try {
+//			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+//	      } catch(Exception e) {
+//	         e.printStackTrace();
+//	      }
+//		return json;
+//	}
+//	
 }
