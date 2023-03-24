@@ -79,6 +79,12 @@
 				<value>
 					com.entities.password_reset
 				</value>
+				<value>
+					com.entities.skill
+				</value>
+				<value>
+					com.entities.mission_skill
+				</value>
 			</list>
 		</property>
 	</bean>

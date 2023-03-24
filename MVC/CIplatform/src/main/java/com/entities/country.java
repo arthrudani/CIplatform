@@ -50,7 +50,7 @@ public class country {
 		return created_at;
 	}
 	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+		this.created_at = new Date();
 	}
 	public Date getUpdated_at() {
 		return updated_at;

@@ -236,24 +236,14 @@
 					aria-expanded="false">
 					City <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu posStatic city"
-					aria-labelledby="dropdownMenuButton1" name="city" id="totalCitiesOfCountry  city">
-					<c:forEach var="city" items="${citylist}">
-						<li>
-							<input type="checkbox" class="citycheckbox" value="${city.name}"> 
-							<c:out value="${city.name}"></c:out>
-						</li>
-					</c:forEach>
+				<ul class="dropdown-menu posStatic citySelector"
+					aria-labelledby="dropdownMenuButton1" name="city">
+
 				</ul>
-				<br /> <select name="country" id="country" class="country">
-					<option value="${usercountry}" selected disabled hidden>
-						<c:out value="${usercountry}"></c:out>
-					</option>
-					<c:forEach var="country" items="${countrylist}">
-						<option>
-							<c:out value="${country.name}"></c:out>
-						</option>
-					</c:forEach>
+				<br /> <select name="country" id="country" class="countrySelect">
+					<input type="text" class="defaultCountry" hidden
+					value="${user.country.country_id}">
+					<option value="country" hidden>Country</option>
 				</select> <br />
 
 
@@ -262,11 +252,9 @@
 					aria-expanded="false">
 					Theme <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu posStatic"
+				<ul class="dropdown-menu posStatic themeSelector"
 					aria-labelledby="dropdownMenuButton1">
-					<li><input type="checkbox">Action1</li>
-					<li><input type="checkbox">Action2</li>
-					<li><input type="checkbox">Action3</li>
+
 				</ul>
 				<br />
 
@@ -276,11 +264,9 @@
 					aria-expanded="false">
 					Skills <img src="images/drop-down.png">
 				</button>
-				<ul class="dropdown-menu posStatic"
+				<ul class="dropdown-menu posStatic skillSelector"
 					aria-labelledby="dropdownMenuButton1">
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
-					<li><input type="checkbox">Action</li>
+					
 				</ul>
 
 			</div>
@@ -302,54 +288,7 @@
 					<button type="button" class="btn-close" aria-label="Close"></button>
 				</span>
 			</div>
-
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree plantation
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-
-
+			
 		</div>
 	</div>
 
@@ -378,13 +317,12 @@
 
 
 	<!-- explore all mission -->
-	<div class="container" id="totalmission">
-		Explore all
-		<c:out value="${fn:length(missionlist)}"></c:out>
-		missions
+	<div class="container" >
+		<p class="noOfMission">Explore <b id="noOfMission">${fn:length(missions)}</b> Mission</p>
 	</div>
 
-	<div class="container grid-container">
+<!-- 	total missions -->
+	<div class="container grid-container gridListView">
 
 		<div class="row" id="listgrid">
 			<c:forEach var="mission" items="${missionlist}">
@@ -650,111 +588,234 @@
 
 	<!-- 	search filter scripts -->
 	<script>
+		let searchWord="";
+		let missions="";
+		let country="";
+		let CheckedCountry="";
+		let cityList="";
+		let themeList=[];
+		let skills=[];
+		var CountryOfUser="";
+		var selectedCity = [];
+		var selectedTheme=[];
+		var selectedSkill=[];
+		let selecttedCityString="";
+		let ThemeList="";
+		let SkillList="";
+		let totalmission="";
+	 
 		$(document).ready(function() {
 			$("#gridlist").hide();
-			$("#loader").hide();
 			
-			var allfilters={
-					searchedKeyword="";
-					country_id="";
-					searchedcities=[];
-					searchedthemes=[];
-					searchedskills=[];
-			}
-			
-// 			ajax for search bar
-			$(".searchBoxPh").keyup(function() {
-				$("#loader").show();
-				allfilters.searched
-				var data1 = {
-					key : $(allfilters).val()
-				};
-				console.log(data1)
-// 				$.ajax({
-// 					url : "searchMissions",
-// 					type : "POST",
-// 					data : data1,
-// 					dataType : 'json',
-// 					success : function(response) {
-// 						$("#loader").hide();
-// 						missions = response;
-// 						loopForFetchingMissionDetails(missions);
-// 						totalMissionCounter(missions);
-// 					}
-// 				});
-			});
-			
-// 			ajax for country filter
-			$(".country").on('change', function()  {
-				var data1 = {
-						key : $(this).val()
-					};
-				$.ajax({
-					url : "searchMissionsByCountry",
-					type : "POST",
-					data : data1,
-					dataType : 'json',
-					success : function(response) {
-						missions = response;
-						cityOfSelectedCountry(data1);
-						loopForFetchingMissionDetails(missions);
-						totalMissionCounter(missions);
-					}
-				});
-			});
-			
-//			ajax for city filter
-			$(".citycheckbox").on('click', function()  {
-				var chkArray = [];
-				$(".citycheckbox:checked").each(function() {
-		            chkArray.push($(this).val());
-		        });
-				var data1 = {
-						key : $(".citycheckbox:checked").val()
-					};
-				console.log(data1);
-				$.ajax({
-					url : "searchMissionsByCity",
-					type : "POST",
-					data : data1,
-					dataType : 'json',
-					success : function(response) {
-						missions = response;
-						console.log(response);
-						loopForFetchingMissionDetails(missions);
-						totalMissionCounter(missions);
-					}
-				});
-			});
+			CountryOfUser=$(".defaultCountry").val;
+	       	 /* Initial Mission Loading Function */     		 
+	       	 $.ajax({
+	                url: "loadAllMission",
+	                dataType: 'json',
+	                success: function(response){
+	               	missions=response;
+	               	var a=Object.keys(missions).length;
+	               	editUpdatedMission(a);
+	               	if(a==0){
+	               		if($(".noMissionFound").length==0){
+	               			noMissionFound();
+	               		}
+	               	}
+	               	else{
+	               		$(".noMissionFound").remove();
+	               	}
+	               	loopForFetchingMissionDetails(missions);               	                 	 
+	                }
+	            });
+	       	 $.ajax({
+	                url: "loadListOfCountry",
+	                dataType: 'json',
+	                success: function(response){
+	               	 country=response;
+	               	 addCountryList(country);
+	                }
+	            });
+	       	 
+	       	 $.ajax({
+	                url: "loadListOfTheme",
+	                dataType: 'json',
+	                success: function(response){
+	               	 ThemeList=response;
+	               	addThemeList(ThemeList);
+	                }
+	            });
+	       	 
+	       	$.ajax({
+                url: "loadListOfSkill",
+                dataType: 'json',
+                success: function(response){
+               	 SkillList=response;
+               	addSkillList(SkillList);
+                }
+            });
+	       	 
+	       	 /* Search Mission Logic */
+	            $('.mySearchInput').keyup(function(){
+	           	 updateMissionsOnChange();
+	            });
+	       	 
+	            $('.countrySelect, .countrySelectSidebar').on('change', function () {
+	           	 CheckedCountry = $(this).find("option:selected").val();
+	                getCityList(CheckedCountry);
+	                updateMissionsOnChange();
+	           });
 		});
 		
-	
-		
-		function totalMissionCounter(missions){
-			var totalmissions = "";
-			var count = missions.length;
-			if(count>0){
-				totalmissions =`Explore all `+missions.length+` missions`;
-			}
-			else{
-				totalmissions =`<div class="d-flex justify-content-center"><h2><b>NO MISSION FOUND</b></h2></div>`;
-			}
-			
-			$("#totalmission").html(totalmissions);
-		}
+		 function cityCheckedClickEvent(){
+			 selectedCity=[];
+			 $('.citySelector input:checked , .citySelectorSidebar input:checked').each(function(){
+				 if($(this).attr('checked',true)){
+					 if (!selectedCity.includes($(this).attr('value'))) {
+		        		 	selectedCity.push($(this).attr('value'));
+		        		 }
+				 }
+             });
+			 $('.citySelector input:checked , .citySelectorSidebar input:checked').each(function(){
+					 if (!selectedCity.includes($(this).attr('value'))) {
+		        		 	selectedCity.push($(this).attr('value'));
+		        		 }
+             });
+			 updateMissionsOnChange();
+        	 
+		 }
+		 
+		 function themeCheckedClickEvent(){
+			 selectedTheme=[];
+			 $('.themeSelector input:checked , .themeSelectorSidebar input:checked').each(function(){
+        		 if (!selectedTheme.includes($(this).attr('value'))) {
+        			 selectedTheme.push($(this).attr('value'));
+        		 }
+             });
+			 updateMissionsOnChange();
+        	 
+		 }
+		 
+		 function skillCheckedClickEvent(){
+			 selectedSkill=[];
+			 $('.skillSelector input:checked , .skillSelectorSidebar input:checked').each(function(){
+        		 if (!selectedSkill.includes($(this).attr('value'))) {
+        			 selectedSkill.push($(this).attr('value'));
+        		 }
+             });
+			 updateMissionsOnChange();
+        	 
+		 }
+		 
+		 function addCityList(cityList){
+	     	$(".citySelector").empty();
+	     	$(".citySelectorSidebar").empty();
+	     	var data="";
+	     	let status=0;
+	     	for(var i in cityList){
+	     		status=1;
+	     		data+='<input type="checkbox" onChange="cityCheckedClickEvent()" value="'+cityList[i].city_id+'"/> '+cityList[i].name+'<br>';
+	     	}
+	     	if(status==0){
+	     		data+="No City Found";
+	     	}
+	     	$(".citySelector").append(data);
+	     	$(".citySelectorSidebar").append(data);
+	     }
+		 
+	     function addThemeList(ThemeList){
+	     	$(".themeSelector").empty();
+	     	$(".themeSelectorSidebar").empty();
+	     	var data="";
+	     	let status=0;
+	     	for(var i in ThemeList){
+	     		status=1;
+	     		data+='<input type="checkbox" onChange="themeCheckedClickEvent()" value="'+ThemeList[i].mission_theme_id+'"/> '+ThemeList[i].title+'<br>';
+	     	}
+	     	if(status==0){
+	     		data+="No Theme Found";
+	     	}
+	     	$(".themeSelector").append(data);
+	    	$(".themeSelectorSidebar").append(data);
+	    }
 
-		function cityOfSelectedCountry(countryname){
-			var citiesOfSelectedCountry="";
-			citiesOfSelectedCountry=`1234`;
-// 			for (let i = 0; i < missions.length; i++){
-// 				citiesOfSelectedCountry+=`
-// 						<li><input type="checkbox" class="citycheckbox"
-// 							value=`+missions[i].city.name+`> `+missions[i].city.name+`</li>`;
-// 			}
-			$("#totalCitiesOfCountry").html(citiesOfSelectedCountry);
-		}
+	     function addSkillList(SkillList){
+		     	$(".skillSelector").empty();
+		     	$(".skillSelectorSidebar").empty();
+		     	var data="";
+		     	let status=0;
+		     	for(var i in SkillList){
+		     		status=1;
+		     		data+='<input type="checkbox" onChange="skillCheckedClickEvent()" value="'+SkillList[i].skill_id+'"/> '+SkillList[i].skill_name+'<br>';
+		     	}
+		     	if(status==0){
+		     		data+="No Skill Found";
+		     	}
+		     	$(".skillSelector").append(data);
+		    	$(".skillSelectorSidebar").append(data);
+		    }
+		function  updateMissionsOnChange(){
+       	 let searchWord=$('.mySearchInput').val();
+       	 FilterObject={
+       			searchedKeyword :searchWord ,
+				country_id:CheckedCountry,
+   				searchedcities:selectedCity,
+   			 	searchedthemes:selectedTheme,
+   				searchedskills:selectedSkill
+   		 }
+			$.ajax({
+                url: "searchMission",
+                type: "POST",
+                data:	{'Filters': JSON.stringify(FilterObject)},
+                dataType: 'json',
+                success: function(response){
+               	missions=response;
+               	console.log(response);
+               	var a=Object.keys(missions).length;
+               	editUpdatedMission(a);
+               	loopForFetchingMissionDetails(missions);
+               	if(a==0){
+               		if($(".noMissionFound").length==0){
+               			noMissionFound();
+               		}
+               	}
+               	else{
+               		$(".noMissionFound").remove();
+               	}
+                }
+            });   
+        }
 		
-		function loopForFetchingMissionDetails(missions) {
+        function getCityList(CheckedCountry){
+        	//get City List
+        	$.ajax({
+                url: "loadListOfCity",
+        		dataType: 'json',
+                data:{countryId: CheckedCountry},
+                type:"POST",
+                success: function(response){
+                	cityList=response;
+                  	addCityList(cityList);
+                   	}
+               	});
+        	}
+        	
+        function editUpdatedMission(a){
+        	$("#noOfMission").html(a);
+        }
+        function noMissionFound(){
+     		$(".gridListView").append('<h1 class="noMissionFound">No Mission Found</h1>');
+     	}
+        
+        function addCountryList(country){
+        	var data="";
+        	for(var i in country){
+        		data+='<option value="'+country[i].country_id+'"> '+country[i].name+'</option>';
+        	}
+        	$(".countrySelect").append(data);
+        	$(".countrySelectSidebar").append(data);
+        }
+        
+        function loopForFetchingMissionDetails(missions) {
 			var htmlPageGrid = "";
 			var htmlPageList = "";
 			

@@ -1,15 +1,22 @@
 package com.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.entities.mission.Status;
 
 @Entity
 public class mission {
@@ -35,24 +42,41 @@ public class mission {
 	private String description;
 	private Date start_date;
 	private Date end_date;
-	private int mission_type;
-	private int status;
+	@Enumerated(EnumType.STRING)
+	private mission_type mission_type;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	private String	organization_name;
 	private String	organization_detail;
-	private int	availability;
+	@Enumerated(EnumType.STRING)
+	private availability	availability;
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
-	
+	public enum Status{
+		ACTIVE,
+		INACTIVE
+	}
+	public enum mission_type{
+		TIME,
+		GOAL
+	}
+	public enum availability{
+		WEEKLY,
+		MONTHLY,
+		DAILY
+	}
+	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<mission_skill> mission_skills;
 	public mission() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	public mission(int mission_id, com.entities.mission_theme mission_theme, com.entities.city city,
 			com.entities.country country, String title, String short_description, String description, Date start_date,
-			Date end_date, int mission_type, int status, String organization_name, String organization_detail,
-			int availability, Date created_at, Date updated_at, Date deleted_at) {
+			Date end_date, com.entities.mission.mission_type mission_type, Status status, String organization_name,
+			String organization_detail, com.entities.mission.availability availability, Date created_at,
+			Date updated_at, Date deleted_at, List<mission_skill> mission_skills) {
 		super();
 		this.mission_id = mission_id;
 		this.mission_theme = mission_theme;
@@ -71,8 +95,8 @@ public class mission {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.deleted_at = deleted_at;
+		this.mission_skills = mission_skills;
 	}
-	
 	public int getMission_id() {
 		return mission_id;
 	}
@@ -127,16 +151,16 @@ public class mission {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public int getMission_type() {
+	public mission_type getMission_type() {
 		return mission_type;
 	}
-	public void setMission_type(int mission_type) {
+	public void setMission_type(mission_type mission_type) {
 		this.mission_type = mission_type;
 	}
-	public int getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public String getOrganization_name() {
@@ -151,17 +175,17 @@ public class mission {
 	public void setOrganization_detail(String organization_detail) {
 		this.organization_detail = organization_detail;
 	}
-	public int getAvailability() {
+	public availability getAvailability() {
 		return availability;
 	}
-	public void setAvailability(int availability) {
+	public void setAvailability(availability availability) {
 		this.availability = availability;
 	}
 	public Date getCreated_at() {
 		return created_at;
 	}
 	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+		this.created_at = new Date();
 	}
 	public Date getUpdated_at() {
 		return updated_at;
@@ -175,7 +199,12 @@ public class mission {
 	public void setDeleted_at(Date deleted_at) {
 		this.deleted_at = deleted_at;
 	}
-
+	public List<mission_skill> getMission_skills() {
+		return mission_skills;
+	}
+	public void setMission_skills(List<mission_skill> mission_skills) {
+		this.mission_skills = mission_skills;
+	}
 	@Override
 	public String toString() {
 		return "mission [mission_id=" + mission_id + ", mission_theme=" + mission_theme + ", city=" + city
@@ -183,8 +212,9 @@ public class mission {
 				+ ", description=" + description + ", start_date=" + start_date + ", end_date=" + end_date
 				+ ", mission_type=" + mission_type + ", status=" + status + ", organization_name=" + organization_name
 				+ ", organization_detail=" + organization_detail + ", availability=" + availability + ", created_at="
-				+ created_at + ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + "]";
+				+ created_at + ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + ", mission_skills="
+				+ mission_skills + "]";
 	}
 	
-
+	
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,25 +36,31 @@ public class user {
 	private String password;
 	private String avatar;
 	private String why_i_volunteer;
-	private int employee_id;;
+	private String employee_id="";
 	private String department;
 	private String profile_text;
 	private String linked_in_url;
 	private String title;
 	
-	private int status;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
 
+	public enum Status{
+		ACTIVE,
+		INACTIVE
+	}
+	
 	public user() {
 		super();
 	}
 
 	public user(int user_id, com.entities.country country, com.entities.city city, String first_name, String last_name,
-			String email, String phone_number, String password, String avatar, String why_i_volunteer, int employee_id,
-			String department, String profile_text, String linked_in_url, String title, int status, Date created_at,
+			String email, String phone_number, String password, String avatar, String why_i_volunteer, String employee_id,
+			String department, String profile_text, String linked_in_url, String title, Status status, Date created_at,
 			Date updated_at, Date deleted_at) {
 		super();
 		this.user_id = user_id;
@@ -156,11 +164,11 @@ public class user {
 		this.why_i_volunteer = why_i_volunteer;
 	}
 
-	public int getEmployee_id() {
+	public String getEmployee_id() {
 		return employee_id;
 	}
 
-	public void setEmployee_id(int employee_id) {
+	public void setEmployee_id(String employee_id) {
 		this.employee_id = employee_id;
 	}
 
@@ -196,11 +204,11 @@ public class user {
 		this.title = title;
 	}
 
-	public int getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -209,7 +217,7 @@ public class user {
 	}
 
 	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+		this.created_at = new Date();
 	}
 
 	public Date getUpdated_at() {

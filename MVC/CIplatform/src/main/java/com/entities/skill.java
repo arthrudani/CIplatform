@@ -3,58 +3,65 @@ package com.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class mission_theme {
+public class skill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int mission_theme_id;
-	private String title;
-	private String status;
+	private int skill_id;
+	private String skill_name;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
 	
-	public mission_theme() {
+	public enum Status{
+		ACTIVE,
+		INACTIVE
+	}
+
+	public skill() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public mission_theme(int mission_theme_id, String title, String status, Date created_at, Date updated_at,
-			Date deleted_at) {
+	public skill(int skill_id, String skill_name, Status status, Date created_at, Date updated_at, Date deleted_at) {
 		super();
-		this.mission_theme_id = mission_theme_id;
-		this.title = title;
+		this.skill_id = skill_id;
+		this.skill_name = skill_name;
 		this.status = status;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.deleted_at = deleted_at;
 	}
 
-	public int getMission_theme_id() {
-		return mission_theme_id;
+	public int getSkill_id() {
+		return skill_id;
 	}
 
-	public void setMission_theme_id(int mission_theme_id) {
-		this.mission_theme_id = mission_theme_id;
+	public void setSkill_id(int skill_id) {
+		this.skill_id = skill_id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getSkill_name() {
+		return skill_name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSkill_name(String skill_name) {
+		this.skill_name = skill_name;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -84,9 +91,8 @@ public class mission_theme {
 
 	@Override
 	public String toString() {
-		return "mission_theme [mission_theme_id=" + mission_theme_id + ", title=" + title + ", status=" + status
-				+ ", created_at=" + created_at + ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + "]";
+		return "skill [skill_id=" + skill_id + ", skill_name=" + skill_name + ", status=" + status + ", created_at="
+				+ created_at + ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + "]";
 	}
-	
 	
 }
