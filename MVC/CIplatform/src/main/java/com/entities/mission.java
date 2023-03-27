@@ -205,16 +205,7 @@ public class mission {
 	public void setMission_skills(List<mission_skill> mission_skills) {
 		this.mission_skills = mission_skills;
 	}
-	@Override
-	public String toString() {
-		return "mission [mission_id=" + mission_id + ", mission_theme=" + mission_theme + ", city=" + city
-				+ ", country=" + country + ", title=" + title + ", short_description=" + short_description
-				+ ", description=" + description + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", mission_type=" + mission_type + ", status=" + status + ", organization_name=" + organization_name
-				+ ", organization_detail=" + organization_detail + ", availability=" + availability + ", created_at="
-				+ created_at + ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + ", mission_skills="
-				+ mission_skills + "]";
-	}
+
 	
 	
 }

@@ -266,7 +266,7 @@
 				</button>
 				<ul class="dropdown-menu posStatic skillSelector"
 					aria-labelledby="dropdownMenuButton1">
-					
+
 				</ul>
 
 			</div>
@@ -275,37 +275,33 @@
 
 	<!-- selected filters -->
 	<div class="container filters w-100">
-		<div class="row d-flex justify-content-center ">
+		<div class="row d-flex justify-content-center chips">
 
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree plantation
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
+			<!-- 			<div class="col filter justify-content-between"> -->
+			<!-- 				<span>&nbsp; tree plantation -->
+			<!-- 					<button type="button" class="btn-close" aria-label="Close"></button> -->
+			<!-- 				</span> -->
+			<!-- 			</div> -->
 
-			<div class="col filter justify-content-between">
-				<span>&nbsp; tree plantation
-					<button type="button" class="btn-close" aria-label="Close"></button>
-				</span>
-			</div>
-			
 		</div>
 	</div>
 
 	<!-- missions sort and grid list button-->
 	<div class="container mb-3 mt-3 d-flex justify-content-end">
 
-		<div class="dropdown sortbybutton">
-			<button class="btn dropdown-toggle " type="button"
-				data-toggle="dropdown">
-				Sort By &nbsp; &nbsp; &nbsp; &nbsp;<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				<li><a href="#">HTML</a></li>
-				<li><a href="#">CSS</a></li>
-				<li><a href="#">JavaScript</a></li>
-			</ul>
-		</div>
+		<div style="padding-right: 25px">
+
+			<select name="sortby" id="sortby"
+				class="sortby btn dropdown-toggle sortbybutton dropdown">
+				<option hidden>Sort by</option>
+				<option value="Newest">Newest</option>
+				<option value="Oldest">Oldest</option>
+				<option value="LowestAvailable">Lowest available seats</option>
+				<option value="HighestAvailable">Highest available seats</option>
+				<option value="Favourites">My favourites</option>
+				<option value="RegistrationDeadline">Registration deadline</option>
+			</select> <br />
+			</div>
 
 		<button class="gridimg" onclick="gridlist()">
 			<img src="images/grid.png" alt="">
@@ -317,11 +313,13 @@
 
 
 	<!-- explore all mission -->
-	<div class="container" >
-		<p class="noOfMission">Explore <b id="noOfMission">${fn:length(missions)}</b> Mission</p>
+	<div class="container">
+		<p class="noOfMission">
+			Explore <b id="noOfMission">${fn:length(missions)}</b> Mission
+		</p>
 	</div>
 
-<!-- 	total missions -->
+	<!-- 	total missions -->
 	<div class="container grid-container gridListView">
 
 		<div class="row" id="listgrid">
@@ -554,6 +552,25 @@
 
 	</div>
 
+	<!-- 	pagination -->
+	<div class="d-flex justify-content-center">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
+						class="sr-only">Previous</span>
+				</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+						class="sr-only">Next</span>
+				</a></li>
+			</ul>
+		</nav>
+	</div>
+
 
 	<!-- footer -->
 	<div class="container">
@@ -592,17 +609,20 @@
 		let missions="";
 		let country="";
 		let CheckedCountry="";
+		let CheckedSortby="";
 		let cityList="";
 		let themeList=[];
 		let skills=[];
 		var CountryOfUser="";
-		var selectedCity = [];
+		var selectedCity =[];
 		var selectedTheme=[];
 		var selectedSkill=[];
 		let selecttedCityString="";
 		let ThemeList="";
 		let SkillList="";
 		let totalmission="";
+		let currentPage=0;
+		pagination="";
 	 
 		$(document).ready(function() {
 			$("#gridlist").hide();
@@ -624,6 +644,7 @@
 	               	else{
 	               		$(".noMissionFound").remove();
 	               	}
+	               	editpagination(a);
 	               	loopForFetchingMissionDetails(missions);               	                 	 
 	                }
 	            });
@@ -664,6 +685,12 @@
 	                getCityList(CheckedCountry);
 	                updateMissionsOnChange();
 	           });
+	            
+	           $('.sortby, .sortbySidebar').on('change', function () {
+		         CheckedSortby = $(this).find("option:selected").val();
+		         	console.log(CheckedSortby);
+		         	updateMissionsOnChange();
+		       });
 		});
 		
 		 function cityCheckedClickEvent(){
@@ -738,30 +765,35 @@
 	    	$(".themeSelectorSidebar").append(data);
 	    }
 
-	     function addSkillList(SkillList){
-		     	$(".skillSelector").empty();
-		     	$(".skillSelectorSidebar").empty();
-		     	var data="";
-		     	let status=0;
-		     	for(var i in SkillList){
-		     		status=1;
-		     		data+='<input type="checkbox" onChange="skillCheckedClickEvent()" value="'+SkillList[i].skill_id+'"/> '+SkillList[i].skill_name+'<br>';
-		     	}
-		     	if(status==0){
-		     		data+="No Skill Found";
-		     	}
-		     	$(".skillSelector").append(data);
-		    	$(".skillSelectorSidebar").append(data);
+		function addSkillList(SkillList){
+		    $(".skillSelector").empty();
+		   	$(".skillSelectorSidebar").empty();
+		   	var data="";
+	     	let status=0;
+			for(var i in SkillList){
+		    	status=1;
+		    	data+='<input type="checkbox" onChange="skillCheckedClickEvent()" value="'+SkillList[i].skill_id+'"/> '+SkillList[i].skill_name+'<br>';
+		    }
+		    if(status==0){
+		    	data+="No Skill Found";
+		    }
+		    $(".skillSelector").append(data);
+		    $(".skillSelectorSidebar").append(data);
 		    }
 		function  updateMissionsOnChange(){
-       	 let searchWord=$('.mySearchInput').val();
-       	 FilterObject={
+       	let searchWord=$('.mySearchInput').val();
+       	var selectedchips=""
+       	
+       	FilterObject={
        			searchedKeyword :searchWord ,
 				country_id:CheckedCountry,
    				searchedcities:selectedCity,
    			 	searchedthemes:selectedTheme,
-   				searchedskills:selectedSkill
+   				searchedskills:selectedSkill,
+   				sortby:CheckedSortby,
+   				currentPage:currentPage
    		 }
+       	
 			$.ajax({
                 url: "searchMission",
                 type: "POST",
@@ -771,6 +803,42 @@
                	missions=response;
                	console.log(response);
                	var a=Object.keys(missions).length;
+//                	if(FilterObject.country_id!="")
+//                	{
+//                		selectedchips+=`<div class="col filter justify-content-between">
+//         				<span>`+FilterObject.country.name+`
+//         					<button type="button" class="btn-close" aria-label="Close"></button>
+//         				</span>
+//         			</div>`
+//                	}
+//                	for (let i = 0; i <Object.keys(FilterObject.searchedcities).length; i++)
+//                	{
+//         	       	selectedchips+=`<div class="col filter justify-content-between">
+//         				<span>`+response[i].city.name+`
+//         					<button type="button" class="btn-close" aria-label="Close"></button>
+//         				</span>
+//         			</div>`
+//         		}
+//                	for (let i = 0; i <Object.keys(FilterObject.searchedthemes).length; i++)
+//                	{
+//         	       	selectedchips+=`<div class="col filter justify-content-between">
+//         				<span>`+response[i].mission_theme.title+`
+//         					<button type="button" class="btn-close" aria-label="Close"></button>
+//         				</span>
+//         			</div>`
+//         		}
+//                	for (let i = 0; i <Object.keys(FilterObject.searchedskills).length; i++)
+//                	{
+//         	       	selectedchips+=`<div class="col filter justify-content-between">
+//         				<span>`+response[i].mission_skill.skill_id+`
+//         					<button type="button" class="btn-close" aria-label="Close"></button>
+//         				</span>
+//         			</div>`
+//         		}
+               	
+//         		console.log(selectedchips);
+//         		$(".chips").html(selectedchips);
+				editpagination(a);
                	editUpdatedMission(a);
                	loopForFetchingMissionDetails(missions);
                	if(a==0){
@@ -782,10 +850,10 @@
                		$(".noMissionFound").remove();
                	}
                 }
-            });   
+            });  
+			
         }
-		
-        function getCityList(CheckedCountry){
+		function getCityList(CheckedCountry){
         	//get City List
         	$.ajax({
                 url: "loadListOfCity",
@@ -798,9 +866,17 @@
                    	}
                	});
         	}
-        	
         function editUpdatedMission(a){
         	$("#noOfMission").html(a);
+        }
+        function editpagination(a){
+        	pagination="";
+        	for(i=0;i<a/3;i++)
+        	console.log(i);
+        	pagination+=`<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>
+						<li class="page-item"><a class="page-link" href="#">`+i+`</a></li>
+						<li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
+        	$(".pagination").html(pagination);
         }
         function noMissionFound(){
      		$(".gridListView").append('<h1 class="noMissionFound">No Mission Found</h1>');

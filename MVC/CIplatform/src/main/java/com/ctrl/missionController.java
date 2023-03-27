@@ -43,6 +43,7 @@ public class missionController {
 	public @ResponseBody String loadAllMissionOnSearch(@RequestParam("Filters") String filters) {
 		String Output = "";
 		ObjectMapper obj = new ObjectMapper();
+		System.out.println("With pagination:"+ filters);
 		try {
 			Filters filter = obj.readValue(filters, Filters.class);
 			try {
@@ -55,7 +56,6 @@ public class missionController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		System.out.println("output:" + Output);
 		return Output;
 	}
 

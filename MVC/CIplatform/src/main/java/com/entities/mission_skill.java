@@ -18,9 +18,11 @@ public class mission_skill {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mission_skill_id;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "skill_id")
 	private skill skill;
+	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "mission_id")
@@ -79,11 +81,7 @@ public class mission_skill {
 	public void setDeleted_at(Date deleted_at) {
 		this.deleted_at = deleted_at;
 	}
-	@Override
-	public String toString() {
-		return "mission_skill [mission_skill_id=" + mission_skill_id + ", skill=" + skill + ", mission=" + mission
-				+ ", created_at=" + created_at + ", updated_at=" + updated_at + ", deleted_at=" + deleted_at + "]";
-	}
+
 	
 	
 	

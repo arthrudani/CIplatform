@@ -5,6 +5,9 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -27,7 +30,7 @@ public class MissionLoader implements MissionLoaderInterface {
 		
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
 		Criteria c = s.createCriteria(mission.class);
-		Criteria cr = s.createCriteria(mission_skill.class);
+		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
 	    if(filters.getSearchedKeyword()!="") {
 	    	c.add(Restrictions.like("title", "%" +filters.getSearchedKeyword()+ "%"));
 	    }
@@ -42,13 +45,15 @@ public class MissionLoader implements MissionLoaderInterface {
 	    	c.add(Restrictions.in("mission_theme.mission_theme_id",filters.getSearchedthemes()));
 	    }
 	    if(filters.getSearchedskills().size()>0) {
-	    	System.out.println("In control of missions by skill");
-//	    	cr.add(Restrictions.in("skill.mission_id",filters.getSearchedskills()));
-	    	cr.add(Restrictions.in("mission.mission_id",filters.getSearchedskills()));
-	    	System.out.println("missions got by skill:"+cr.list());
+	    	c.createAlias("mission_skills", "ms");
+		    c.add(Restrictions.in("ms.skill.skill_id",filters.getSearchedskills()));
 	    }
-	   
-		 
+	    if(filters.getSortby().equals("Newest")) {
+	    	c.addOrder(Order.asc("created_at"));
+	    }
+	    if(filters.getSortby().equals("Oldest")) {
+    		c.addOrder(Order.desc("created_at"));
+    }
 		return c.list();
 
 		
@@ -81,6 +86,7 @@ public class MissionLoader implements MissionLoaderInterface {
 	public List<skill> loadAllSkillOnSearch() {
 		return this.hibernateTemplate.loadAll(skill.class);
 	}
+
 
 
 }

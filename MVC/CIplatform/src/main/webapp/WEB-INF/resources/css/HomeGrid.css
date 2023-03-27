@@ -25,7 +25,9 @@
 .dropdown-toggle::after {
 	display: none;
 }
-
+.countrySelect{
+	border:0 !important;
+}
 .searchimg img {
 	height: 22px;
 	width: 22px;
