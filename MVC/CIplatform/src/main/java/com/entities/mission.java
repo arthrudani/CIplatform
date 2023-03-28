@@ -66,8 +66,11 @@ public class mission {
 		MONTHLY,
 		DAILY
 	}
+	
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<mission_skill> mission_skills;
+
+	
 	public mission() {
 		super();
 		// TODO Auto-generated constructor stub

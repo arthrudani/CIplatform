@@ -85,6 +85,9 @@
 				<value>
 					com.entities.mission_skill
 				</value>
+				<value>
+					com.entities.favourite_mission
+				</value>
 			</list>
 		</property>
 	</bean>

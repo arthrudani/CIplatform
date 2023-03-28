@@ -1,17 +1,20 @@
 package com.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class user {
@@ -49,6 +52,9 @@ public class user {
 	private Date updated_at;
 	private Date deleted_at;
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<favourite_mission> favourite_missions;
+	
 	public enum Status{
 		ACTIVE,
 		INACTIVE
@@ -57,7 +63,7 @@ public class user {
 	public user() {
 		super();
 	}
-
+	
 	public user(int user_id, com.entities.country country, com.entities.city city, String first_name, String last_name,
 			String email, String phone_number, String password, String avatar, String why_i_volunteer, String employee_id,
 			String department, String profile_text, String linked_in_url, String title, Status status, Date created_at,

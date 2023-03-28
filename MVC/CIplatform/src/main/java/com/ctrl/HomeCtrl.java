@@ -67,6 +67,7 @@ public class HomeCtrl {
 			
 			user userdetail = this.landingpageDao.getuserdetails(email);
 			m.addAttribute("first_name" , userdetail.getFirst_name());
+			m.addAttribute("user_id" , userdetail.getUser_id());
 			m.addAttribute("last_name" , userdetail.getLast_name());
 			m.addAttribute("avatar" , userdetail.getAvatar());
 			

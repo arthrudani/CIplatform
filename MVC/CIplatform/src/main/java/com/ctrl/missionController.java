@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dto.AddToFavourite;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
@@ -43,12 +44,11 @@ public class missionController {
 	public @ResponseBody String loadAllMissionOnSearch(@RequestParam("Filters") String filters) {
 		String Output = "";
 		ObjectMapper obj = new ObjectMapper();
-		System.out.println("With pagination:"+ filters);
+		System.out.println("Current page:"+filters);
 		try {
 			Filters filter = obj.readValue(filters, Filters.class);
 			try {
-				List<mission> mylist = this.service.loadAllMissionOnSearch(filter);
-				Output = obj.writeValueAsString(mylist);
+				Output = obj.writeValueAsString(this.service.loadAllMissionOnSearch(filter));
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -115,6 +115,26 @@ public class missionController {
 			e.printStackTrace();
 		}
 		return Output;
+	}
+	
+	@RequestMapping(value = "/likemission")
+	public @ResponseBody String likemission(@RequestParam("FVO") String addToFavourite) {
+		String Output = "";
+		ObjectMapper obj = new ObjectMapper();
+		try {
+			AddToFavourite ATF = obj.readValue(addToFavourite, AddToFavourite.class);
+			Output = this.service.addtofav(ATF);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("output:"+Output);
+		return Output;
+	}
+	
+	@RequestMapping(value = "/recommend")
+	public @ResponseBody String recommend(@RequestParam("missionId") int missionId) {
+		System.out.println("recommend missionId:"+missionId);
+		return "true";
 	}
 
 }

@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
+    
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -642,13 +651,13 @@
     $(function () {
         $("#slider").slick({
             autoplay: true,
-            speed: 1000,
+            speed: 100,
             arrows: false,
             asNavFor: "#thumbnail_slider"
         });
         $("#thumbnail_slider").slick({
             slidesToShow: 4,
-            speed: 1000,
+            speed: 100,
             arrows: true,
             focusOnSelect:true,
             asNavFor: "#slider"

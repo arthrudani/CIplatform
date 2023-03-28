@@ -2,9 +2,12 @@ package com.dao;
 
 
 import java.util.List;
+
+import com.dto.AddToFavourite;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
+import com.entities.favourite_mission;
 import com.entities.mission;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
@@ -17,4 +20,6 @@ public interface MissionLoaderInterface {
 	public List<mission_theme> loadAllThemes();
 	public List<mission> loadAllMission();
 	public List<skill> loadAllSkillOnSearch();
+	public Long countAllMission(Filters filters);
+	public void save(favourite_mission fv);
 }

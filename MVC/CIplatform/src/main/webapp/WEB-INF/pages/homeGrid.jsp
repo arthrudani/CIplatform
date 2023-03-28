@@ -45,54 +45,42 @@
 		</button>
 
 		<div class="dropdown button1">
-			<button class="btn btn-secondary dropdown-toggle" type="button"
-				id="dropdownMenuButton1" data-bs-toggle="dropdown"
+			<button class="btn btn-secondary dropdown-toggle dropdownCity"
+				type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">
 				City <img src="images/drop-down.png">
 			</button>
-			<ul class="dropdown-menu posStatic"
-				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">Ahmedabad</li>
-				<li><input type="checkbox">Surat</li>
-				<li><input type="checkbox">Mumbai</li>
-				<li><input type="checkbox">New york</li>
-				<li><input type="checkbox">London</li>
+			<ul class="dropdown-menu posStatic citySelectorSidebar"
+				aria-labelledby="dropdownMenuButton1" name="city">
+
 			</ul>
-			<br />
-			<button class="btn btn-secondary dropdown-toggle" type="button"
-				id="dropdownMenuButton1" data-bs-toggle="dropdown"
-				aria-expanded="false">
-				Country <img src="images/drop-down.png">
-			</button>
-			<ul class="dropdown-menu posStatic"
-				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">USA</li>
-				<li><input type="checkbox">India</li>
-				<li><input type="checkbox">UK</li>
-			</ul>
-			<br />
+
+			<br /> <br /> <select name="country" id="country"
+				class="countrySelectSidebar">
+				<input type="text" class="defaultCountry" hidden
+				value="${user.country.country_id}">
+				<option value="country" hidden>Country</option>
+			</select> <br />
+
 			<button class="btn btn-secondary dropdown-toggle" type="button"
 				id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">
 				Theme <img src="images/drop-down.png">
 			</button>
-			<ul class="dropdown-menu posStatic"
+			<ul class="dropdown-menu posStatic themeSelectorSidebar"
 				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">Action1</li>
-				<li><input type="checkbox">Action2</li>
-				<li><input type="checkbox">Action3</li>
+
 			</ul>
 			<br />
+
 			<button class="btn btn-secondary dropdown-toggle" type="button"
 				id="dropdownMenuButton1" data-bs-toggle="dropdown"
 				aria-expanded="false">
 				Skills <img src="images/drop-down.png">
 			</button>
-			<ul class="dropdown-menu posStatic"
+			<ul class="dropdown-menu posStatic skillSelectorSidebar"
 				aria-labelledby="dropdownMenuButton1">
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
-				<li><input type="checkbox">Action</li>
+
 			</ul>
 		</div>
 
@@ -188,6 +176,7 @@
 								<span class="blocking uNameuImage" class="uNameuImage"><c:out
 										value="${first_name} ${last_name}"></c:out></span>
 							</div>
+							<input type="text" class="usernameforlike" id="fname" name="fname" value="${user_id}" hidden>
 							<div>
 								<img src="images/drop-down.png" class="uNameuImage">
 							</div>
@@ -301,7 +290,7 @@
 				<option value="Favourites">My favourites</option>
 				<option value="RegistrationDeadline">Registration deadline</option>
 			</select> <br />
-			</div>
+		</div>
 
 		<button class="gridimg" onclick="gridlist()">
 			<img src="images/grid.png" alt="">
@@ -557,8 +546,8 @@
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-						class="sr-only">Previous</span>
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
 				</a></li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
 				<li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -622,11 +611,11 @@
 		let SkillList="";
 		let totalmission="";
 		let currentPage=0;
-		pagination="";
+		let pagination="";
 	 
 		$(document).ready(function() {
 			$("#gridlist").hide();
-			
+			updateMissionsOnChange();
 			CountryOfUser=$(".defaultCountry").val;
 	       	 /* Initial Mission Loading Function */     		 
 	       	 $.ajax({
@@ -644,6 +633,7 @@
 	               	else{
 	               		$(".noMissionFound").remove();
 	               	}
+	               	
 	               	editpagination(a);
 	               	loopForFetchingMissionDetails(missions);               	                 	 
 	                }
@@ -677,18 +667,20 @@
 	       	 
 	       	 /* Search Mission Logic */
 	            $('.mySearchInput').keyup(function(){
+	            	currentPage=0;
 	           	 updateMissionsOnChange();
 	            });
 	       	 
 	            $('.countrySelect, .countrySelectSidebar').on('change', function () {
 	           	 CheckedCountry = $(this).find("option:selected").val();
 	                getCityList(CheckedCountry);
+	            	currentPage=0;
 	                updateMissionsOnChange();
 	           });
 	            
 	           $('.sortby, .sortbySidebar').on('change', function () {
 		         CheckedSortby = $(this).find("option:selected").val();
-		         	console.log(CheckedSortby);
+		        	currentPage=0;
 		         	updateMissionsOnChange();
 		       });
 		});
@@ -698,6 +690,7 @@
 			 $('.citySelector input:checked , .citySelectorSidebar input:checked').each(function(){
 				 if($(this).attr('checked',true)){
 					 if (!selectedCity.includes($(this).attr('value'))) {
+				        	
 		        		 	selectedCity.push($(this).attr('value'));
 		        		 }
 				 }
@@ -707,6 +700,7 @@
 		        		 	selectedCity.push($(this).attr('value'));
 		        		 }
              });
+			 currentPage=0;
 			 updateMissionsOnChange();
         	 
 		 }
@@ -718,6 +712,7 @@
         			 selectedTheme.push($(this).attr('value'));
         		 }
              });
+			 currentPage=0;
 			 updateMissionsOnChange();
         	 
 		 }
@@ -729,6 +724,7 @@
         			 selectedSkill.push($(this).attr('value'));
         		 }
              });
+			 currentPage=0;
 			 updateMissionsOnChange();
         	 
 		 }
@@ -800,9 +796,13 @@
                 data:	{'Filters': JSON.stringify(FilterObject)},
                 dataType: 'json',
                 success: function(response){
-               	missions=response;
-               	console.log(response);
-               	var a=Object.keys(missions).length;
+               	const income=JSON.parse(response);
+               	let totalMission=0;
+               	for(var a in income){
+               		totalMission=a;
+               		missions=income[a];
+               	}               
+               	
 //                	if(FilterObject.country_id!="")
 //                	{
 //                		selectedchips+=`<div class="col filter justify-content-between">
@@ -869,15 +869,29 @@
         function editUpdatedMission(a){
         	$("#noOfMission").html(a);
         }
-        function editpagination(a){
+        function editpagination(totalMissions){
         	pagination="";
-        	for(i=0;i<a/3;i++)
-        	console.log(i);
-        	pagination+=`<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>
-						<li class="page-item"><a class="page-link" href="#">`+i+`</a></li>
-						<li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
+        	let perPageMission=3;
+        	let totalPages=totalMissions/perPageMission;
+        	if(totalMissions>perPageMission){
+        		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage-1)+`,`+totalMissions+`)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>`;
+        		for(i=1;i<totalPages+1;i++){
+	        		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)">`+i+`</a></li>`;		
+        		}
+				pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage+1)+`,`+totalMissions+`)" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
+        	}
         	$(".pagination").html(pagination);
         }
+        function setcurrentpage(CP,totalMissions){
+        	currentPage=CP;
+        	if(currentPage<totalMissions/3){
+        		updateMissionsOnChange(); 
+        	}
+        	else{
+        		alert("Reached at the end of missions");
+        	}
+        }
+        
         function noMissionFound(){
      		$(".gridListView").append('<h1 class="noMissionFound">No Mission Found</h1>');
      	}
@@ -891,10 +905,43 @@
         	$(".countrySelectSidebar").append(data);
         }
         
+        function likeMission(missionID){
+        	let userid=$('.usernameforlike').val();
+        	ATFObject={
+        			user_id:userid,
+        			mission_id:missionID
+        	}
+        	console.log(userid);
+        	console.log(missionID);
+        	$.ajax({
+                url: "likemission",
+        		dataType: 'json',
+                data:{'FVO': JSON.stringify(ATFObject)},
+                type:"POST",
+                success: function(response){
+                	console.log(response);
+                   	}
+               	});
+        	}
+        function recommend(missionID){
+        	let user_id=$('.usernameforlike').val();
+        	console.log(user_id);
+        	console.log(missionID);
+        	$.ajax({
+                url: "recommend",
+        		dataType: 'json',
+                data:{missionId: missionID},
+                type:"POST",
+                success: function(response){
+                	console.log("done");
+                   	}
+               	});
+        	}
+        
         function loopForFetchingMissionDetails(missions) {
 			var htmlPageGrid = "";
 			var htmlPageList = "";
-			
+			console.log(missions);
 			for (let i = 0; i < missions.length; i++) {
 				
 				htmlPageGrid+=
@@ -908,10 +955,10 @@
 						`+missions[i].city.name+`
 						</p>
 					</div>
-					<div class="posAbsolute likeBox">
-						<img src="images/heart.png" alt="">
+					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`)" style="border:0; background:none;">
+						<img src="images/heart.png" alt=""></button>
 					</div>
-					<div class="posAbsolute addBox">
+					<div class="posAbsolute addBox"><button onclick="recommend(`+missions[i].mission_id+`)" style="border:0; background:none;">
 						<i class="bi bi-person-plus"></i>
 					</div>
 					<div class="card-body">
