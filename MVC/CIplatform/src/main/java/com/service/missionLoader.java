@@ -3,7 +3,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dto.AddToFavourite;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
@@ -11,6 +10,7 @@ import com.entities.mission;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
+import com.entities.user;
 
 
 @Service
@@ -21,5 +21,11 @@ public interface missionLoader {
 	public List<mission_theme> loadAllThemes();
 	public List<mission> loadAllMission();
 	public List<skill> loadAllSkill();
-	public String addtofav(AddToFavourite addToFavourite);
+	public mission getMissionById(int missionId);
+	public user getUserById(int userId);
+	public String addToFavourite(int mID, int uID);
+	public city getCityForRelated(String CMCT);
+	public country getCountryForRelated(String CMCR);
+	public mission_theme getThemeForRelated(String CMT);
+	public String loadRelatedMissions(String cMCT, String cMCR, String cMT);
 }

@@ -905,18 +905,12 @@
         	$(".countrySelectSidebar").append(data);
         }
         
-        function likeMission(missionID){
-        	let userid=$('.usernameforlike').val();
-        	ATFObject={
-        			user_id:userid,
-        			mission_id:missionID
-        	}
-        	console.log(userid);
-        	console.log(missionID);
+        function likeMission(missionID,userID){
         	$.ajax({
                 url: "likemission",
         		dataType: 'json',
-                data:{'FVO': JSON.stringify(ATFObject)},
+                data:{'mid':missionID,
+                	'uid':userID},
                 type:"POST",
                 success: function(response){
                 	console.log(response);
@@ -925,8 +919,6 @@
         	}
         function recommend(missionID){
         	let user_id=$('.usernameforlike').val();
-        	console.log(user_id);
-        	console.log(missionID);
         	$.ajax({
                 url: "recommend",
         		dataType: 'json',
@@ -941,9 +933,13 @@
         function loopForFetchingMissionDetails(missions) {
 			var htmlPageGrid = "";
 			var htmlPageList = "";
-			console.log(missions);
+			
 			for (let i = 0; i < missions.length; i++) {
-				
+// 				console.log(missions[i]);
+// 				console.log("Length of skill of mission "+(i+1)+":"+missions[i].mission_skills.length);
+// 				for (let j = 0; j < missions[i].mission_skills.length; j++) {
+// 					console.log("Skill of mission "+(i+1)+":"+missions[i].mission_skills[j].mission_skill_id);
+// 				}
 				htmlPageGrid+=
 				`<div class="col-12 col-md-6 col-lg-4">
 				<div class="card ">
@@ -955,7 +951,7 @@
 						`+missions[i].city.name+`
 						</p>
 					</div>
-					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`)" style="border:0; background:none;">
+					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
 						<img src="images/heart.png" alt=""></button>
 					</div>
 					<div class="posAbsolute addBox"><button onclick="recommend(`+missions[i].mission_id+`)" style="border:0; background:none;">
@@ -1031,12 +1027,16 @@
 						</div>
 						<hr class="cardfooterline">
 						<div class="d-flex justify-content-center">
-							<button class="d-flex apply ">
-								<div>Apply</div>
-								<div>
-									<img src="images/right-arrow.png" alt="">
-								</div>
-							</button>
+							<form action="VolunteeringMission" method="get" name="VolunteeringMission">
+								<button class="d-flex apply " type="submit" style="min-width:120px";>
+									<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
+									<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
+									<div>Apply</div>
+									<div>
+										<img src="images/right-arrow.png" alt="">
+									</div>
+								</button>
+							</form>
 						</div>
 					</div>
 				</div>

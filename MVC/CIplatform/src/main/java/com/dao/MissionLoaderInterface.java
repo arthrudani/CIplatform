@@ -3,7 +3,6 @@ package com.dao;
 
 import java.util.List;
 
-import com.dto.AddToFavourite;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
@@ -22,4 +21,6 @@ public interface MissionLoaderInterface {
 	public List<skill> loadAllSkillOnSearch();
 	public Long countAllMission(Filters filters);
 	public void save(favourite_mission fv);
+	public void delete(favourite_mission favourite_mission1);
+	public List<mission> loadrelatedmission(String cMCT, String cMCR, String cMT);
 }

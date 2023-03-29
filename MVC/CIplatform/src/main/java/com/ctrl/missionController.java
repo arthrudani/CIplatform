@@ -2,20 +2,25 @@ package com.ctrl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dto.AddToFavourite;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
 import com.entities.mission;
 import com.entities.mission_theme;
 import com.entities.skill;
+import com.entities.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.missionLoader;
@@ -44,7 +49,6 @@ public class missionController {
 	public @ResponseBody String loadAllMissionOnSearch(@RequestParam("Filters") String filters) {
 		String Output = "";
 		ObjectMapper obj = new ObjectMapper();
-		System.out.println("Current page:"+filters);
 		try {
 			Filters filter = obj.readValue(filters, Filters.class);
 			try {
@@ -118,23 +122,25 @@ public class missionController {
 	}
 	
 	@RequestMapping(value = "/likemission")
-	public @ResponseBody String likemission(@RequestParam("FVO") String addToFavourite) {
-		String Output = "";
-		ObjectMapper obj = new ObjectMapper();
-		try {
-			AddToFavourite ATF = obj.readValue(addToFavourite, AddToFavourite.class);
-			Output = this.service.addtofav(ATF);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		System.out.println("output:"+Output);
-		return Output;
+	public @ResponseBody String likemission(@RequestParam("mid") int mID,@RequestParam("uid") int uID) {
+		String result="";
+		result=this.service.addToFavourite(mID,uID);
+		return result;
 	}
 	
 	@RequestMapping(value = "/recommend")
 	public @ResponseBody String recommend(@RequestParam("missionId") int missionId) {
 		System.out.println("recommend missionId:"+missionId);
 		return "true";
+	}
+	
+	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.GET)
+	public String myFormHandler(@RequestParam("mid") int missionId,@RequestParam("uid") int userId,Model m) {
+		mission mission=this.service.getMissionById(missionId);
+		user user=this.service.getUserById(userId);
+		m.addAttribute("mission",mission);
+		m.addAttribute("user",user);
+		return "VolunteeringMission";
 	}
 
 }

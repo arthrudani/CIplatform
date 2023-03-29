@@ -16,9 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mission Page</title>
 
-    <link rel="stylesheet" href="CSS/bootstrap.min.css">
-    <link rel="stylesheet" href="CSS/MissionView.css">
-    <link rel="stylesheet" href="CSS/MissionView1.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/MissionView.css">
+    <link rel="stylesheet" href="css/MissionView1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
@@ -115,15 +115,18 @@
 
                 <div class="rightside d-flex align-items-center">
 
-                    <button><img src="images/search.png" alt="" class="nav-search btn " id="search1">
-                    </button>
+<!--                     <button><img src="images/search.png" alt="" class="nav-search btn " id="search1" hidden> -->
+<!--                     </button> -->
 
-                    <button class="btn dropdown d-flex align-items-center  userprofile" type="button"
+                    <button class="btn dropdown d-flex align-items-center userprofile" type="button"
                         id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false"
-                        style=" box-shadow: none; text-transform: capitalize; width: 12rem;">
+                        style="box-shadow: none; text-transform: capitalize; width: 12rem;">
 
-                        <img src="images/user-img.png" alt="" class="userimage">
-                        <span class="username">Evan Donohue</span>
+                        <img src="images/<c:out value="${user.avatar}"></c:out>"
+									class="userimage ">
+                        <span class="blocking uNameuImage" class="uNameuImage"><c:out
+										value="${user.first_name} ${user.last_name}"></c:out></span>
+                        <input type="text" id="title" name="title" value="${mission.title}" hidden>
                         <img src="images/drop-down.png" alt="" class="user-image-downarrow">
                     </button>
 
@@ -186,9 +189,9 @@
 
                         <!-- mission details here -->
 
-                        <p class="fs-1">CSR Initiative stands for coffee and farmer equity</p>
+                        <p class="fs-1"><c:out value="${mission.title}"></c:out></p>
 
-                        <p class="fs-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam necessitatibus, ab harum recusandae tempora sint porro inventore nihil nemo aliquid quisquam?</p>
+                        <p class="fs-5"><c:out value="${mission.short_description}"></c:out></p>
 
                         <div class="deadline d-flex align-items-center justify-content-between flex-wrap">
 
@@ -236,14 +239,17 @@
                             <div class="common-loc">
                                 <img src="images/pin1.png" alt="">
                                 <p style="margin-bottom: 0; margin-top: 20px;">city</p>
-                                <p style="margin-bottom: 0;"><strong>London</strong></p>
+                                <p style="margin-bottom: 0;"><strong><c:out value="${mission.city.name}"></c:out></strong></p>
+                                <input type="text" class="currentMissionCity" id="CMCT" name="CMCT" value="${mission.city.name}" hidden>
+                                <input type="text" class="currentMissionCountry" id="CMCR" name="CMCTR" value="${mission.country.name}" hidden>
                             </div>
                             <div class="common-loc">
                                 <img src="images/web.png" alt="">
                                 <p style="margin-bottom: 0; margin-top: 20px;">Theme</p>
-                                <p style="margin-bottom: 0;"><strong>Environment</strong></p>
+                                <p style="margin-bottom: 0;"><strong><c:out value="${mission.mission_theme.title}"></c:out></strong></p>
+                                <input type="text" class="currentMissionTheme" id="CMT" name="CMT" value="${mission.mission_theme.title}" hidden>
                             </div>
-                            <div class="common-loc">
+                            <div class="common-loc">	
                                 <img src="images/calender.png" alt="">
                                 <p style="margin-bottom: 0; margin-top: 20px;">Date</p>
                                 <p style="margin-bottom: 0;"><strong>Ongoing</strong></p>
@@ -251,7 +257,7 @@
                             <div class="common-loc">
                                 <img src="images/organization.png" alt="">
                                 <p style="margin-bottom: 0; margin-top: 20px;">Organisation</p>
-                                <p style="margin-bottom: 0;"><strong>CSE Network</strong></p>
+                                <p style="margin-bottom: 0;"><strong><c:out value="${mission.organization_name}"></c:out></strong></p>
                             </div>
                         </div>
 
@@ -619,6 +625,7 @@
             </div>
 
             <!-- mission list ends here -->
+            
             <div class="footer mt-3 d-flex">
                 <a href="#" class="px-3  text-black">Privacy Policy</a>
                 <a href="#" class="px-2 text-black">Contact Us</a>
@@ -630,41 +637,72 @@
     </div>
 </body>
 
-<script src="js/bootstrap.min.js"></script>
 
-<!-- slick-carousel -->
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-    integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-    integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- slick carsousel -->
 
-
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"
+	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+    integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+    integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $(function () {
+	let relatedMission="";
+	let currentMissionCity="";
+	let currentMissionCountry="";
+	let currentMissionTheme="";
+	
+	$(document).ready(function(){
+		
         $("#slider").slick({
             autoplay: true,
-            speed: 100,
+            speed: 1000,
             arrows: false,
             asNavFor: "#thumbnail_slider"
         });
         $("#thumbnail_slider").slick({
             slidesToShow: 4,
-            speed: 100,
+            speed: 1000,
             arrows: true,
             focusOnSelect:true,
             asNavFor: "#slider"
         });
-    });
-
+        
+        currentMissionCity=$('.currentMissionCity').val();
+		currentMissionTheme=$('.currentMissionTheme').val();
+		currentMissionCountry=$('.currentMissionCountry').val();
+		$.ajax({
+			url: "loadRelatedMission",
+			type: "POST",
+            data:	{'currentMissionCity': currentMissionCity,
+            		'currentMissionTheme':currentMissionTheme,
+            		'currentMissionCountry':currentMissionCountry},
+            dataType: 'json',
+            success: function(response){
+            	const income=JSON.parse(response);
+               	let totalMission=0;
+               	for(var a in income){
+               		totalMission=a;
+               		missions=income[a];
+               		console.log(missions[a]);
+            	console.log("done");
+            }
+   		}
+	});
+});
 </script> 
+
 
 
 </html>

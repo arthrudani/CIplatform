@@ -22,7 +22,9 @@ body {
     margin-left: 5px;
     color: #888;
 }
-
+.slide-item img{
+	height:500px !important;
+}
 .filters-section {
     margin-top: 1%;
 }

@@ -1,5 +1,7 @@
 package com.dao;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.dto.AddToFavourite;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
@@ -29,71 +30,73 @@ public class MissionLoader implements MissionLoaderInterface {
 	private HibernateTemplate hibernateTemplate;
 
 	public List<mission> loadAllMissionOnSearch(Filters filters) {
-		
+
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
 		Criteria c = s.createCriteria(mission.class);
 		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
-	    if(filters.getSearchedKeyword()!="") {
-	    	c.add(Restrictions.like("title", "%" +filters.getSearchedKeyword()+ "%"));
-	    }
-	    if(filters.getCountry_id()!= 0) {
-	    	c.add(Restrictions.eq("country.country_id",filters.getCountry_id()));
-	    }
-	    if(filters.getSearchedcities().size()>0) {
-	    	c.add(Restrictions.in("city.city_id",filters.getSearchedcities()));
-	    }
-	    if(filters.getSearchedthemes().size()>0) {
-	    	c.add(Restrictions.in("mission_theme.mission_theme_id",filters.getSearchedthemes()));
-	    }
-	    if(filters.getSearchedskills().size()>0) {
-	    	c.createAlias("mission_skills", "ms");
-		    c.add(Restrictions.in("ms.skill.skill_id",filters.getSearchedskills()));
-	    }
-	    if(filters.getSortby().equals("Newest")) {
-	    	c.addOrder(Order.asc("created_at"));
-	    }
-	    if(filters.getSortby().equals("Oldest")) {
-    		c.addOrder(Order.desc("created_at"));
-	    }
-	    int firstresultcount=((filters.getCurrentPage()-1)*3)+3;
-	    c.setFirstResult(firstresultcount);
-	    c.setMaxResults(3);
-	    if(c.list().size()<3) {
-	    	int setMax=3+(3-c.list().size());
+		if (filters.getSearchedKeyword() != "") {
+			c.add(Restrictions.like("title", "%" + filters.getSearchedKeyword() + "%"));
+		}
+		if (filters.getCountry_id() != 0) {
+			c.add(Restrictions.eq("country.country_id", filters.getCountry_id()));
+		}
+		if (filters.getSearchedcities().size() > 0) {
+			c.add(Restrictions.in("city.city_id", filters.getSearchedcities()));
+		}
+		if (filters.getSearchedthemes().size() > 0) {
+			c.add(Restrictions.in("mission_theme.mission_theme_id", filters.getSearchedthemes()));
+		}
+		if (filters.getSearchedskills().size() > 0) {
+			c.createAlias("mission_skills", "ms");
+			c.add(Restrictions.in("ms.skill.skill_id", filters.getSearchedskills()));
+		}
+		if (filters.getSortby().equals("Newest")) {
+			c.addOrder(Order.asc("created_at"));
+		}
+		if (filters.getSortby().equals("Oldest")) {
+			c.addOrder(Order.desc("created_at"));
+		}
+		int firstresultcount = ((filters.getCurrentPage() - 1) * 3) + 3;
+		if(filters.getCurrentPage()!=1) {
+			firstresultcount++;
+		}
+		c.setFirstResult(firstresultcount);
+		c.setMaxResults(4);
+		if (c.list().size() < 3) {
+			int setMax = 3 + (3 - c.list().size());
 //	    	System.out.println("setmax:"+setMax);
-	    }
+		}
 		return c.list();
 	}
-	
+
 	public Long countAllMission(Filters filters) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
 		Criteria c = s.createCriteria(mission.class);
 		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
-		if(filters.getSearchedKeyword()!="") {
-	    	c.add(Restrictions.like("title", "%" +filters.getSearchedKeyword()+ "%"));
-	    }
-	    
-	    if(filters.getCountry_id()!= 0) {
-	    	c.add(Restrictions.eq("country.country_id",filters.getCountry_id()));
-	    }
-	    if(filters.getSearchedcities().size()>0) {
-	    	c.add(Restrictions.in("city.city_id",filters.getSearchedcities()));
-	    }
-	    if(filters.getSearchedthemes().size()>0) {
-	    	c.add(Restrictions.in("mission_theme.mission_theme_id",filters.getSearchedthemes()));
-	    }
-	    if(filters.getSearchedskills().size()>0) {
-	    	c.createAlias("mission_skills", "ms");
-		    c.add(Restrictions.in("ms.skill.skill_id",filters.getSearchedskills()));
-	    }
-	    if(filters.getSortby().equals("Newest")) {
-	    	c.addOrder(Order.asc("created_at"));
-	    }
-	    if(filters.getSortby().equals("Oldest")) {
-    		c.addOrder(Order.desc("created_at"));
-	    }
-	    c.setProjection(Projections.rowCount());
-	    long result=(long) c.uniqueResult();
+		if (filters.getSearchedKeyword() != "") {
+			c.add(Restrictions.like("title", "%" + filters.getSearchedKeyword() + "%"));
+		}
+		if (filters.getCountry_id() != 0) {
+			c.add(Restrictions.eq("country.country_id", filters.getCountry_id()));
+		}
+		if (filters.getSearchedcities().size() > 0) {
+			c.add(Restrictions.in("city.city_id", filters.getSearchedcities()));
+		}
+		if (filters.getSearchedthemes().size() > 0) {
+			c.add(Restrictions.in("mission_theme.mission_theme_id", filters.getSearchedthemes()));
+		}
+		if (filters.getSearchedskills().size() > 0) {
+			c.createAlias("mission_skills", "ms");
+			c.add(Restrictions.in("ms.skill.skill_id", filters.getSearchedskills()));
+		}
+		if (filters.getSortby().equals("Newest")) {
+			c.addOrder(Order.asc("created_at"));
+		}
+		if (filters.getSortby().equals("Oldest")) {
+			c.addOrder(Order.desc("created_at"));
+		}
+		c.setProjection(Projections.countDistinct("mission_id"));
+		long result = (long) c.uniqueResult();
 		return result;
 	}
 
@@ -102,10 +105,10 @@ public class MissionLoader implements MissionLoaderInterface {
 	}
 
 	public List<city> loadCityOfCountry(int country_id) {
-		String que="from city where country_id=:country_id"; 
-		 Query q=hibernateTemplate.getSessionFactory().openSession().createQuery(que);
-		 q.setParameter("country_id",country_id);
-		 List<city> mylist=q.list();
+		String que = "from city where country_id=:country_id";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("country_id", country_id);
+		List<city> mylist = q.list();
 		return mylist;
 	}
 
@@ -114,8 +117,8 @@ public class MissionLoader implements MissionLoaderInterface {
 	}
 
 	public List<mission> loadAllMission() {
-		String que="from mission";
-		Query q=hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		String que = "from mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setFirstResult(0);
 		q.setMaxResults(10);
 		return q.list();
@@ -124,9 +127,34 @@ public class MissionLoader implements MissionLoaderInterface {
 	public List<skill> loadAllSkillOnSearch() {
 		return this.hibernateTemplate.loadAll(skill.class);
 	}
-	
+
 	@Transactional
 	public void save(favourite_mission fv) {
 		this.hibernateTemplate.save(fv);
+		System.out.println("saved");
+	}
+	
+	@Transactional
+	public void delete(favourite_mission fv) {
+		this.hibernateTemplate.delete(fv);
+		System.out.println("removed");
+	}
+
+	public List<mission> loadrelatedmission(String cMCT, String cMCR, String cMT) {
+		Session s = this.hibernateTemplate.getSessionFactory().openSession();
+		Criteria b = s.createCriteria(mission.class);
+		b.setResultTransformer(b.DISTINCT_ROOT_ENTITY);
+		
+		System.out.println("Initial List:"+b.list());
+
+		if (b.list().size() < 3) {
+			System.out.println("In the loop Size:"+b.list().size());
+			b.add(Restrictions.eq("city.name", cMCT));
+		}
+		
+		System.out.println("Got related city");
+//		System.out.println("Got related city:"+c.list());
+		System.out.println("Size:"+b.list().size());
+		return b.list();
 	}
 }
