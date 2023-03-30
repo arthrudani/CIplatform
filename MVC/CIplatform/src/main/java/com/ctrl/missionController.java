@@ -121,12 +121,6 @@ public class missionController {
 		return Output;
 	}
 	
-	@RequestMapping(value = "/likemission")
-	public @ResponseBody String likemission(@RequestParam("mid") int mID,@RequestParam("uid") int uID) {
-		String result="";
-		result=this.service.addToFavourite(mID,uID);
-		return result;
-	}
 	
 	@RequestMapping(value = "/recommend")
 	public @ResponseBody String recommend(@RequestParam("missionId") int missionId) {
@@ -140,7 +134,28 @@ public class missionController {
 		user user=this.service.getUserById(userId);
 		m.addAttribute("mission",mission);
 		m.addAttribute("user",user);
+		m.addAttribute("user_id",user.getUser_id());
 		return "VolunteeringMission";
+	}
+	
+	
+	@RequestMapping(path = "/loadAllMissionLikedByUser", method = RequestMethod.GET)
+	public @ResponseBody String loadAllMissionLikedByUser(@RequestParam("uid") int userId) {
+		user user=this.service.getUserById(userId);
+		System.out.println("         user:"+user);
+		List<mission> result = this.service.loadLikedMission(user);
+		System.out.println("liked mission before string:"+result);
+		System.out.println("size:"+result.size());
+		ObjectMapper obj = new ObjectMapper();
+		String Output="";
+		try {
+			Output = obj.writeValueAsString(result);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("liked mission:"+Output);
+		return Output;
 	}
 
 }

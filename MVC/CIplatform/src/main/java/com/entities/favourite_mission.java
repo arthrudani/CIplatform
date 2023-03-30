@@ -18,12 +18,10 @@ public class favourite_mission {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int favourite_mission_id;
 	
-	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "user_id")
 	private user user;
 	
-	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "mission_id")
 	private mission mission;

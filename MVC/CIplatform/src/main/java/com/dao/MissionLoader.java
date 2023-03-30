@@ -23,6 +23,7 @@ import com.entities.favourite_mission;
 import com.entities.mission;
 import com.entities.mission_theme;
 import com.entities.skill;
+import com.entities.user;
 
 @Component
 public class MissionLoader implements MissionLoaderInterface {
@@ -57,15 +58,15 @@ public class MissionLoader implements MissionLoaderInterface {
 			c.addOrder(Order.desc("created_at"));
 		}
 		int firstresultcount = ((filters.getCurrentPage() - 1) * 3) + 3;
-		if(filters.getCurrentPage()!=1) {
-			firstresultcount++;
-		}
+//		if(filters.getCurrentPage()!=1) {
+//			firstresultcount++;
+//		}
 		c.setFirstResult(firstresultcount);
-		c.setMaxResults(4);
-		if (c.list().size() < 3) {
-			int setMax = 3 + (3 - c.list().size());
+		c.setMaxResults(3);
+//		if (c.list().size() < 3) {
+//			int setMax = 3 + (3 - c.list().size());
 //	    	System.out.println("setmax:"+setMax);
-		}
+//		}
 		return c.list();
 	}
 
@@ -140,21 +141,41 @@ public class MissionLoader implements MissionLoaderInterface {
 		System.out.println("removed");
 	}
 
-	public List<mission> loadrelatedmission(String cMCT, String cMCR, String cMT) {
+	public List<mission> loadrelatedmission(mission mission1,city city, country country, mission_theme mission_theme) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria b = s.createCriteria(mission.class);
-		b.setResultTransformer(b.DISTINCT_ROOT_ENTITY);
+		Criteria ccity = s.createCriteria(mission.class);
+		Criteria ccountry = s.createCriteria(mission.class);
+		Criteria ctheme = s.createCriteria(mission.class);
+		ccity.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
+		ccountry.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
+		ctheme.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
 		
-		System.out.println("Initial List:"+b.list());
-
-		if (b.list().size() < 3) {
-			System.out.println("In the loop Size:"+b.list().size());
-			b.add(Restrictions.eq("city.name", cMCT));
+		ccity.add(Restrictions.eq("city.city_id", city.getCity_id()));
+		ccountry.add(Restrictions.eq("country.country_id", country.getCountry_id()));
+		ctheme.add(Restrictions.eq("mission_theme.mission_theme_id",mission_theme.getMission_theme_id()));
+		
+		System.out.println("RELATED CITY LIST:"+ccity.list());
+		System.out.println("RELATED COUNTRY LIST:"+ccountry.list());
+		System.out.println("RELATED THEME LIST:"+ctheme.list());
+		
+		if(ccity.list().size()>1) {
+			return ccity.list();
 		}
+		if(ccountry.list().size()>1) {
+			return ccountry.list();
+		}
+		if(ctheme.list().size()>1) {
+			return ctheme.list();
+		}
+		return null;
 		
-		System.out.println("Got related city");
-//		System.out.println("Got related city:"+c.list());
-		System.out.println("Size:"+b.list().size());
-		return b.list();
+	}
+
+	public List<mission> getLikedMission(user user) {
+		String que = "from favourite_mission where user_id=:user_id";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("user_id", user.getUser_id());
+		List<mission> mylist=q.list();
+		return mylist;
 	}
 }

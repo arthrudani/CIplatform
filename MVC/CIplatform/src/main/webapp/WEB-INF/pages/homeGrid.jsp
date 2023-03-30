@@ -265,13 +265,6 @@
 	<!-- selected filters -->
 	<div class="container filters w-100">
 		<div class="row d-flex justify-content-center chips">
-
-			<!-- 			<div class="col filter justify-content-between"> -->
-			<!-- 				<span>&nbsp; tree plantation -->
-			<!-- 					<button type="button" class="btn-close" aria-label="Close"></button> -->
-			<!-- 				</span> -->
-			<!-- 			</div> -->
-
 		</div>
 	</div>
 
@@ -310,252 +303,15 @@
 
 	<!-- 	total missions -->
 	<div class="container grid-container gridListView">
-
-		<div class="row" id="listgrid">
-			<c:forEach var="mission" items="${missionlist}">
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="card ">
-						<img class="card-img-top"
-							src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
-						<div class="posAbsolute locationBox d-flex ">
-							<i class="bi bi-geo-alt locicon"></i>
-							<p>
-								<c:out value="${mission.city.name}"></c:out>
-							</p>
-						</div>
-						<div class="posAbsolute likeBox">
-							<img src="images/heart.png" alt="">
-						</div>
-						<div class="posAbsolute addBox">
-							<i class="bi bi-person-plus"></i>
-						</div>
-						<div class="card-body">
-							<div class="d-flex justify-content-center">
-								<div class="category">
-									<c:out value="${mission.mission_theme.title}"></c:out>
-								</div>
-							</div>
-							<h5 class="card-title">
-								<c:out value="${mission.title}"></c:out>
-							</h5>
-							<p class="card-text">This is a wider card with supporting
-								text below as a natural lead-in to additional content. This
-								content is a little bit longer.</p>
-							<div class="d-flex justify-content-between"
-								style="margin-bottom: 5%;">
-								<div>
-									<p class="card-text">Tree canada</p>
-								</div>
-								<div>
-									<button class="starbutton">
-										<img src="images/star.png" alt="">
-									</button>
-									<button class="starbutton">
-										<img src="images/star.png" alt="">
-									</button>
-									<button class="starbutton">
-										<img src="images/star.png" alt="">
-									</button>
-									<button class="starbutton">
-										<img src="images/star.png" alt="">
-									</button>
-									<button class="starbutton">
-										<img src="images/star.png" alt="">
-									</button>
-								</div>
-							</div>
-							<hr class="lineintext">
-							<div class="d-felx durationofmission">
-								<div>
-									<p>
-										from
-										<fmt:formatDate pattern="dd-MM-yyyy"
-											value="${mission.start_date}" />
-										untill
-										<fmt:formatDate pattern="dd-MM-yyyy"
-											value="${mission.end_date}" />
-									</p>
-								</div>
-							</div>
-
-							<div class="d-flex justify-content-between "
-								style="margin-top: 2%;">
-								<div class="d-flex seatsleft">
-									<div>
-										<img src="images/Seats-left.png" alt="">
-									</div>
-									<div>
-										<div class="seatleftcontent11">10</div>
-										<div class="seatleftcontent12">seats left</div>
-									</div>
-								</div>
-								<div class="d-flex seatsleft">
-									<div>
-										<img src="images/deadline.png" alt="">
-									</div>
-									<div>
-										<div class="seatleftcontent11">10-10-2023</div>
-										<div class="seatleftcontent12">Deadline</div>
-									</div>
-								</div>
-							</div>
-							<hr class="cardfooterline">
-							<div class="d-flex justify-content-center">
-								<button class="d-flex apply ">
-									<div>Apply</div>
-									<div>
-										<img src="images/right-arrow.png" alt="">
-									</div>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-
-		<div class="row" id="gridlist">
-			<c:forEach var="mission" items="${missionlist}">
-				<div class="row ListViewCard">
-					<div class="card">
-						<div class="row g-0">
-							<div class="col-md-3 missionImg">
-								<p class="missionCityListView">
-									<i class="bi bi-geo-alt"></i>
-									<c:out value="${mission.city.name}"></c:out>
-								</p>
-								<!-- 								<p class="missionAppliedListView">Applied</p> -->
-								<div class="missionLikeListView d-flex flex-column">
-									<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
-								</div>
-								<div
-									class="d-flex justify-content-center missionCategoryListView">
-									<c:out value="${mission.mission_theme.title}"></c:out>
-								</div>
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-									class="img-fluid rounded-start" alt="...">
-							</div>
-							<div class="col-md-9">
-								<div class="card-body">
-									<div class="row w-100 d-flex ">
-										<div class="col">
-											<div
-												class="row d-flex justify-content-start firstInfoContainerListView">
-												<div class="col d-flex">
-													<i class="bi bi-geo-alt"> </i>
-													<p>Atlanta</p>
-												</div>
-												<div class="col d-flex">
-													<i class="bi bi-globe"> </i>
-													<p>Environment</p>
-												</div>
-												<div class="col d-flex">
-													<i class="bi bi-people"> </i>
-													<p>Smith Caring Foundation</p>
-												</div>
-											</div>
-										</div>
-										<div class="col d-flex justify-content-end">
-											<div class="row ratingDivGridView">
-												<div class="col">
-													<div class="row d-flex flex-row ratingStar flex-nowrap">
-														<div class="col">
-															<img src="images/selected-star.png" alt="" srcset="">
-														</div>
-														<div class="col">
-															<img src="images/selected-star.png" alt="" srcset="">
-														</div>
-														<div class="col">
-															<img src="images/selected-star.png" alt="" srcset="">
-														</div>
-														<div class="col">
-															<img src="images/star.png" alt="" srcset="">
-														</div>
-														<div class="col">
-															<img src="images/star.png" alt="" srcset="">
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title">
-										<c:out value="${mission.title}"></c:out>
-									</h5>
-									<p class="card-text">This is a wider card with supporting
-										text below as a natural lead-in to additional content. This
-										content is a little bit longer.</p>
-									<div
-										class="d-flex justify-content-between viewdetailsandfourbutton"
-										style="margin-top: 7%;">
-										<div class="d-flex justify-content-between">
-											<div class="d-flex align-items-center HLfouricon">
-												<img src="images/Seats-left.png" alt="">
-											</div>
-											<div class="HLfouricontext">
-												<div>397</div>
-												<div>seats left</div>
-											</div>
-											<div class="d-flex align-items-center HLfouricon">
-												<img src="images/achieved.png" alt="">
-											</div>
-											<div class="HLfouricontext">
-												<div>397</div>
-												<div>Achieved</div>
-											</div>
-											<div class="d-flex align-items-center HLfouricon">
-												<img src="images/calender.png" alt="">
-											</div>
-											<div class="HLfouricontext">
-												<div>
-													from
-													<fmt:formatDate pattern="dd-MM-yyyy"
-														value="${mission.start_date}" />
-												</div>
-												<div>
-													untill
-													<fmt:formatDate pattern="dd-MM-yyyy"
-														value="${mission.end_date}" />
-												</div>
-											</div>
-											<div class="d-flex align-items-center HLfouricon">
-												<i class="fa-solid fa-screwdriver-wrench"></i>
-											</div>
-											<div class="HLfouricontext">
-												<div>Skills</div>
-												<div>botany</div>
-											</div>
-										</div>
-										<div class="d-flex HLviewdetailslist">
-											View details <img src="images/right-arrow.png" alt="">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-
+		<div class="row" id="listgrid"></div>
+		<div class="row" id="gridlist"></div>
 	</div>
 
 	<!-- 	pagination -->
 	<div class="d-flex justify-content-center">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-						class="sr-only">Next</span>
-				</a></li>
+				
 			</ul>
 		</nav>
 	</div>
@@ -609,12 +365,14 @@
 		let selecttedCityString="";
 		let ThemeList="";
 		let SkillList="";
+		let LikedMission=[];
 		let totalmission="";
 		let currentPage=0;
 		let pagination="";
 	 
 		$(document).ready(function() {
 			$("#gridlist").hide();
+			getLikedMission();
 			updateMissionsOnChange();
 			CountryOfUser=$(".defaultCountry").val;
 	       	 /* Initial Mission Loading Function */     		 
@@ -622,28 +380,28 @@
 	                url: "loadAllMission",
 	                dataType: 'json',
 	                success: function(response){
-	               	missions=response;
-	               	var a=Object.keys(missions).length;
-	               	editUpdatedMission(a);
-	               	if(a==0){
-	               		if($(".noMissionFound").length==0){
-	               			noMissionFound();
-	               		}
-	               	}
-	               	else{
-	               		$(".noMissionFound").remove();
-	               	}
-	               	
-	               	editpagination(a);
-	               	loopForFetchingMissionDetails(missions);               	                 	 
+		               	missions=response;
+		               	var a=Object.keys(missions).length;
+		               	editUpdatedMission(a);
+		               	if(a==0){
+		               		if($(".noMissionFound").length==0){
+		               			noMissionFound();
+		               		}
+		               	}
+		               	else{
+		               		$(".noMissionFound").remove();
+		               	}
+		               	
+		               	editpagination(a);
+		               	loopForFetchingMissionDetails(missions);               	                 	 
 	                }
 	            });
 	       	 $.ajax({
 	                url: "loadListOfCountry",
 	                dataType: 'json',
 	                success: function(response){
-	               	 country=response;
-	               	 addCountryList(country);
+	               	country=response;
+	               	addCountryList(country);
 	                }
 	            });
 	       	 
@@ -651,7 +409,7 @@
 	                url: "loadListOfTheme",
 	                dataType: 'json',
 	                success: function(response){
-	               	 ThemeList=response;
+	               	ThemeList=response;
 	               	addThemeList(ThemeList);
 	                }
 	            });
@@ -660,41 +418,61 @@
                 url: "loadListOfSkill",
                 dataType: 'json',
                 success: function(response){
-               	 SkillList=response;
+               	SkillList=response;
                	addSkillList(SkillList);
                 }
             });
+	       	
+
+	       	/* Search Mission Logic */
+			$('.mySearchInput').keyup(function(){
+	           	currentPage=0;
+	         	updateMissionsOnChange();
+	        });
 	       	 
-	       	 /* Search Mission Logic */
-	            $('.mySearchInput').keyup(function(){
-	            	currentPage=0;
-	           	 updateMissionsOnChange();
-	            });
-	       	 
-	            $('.countrySelect, .countrySelectSidebar').on('change', function () {
-	           	 CheckedCountry = $(this).find("option:selected").val();
-	                getCityList(CheckedCountry);
-	            	currentPage=0;
-	                updateMissionsOnChange();
-	           });
+	        $('.countrySelect, .countrySelectSidebar').on('change', function () {
+	           	CheckedCountry = $(this).find("option:selected").val();
+	            getCityList(CheckedCountry);
+	           	currentPage=0;
+	            updateMissionsOnChange();
+	        });
 	            
-	           $('.sortby, .sortbySidebar').on('change', function () {
-		         CheckedSortby = $(this).find("option:selected").val();
-		        	currentPage=0;
-		         	updateMissionsOnChange();
-		       });
+	        $('.sortby, .sortbySidebar').on('change', function () {
+		        CheckedSortby = $(this).find("option:selected").val();
+		       	currentPage=0;
+		        updateMissionsOnChange();
+		    });
 		});
-		
-		 function cityCheckedClickEvent(){
-			 selectedCity=[];
-			 $('.citySelector input:checked , .citySelectorSidebar input:checked').each(function(){
-				 if($(this).attr('checked',true)){
-					 if (!selectedCity.includes($(this).attr('value'))) {
-				        	
-		        		 	selectedCity.push($(this).attr('value'));
-		        		 }
-				 }
-             });
+		function getLikedMission(){
+			let user_id=$('.usernameforlike').val();
+			$.ajax({
+                url: "loadAllMissionLikedByUser",
+                type:"GET",
+                data:{'uid':user_id},
+                success: function(response){
+                	const income=JSON.parse(response);
+                   	for(var a in income){
+                   		console.log(income[a].mission.mission_id);
+                   		totallikedMission=a;
+                   		LikedMission=income[a];
+                   	}
+                   	for(var a in LikedMission){
+                   		console.log("mission hello:"+a);
+//                    	console.log(LikedMission[a].mission.mission_id);
+                   		console.log(LikedMission[a]);
+                   	}
+                }
+            });
+		}
+		function cityCheckedClickEvent(){
+			selectedCity=[];
+			$('.citySelector input:checked , .citySelectorSidebar input:checked').each(function(){
+				if($(this).attr('checked',true)){
+					if (!selectedCity.includes($(this).attr('value'))) {
+				     	selectedCity.push($(this).attr('value'));
+		        		}
+				}
+            });
 			 $('.citySelector input:checked , .citySelectorSidebar input:checked').each(function(){
 					 if (!selectedCity.includes($(this).attr('value'))) {
 		        		 	selectedCity.push($(this).attr('value'));
@@ -788,10 +566,10 @@
    				searchedskills:selectedSkill,
    				sortby:CheckedSortby,
    				currentPage:currentPage
-   		 }
-       	
+   		}
+       		
 			$.ajax({
-                url: "searchMission",
+            	url: "searchMission",
                 type: "POST",
                 data:	{'Filters': JSON.stringify(FilterObject)},
                 dataType: 'json',
@@ -910,7 +688,7 @@
                 url: "likemission",
         		dataType: 'json',
                 data:{'mid':missionID,
-                	'uid':userID},
+                	  'uid':userID},
                 type:"POST",
                 success: function(response){
                 	console.log(response);
@@ -933,13 +711,13 @@
         function loopForFetchingMissionDetails(missions) {
 			var htmlPageGrid = "";
 			var htmlPageList = "";
-			
+			console.log(LikedMission.length);
+			for (let j = 0; j < LikedMission.length; j++) {
+				console.log(LikedMission[j].mission.mission_id);
+
+			}
 			for (let i = 0; i < missions.length; i++) {
-// 				console.log(missions[i]);
-// 				console.log("Length of skill of mission "+(i+1)+":"+missions[i].mission_skills.length);
-// 				for (let j = 0; j < missions[i].mission_skills.length; j++) {
-// 					console.log("Skill of mission "+(i+1)+":"+missions[i].mission_skills[j].mission_skill_id);
-// 				}
+				
 				htmlPageGrid+=
 				`<div class="col-12 col-md-6 col-lg-4">
 				<div class="card ">
@@ -952,6 +730,7 @@
 						</p>
 					</div>
 					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
+						<input type="text" class="userid" id="mid" name="mid" value="${user_id}" hidden>
 						<img src="images/heart.png" alt=""></button>
 					</div>
 					<div class="posAbsolute addBox"><button onclick="recommend(`+missions[i].mission_id+`)" style="border:0; background:none;">
@@ -1154,8 +933,17 @@
 										<div>botany</div>
 									</div>
 								</div>
-								<div class="d-flex HLviewdetailslist">
-									View details <img src="images/right-arrow.png" alt="">
+								<div class="d-flex">
+									<form action="VolunteeringMission" method="get" name="VolunteeringMission">
+										<button class="d-flex apply " type="submit" style="min-width:120px";>
+											<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
+											<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
+											<div>View Details</div>
+											<div>
+												<img src="images/right-arrow.png" alt="">
+											</div>
+										</button>
+									</form>
 								</div>
 							</div>
 						</div>

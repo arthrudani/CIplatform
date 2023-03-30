@@ -127,6 +127,7 @@
                         <span class="blocking uNameuImage" class="uNameuImage"><c:out
 										value="${user.first_name} ${user.last_name}"></c:out></span>
                         <input type="text" id="title" name="title" value="${mission.title}" hidden>
+                        <input type="text" class="missionID" value="${mission.mission_id}" hidden>
                         <img src="images/drop-down.png" alt="" class="user-image-downarrow">
                     </button>
 
@@ -434,7 +435,7 @@
                 <h4 style="padding:2rem 0rem 1rem 0rem;">Related missions</h4>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-3 mission-container g-4 ">
+            <div class="row row-cols-1 relatedmission row-cols-md-3 mission-container g-4 ">
                 <div class="col col-md-6 col-xl-4 card-col mb-2 ">
                     <div class="card">
                         <div class="image-container">
@@ -662,6 +663,7 @@
 	let currentMissionCity="";
 	let currentMissionCountry="";
 	let currentMissionTheme="";
+	let missions=[];
 	
 	$(document).ready(function(){
 		
@@ -679,6 +681,7 @@
             asNavFor: "#slider"
         });
         
+        currentMission=$('.missionID').val();
         currentMissionCity=$('.currentMissionCity').val();
 		currentMissionTheme=$('.currentMissionTheme').val();
 		currentMissionCountry=$('.currentMissionCountry').val();
@@ -687,17 +690,94 @@
 			type: "POST",
             data:	{'currentMissionCity': currentMissionCity,
             		'currentMissionTheme':currentMissionTheme,
-            		'currentMissionCountry':currentMissionCountry},
+            		'currentMissionCountry':currentMissionCountry,
+            		'currentMission':currentMission},
             dataType: 'json',
             success: function(response){
             	const income=JSON.parse(response);
                	let totalMission=0;
                	for(var a in income){
                		totalMission=a;
-               		missions=income[a];
-               		console.log(missions[a]);
-            	console.log("done");
-            }
+               		missions=income;
+            	}
+        for (let i in missions) {
+        	console.log(missions[i].mission_id);
+        	console.log(currentMission);
+        	if(missions[i].mission_id!=currentMission)
+        	{
+        		relatedMission+=`<div class="col col-md-6 col-xl-4 card-col mb-2 ">
+					                <div class="card">
+					                <div class="image-container">
+					                    <img class="w-100" src="images/Grow-Trees-On-the-path-to-environment-sustainability.png"
+					                        alt="Grow Trees" srcset="">
+					                    <div class="location d-flex align-items-center text-white">
+					                        <img src="images/pin.png" alt="" srcset=""> &nbsp;&nbsp;&nbsp;
+					                        `+missions[i].city.name+`
+					                    </div>
+					                    <div class="Favourite">
+					                        <img src="images/heart.png" alt="Favourite" srcset="">
+					                    </div>
+					                    <div class="Recommend">
+					                        <img src="images/user.png" alt="Favourite" srcset="">
+					                    </div>
+					                    <p class="mission-type">`+missions[i].mission_theme.title+`</p>
+					                </div>
+					                <div class="bottom-content">
+					                    <div class="mission-content">
+					                        <p class="mt-4 mb-0 fs-3 titleColor">`+missions[i].title+`
+					                        </p>
+					                        <p class="descColor">`+missions[i].description+`</p>
+					                        <div class="mission-name__Dates">
+					                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+					                                <p class="descColor mb-0">Tree Canada</p>
+					                                <div class="d-flex">
+					                                    <img src="images/selected-star.png" alt="">
+					                                    <img class="ms-1" src="images/selected-star.png" alt="">
+					                                    <img class="ms-1" src="images/selected-star.png" alt="">
+					                                    <img class="ms-1" src="images/star.png" alt="">
+					                                    <img class="ms-1" src="images/star.png" alt="">
+					                                </div>
+					                            </div>
+					                            <p class='fromTo'>from
+													untill
+					                        </div>
+					                    </div>
+					                    <div class="info__Apply">
+					                        <div class="d-flex justify-content-between flex-wrap px-4 seats-deadline">
+					                            <div class="d-flex align-items-start">
+					                                <img src="images/Seats-left.png" class="mt-2 seats-img" alt="">
+					                                <div class="ms-3">
+					                                    <p class="mb-0 fs-5">100</p>
+					                                    <p class="mt-0 remove-margin">Seats Left</p>
+					                                </div>
+					                            </div>
+					                            <div class="d-flex align-items-start">
+					                                <img src="images/deadline.png" class="" alt="">
+					                                <div class="ms-3">
+					                                    <p class="mb-0 fs-5">29/11/2020</p>
+					                                    <p class="remove-margin">Deadline</p>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <hr className='custom-hr m-0' style="margin: 0;" />
+					                       	<form action="VolunteeringMission" method="get" name="VolunteeringMission">
+						                        <button class="d-flex apply Apply__Mission" type="submit" style="min-width:120px";>
+													<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
+													<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
+													<div>Apply</div>
+													<div>
+														<img src="images/right-arrow.png" alt="">
+													</div>
+												</button>
+											</form>
+					                    </div>
+					                </div>
+					            </div>
+					
+					        </div>`;
+	        		}
+	        		$(".relatedmission").html(relatedMission);
+        	}
    		}
 	});
 });

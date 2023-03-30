@@ -27,5 +27,6 @@ public interface missionLoader {
 	public city getCityForRelated(String CMCT);
 	public country getCountryForRelated(String CMCR);
 	public mission_theme getThemeForRelated(String CMT);
-	public String loadRelatedMissions(String cMCT, String cMCR, String cMT);
+	public String loadRelatedMissions(mission mission, city city, country country, mission_theme mission_theme);
+	public List<mission> loadLikedMission(user user);
 }

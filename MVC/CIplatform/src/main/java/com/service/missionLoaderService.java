@@ -122,10 +122,11 @@ public class missionLoaderService implements missionLoader {
 		return mission_theme;
 	}
 
-	public String loadRelatedMissions(String CMCT, String CMCR, String CMT) {
+	public String loadRelatedMissions(mission mission,city city, country country, mission_theme mission_theme) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<mission> missions=this.missionLoaderInterface.loadrelatedmission(CMCT,CMCR,CMT);
+		List<mission> missions=this.missionLoaderInterface.loadrelatedmission(mission,city,country,mission_theme);
+		System.out.println("got related mission:"+missions);
 		try {
 			output=obj.writeValueAsString(missions);
 		} catch (JsonProcessingException e) {
@@ -133,5 +134,13 @@ public class missionLoaderService implements missionLoader {
 			e.printStackTrace();
 		}
 		return output;
+	}
+
+	public List<mission> loadLikedMission(user user) {
+		String output="";
+		ObjectMapper obj=new ObjectMapper();
+		List<mission> liked=this.missionLoaderInterface.getLikedMission(user);
+		return liked;
+		
 	}
 }
