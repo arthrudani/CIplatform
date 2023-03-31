@@ -261,8 +261,7 @@
 .likeBox {
 	color: white;
 	border-radius: 50px;
-	background-color: black;
-	opacity: 0.5;
+	background-color:rgba(0, 0, 0, 0.511);
 	right: 4%;
 	top: 15%;
 	padding: 2%;
@@ -326,8 +325,7 @@
 .HLlikeBox {
 	color: white;
 	border-radius: 50px;
-	background-color: black;
-	opacity: 0.5;
+	background-color: rgba(0, 0, 0, 0.511);
 	right: 67%;
 	top: 33%;
 	height: 39px;
@@ -691,8 +689,7 @@
 	.likeBox {
 		color: white;
 		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
+		background-color: rgba(0, 0, 0, 0.511);
 		right: 4%;
 		top: 17%;
 		padding: 2%;
@@ -716,8 +713,7 @@
 	.HLlikeBox {
 		color: white;
 		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
+		background-color: rgba(0, 0, 0, 0.511);
 		right: 4%;
 		top: 13%;
 		padding: 2%;
@@ -766,8 +762,7 @@
 	.HLlikeBox {
 		color: white;
 		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
+		background-color: rgba(0, 0, 0, 0.511);
 		right: 68%;
 		top: 23%;
 		padding: 2%;
@@ -824,8 +819,7 @@
 	.likeBox {
 		color: white;
 		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
+		background-color: rgba(0, 0, 0, 0.511);
 		right: 4%;
 		top: 9%;
 		padding: 2%;
@@ -869,8 +863,7 @@
 	.likeBox {
 		color: white;
 		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
+		background-color: rgba(0, 0, 0, 0.511);
 		right: 4%;
 		top: 15%;
 		padding: 2%;
@@ -898,8 +891,7 @@
 	.HLlikeBox {
 		color: white;
 		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
+		background-color: rgba(0, 0, 0, 0.511);
 		right: 68%;
 		top: 12%;
 		padding: 1%;

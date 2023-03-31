@@ -53,6 +53,10 @@ public class missionLoaderService implements missionLoader {
 		return this.missionLoaderInterface.loadAllSkillOnSearch();
 	}
 	
+	public List<user> loadAllUsers() {
+		return this.missionLoaderInterface.loadAllUserOnSearch();
+	}
+	
 	public String loadAllMissionOnSearch(Filters filters) {
 		Map<Long, List<mission>> map=new HashMap<Long,List<mission>>();
 		String output="";
@@ -126,7 +130,9 @@ public class missionLoaderService implements missionLoader {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
 		List<mission> missions=this.missionLoaderInterface.loadrelatedmission(mission,city,country,mission_theme);
-		System.out.println("got related mission:"+missions);
+		if(missions.size()>3) {
+			missions=missions.subList(0, 3);
+		}
 		try {
 			output=obj.writeValueAsString(missions);
 		} catch (JsonProcessingException e) {
@@ -143,4 +149,6 @@ public class missionLoaderService implements missionLoader {
 		return liked;
 		
 	}
+
+
 }

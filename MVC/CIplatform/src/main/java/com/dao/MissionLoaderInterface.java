@@ -25,4 +25,5 @@ public interface MissionLoaderInterface {
 	public void delete(favourite_mission favourite_mission1);
 	public List<mission> loadrelatedmission(mission mission, city city, country country, mission_theme mission_theme);
 	public List<mission> getLikedMission(user user);
+	public List<user> loadAllUserOnSearch();
 }

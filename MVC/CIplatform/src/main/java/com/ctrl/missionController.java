@@ -107,6 +107,21 @@ public class missionController {
 		return Output;
 	}
 	
+	@RequestMapping(value = "/loadUserForrecommendation")
+	public @ResponseBody String loadAllUser() {
+		List<user> users = this.service.loadAllUsers();
+		System.out.println(users);
+		ObjectMapper obj = new ObjectMapper();
+		String Output = "";
+		try {
+			Output = obj.writeValueAsString(users);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Output;
+	}
+	
 	@RequestMapping(value = "/loadListOfSkill")
 	public @ResponseBody String loadAllSkill() {
 		List<skill> mylist = this.service.loadAllSkill();
@@ -138,14 +153,17 @@ public class missionController {
 		return "VolunteeringMission";
 	}
 	
+	@RequestMapping(path = "/likemission", method = RequestMethod.GET)
+	public @ResponseBody String likemission(@RequestParam("mid") int mID,@RequestParam("uid") int uID) {
+		String result="";
+		result=this.service.addToFavourite(mID,uID);
+		return result;
+	}
 	
 	@RequestMapping(path = "/loadAllMissionLikedByUser", method = RequestMethod.GET)
 	public @ResponseBody String loadAllMissionLikedByUser(@RequestParam("uid") int userId) {
 		user user=this.service.getUserById(userId);
-		System.out.println("         user:"+user);
 		List<mission> result = this.service.loadLikedMission(user);
-		System.out.println("liked mission before string:"+result);
-		System.out.println("size:"+result.size());
 		ObjectMapper obj = new ObjectMapper();
 		String Output="";
 		try {
@@ -154,7 +172,6 @@ public class missionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("liked mission:"+Output);
 		return Output;
 	}
 

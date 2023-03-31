@@ -131,7 +131,7 @@
 								<div class="logo mb-3">
 									<div class="col-md-12 text-center">
 										<img
-											src="/Users/jayraj/Desktop/PSD/CI Platform Assets/logo.png"
+											src="images/logo.png"
 											alt="">
 									</div>
 								</div>

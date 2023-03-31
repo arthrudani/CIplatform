@@ -129,6 +129,10 @@ public class MissionLoader implements MissionLoaderInterface {
 		return this.hibernateTemplate.loadAll(skill.class);
 	}
 
+	public List<user> loadAllUserOnSearch() {
+		return this.hibernateTemplate.loadAll(user.class);
+	}
+
 	@Transactional
 	public void save(favourite_mission fv) {
 		this.hibernateTemplate.save(fv);
@@ -146,25 +150,26 @@ public class MissionLoader implements MissionLoaderInterface {
 		Criteria ccity = s.createCriteria(mission.class);
 		Criteria ccountry = s.createCriteria(mission.class);
 		Criteria ctheme = s.createCriteria(mission.class);
+		
 		ccity.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
 		ccountry.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
 		ctheme.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
 		
+		ccity.add(Restrictions.ne("mission_id", mission1.getMission_id()));
 		ccity.add(Restrictions.eq("city.city_id", city.getCity_id()));
-		ccountry.add(Restrictions.eq("country.country_id", country.getCountry_id()));
-		ctheme.add(Restrictions.eq("mission_theme.mission_theme_id",mission_theme.getMission_theme_id()));
-		
-		System.out.println("RELATED CITY LIST:"+ccity.list());
-		System.out.println("RELATED COUNTRY LIST:"+ccountry.list());
-		System.out.println("RELATED THEME LIST:"+ctheme.list());
-		
-		if(ccity.list().size()>1) {
+		if(ccity.list().size()>0) {
 			return ccity.list();
 		}
-		if(ccountry.list().size()>1) {
+		
+		ccountry.add(Restrictions.ne("mission_id", mission1.getMission_id()));
+		ccountry.add(Restrictions.eq("country.country_id", country.getCountry_id()));
+		if(ccountry.list().size()>0) {
 			return ccountry.list();
 		}
-		if(ctheme.list().size()>1) {
+
+		ctheme.add(Restrictions.ne("mission_id", mission1.getMission_id()));
+		ctheme.add(Restrictions.eq("mission_theme.mission_theme_id",mission_theme.getMission_theme_id()));
+		if(ctheme.list().size()>0) {
 			return ctheme.list();
 		}
 		return null;
@@ -178,4 +183,5 @@ public class MissionLoader implements MissionLoaderInterface {
 		List<mission> mylist=q.list();
 		return mylist;
 	}
+
 }

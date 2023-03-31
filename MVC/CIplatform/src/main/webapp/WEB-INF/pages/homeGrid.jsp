@@ -36,6 +36,35 @@
 
 <body>
 
+	<!-- modal for change password -->
+	<div class="modal " id="exampleModal1" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Recommend to
+						co-worker</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body ">
+					<button class="btn btn-secondary dropdown-toggle" type="button"
+						id="dropdownMenuButton1" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Users <img src="images/drop-down.png">
+					</button>
+					<ul class="dropdown-menu posStatic userSelector"
+						aria-labelledby="dropdownMenuButton1">
+
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn cancel" data-bs-dismiss="modal">Recommend</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- lower side open bar -->
 	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
 		style="display: none;" id="leftMenu">
@@ -175,8 +204,8 @@
 							<div>
 								<span class="blocking uNameuImage" class="uNameuImage"><c:out
 										value="${first_name} ${last_name}"></c:out></span>
-							</div>
-							<input type="text" class="usernameforlike" id="fname" name="fname" value="${user_id}" hidden>
+							</div> <input type="text" class="usernameforlike" id="fname"
+							name="fname" value="${user_id}" hidden>
 							<div>
 								<img src="images/drop-down.png" class="uNameuImage">
 							</div>
@@ -264,8 +293,7 @@
 
 	<!-- selected filters -->
 	<div class="container filters w-100">
-		<div class="row d-flex justify-content-center chips">
-		</div>
+		<div class="row d-flex justify-content-center chips"></div>
 	</div>
 
 	<!-- missions sort and grid list button-->
@@ -311,7 +339,7 @@
 	<div class="d-flex justify-content-center">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				
+
 			</ul>
 		</nav>
 	</div>
@@ -365,7 +393,8 @@
 		let selecttedCityString="";
 		let ThemeList="";
 		let SkillList="";
-		let LikedMission=[];
+		let UserList="";
+		let likedMissionId=[];
 		let totalmission="";
 		let currentPage=0;
 		let pagination="";
@@ -413,6 +442,14 @@
 	               	addThemeList(ThemeList);
 	                }
 	            });
+	       	$.ajax({
+                url: "loadUserForrecommendation",
+                dataType: 'json',
+                success: function(response){
+               	UserList=response;
+               	addUserList(UserList);
+                }
+            });
 	       	 
 	       	$.ajax({
                 url: "loadListOfSkill",
@@ -444,7 +481,9 @@
 		    });
 		});
 		function getLikedMission(){
+			let LikedMission=[];
 			let user_id=$('.usernameforlike').val();
+			let id=0;
 			$.ajax({
                 url: "loadAllMissionLikedByUser",
                 type:"GET",
@@ -452,15 +491,14 @@
                 success: function(response){
                 	const income=JSON.parse(response);
                    	for(var a in income){
-                   		console.log(income[a].mission.mission_id);
                    		totallikedMission=a;
-                   		LikedMission=income[a];
+                   		LikedMission.push(income[a]);
+                   		updateMissionsOnChange();
                    	}
-                   	for(var a in LikedMission){
-                   		console.log("mission hello:"+a);
-//                    	console.log(LikedMission[a].mission.mission_id);
-                   		console.log(LikedMission[a]);
-                   	}
+                   	for (var a in LikedMission) {
+                   		id=LikedMission[a].mission.mission_id;
+                   		likedMissionId.push(id);       				
+        			}
                 }
             });
 		}
@@ -538,6 +576,19 @@
 	     	$(".themeSelector").append(data);
 	    	$(".themeSelectorSidebar").append(data);
 	    }
+	     function addUserList(UserList){
+		     	$(".userSelector").empty();
+		     	var data="";
+		     	let status=0;
+		     	for(var i in UserList){
+		     		status=1;
+		     		data+='<input type="checkbox" onChange="userCheckedClickEvent()" value="'+UserList[i].user_id+'"/> '+UserList[i].user_id+'<br>';
+		     	}
+		     	if(status==0){
+		     		data+="No Theme Found";
+		     	}
+		     	$(".userSelector").append(data);
+		    }
 
 		function addSkillList(SkillList){
 		    $(".skillSelector").empty();
@@ -689,9 +740,11 @@
         		dataType: 'json',
                 data:{'mid':missionID,
                 	  'uid':userID},
-                type:"POST",
+                type:"GET",
                 success: function(response){
-                	console.log(response);
+                	likedMissionId=[];
+                	getLikedMission();
+                	updateMissionsOnChange();
                    	}
                	});
         	}
@@ -709,14 +762,19 @@
         	}
         
         function loopForFetchingMissionDetails(missions) {
+        	       	
 			var htmlPageGrid = "";
 			var htmlPageList = "";
-			console.log(LikedMission.length);
-			for (let j = 0; j < LikedMission.length; j++) {
-				console.log(LikedMission[j].mission.mission_id);
-
-			}
+			
 			for (let i = 0; i < missions.length; i++) {
+				
+				let mytag="";
+				if(!likedMissionId.includes(missions[i].mission_id)){
+					mytag=`<i class="bi bi-heart"></i>`;
+				}
+				else{
+					mytag=`<i class="bi bi-heart-fill" style="color:red;"></i>`;
+				}
 				
 				htmlPageGrid+=
 				`<div class="col-12 col-md-6 col-lg-4">
@@ -730,10 +788,10 @@
 						</p>
 					</div>
 					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
-						<input type="text" class="userid" id="mid" name="mid" value="${user_id}" hidden>
-						<img src="images/heart.png" alt=""></button>
+						<input type="text" class="userid" name="mid" value="${user_id}" hidden>
+						`+mytag+`</button>
 					</div>
-					<div class="posAbsolute addBox"><button onclick="recommend(`+missions[i].mission_id+`)" style="border:0; background:none;">
+					<div class="posAbsolute addBox" data-bs-toggle="modal" data-bs-target="#exampleModal1">
 						<i class="bi bi-person-plus"></i>
 					</div>
 					<div class="card-body">
@@ -808,8 +866,8 @@
 						<div class="d-flex justify-content-center">
 							<form action="VolunteeringMission" method="get" name="VolunteeringMission">
 								<button class="d-flex apply " type="submit" style="min-width:120px";>
-									<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
-									<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
+									<input type="text" class="missionIdforNextpage" name="mid" value="`+missions[i].mission_id+`" hidden>
+									<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
 									<div>Apply</div>
 									<div>
 										<img src="images/right-arrow.png" alt="">
@@ -832,7 +890,9 @@
 						</p>
 						
 						<div class="missionLikeListView d-flex flex-column">
-							<i class="bi bi-heart"></i><i class="bi bi-person-plus"></i>
+							<button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
+							<input type="text" class="userid" name="mid" value="${user_id}" hidden>
+							`+mytag+`</button>
 						</div>
 						<div
 							class="d-flex justify-content-center missionCategoryListView">
@@ -936,8 +996,8 @@
 								<div class="d-flex">
 									<form action="VolunteeringMission" method="get" name="VolunteeringMission">
 										<button class="d-flex apply " type="submit" style="min-width:120px";>
-											<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
-											<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
+											<input type="text" class="missionIdforNextpage"  name="mid" value="`+missions[i].mission_id+`" hidden>
+											<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
 											<div>View Details</div>
 											<div>
 												<img src="images/right-arrow.png" alt="">
