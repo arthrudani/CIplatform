@@ -21,7 +21,11 @@
 .missionImg{
 	padding:0 !important;
 }
-
+.modal-footer .changepass {
+    color: #F88634;
+    border: 2px solid #F88634;
+    border-radius: 25px;
+}
 .dropdown-toggle::after {
 	display: none;
 }
@@ -37,7 +41,13 @@
 .header2 {
 	border: 1px solid black;
 }
-
+.recommendbutton{
+	border:1px solid #414141;
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 28%;
+}
 .H2P1 {
 	width: 50%;
 	border: 1px solid black;
@@ -335,14 +345,13 @@
 
 .HLaddBox {
 	color: white;
-	border-radius: 50px;
-	background-color: black;
-	opacity: 0.5;
-	right: 67%;
-	top: 57%;
-	height: 39px;
-	width: 39px;
-	padding: 1%;
+    border-radius: 25px;
+    background-color: black;
+    opacity: 0.5;
+    right: 6%;
+    top: 51%;
+    padding: 4%;
+    font-size: 18px;
 }
 
 .HLcategory {
@@ -768,14 +777,14 @@
 		padding: 2%;
 	}
 	.HLaddBox {
-		color: white;
-		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
-		right: 68%;
-		top: 35%;
-		padding: 3%;
-		font-size: 18px;
+	    color: white;
+	    border-radius: 25px;
+	    background-color: black;
+	    opacity: 0.5;
+	    right: 6%;
+	    top: 49%;
+	    padding: 3%;
+	    font-size: 18px;
 	}
 	.texts {
 		font-size: 8px;
@@ -898,13 +907,13 @@
 	}
 	.HLaddBox {
 		color: white;
-		border-radius: 25px;
-		background-color: black;
-		opacity: 0.5;
-		right: 68%;
-		top: 28%;
-		padding: 1%;
-		font-size: 18px;
+	    border-radius: 25px;
+	    background-color: black;
+	    opacity: 0.5;
+	    right: 6%;
+	    top: 51%;
+	    padding: 4%;
+	    font-size: 18px;
 	}
 	.HLcategory {
 		background-color: rgb(255, 255, 255);

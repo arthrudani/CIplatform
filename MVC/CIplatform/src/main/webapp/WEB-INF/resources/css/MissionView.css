@@ -13,7 +13,11 @@ body {
     color: #000;
     cursor: pointer;
 }
-
+.modal-footer .changepass {
+    color: #F88634;
+    border: 2px solid #F88634;
+    border-radius: 25px;
+}
 .filter-close-button {
     background-color: transparent;
     border: none;
@@ -21,6 +25,10 @@ body {
     font-size: 18px;
     margin-left: 5px;
     color: #888;
+}
+.starbutton{
+	background:none;
+	border:0;
 }
 .slide-item img{
 	height:500px !important;

@@ -47,19 +47,12 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body ">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton1" data-bs-toggle="dropdown"
-						aria-expanded="false">
-						Users <img src="images/drop-down.png">
-					</button>
-					<ul class="dropdown-menu posStatic userSelector"
-						aria-labelledby="dropdownMenuButton1">
-
-					</ul>
+				<div class="modal-body d-flex justify-content-center">
+					<label for="email">Enter your email:</label> 
+					<input type="email" id="email" name="email">
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn cancel" data-bs-dismiss="modal">Recommend</button>
+					<button type="submit" class="btn changepass" data-bs-dismiss="modal">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -421,8 +414,7 @@
 		               		$(".noMissionFound").remove();
 		               	}
 		               	
-		               	editpagination(a);
-		               	loopForFetchingMissionDetails(missions);               	                 	 
+		               	editpagination(a);             	                 	 
 	                }
 	            });
 	       	 $.ajax({
@@ -442,14 +434,6 @@
 	               	addThemeList(ThemeList);
 	                }
 	            });
-	       	$.ajax({
-                url: "loadUserForrecommendation",
-                dataType: 'json',
-                success: function(response){
-               	UserList=response;
-               	addUserList(UserList);
-                }
-            });
 	       	 
 	       	$.ajax({
                 url: "loadListOfSkill",
@@ -576,19 +560,6 @@
 	     	$(".themeSelector").append(data);
 	    	$(".themeSelectorSidebar").append(data);
 	    }
-	     function addUserList(UserList){
-		     	$(".userSelector").empty();
-		     	var data="";
-		     	let status=0;
-		     	for(var i in UserList){
-		     		status=1;
-		     		data+='<input type="checkbox" onChange="userCheckedClickEvent()" value="'+UserList[i].user_id+'"/> '+UserList[i].user_id+'<br>';
-		     	}
-		     	if(status==0){
-		     		data+="No Theme Found";
-		     	}
-		     	$(".userSelector").append(data);
-		    }
 
 		function addSkillList(SkillList){
 		    $(".skillSelector").empty();
@@ -765,8 +736,33 @@
         	       	
 			var htmlPageGrid = "";
 			var htmlPageList = "";
+			let sum=0;
+			let average=0;
 			
 			for (let i = 0; i < missions.length; i++) {
+				sum=0;
+				for (let j = 0; j < missions[i].mission_ratings.length; j++) {
+					if(missions[i].mission_ratings[j].rating=="ONE"){
+						sum=sum+1;
+					}
+					if(missions[i].mission_ratings[j].rating=="TWO"){
+						sum=sum+2;
+					}
+					if(missions[i].mission_ratings[j].rating=="THREE"){
+						sum=sum+3;
+					}
+					if(missions[i].mission_ratings[j].rating=="FOUR"){
+						sum=sum+4;
+					}
+					if(missions[i].mission_ratings[j].rating=="FIVE"){
+						sum=sum+5;
+					}
+					else{
+						sum=sum+0;	
+					}
+				}
+				average=sum/missions[i].mission_ratings.length;
+				console.log("average of:"+i+":"+average);
 				
 				let mytag="";
 				if(!likedMissionId.includes(missions[i].mission_id)){
@@ -774,6 +770,111 @@
 				}
 				else{
 					mytag=`<i class="bi bi-heart-fill" style="color:red;"></i>`;
+				}
+				
+				let myrating="";
+				if(average==5){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow !important;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>`;
+					
+				}
+				else if(average==1){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow; background:none;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>`;
+				}
+				else if(average==2){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>`;
+				}
+				else if(average==3){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>`;
+				}
+				else if(average==4){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow  !important;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>`;
+				}
+				else{
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>`;
 				}
 				
 				htmlPageGrid+=
@@ -811,22 +912,9 @@
 							<div>
 								<p class="card-text">Tree canada</p>
 							</div>
-							<div>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
-								<button class="starbutton">
-									<img src="images/star.png" alt="">
-								</button>
+							<input type="text" class="userid" name="mid" value="${average}" hidden>
+							<div class="stars">
+							`+myrating+`
 							</div>
 						</div>
 						<hr class="lineintext">
@@ -894,6 +982,11 @@
 							<input type="text" class="userid" name="mid" value="${user_id}" hidden>
 							`+mytag+`</button>
 						</div>
+						
+						<div class="missionLikeListView HLaddBox" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+							<i class="bi bi-person-plus"></i>
+						</div>
+						
 						<div
 							class="d-flex justify-content-center missionCategoryListView">
 						`+missions[i].mission_theme.title+`
@@ -925,22 +1018,9 @@
 								<div class="col d-flex justify-content-end">
 									<div class="row ratingDivGridView">
 										<div class="col">
-											<div class="row d-flex flex-row ratingStar flex-nowrap">
-												<div class="col">
-													<img src="images/selected-star.png" alt="" srcset="">
-												</div>
-												<div class="col">
-													<img src="images/selected-star.png" alt="" srcset="">
-												</div>
-												<div class="col">
-													<img src="images/selected-star.png" alt="" srcset="">
-												</div>
-												<div class="col">
-													<img src="images/star.png" alt="" srcset="">
-												</div>
-												<div class="col">
-													<img src="images/star.png" alt="" srcset="">
-												</div>
+										<input type="text" class="userid" name="mid" value="${average}" hidden>
+											<div class="stars">
+											`+myrating+`
 											</div>
 										</div>
 									</div>

@@ -21,6 +21,7 @@ import com.entities.city;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_rating;
 import com.entities.mission_theme;
 import com.entities.skill;
 import com.entities.user;
@@ -182,6 +183,16 @@ public class MissionLoader implements MissionLoaderInterface {
 		q.setParameter("user_id", user.getUser_id());
 		List<mission> mylist=q.list();
 		return mylist;
+	}
+
+	public int getRatingCount(mission mission) {
+		Session s = this.hibernateTemplate.getSessionFactory().openSession();
+		Criteria avg = s.createCriteria(mission.class);
+		return 0;
+	}
+
+	public int getAverageRatings(mission mission) {
+		return 0;
 	}
 
 }

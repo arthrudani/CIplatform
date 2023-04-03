@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
+import com.entities.favourite_mission;
 import com.entities.mission;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
@@ -30,4 +31,5 @@ public interface missionLoader {
 	public String loadRelatedMissions(mission mission, city city, country country, mission_theme mission_theme);
 	public List<mission> loadLikedMission(user user);
 	public List<user> loadAllUsers();
+	public int getRatings(mission mission);
 }

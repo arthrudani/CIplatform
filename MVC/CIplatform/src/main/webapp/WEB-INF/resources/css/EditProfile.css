@@ -20,7 +20,11 @@ body {
     border-radius: 50%;
 
 }
-
+.modal-footer .changepass {
+    color: #F88634;
+    border: 2px solid #F88634;
+    border-radius: 25px;
+}
 .rightHeader {
     flex-direction: row !important;
     align-items: flex-start;

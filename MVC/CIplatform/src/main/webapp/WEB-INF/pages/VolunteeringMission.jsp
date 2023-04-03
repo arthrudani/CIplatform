@@ -51,36 +51,30 @@
 </head>
 
 <body>
-	
+
 	<!-- modal for change password -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Recommend to co-worker</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Recommend to
+						co-worker</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body ">
-					<input type="email" name="email" class="form-control my-3"
-						id="oldpass" aria-describedby="emailHelp"
-						placeholder="Enter old password"> <input type="password"
-						name="newpass" class="form-control my-3" id="newpass"
-						aria-describedby="emailHelp" placeholder="Enter new password">
-					<input type="password" name="confpass" class="form-control my-3"
-						id="confpass" aria-describedby="emailHelp"
-						placeholder="Confirm new password">
+				<div class="modal-body d-flex justify-content-center">
+					<label for="email">Enter your email:</label> <input type="email"
+						id="email" name="email">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn changepass"
-						data-bs-dismiss="modal" aria-label="Close">Change
-						password</button>
+					<button type="submit" class="btn changepass"
+						data-bs-dismiss="modal">Recommend</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="container-fluid p-0">
 
 		<!-- sidebar starts here -->
@@ -169,7 +163,7 @@
 
 						<img src="images/<c:out value="${user.avatar}"></c:out>"
 							class="userimage "> <span class="blocking uNameuImage"
-							class="uNameuImage"><c:out
+							class="uNameuImage"> <c:out
 								value="${user.first_name} ${user.last_name}"></c:out></span> <input
 							type="text" id="title" name="title" value="${mission.title}"
 							hidden> <input type="text" class="missionID"
@@ -283,12 +277,16 @@
 							<div role="button"
 								class="d-flex recommend-items align-items-center justify-content-center twobutton likeButtonOnDetail"
 								style="width: 40%;"></div>
+							<input type="text" class="averageRating" id="averageRating"
+								name="averageRating" value="${rating}" hidden>
 							<div role="button"
 								class="d-flex recommend-items align-items-center justify-content-center twobutton"
-								style="width: 40%;" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-								<img src="images/add1.png" alt="" style="padding: 7px;"> 
+								style="width: 40%;" data-bs-toggle="modal"
+								data-bs-target="#exampleModal1">
+								<img src="images/add1.png" alt="" style="padding: 7px;">
 								Recommend To Co-Worker
 							</div>
+
 
 							<div class="rating">
 								<template>
@@ -502,7 +500,10 @@
 							</div>
 							<div class="d-flex flex-wrap border-bottom py-1">
 								<p style="padding-right: 50px">Skills</p>
-								<p>Botany</p>
+								
+<%-- 								<c:forEach var="i" items="${mission.mission_skills}"> --%>
+<%--          							<c:out value="${mission.mission_skills[i].skill.skill_name}" /> --%>
+<%-- 								</c:forEach> --%>
 							</div>
 							<div class="d-flex flex-wrap border-bottom py-2">
 								<p style="padding-right: 50px">Days</p>
@@ -510,14 +511,7 @@
 							</div>
 							<div class="d-flex flex-wrap py-2">
 								<p style="padding-right: 40px">Rating</p>
-								<div>
-									<img src="images/selected-star.png" alt=""> <img
-										src="images/selected-star.png" alt=""> <img
-										src="images/selected-star.png" alt=""> <img
-										src="images/selected-star.png" alt=""> <img
-										src="images/selected-star.png" alt=""> <img
-										src="images/star.png" alt=""> &nbsp;(by 5 Volunteer)
-								</div>
+								<div class="averageRatings"></div>
 
 							</div>
 						</div>
@@ -640,10 +634,12 @@
 	let likedMissionId=[];
 	let user_id=$('.userId').val();
 	let mission_id=$('.missionID').val();
+	let average=$('.averageRating').val();
 	let likedStatus="";
 	
 	$(document).ready(function(){
 		
+		setAverageRatings();
 		getLikedMission();
 		loadRelatedMission();
 		
@@ -680,6 +676,114 @@
 		}
 		$(".likeButtonOnDetail").html(mytag);
 	
+	}
+	function setAverageRatings(){
+		average=1;
+		let myrating="";
+		if(average==5){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow !important;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>`;
+			
+		}
+		else if(average==1){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow; background:none;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		else if(average==2){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		else if(average==3){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		else if(average==4){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow  !important;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill style="color:yellow;"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		else{
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		$(".averageRatings").html(myrating);
 	}
 	function loadRelatedMission(){
 		

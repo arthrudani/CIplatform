@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dto.Filters;
 import com.entities.city;
 import com.entities.country;
+import com.entities.favourite_mission;
 import com.entities.mission;
 import com.entities.mission_theme;
 import com.entities.skill;
@@ -107,20 +108,7 @@ public class missionController {
 		return Output;
 	}
 	
-	@RequestMapping(value = "/loadUserForrecommendation")
-	public @ResponseBody String loadAllUser() {
-		List<user> users = this.service.loadAllUsers();
-		System.out.println(users);
-		ObjectMapper obj = new ObjectMapper();
-		String Output = "";
-		try {
-			Output = obj.writeValueAsString(users);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return Output;
-	}
+	
 	
 	@RequestMapping(value = "/loadListOfSkill")
 	public @ResponseBody String loadAllSkill() {
@@ -147,8 +135,10 @@ public class missionController {
 	public String myFormHandler(@RequestParam("mid") int missionId,@RequestParam("uid") int userId,Model m) {
 		mission mission=this.service.getMissionById(missionId);
 		user user=this.service.getUserById(userId);
+		int rating=this.service.getRatings(mission);
 		m.addAttribute("mission",mission);
 		m.addAttribute("user",user);
+		m.addAttribute("rating",rating);
 		m.addAttribute("user_id",user.getUser_id());
 		return "VolunteeringMission";
 	}
@@ -172,6 +162,7 @@ public class missionController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return Output;
 	}
 

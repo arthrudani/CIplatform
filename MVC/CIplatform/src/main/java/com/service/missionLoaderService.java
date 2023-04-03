@@ -147,6 +147,13 @@ public class missionLoaderService implements missionLoader {
 		ObjectMapper obj=new ObjectMapper();
 		List<mission> liked=this.missionLoaderInterface.getLikedMission(user);
 		return liked;
+	}
+
+	public int getRatings(mission mission) {
+		
+		int sum=this.missionLoaderInterface.getAverageRatings(mission);
+		int totalRatedBy=this.missionLoaderInterface.getRatingCount(mission);
+		return sum;
 		
 	}
 

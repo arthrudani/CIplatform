@@ -26,4 +26,6 @@ public interface MissionLoaderInterface {
 	public List<mission> loadrelatedmission(mission mission, city city, country country, mission_theme mission_theme);
 	public List<mission> getLikedMission(user user);
 	public List<user> loadAllUserOnSearch();
+	public int getRatingCount(mission mission);
+	public int getAverageRatings(mission mission);
 }
