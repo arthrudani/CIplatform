@@ -137,13 +137,11 @@ public class MissionLoader implements MissionLoaderInterface {
 	@Transactional
 	public void save(favourite_mission fv) {
 		this.hibernateTemplate.save(fv);
-		System.out.println("saved");
 	}
 	
 	@Transactional
 	public void delete(favourite_mission fv) {
 		this.hibernateTemplate.delete(fv);
-		System.out.println("removed");
 	}
 
 	public List<mission> loadrelatedmission(mission mission1,city city, country country, mission_theme mission_theme) {
@@ -188,11 +186,43 @@ public class MissionLoader implements MissionLoaderInterface {
 	public int getRatingCount(mission mission) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
 		Criteria avg = s.createCriteria(mission.class);
+		avg.add(Restrictions.eq("mission", mission));
+		
 		return 0;
 	}
 
-	public int getAverageRatings(mission mission) {
-		return 0;
+	public Double getAverageRatings(mission mission) {
+		Session s = this.hibernateTemplate.getSessionFactory().openSession();
+		Criteria criteria = s.createCriteria(mission_rating.class);
+		criteria.add(Restrictions.eq("mission", mission));
+		if(criteria.list().size()==0) {
+			return (double) 0;
+		}
+		criteria.setProjection(Projections.avg("rating"));
+		List listAvgSalary = criteria.list();
+		
+		Double avgSalary = (Double)listAvgSalary.get(0);
+		
+		return avgSalary;
+	}
+
+	@Transactional
+	public void save(mission_rating mission_rating1) {
+		this.hibernateTemplate.save(mission_rating1);
+		System.out.println("saved");
+		
+	}
+	@Transactional
+	public void saveorupdate(mission_rating mission_rating1) {
+		this.hibernateTemplate.saveOrUpdate(mission_rating1);
+		System.out.println("saved");
+		
+	}
+	@Transactional
+	public void delete(mission_rating mission_rating1) {
+		this.hibernateTemplate.delete(mission_rating1);
+		System.out.println("deleted");
+		
 	}
 
 }

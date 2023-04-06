@@ -8,6 +8,7 @@ import com.entities.city;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_rating;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
@@ -27,5 +28,8 @@ public interface MissionLoaderInterface {
 	public List<mission> getLikedMission(user user);
 	public List<user> loadAllUserOnSearch();
 	public int getRatingCount(mission mission);
-	public int getAverageRatings(mission mission);
+	public Double getAverageRatings(mission mission);
+	public void save(mission_rating mission_rating1);
+	public void saveorupdate(mission_rating mission_rating1);
+	public void delete(mission_rating mission_rating1);
 }

@@ -742,19 +742,19 @@
 			for (let i = 0; i < missions.length; i++) {
 				sum=0;
 				for (let j = 0; j < missions[i].mission_ratings.length; j++) {
-					if(missions[i].mission_ratings[j].rating=="ONE"){
+					if(missions[i].mission_ratings[j].rating==1){
 						sum=sum+1;
 					}
-					if(missions[i].mission_ratings[j].rating=="TWO"){
+					if(missions[i].mission_ratings[j].rating==2){
 						sum=sum+2;
 					}
-					if(missions[i].mission_ratings[j].rating=="THREE"){
+					if(missions[i].mission_ratings[j].rating==3){
 						sum=sum+3;
 					}
-					if(missions[i].mission_ratings[j].rating=="FOUR"){
+					if(missions[i].mission_ratings[j].rating==4){
 						sum=sum+4;
 					}
-					if(missions[i].mission_ratings[j].rating=="FIVE"){
+					if(missions[i].mission_ratings[j].rating==5){
 						sum=sum+5;
 					}
 					else{
@@ -762,8 +762,6 @@
 					}
 				}
 				average=sum/missions[i].mission_ratings.length;
-				console.log("average of:"+i+":"+average);
-				
 				let mytag="";
 				if(!likedMissionId.includes(missions[i].mission_id)){
 					mytag=`<i class="bi bi-heart"></i>`;
@@ -773,30 +771,64 @@
 				}
 				
 				let myrating="";
-				if(average==5){
+				if(average>4){
 					myrating=`<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow !important;"></i>
+									<i class="bi bi-star-fill" style="color:yellow"></i>
 								</button>
 								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
+									<i class="bi bi-star-fill" style="color:yellow"></i>
 								</button>
 								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
+									<i class="bi bi-star-fill" style="color:yellow"></i>
 								</button>
 								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
+									<i class="bi bi-star-fill" style="color:yellow"></i>
 								</button>
 								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
+									<i class="bi bi-star-fill" style="color:yellow"></i>
 								</button>`;
 					
 				}
-				else if(average==1){
+				else if(average>3){
 					myrating=`<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow; background:none;"></i>
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
 								</button>
 								<button class="starbutton">
 									<i class="bi bi-star"></i>
+								</button>`;
+				}
+				else if(average>2){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star"></i>
+								</button>`;
+				}
+				else if(average>1){
+					myrating=`<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
+								</button>
+								<button class="starbutton">
+									<i class="bi bi-star-fill" style="color:yellow;"></i>
 								</button>
 								<button class="starbutton">
 									<i class="bi bi-star"></i>
@@ -808,12 +840,9 @@
 									<i class="bi bi-star"></i>
 								</button>`;
 				}
-				else if(average==2){
+				else if(average>0){
 					myrating=`<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
+									<i class="bi bi-star-fill" style="color:yellow  !important;"></i>
 								</button>
 								<button class="starbutton">
 									<i class="bi bi-star"></i>
@@ -823,37 +852,6 @@
 								</button>
 								<button class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>`;
-				}
-				else if(average==3){
-					myrating=`<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star"></i>
-								</button>`;
-				}
-				else if(average==4){
-					myrating=`<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow  !important;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
-									<i class="bi bi-star-fill style="color:yellow;"></i>
 								</button>
 								<button class="starbutton">
 									<i class="bi bi-star"></i>

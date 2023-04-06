@@ -161,7 +161,10 @@ body {
 #searchbutton {
     box-shadow: none;
 }
-
+.rating button{
+	border:0;
+	background:none;
+}
 .userimage {
     border-radius: 50%;
     width: 2rem;
@@ -449,6 +452,10 @@ body {
     background: transparent !important;
     overflow: hidden;
 }
+.bi-star-fill{
+	color:#ffd900 !important;
+}
+
 
 /*********************************/
 .SDimg img{

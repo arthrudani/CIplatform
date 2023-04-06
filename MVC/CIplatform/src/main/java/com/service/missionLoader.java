@@ -31,5 +31,7 @@ public interface missionLoader {
 	public String loadRelatedMissions(mission mission, city city, country country, mission_theme mission_theme);
 	public List<mission> loadLikedMission(user user);
 	public List<user> loadAllUsers();
-	public int getRatings(mission mission);
+	public Double getRatings(mission mission);
+	public String rateMission(int mID, int uID, int ratings);
+	public int getRatingsOfCurrent(int mID, int uID);
 }

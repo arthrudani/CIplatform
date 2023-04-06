@@ -19,6 +19,7 @@ import com.entities.city;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_rating;
 import com.entities.mission_theme;
 import com.entities.skill;
 import com.entities.user;
@@ -149,13 +150,50 @@ public class missionLoaderService implements missionLoader {
 		return liked;
 	}
 
-	public int getRatings(mission mission) {
+	public Double getRatings(mission mission) {
 		
-		int sum=this.missionLoaderInterface.getAverageRatings(mission);
-		int totalRatedBy=this.missionLoaderInterface.getRatingCount(mission);
+		Double sum=this.missionLoaderInterface.getAverageRatings(mission);
+//		int totalRatedBy=this.missionLoaderInterface.getRatingCount(mission);
 		return sum;
 		
 	}
 
+	public String rateMission(int mID, int uID, int ratings) {
+		mission mission=this.hibernateTemplate.get(mission.class, mID);
+		user user=this.hibernateTemplate.get(user.class, uID);
+		
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_rating where mission_id=:mission_id and user_id=:user_id");
+		query.setParameter("mission_id", mID);
+		query.setParameter("user_id", uID);
+		mission_rating mission_rating=(mission_rating) query.uniqueResult();
+		
+		if(mission_rating!=null) {
+			this.missionLoaderInterface.delete(mission_rating);
+		}
+		else {
+			
+		}
+		mission_rating mission_rating1=new mission_rating();
+		mission_rating1.setCreated_at(new Date());
+		mission_rating1.setMission(mission);
+		mission_rating1.setUser(user);
+		mission_rating1.setRating(ratings);
+		this.missionLoaderInterface.save(mission_rating1);
+		return "true";
+	}
+
+	public int getRatingsOfCurrent(int mID, int uID) {
+		mission mission=this.hibernateTemplate.get(mission.class, mID);
+		user user=this.hibernateTemplate.get(user.class, uID);
+		
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_rating where mission_id=:mission_id and user_id=:user_id");
+		query.setParameter("mission_id", mission.getMission_id());
+		query.setParameter("user_id", user.getUser_id());
+		mission_rating mission_rating=(mission_rating) query.uniqueResult();
+		if(mission_rating != null) {
+			return mission_rating.getRating();
+		}
+		return 0;
+	}
 
 }

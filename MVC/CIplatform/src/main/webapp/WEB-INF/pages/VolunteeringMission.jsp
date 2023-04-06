@@ -169,6 +169,7 @@
 							hidden> <input type="text" class="missionID"
 							value="${mission.mission_id}" hidden> <input type="text"
 							class="userId" id="uid" name="uid" value="${user_id}" hidden>
+							<input type="text" class="average" id="average" name="average" value="${avgrating}" hidden>
 						<img src="images/drop-down.png" alt=""
 							class="user-image-downarrow">
 					</button>
@@ -277,8 +278,8 @@
 							<div role="button"
 								class="d-flex recommend-items align-items-center justify-content-center twobutton likeButtonOnDetail"
 								style="width: 40%;"></div>
-							<input type="text" class="averageRating" id="averageRating"
-								name="averageRating" value="${rating}" hidden>
+							<input type="text" class="avgrating" id="averageRating"
+								name="averageRating" value="${avgrating}" hidden>
 							<div role="button"
 								class="d-flex recommend-items align-items-center justify-content-center twobutton"
 								style="width: 40%;" data-bs-toggle="modal"
@@ -287,19 +288,8 @@
 								Recommend To Co-Worker
 							</div>
 
-
+<!-- rated by current user -->
 							<div class="rating">
-								<template>
-									<div>
-										<b-form-rating v-model="value" color="indigo" class="mb-2"></b-form-rating>
-										<b-form-rating v-model="value" color="#ff00ff" class="mb-2"></b-form-rating>
-										<b-form-rating v-model="value" color="rgb(64, 192, 128)"
-											class="mb-2"></b-form-rating>
-										<b-form-rating v-model="value"
-											color="rgba(64, 192, 128, 0.75)" class="mb-2"></b-form-rating>
-										<p class="mt-2">Value: {{ value }}</p>
-									</div>
-								</template>
 							</div>
 
 						</div>
@@ -500,10 +490,10 @@
 							</div>
 							<div class="d-flex flex-wrap border-bottom py-1">
 								<p style="padding-right: 50px">Skills</p>
-								
-<%-- 								<c:forEach var="i" items="${mission.mission_skills}"> --%>
-<%--          							<c:out value="${mission.mission_skills[i].skill.skill_name}" /> --%>
-<%-- 								</c:forEach> --%>
+								<%-- <c:forEach var="i" items="${mission.mission_skills}"> --%>
+								<%--       <c:out value="${i.skill.skill_name}" ></c:out> --%>
+								<%-- </c:forEach> --%>
+
 							</div>
 							<div class="d-flex flex-wrap border-bottom py-2">
 								<p style="padding-right: 50px">Days</p>
@@ -511,7 +501,8 @@
 							</div>
 							<div class="d-flex flex-wrap py-2">
 								<p style="padding-right: 40px">Rating</p>
-								<div class="averageRatings"></div>
+								<div class="averageRatings">
+								</div>
 
 							</div>
 						</div>
@@ -634,14 +625,16 @@
 	let likedMissionId=[];
 	let user_id=$('.userId').val();
 	let mission_id=$('.missionID').val();
-	let average=$('.averageRating').val();
 	let likedStatus="";
+	let averageOfRelated=0;
+	let starForRelatred="";
 	
 	$(document).ready(function(){
 		
 		setAverageRatings();
 		getLikedMission();
 		loadRelatedMission();
+		getRatingsOfCurrent();
 		
 		
         $("#slider").slick({
@@ -677,33 +670,94 @@
 		$(".likeButtonOnDetail").html(mytag);
 	
 	}
+	function getAverageRatingsOfRelated(mission_id){
+		let average=0;
+		$.ajax({
+            url: "getAverageRating",
+    		dataType: 'json',
+            data:{'mid':mission_id},
+            type:"GET",
+            success: function(response){
+            	averageOfRelated=response;
+            	console.log("in ajax"+averageOfRelated);
+        	}
+		});
+		console.log("outside of ajax"+averageOfRelated);
+	}
 	function setAverageRatings(){
-		average=1;
+		let average=0;
+		$.ajax({
+            url: "getAverageRating",
+    		dataType: 'json',
+            data:{'mid':mission_id},
+            type:"GET",
+            success: function(response){
+            	average=response;
+            	setaverageratingss(average);
+            	
+        	}
+		});
+	}
+	function setaverageratingss(average){
 		let myrating="";
-		if(average==5){
+		if(average>4){
 			myrating=`<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow !important;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>`;
 			
 		}
-		else if(average==1){
+		else if(average>3){
 			myrating=`<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow; background:none;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
 							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		else if(average>2){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star"></i>
+						</button>`;
+		}
+		else if(average>1){
+			myrating=`<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
+						</button>
+						<button class="starbutton">
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
 							<i class="bi bi-star"></i>
@@ -715,12 +769,9 @@
 							<i class="bi bi-star"></i>
 						</button>`;
 		}
-		else if(average==2){
+		else if(average>0){
 			myrating=`<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
+							<i class="bi bi-star-fill" style="color:yellow"></i>
 						</button>
 						<button class="starbutton">
 							<i class="bi bi-star"></i>
@@ -730,37 +781,6 @@
 						</button>
 						<button class="starbutton">
 							<i class="bi bi-star"></i>
-						</button>`;
-		}
-		else if(average==3){
-			myrating=`<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star"></i>
-						</button>`;
-		}
-		else if(average==4){
-			myrating=`<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow  !important;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
-						</button>
-						<button class="starbutton">
-							<i class="bi bi-star-fill style="color:yellow;"></i>
 						</button>
 						<button class="starbutton">
 							<i class="bi bi-star"></i>
@@ -810,9 +830,75 @@
 			}
 		});
 	}
+	function getRatingsOfCurrent(){
+		let ratedByCurrent="";
+		let rated=0;
+		$.ajax({
+            url: "getRatingsOfCurrent",
+    		dataType: 'json',
+            data:{'mid':mission_id,
+            	  'uid':user_id},
+            type:"GET",
+            success: function(response){
+            	rated=response;
+            	updateRatingsOnChange(rated);
+        	}
+		});
+	}
+	function updateRatingsOnChange(rated){
+		console.log(rated);
+		if(rated==5){
+			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},3)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},4)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},5)"><i class="bi bi-star-fill" style="color:yellow"></i></button>`;
+				}
+		else if(rated==4){
+			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},3)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},4)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},5)"><i class="bi bi-star"></i></button>`;
+				}
+		else if(rated==3){
+			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},3)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},4)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},5)"><i class="bi bi-star"></i></button>`;
+				}
+		else if(rated==2){
+			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},3)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},4)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},5)"><i class="bi bi-star"></i></button>`;
+				}
+		else if(rated==1){
+			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},3)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},4)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},5)"><i class="bi bi-star"></i></button>`;
+				}
+		else{
+			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},3)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},4)"><i class="bi bi-star"></i></button>
+							<button onclick="rateMission(${mission.mission_id},${user_id},5)"><i class="bi bi-star"></i></button>`;
+				}
+		setAverageRatings();
+		$(".rating").html(ratedByCurrent);
+	}
 	function updateRelatedMission(missions){
 		relatedMission="";
+		let avgrltd=0;
 	   	for (let i in missions) {
+	   		
+	   		getAverageRatingsOfRelated(missions[i].mission_id);
+	   		console.log("average rating of :"+missions[i].mission_id+" "+averageOfRelated);
 	   		
 	   		let mytagrelated="";
 			if(!likedMissionId.includes(missions[i].mission_id)){
@@ -850,11 +936,7 @@
 					                            <div class="d-flex justify-content-between align-items-center flex-wrap">
 					                                <p class="descColor mb-0">Tree Canada</p>
 					                                <div class="d-flex">
-					                                    <img src="images/selected-star.png" alt="">
-					                                    <img class="ms-1" src="images/selected-star.png" alt="">
-					                                    <img class="ms-1" src="images/selected-star.png" alt="">
-					                                    <img class="ms-1" src="images/star.png" alt="">
-					                                    <img class="ms-1" src="images/star.png" alt="">
+					                                <div class="averageRatings"></div>
 					                                </div>
 					                            </div>
 					                            <p class='fromTo'>from
@@ -883,6 +965,7 @@
 						                        <button class="d-flex apply Apply__Mission" type="submit" style="min-width:120px";>
 													<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
 													<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
+													
 													<div>Apply</div>
 													<div>
 														<img src="images/right-arrow.png" alt="">
@@ -937,6 +1020,21 @@
             	loadRelatedMission();
         	}
 		});
+    }
+	function rateMission(missionID,userID,ratings){		
+    	$.ajax({
+            url: "ratemission",
+    		dataType: 'json',
+            data:{'mid':missionID,
+            	  'uid':userID,
+            	  'ratings':ratings},
+            type:"GET",
+            success: function(response){
+            	getRatingsOfCurrent();
+            	
+        	}
+		});
+    	
     }
 </script>
 

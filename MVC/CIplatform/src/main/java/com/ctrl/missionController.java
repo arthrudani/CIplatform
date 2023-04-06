@@ -135,11 +135,12 @@ public class missionController {
 	public String myFormHandler(@RequestParam("mid") int missionId,@RequestParam("uid") int userId,Model m) {
 		mission mission=this.service.getMissionById(missionId);
 		user user=this.service.getUserById(userId);
-		int rating=this.service.getRatings(mission);
+		Double rating=this.service.getRatings(mission);
 		m.addAttribute("mission",mission);
 		m.addAttribute("user",user);
 		m.addAttribute("rating",rating);
 		m.addAttribute("user_id",user.getUser_id());
+		m.addAttribute("avgrating",rating);
 		return "VolunteeringMission";
 	}
 	
@@ -148,6 +149,20 @@ public class missionController {
 		String result="";
 		result=this.service.addToFavourite(mID,uID);
 		return result;
+	}
+	
+	@RequestMapping(path = "/ratemission", method = RequestMethod.GET)
+	public @ResponseBody String ratemission(@RequestParam("mid") int mID,@RequestParam("uid") int uID,@RequestParam("ratings") int ratings) {
+		String result="";
+		result=this.service.rateMission(mID,uID,ratings);
+		return result;
+	}
+	
+	@RequestMapping(path = "/getAverageRating", method = RequestMethod.GET)
+	public @ResponseBody Double getAverageRating(@RequestParam("mid") int mID) {
+		mission mission=this.service.getMissionById(mID);
+		Double result1=this.service.getRatings(mission);
+		return result1;
 	}
 	
 	@RequestMapping(path = "/loadAllMissionLikedByUser", method = RequestMethod.GET)
@@ -164,6 +179,13 @@ public class missionController {
 		}
 
 		return Output;
+	}
+	
+	@RequestMapping(path = "/getRatingsOfCurrent", method = RequestMethod.GET)
+	public @ResponseBody int getRatingsOfCurrent(@RequestParam("mid") int mID,@RequestParam("uid") int uID) {
+		int result;
+		result=this.service.getRatingsOfCurrent(mID,uID);
+		return result;
 	}
 
 }
