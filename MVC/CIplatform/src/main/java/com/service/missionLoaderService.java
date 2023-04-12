@@ -16,10 +16,16 @@ import org.springframework.stereotype.Service;
 import com.dao.MissionLoaderInterface;
 import com.dto.Filters;
 import com.entities.city;
+import com.entities.comment;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_application;
+import com.entities.mission_application.approval;
+import com.entities.mission_document;
+import com.entities.mission_invite;
 import com.entities.mission_rating;
+import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
 import com.entities.user;
@@ -97,6 +103,7 @@ public class missionLoaderService implements missionLoader {
 			favourite_mission.setCreated_at(new Date());
 			favourite_mission.setMission(mission);
 			favourite_mission.setUser(user);
+			
 			this.missionLoaderInterface.save(favourite_mission);
 			return "true";
 		}
@@ -196,4 +203,108 @@ public class missionLoaderService implements missionLoader {
 		return 0;
 	}
 
+	@Transactional
+	public String recommendToCoWorker(mission mission,String email,user user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email");
+		query.setParameter("email", email);
+		user touser=(com.entities.user) query.uniqueResult();
+		
+		mission_invite mission_invite=new mission_invite();
+		mission_invite.setCreated_at(new Date());
+		mission_invite.setMission(mission);;
+		mission_invite.setTo_user(touser);
+		mission_invite.setFrom_user(user);
+		this.hibernateTemplate.save(mission_invite);
+		
+		SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", email, "You are recommended to ","http://localhost:8080/CIplatform/VolunteeringMission?mid="+mission.getMission_id()+"&uid="+user.getUser_id());
+		return null;
+	}
+
+	@Transactional
+	public String addComment(mission mission, String comments, user user) {
+		comment comment=new comment();
+		comment.setCreated_at(new Date());
+		comment.setMission(mission);
+		comment.setUser(user);
+		comment.setComment(comments);
+		this.hibernateTemplate.save(comment);
+		return null;
+	}
+
+	public String loadAllComment(mission mission) {
+		String output="";
+		ObjectMapper obj=new ObjectMapper();
+		List<comment> comments=this.missionLoaderInterface.getAllComments(mission);
+		try {
+			output=obj.writeValueAsString(comments);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	public String loadAllDocuments(mission mission) {
+		String output="";
+		ObjectMapper obj=new ObjectMapper();
+		List<mission_document> comments=this.missionLoaderInterface.loadAllDocuments(mission);
+		try {
+			output=obj.writeValueAsString(comments);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	public String loadMissionSkills(mission mission) {
+		String output="";
+		ObjectMapper obj=new ObjectMapper();
+		List<mission_skill> comments=this.missionLoaderInterface.loadMissionSkills(mission);
+		try {
+			output=obj.writeValueAsString(comments);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	@Transactional
+	public void applyForMission(mission mission,user user) {
+		mission_application application=new mission_application();
+		application.setApplied_at(new Date());
+		application.setMission(mission);
+		application.setUser(user);
+		application.setApproval_status(approval.TWO);
+		this.hibernateTemplate.save(application);
+	}
+	
+	public approval appliedOrNotForMission(mission mission,user user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_application where mission_id=:mission_id and user_id=:user_id");
+		query.setParameter("mission_id", mission.getMission_id());
+		query.setParameter("user_id", user.getUser_id());
+		if(query.list().size()==1) {
+			mission_application application=(mission_application) query.uniqueResult();
+			return application.getApproval_status();
+		}
+		return approval.ZERO;
+	}
+
+	public String loadRecentVolunteers(mission mission,int currentPage) {
+		String output="";
+		ObjectMapper obj=new ObjectMapper();
+		List<mission_application> users=this.missionLoaderInterface.loadRecentVolunteers(mission,currentPage);
+		try {
+			output=obj.writeValueAsString(users);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return output;
+	}
+	
+	public int loadTotalRecentVolunteers(mission mission) {
+		return this.missionLoaderInterface.loadTotalRecentVolunteers(mission);
+	}
 }

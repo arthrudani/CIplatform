@@ -69,7 +69,6 @@ public class RegistrationDao {
 			SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", email, "Password reset link","http://localhost:8080/CIplatform/ResetPassword/"+token);
 			result1=token; 
 		} else {
-			System.out.println("email is not valid");
 			result1="false";
 		}
 		return result1;

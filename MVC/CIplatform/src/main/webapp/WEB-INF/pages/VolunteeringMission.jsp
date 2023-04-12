@@ -47,11 +47,9 @@
 
 
 
-
 </head>
 
 <body>
-
 	<!-- modal for change password -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -63,13 +61,17 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body d-flex justify-content-center">
-					<label for="email">Enter your email:</label> <input type="email"
-						id="email" name="email">
+				<input type="text" class="userId" id="uid" name="uid"
+					value="${user_id}" hidden> <input type="text"
+					class="missionID" name="missionID" value="${mission.mission_id}"
+					hidden>
+				<div class="modal-body d-flex justify-content-around">
+					<label for="email">Enter email:</label> <input type="email"
+						class="recommendEmail" id="email" name="email">
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
-						data-bs-dismiss="modal">Recommend</button>
+						onclick="recommendToCoworker()" data-bs-dismiss="modal">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -129,7 +131,7 @@
 					<img src="images/list.png" alt="hamberger" class="hambergericon"
 						onclick="sidebarreveal()"
 						style="display: none; width: 2.5rem; height: 1.5rem; padding-right: 15px;">
-					<img src="images/logo.png" alt="optimylogo">
+					<!-- 					<img src="images/logo.png" alt="optimylogo"> -->
 
 
 					<button class="btn common-hide" style="box-shadow: none;">
@@ -169,9 +171,9 @@
 							hidden> <input type="text" class="missionID"
 							value="${mission.mission_id}" hidden> <input type="text"
 							class="userId" id="uid" name="uid" value="${user_id}" hidden>
-							<input type="text" class="average" id="average" name="average" value="${avgrating}" hidden>
-						<img src="images/drop-down.png" alt=""
-							class="user-image-downarrow">
+						<input type="text" class="average" id="average" name="average"
+							value="${avgrating}" hidden> <img
+							src="images/drop-down.png" alt="" class="user-image-downarrow">
 					</button>
 
 					<ul class="dropdown-menu user" aria-labelledby="dropdownMenuLink">
@@ -288,9 +290,8 @@
 								Recommend To Co-Worker
 							</div>
 
-<!-- rated by current user -->
-							<div class="rating">
-							</div>
+							<!-- rated by current user -->
+							<div class="rating"></div>
 
 						</div>
 
@@ -331,10 +332,8 @@
 							</div>
 						</div>
 
-						<button class="Apply__Mission">
-							Apply&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/right-arrow.png"
-								alt="">
-						</button>
+						<!-- 						apply button -->
+						<div class="applyButton d-flex justify-content-center"></div>
 					</div>
 				</div>
 
@@ -386,19 +385,20 @@
 								Molestias rem mollitia, ab quibusdam totam iusto sed quis
 								soluta. <br>
 
+
+								<!-- All documents -->
 								<h3>Documents</h3>
-								<div class="d-flex docs"
-									style="border: 1px solid gray; border-radius: 50px; width: 25%;">
-									<img src="images/pdf.png" alt="" class="mx-2"> ipsum
-									dolor.
-								</div>
+								<div class="d-flex allDocuments"></div>
 							</div>
 
 
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 								aria-labelledby="nav-profile-tab">
 								<br>
-								<h3>Introduction</h3>
+								<h3>
+									<c:out value="${mission.organization_name}"></c:out>
+								</h3>
+
 								Lorem ipsum dolor sit amet consectetur adipisicing elit.
 								Perferendis accusantium sit ullam inventore explicabo a aliquid
 								totam error quasi atque at quo cum id eveniet, sint, illum
@@ -427,55 +427,16 @@
 							<div class="tab-pane fade" id="nav-contact" role="tabpanel"
 								aria-labelledby="nav-contact-tab">
 								<br>
-								<textarea name="Comment" id="comm" class="w-100"
+								<textarea name="Comment" id="comm" class="w-100 comment"
 									placeholder="Comment Here..." style="border-radius: 5px;"></textarea>
-								<button class="btn btn-outline-warning">Post Comment</button>
+								<button class="btn btn-outline-warning" onclick="addComment()">
+									Post Comment</button>
 
-								<div class="prev-comments mt-2"
+								<!-- all comments -->
+								<div class="prev-comments mt-2 allCommentsOfDB"
 									style="background-color: rgba(128, 128, 128, 0.503); padding: 5px; height: 23rem; overflow-y: scroll;">
-									<div class="usercomment d-flex mt-2 align-items-center"
-										style="background-color: white; border-radius: 10px; padding: 5px;">
-										<img src="images/volunteer1.png" alt=""
-											style="border-radius: 50%; width: 3rem; padding-right: 5px;">
-										<div>
-											Andrew Tate
-											<p>Monday, October 21, 2019, 4:00 am</p>
-											<p>This is a comment</p>
-										</div>
-									</div>
 
-									<div class="usercomment d-flex mt-2 align-items-center"
-										style="background-color: white; border-radius: 10px; padding: 5px;">
-										<img src="images/volunteer1.png" alt=""
-											style="border-radius: 50%; width: 3rem; padding-right: 5px;">
-										<div>
-											Andrew Tate
-											<p>Monday, October 21, 2019, 4:00 am</p>
-											<p>This is a comment</p>
-										</div>
-									</div>
 
-									<div class="usercomment d-flex mt-2 align-items-center"
-										style="background-color: white; border-radius: 10px; padding: 5px;">
-										<img src="images/volunteer1.png" alt=""
-											style="border-radius: 50%; width: 3rem; padding-right: 5px;">
-										<div>
-											Andrew Tate
-											<p>Monday, October 21, 2019, 4:00 am</p>
-											<p>This is a comment</p>
-										</div>
-									</div>
-
-									<div class="usercomment d-flex mt-2 align-items-center"
-										style="background-color: white; border-radius: 10px; padding: 5px;">
-										<img src="images/volunteer1.png" alt=""
-											style="border-radius: 50%; width: 3rem; padding-right: 5px;">
-										<div>
-											Andrew Tate
-											<p>Monday, October 21, 2019, 4:00 am</p>
-											<p>This is a comment</p>
-										</div>
-									</div>
 
 								</div>
 							</div>
@@ -490,6 +451,7 @@
 							</div>
 							<div class="d-flex flex-wrap border-bottom py-1">
 								<p style="padding-right: 50px">Skills</p>
+								<div class="d-flex allSkill"></div>
 								<%-- <c:forEach var="i" items="${mission.mission_skills}"> --%>
 								<%--       <c:out value="${i.skill.skill_name}" ></c:out> --%>
 								<%-- </c:forEach> --%>
@@ -501,55 +463,21 @@
 							</div>
 							<div class="d-flex flex-wrap py-2">
 								<p style="padding-right: 40px">Rating</p>
-								<div class="averageRatings">
-								</div>
+								<div class="averageRatings"></div>
 
 							</div>
 						</div>
 
 						<div class="Information mt-2">
+
+							<!-- 						recent volunteers -->
 							<h3 class="border-bottom">Recent Volunteer</h3>
 
-							<div class="row">
+							<div class="row recentVolunteers">
 								<div class="col-4 d-flex flex-column align-items-center">
 									<img src="images/volunteer1.png" alt=""
 										style="border-radius: 50%; width: 50px;">
 									<p>Andrew Tate</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer2.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>Miley Cirus</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer3.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>Drake Ramouray</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer4.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>Kate Martin</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer5.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>Jhon doe</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer6.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>Maggy Robert</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer7.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>Mark stein</p>
-								</div>
-								<div class="col-4 d-flex flex-column align-items-center">
-									<img src="images/volunteer8.png" alt=""
-										style="border-radius: 50%; width: 50px;">
-									<p>stacy brooke</p>
 								</div>
 								<div class="col-4 d-flex flex-column align-items-center">
 									<img src="images/volunteer9.png" alt=""
@@ -558,6 +486,16 @@
 								</div>
 
 							</div>
+							
+<!-- pagination for recent volunteers -->
+							<div class="d-flex justify-content-center">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+
+									</ul>
+								</nav>
+							</div>
+							
 						</div>
 					</div>
 
@@ -585,16 +523,12 @@
 					class="px-2 text-black">Contact Us</a>
 			</div>
 		</div>
-
-
-
 	</div>
 </body>
 
 
 
 <!-- slick carsousel -->
-
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
@@ -622,12 +556,19 @@
 	let currentMissionCountry="";
 	let currentMissionTheme="";
 	let missions=[];
+	let comments=[];
+	let documents=[];
+	let missionSkill=[];
 	let likedMissionId=[];
+	let recentVolunteers=[];
 	let user_id=$('.userId').val();
 	let mission_id=$('.missionID').val();
 	let likedStatus="";
-	let averageOfRelated=0;
+	let averageOfRelated;
 	let starForRelatred="";
+	let pagination="";
+	let totalRecentVolunteers=0;
+	let currentPage=0;
 	
 	$(document).ready(function(){
 		
@@ -635,7 +576,12 @@
 		getLikedMission();
 		loadRelatedMission();
 		getRatingsOfCurrent();
-		
+		loadAllComments();
+		loadAllDocuments();
+		loadMissionSkills();
+		loadAppliedOrNot();
+		loadRecentVolunteers();
+		loadTotalRecentVolunteers();
 		
         $("#slider").slick({
             autoplay: true,
@@ -653,6 +599,203 @@
         
         
 	});
+	function loadTotalRecentVolunteers(){
+		let volunteers='';
+		$.ajax({
+            url: "loadTotalRecentVolunteers",
+    		dataType: 'json',
+            data:{'mid':mission_id},
+            type:"GET",
+            success: function(response){
+            	console.log(response);
+            	totalRecentVolunteers=response;	
+            	editpagination(totalRecentVolunteers);
+        	}
+		});
+	}
+	function loadRecentVolunteers(){
+		let volunteers='';
+		$.ajax({
+            url: "loadRecentVolunteers",
+    		dataType: 'json',
+            data:{'mid':mission_id,
+            	  'currentPage':currentPage},
+            type:"GET",
+            success: function(response){
+            	console.log(response);
+            	recentVolunteers=response;
+            	for (let i in recentVolunteers){
+            		volunteers+=`<div class="col-4 d-flex flex-column align-items-center">
+						<img src="<c:out value="images/`+recentVolunteers[i].user.avatar+`"/>" alt=""
+							style="border-radius: 50%; width: 50px;">
+						<p>`+recentVolunteers[i].user.first_name+` `+recentVolunteers[i].user.last_name+`</p>
+					</div>`;
+            	}
+            	$(".recentVolunteers").html(volunteers);	
+        	}
+		});
+	}
+	function editpagination(totalRecentVolunteers){
+    	pagination="";
+    	let perPageMission=3;
+    	let totalPages=totalRecentVolunteers/perPageMission;
+    	if(totalRecentVolunteers>perPageMission){
+    		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage-1)+`,`+totalRecentVolunteers+`)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>`;
+    		for(i=1;i<totalPages+1;i++){
+        		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalRecentVolunteers+`)">`+i+`</a></li>`;		
+    		}
+			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage+1)+`,`+totalRecentVolunteers+`)" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
+    	}
+    	$(".pagination").html(pagination);
+    }
+	function setcurrentpage(CP,totalRecentVolunteers){
+    	currentPage=CP;
+    	if(currentPage<totalRecentVolunteers/3){
+    		loadRecentVolunteers(); 
+    	}
+    	else{
+    		alert("Reached at the end of recent volunteers");
+    	}
+    }
+	function loadAppliedOrNot(){
+		let x='';
+		let appliedOrNot=''
+			$.ajax({
+	            url: "appliedOrNotForMission",
+	    		dataType: 'json',
+	            data:{'mid':mission_id,
+	            	  'uid':user_id},
+	            type:"GET",
+	            success: function(response){
+	            	x=response;
+	            	if(x=="ZERO"){
+	            		appliedOrNot+=`<button class="Apply__Mission" onclick="applyForMission()">
+										Apply&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/right-arrow.png"
+											alt="">
+										</button>`;
+	            	}
+	            	else if(x=="ONE"){
+	            		appliedOrNot+=`<button class="Apply__Mission">
+										Already applied
+										</button>`;
+	            	}
+	            	else{
+	            		appliedOrNot+=`<button class="Apply__Mission"">
+										Application pending
+										</button>`;
+	            	}
+	            	$(".applyButton").html(appliedOrNot);	
+	        	}
+			});
+	}
+	
+	function applyForMission(){
+		$.ajax({
+            url: "applyForMission",
+    		dataType: 'json',
+            data:{'mid':mission_id,
+            	  'uid':user_id},
+            type:"GET",
+            success: function(response){
+            	loadAppliedOrNot();
+        	}
+		});
+	}
+	function recommendToCoworker(){
+		let recommendEmail=$('.recommendEmail').val();
+		$.ajax({
+            url: "recommendMission",
+    		dataType: 'json',
+            data:{'mid':mission_id,
+            	  'email':recommendEmail,
+            	  'from':user_id},
+            type:"GET",
+            success: function(response){
+        	}
+		});
+	}
+	function loadMissionSkills(){
+		missionSkill
+		let myMissionSkill=''
+			$.ajax({
+	            url: "loadMissionSkills",
+	    		dataType: 'json',
+	    		data:{'mid':mission_id},
+	            type:"GET",
+	            success: function(response){
+	            	skills=response;
+	       
+	            	for (let i in skills){
+	            		myMissionSkill+=`<div style="padding-right:10px;">`+skills[i].skill.skill_name+`</div>`;
+	            	}
+	            	
+	            	$(".allSkill").html(myMissionSkill);
+	        	}
+			});
+	}
+	
+	function loadAllDocuments(){
+		let myDocuments=''
+		$.ajax({
+            url: "loadAllDocuments",
+    		dataType: 'json',
+    		data:{'mid':mission_id},
+            type:"GET",
+            success: function(response){
+            	documents=response;
+            	for (let i in documents){
+            		myDocuments+=`<a href="http://localhost:8080/CIplatform/MissionDocuments/`+documents[i].document_name+`.`+documents[i].document_type+`">
+            						<div class="d-flex docs"
+										style="border: 1px solid gray; border-radius: 50px; width: 25%; padding-right:10px;" >
+										<img src="images/pdf.png" alt="" class="mx-2">`+documents[i].document_name+`.`+documents[i].document_type+`
+									</div></a>`;
+            	}
+            	
+            	$(".allDocuments").html(myDocuments);
+        	}
+		});
+	}
+	function loadAllComments(){
+		let myComments='';
+		$.ajax({
+            url: "loadAllComments",
+    		dataType: 'json',
+    		data:{'mid':mission_id},
+            type:"GET",
+            success: function(response){
+            	comments=response
+            	for (let i in comments){
+            		let timeDate= new Date(comments[i].created_at).toDateString();
+            		myComments+=`<div class="usercomment d-flex mt-2 align-items-center" style="background-color: white; border-radius: 10px; padding: 5px;">
+									<img src="<c:out value="images/`+comments[i].user.avatar+`"/>" style="border-radius: 50%; width: 3rem; height: 3rem;">
+									<div style="margin-left:10px">
+										`+comments[i].user.first_name+comments[i].user.last_name+`
+										<div>`+timeDate+`</div>
+										<div>`+comments[i].comment+`</div>
+									</div>
+								</div>`;
+            	}
+            	$(".allCommentsOfDB").html(myComments);
+            	$('.comment').val('');
+        	}
+		});
+	}
+	function addComment(){
+		let comment=$('.comment').val();
+		$.ajax({
+            url: "addComment",
+    		dataType: 'json',
+            data:{'mid':mission_id,
+            	  'comment':comment,
+            	  'uid':user_id},
+            type:"GET",
+            success: function(response){
+            	loadAllComments();
+            	$('.comment').val('');
+        	}
+		});
+		
+	}
 	function loadLikedOrNotOnCurrent(){
 		let mytag="";
 		if(likedStatus=="liked" ){
@@ -679,10 +822,8 @@
             type:"GET",
             success: function(response){
             	averageOfRelated=response;
-            	console.log("in ajax"+averageOfRelated);
         	}
 		});
-		console.log("outside of ajax"+averageOfRelated);
 	}
 	function setAverageRatings(){
 		let average=0;
@@ -846,7 +987,7 @@
 		});
 	}
 	function updateRatingsOnChange(rated){
-		console.log(rated);
+		
 		if(rated==5){
 			ratedByCurrent=`<button onclick="rateMission(${mission.mission_id},${user_id},1)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
 							<button onclick="rateMission(${mission.mission_id},${user_id},2)"><i class="bi bi-star-fill" style="color:yellow"></i></button>
@@ -894,11 +1035,16 @@
 	}
 	function updateRelatedMission(missions){
 		relatedMission="";
-		let avgrltd=0;
 	   	for (let i in missions) {
 	   		
-	   		getAverageRatingsOfRelated(missions[i].mission_id);
-	   		console.log("average rating of :"+missions[i].mission_id+" "+averageOfRelated);
+	   		let average=0;
+			$.ajax({
+	            url: "getAverageRating",
+	    		dataType: 'json',
+	            data:{'mid':missions[i].mission_id},
+	            type:"GET",
+	            success: function(response){
+	            	averageOfRelated=response;
 	   		
 	   		let mytagrelated="";
 			if(!likedMissionId.includes(missions[i].mission_id)){
@@ -906,6 +1052,111 @@
 			}
 			else{
 				mytagrelated=`<i class="bi bi-heart-fill" style="color:red;"></i>`;
+			}
+			
+			let myrating="";
+			if(averageOfRelated>4){
+				myrating=`<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow"></i>
+							</button>`;
+				
+			}
+			else if(averageOfRelated>3){ 
+				myrating=`<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>`;
+			}
+			else if(averageOfRelated>2){
+				myrating=`<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>`;
+			}
+			else if(averageOfRelated>1){
+				myrating=`<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>`;
+			}
+			else if(averageOfRelated>0){
+				myrating=`<button class="starbutton">
+								<i class="bi bi-star-fill" style="color:yellow  !important;"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>`;
+			}
+			else{
+				myrating=`<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>
+							<button class="starbutton">
+								<i class="bi bi-star"></i>
+							</button>`;
 			}
 			
 	       		relatedMission+=`<div class="col col-md-6 col-xl-4 card-col mb-2 ">
@@ -936,7 +1187,7 @@
 					                            <div class="d-flex justify-content-between align-items-center flex-wrap">
 					                                <p class="descColor mb-0">Tree Canada</p>
 					                                <div class="d-flex">
-					                                <div class="averageRatings"></div>
+					                                <div class="averageRatings">`+myrating+`</div>
 					                                </div>
 					                            </div>
 					                            <p class='fromTo'>from
@@ -961,7 +1212,7 @@
 					                            </div>
 					                        </div>
 					                        <hr className='custom-hr m-0' style="margin: 0;" />
-					                       	<form action="VolunteeringMission" method="get" name="VolunteeringMission">
+					                       	<form action="VolunteeringMission" class="d-flex justify-content-center" method="POST" name="VolunteeringMission">
 						                        <button class="d-flex apply Apply__Mission" type="submit" style="min-width:120px";>
 													<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
 													<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
@@ -978,7 +1229,9 @@
 					        </div>`;
 	        		
 	        		$(".relatedmission").html(relatedMission);
-	       	}      
+		       		}    	
+				});
+		   	}
 		}
 	function getLikedMission(){
 		let LikedMission=[];

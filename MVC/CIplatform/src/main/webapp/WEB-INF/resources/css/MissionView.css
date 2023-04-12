@@ -26,6 +26,17 @@ body {
     margin-left: 5px;
     color: #888;
 }
+.docs{
+    border: 1px solid gray;
+    border-radius: 50px;
+    min-width: fit-content;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.docs p{
+	color:#414141;
+}
 .starbutton{
 	background:none;
 	border:0;
@@ -423,7 +434,7 @@ body {
     margin: 0 !important;
 }
 
-.Apply__Mission {
+.Apply__Mission{
     background: white;
     color: #f88634;
     border: 2px solid #f88634;
@@ -431,9 +442,8 @@ body {
     text-align: center;
     font-weight: 600;
     width: fit-content;
-    margin: 1rem;
-    margin-left: calc(50% - 3.5rem);
-    border-radius: 29px;
+    margin-top: 1rem;
+    border-radius: 25px;
     font-size: 1.1rem;
     /* transition: 600ms; */
     cursor: pointer;

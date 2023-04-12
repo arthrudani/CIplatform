@@ -19,6 +19,7 @@ import com.entities.city;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_application.approval;
 import com.entities.mission_theme;
 import com.entities.skill;
 import com.entities.user;
@@ -125,13 +126,15 @@ public class missionController {
 	}
 	
 	
-	@RequestMapping(value = "/recommend")
-	public @ResponseBody String recommend(@RequestParam("missionId") int missionId) {
-		System.out.println("recommend missionId:"+missionId);
+	@RequestMapping(value = "/recommendMission", method = RequestMethod.GET)
+	public @ResponseBody String recommend(@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
+		mission mission=this.service.getMissionById(missionId);
+		user user=this.service.getUserById(from_uid);
+		String result = this.service.recommendToCoWorker(mission,email,user);
 		return "true";
 	}
 	
-	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.GET)
+	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.POST)
 	public String myFormHandler(@RequestParam("mid") int missionId,@RequestParam("uid") int userId,Model m) {
 		mission mission=this.service.getMissionById(missionId);
 		user user=this.service.getUserById(userId);
@@ -187,5 +190,66 @@ public class missionController {
 		result=this.service.getRatingsOfCurrent(mID,uID);
 		return result;
 	}
+	
+	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
+	public @ResponseBody String addComment(@RequestParam("mid") int missionId,@RequestParam("comment") String comment,@RequestParam("uid") int userId) {
+		mission mission=this.service.getMissionById(missionId);
+		user user=this.service.getUserById(userId);
+		String result = this.service.addComment(mission,comment,user);
+		return "true";
+	}
+	
+	@RequestMapping(value = "/loadAllComments", method = RequestMethod.GET)
+	public @ResponseBody String loadAllComments(@RequestParam("mid") int missionId) {
+		mission mission=this.service.getMissionById(missionId);
+		String result = this.service.loadAllComment(mission);
+		return result;
+	}
+
+	@RequestMapping(value = "/loadAllDocuments", method = RequestMethod.GET)
+	public @ResponseBody String loadAllDocuments(@RequestParam("mid") int missionId) {
+		mission mission=this.service.getMissionById(missionId);
+		String result = this.service.loadAllDocuments(mission);
+		return result;
+	}
+
+	@RequestMapping(value = "/loadMissionSkills", method = RequestMethod.GET)
+	public @ResponseBody String loadMissionSkills(@RequestParam("mid") int missionId) {
+		mission mission=this.service.getMissionById(missionId);
+		String result = this.service.loadMissionSkills(mission);
+		return result;
+	}
+	
+	@RequestMapping(value = "/applyForMission", method = RequestMethod.GET)
+	public @ResponseBody void applyForMission(@RequestParam("mid") int missionId,@RequestParam("uid") int userId) {
+		mission mission=this.service.getMissionById(missionId);
+		user user=this.service.getUserById(userId);
+		this.service.applyForMission(mission,user);
+	}
+	
+	@RequestMapping(value = "/appliedOrNotForMission", method = RequestMethod.GET)
+	public @ResponseBody approval appliedOrNotForMission(@RequestParam("mid") int missionId,@RequestParam("uid") int userId) {
+		mission mission=this.service.getMissionById(missionId);
+		user user=this.service.getUserById(userId);
+		approval result=this.service.appliedOrNotForMission(mission,user);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/loadRecentVolunteers", method = RequestMethod.GET)
+	public @ResponseBody String loadRecentVolunteers(@RequestParam("mid") int missionId,@RequestParam("currentPage") int currentPage) {
+		mission mission=this.service.getMissionById(missionId);
+		String result=this.service.loadRecentVolunteers(mission,currentPage);
+		return result;
+	}
+	
+	@RequestMapping(value = "/loadTotalRecentVolunteers", method = RequestMethod.GET)
+	public @ResponseBody int loadTotalRecentVolunteers(@RequestParam("mid") int missionId) {
+		mission mission=this.service.getMissionById(missionId);
+		int result=this.service.loadTotalRecentVolunteers(mission);
+		System.out.println("total recent volunt:"+result);
+		return result;
+	}
+	
 
 }

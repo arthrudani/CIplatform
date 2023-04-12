@@ -91,6 +91,18 @@
 				<value>
 					com.entities.mission_rating
 				</value>
+				<value>
+					com.entities.mission_invite
+				</value>
+				<value>
+					com.entities.comment
+				</value>
+				<value>
+					com.entities.mission_document
+				</value>
+				<value>
+					com.entities.mission_application
+				</value>
 			</list>
 		</property>
 	</bean>

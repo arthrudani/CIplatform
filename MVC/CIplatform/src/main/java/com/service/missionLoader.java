@@ -8,6 +8,7 @@ import com.entities.city;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_application.approval;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
@@ -34,4 +35,13 @@ public interface missionLoader {
 	public Double getRatings(mission mission);
 	public String rateMission(int mID, int uID, int ratings);
 	public int getRatingsOfCurrent(int mID, int uID);
+	public String recommendToCoWorker(mission mission, String email, user user);
+	public String addComment(mission mission, String comment, user user);
+	public String loadAllComment(mission mission);
+	public String loadAllDocuments(mission mission);
+	public String loadMissionSkills(mission mission);
+	public void applyForMission(mission mission, user user);
+	public approval appliedOrNotForMission(mission mission, user user);
+	public String loadRecentVolunteers(mission mission, int currentPage);
+	public int loadTotalRecentVolunteers(mission mission);
 }

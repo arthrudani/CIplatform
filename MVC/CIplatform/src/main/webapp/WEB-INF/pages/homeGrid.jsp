@@ -950,7 +950,7 @@
 						</div>
 						<hr class="cardfooterline">
 						<div class="d-flex justify-content-center">
-							<form action="VolunteeringMission" method="get" name="VolunteeringMission">
+							<form action="VolunteeringMission" method="POST" name="VolunteeringMission">
 								<button class="d-flex apply " type="submit" style="min-width:120px";>
 									<input type="text" class="missionIdforNextpage" name="mid" value="`+missions[i].mission_id+`" hidden>
 									<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
@@ -1072,7 +1072,7 @@
 									</div>
 								</div>
 								<div class="d-flex">
-									<form action="VolunteeringMission" method="get" name="VolunteeringMission">
+									<form action="VolunteeringMission" method="POST" name="VolunteeringMission">
 										<button class="d-flex apply " type="submit" style="min-width:120px";>
 											<input type="text" class="missionIdforNextpage"  name="mid" value="`+missions[i].mission_id+`" hidden>
 											<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>

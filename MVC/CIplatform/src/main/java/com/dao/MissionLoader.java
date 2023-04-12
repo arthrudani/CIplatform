@@ -2,6 +2,7 @@ package com.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,10 +19,15 @@ import org.springframework.stereotype.Component;
 
 import com.dto.Filters;
 import com.entities.city;
+import com.entities.comment;
 import com.entities.country;
 import com.entities.favourite_mission;
 import com.entities.mission;
+import com.entities.mission_application;
+import com.entities.mission_application.approval;
+import com.entities.mission_document;
 import com.entities.mission_rating;
+import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
 import com.entities.user;
@@ -59,15 +65,8 @@ public class MissionLoader implements MissionLoaderInterface {
 			c.addOrder(Order.desc("created_at"));
 		}
 		int firstresultcount = ((filters.getCurrentPage() - 1) * 3) + 3;
-//		if(filters.getCurrentPage()!=1) {
-//			firstresultcount++;
-//		}
 		c.setFirstResult(firstresultcount);
 		c.setMaxResults(3);
-//		if (c.list().size() < 3) {
-//			int setMax = 3 + (3 - c.list().size());
-//	    	System.out.println("setmax:"+setMax);
-//		}
 		return c.list();
 	}
 
@@ -225,4 +224,53 @@ public class MissionLoader implements MissionLoaderInterface {
 		
 	}
 
+	public List<comment> getAllComments(mission mission) {
+		String que= "from comment where mission=:mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission",mission);
+		List<comment> mylist=q.list();
+		return mylist;
+	}
+	
+	public List<mission_document> loadAllDocuments(mission mission) {
+		String que= "from mission_document where mission=:mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission",mission);
+		List<mission_document> mylist=q.list();
+		return mylist;
+	}
+	
+	public List<mission_skill> loadMissionSkills(mission mission) {
+		String que= "from mission_skill where mission=:mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission",mission);
+		List<mission_skill> mylist=q.list();
+		return mylist;
+	}
+
+	
+	public List<mission_application> loadRecentVolunteers(mission mission,int currentPage) {		
+		Session s = this.hibernateTemplate.getSessionFactory().openSession();
+		Criteria c = s.createCriteria(mission_application.class);
+		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
+		c.add(Restrictions.eq("approval_status", approval.ONE));
+		c.add(Restrictions.eq("mission.mission_id", mission.getMission_id()));
+		int firstresultcount=0;
+		firstresultcount = ((currentPage-1) * 3) + 3;
+		System.out.println("first firstresultcount:"+firstresultcount);
+		c.setFirstResult(firstresultcount);
+		c.setMaxResults(3);
+		System.out.println("current pageeeeeeeeeeeeeee:"+currentPage);
+		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx:"+c.list().size());
+		return c.list();
+	}
+	
+	public int loadTotalRecentVolunteers(mission mission) {		
+		Session s = this.hibernateTemplate.getSessionFactory().openSession();
+		Criteria c = s.createCriteria(mission_application.class);
+		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
+		c.add(Restrictions.eq("approval_status", approval.ONE));
+		c.add(Restrictions.eq("mission.mission_id", mission.getMission_id()));
+		return c.list().size();
+	}
 }
