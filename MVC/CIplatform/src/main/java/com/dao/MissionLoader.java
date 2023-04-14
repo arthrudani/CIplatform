@@ -250,19 +250,16 @@ public class MissionLoader implements MissionLoaderInterface {
 
 	
 	public List<mission_application> loadRecentVolunteers(mission mission,int currentPage) {		
-		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria c = s.createCriteria(mission_application.class);
-		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
-		c.add(Restrictions.eq("approval_status", approval.ONE));
-		c.add(Restrictions.eq("mission.mission_id", mission.getMission_id()));
 		int firstresultcount=0;
 		firstresultcount = ((currentPage-1) * 3) + 3;
-		System.out.println("first firstresultcount:"+firstresultcount);
-		c.setFirstResult(firstresultcount);
-		c.setMaxResults(3);
-		System.out.println("current pageeeeeeeeeeeeeee:"+currentPage);
-		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx:"+c.list().size());
-		return c.list();
+		String que= "from mission_application where mission=:mission and approval_status=:as";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission",mission);
+		q.setParameter("as",approval.ONE);
+		q.setFirstResult(firstresultcount);
+		q.setMaxResults(3);
+		List<mission_application> mylist=q.list();
+		return mylist;
 	}
 	
 	public int loadTotalRecentVolunteers(mission mission) {		

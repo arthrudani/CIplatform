@@ -684,7 +684,7 @@
 										Application pending
 										</button>`;
 	            	}
-	            	$(".applyButton").html(appliedOrNot);	
+	            	$(".applyButton").html(appliedOrNot);
 	        	}
 			});
 	}

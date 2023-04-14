@@ -48,11 +48,12 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<label for="email">Enter your email:</label> 
-					<input type="email" id="email" name="email">
+					<label for="email">Enter your email:</label> <input type="email"
+						id="email" name="email">
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn changepass" data-bs-dismiss="modal">Recommend</button>
+					<button type="submit" class="btn changepass"
+						data-bs-dismiss="modal">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -119,8 +120,20 @@
 
 		<div class="dropdown button1">
 			<ul class="navbar-nav">
-				<li class="nav-item upperButtons"><a class="nav-link" href="#">&nbsp;Stories</a>
-				</li>
+
+
+				<form action="storiesLoaderSide" method="POST" name="storiesLoader">
+					<button class="d-flex"
+						style="background: none; border: none; min-width: 120px;"
+						type="submit">
+						<input type="text" class="userIdforNextpage" name="uid"
+							value="${user_id}" hidden>
+						<li class="nav-item upperButtons"><a class="nav-link"
+							href="#">&nbsp;Stories</a></li>
+					</button>
+				</form>
+
+
 
 				<li class="nav-item dropdown upperButtons"><a
 					class="nav-link dropdown-toggle" href="#"
@@ -160,10 +173,13 @@
 				</div>
 
 				<div class="leftHeader ">
-					<ul class="navbar-nav d-flex flex-row justify-content-between"
-						style="padding-top: 7%;">
-						<li class="nav-item upperButtons blocking"><a
-							class="nav-link" href="#">&nbsp;Stories</a></li>
+					<ul class="navbar-nav d-flex flex-row justify-content-between align-items-center">
+						<form action="storiesLoader" method="POST" name="storiesLoader">
+							<button type="submit" class="d-flex" style="background: none; border: none; min-width: 120px;">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
+								<li class="nav-item upperButtons">Stories</li>
+							</button>
+						</form>
 						<li class="nav-item dropdown upperButtons blocking"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button"
@@ -249,7 +265,6 @@
 				</button>
 				<ul class="dropdown-menu posStatic citySelector"
 					aria-labelledby="dropdownMenuButton1" name="city">
-
 				</ul>
 				<br /> <select name="country" id="country" class="countrySelect">
 					<input type="text" class="defaultCountry" hidden

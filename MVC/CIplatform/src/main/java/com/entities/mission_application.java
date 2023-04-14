@@ -21,7 +21,6 @@ public class mission_application {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mission_application_id;
 	
-	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = mission.class)
 	@JoinColumn(name = "mission_id")
 	private mission mission;

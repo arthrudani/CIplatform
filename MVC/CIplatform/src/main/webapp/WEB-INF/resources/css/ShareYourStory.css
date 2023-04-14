@@ -24,7 +24,9 @@ body {
     border-bottom: 0.5px solid #D9D9D9;
     margin-top: 50px;
 }
-
+.dropdown-toggle::after{
+	diplay:none !important;
+}
 .EPprivacypolicy {
     font-size: 12px;
 }
@@ -116,6 +118,10 @@ select{
 .ck.ck-editor{
     width: 76% !important;
     height: 20% !important;
+}
+
+.ck-editor__editable_inline {
+    min-height: 205px;
 }
 .ck-blurred{
     height: 200px !important;

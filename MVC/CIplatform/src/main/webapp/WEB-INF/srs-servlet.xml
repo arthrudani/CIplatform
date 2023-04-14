@@ -103,6 +103,9 @@
 				<value>
 					com.entities.mission_application
 				</value>
+				<value>
+					com.entities.story
+				</value>
 			</list>
 		</property>
 	</bean>
