@@ -113,4 +113,18 @@ public class StoryLoader implements StoryLoaderInterface {
 		return null;
 		
 	}
+
+	@Transactional
+	public story savePreviewDraft(mission mission, user user) {
+		String que = "from story where user=:user and mission=:mission and status=:status";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("user",user);
+		q.setParameter("mission",mission);
+		q.setParameter("status",status.DRAFT);
+		story story=new story();
+		if(q.list().size()>0) {
+			story=(story)q.list().get(0);
+		}
+		return story;
+	}
 }

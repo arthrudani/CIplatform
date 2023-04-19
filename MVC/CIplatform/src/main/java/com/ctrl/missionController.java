@@ -134,7 +134,7 @@ public class missionController {
 		return "true";
 	}
 	
-	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.POST)
+	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.GET)
 	public String myFormHandler(@RequestParam("mid") int missionId,@RequestParam("uid") int userId,Model m) {
 		mission mission=this.service.getMissionById(missionId);
 		user user=this.service.getUserById(userId);

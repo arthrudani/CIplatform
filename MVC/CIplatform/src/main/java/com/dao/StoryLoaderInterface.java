@@ -25,4 +25,7 @@ public interface StoryLoaderInterface {
 
 	status loadStoryStatus(mission mission, user user);
 
+	story savePreviewDraft(mission mission,
+			user user);
+
 }

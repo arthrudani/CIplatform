@@ -28,4 +28,9 @@ public interface storyLoader {
 
 	status loadStoryStatus(mission mission, user user);
 
+	story savePreviewDraft(mission mission,
+			user user);
+
+	String recommendToCoWorker(mission mission, String email, user user);
+
 }

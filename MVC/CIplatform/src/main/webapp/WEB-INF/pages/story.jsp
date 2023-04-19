@@ -62,10 +62,9 @@
 					</a>
 						<ul class="dropdown-menu  posAbsolute"
 							aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
+							<li><a class="dropdown-item" href="#">Edit Profile</a></li>
+							<li><a class="dropdown-item" href="#">Volunteering timesheet</a></li>
+							<li><a class="dropdown-item" href="login">Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -83,9 +82,6 @@
 						<img class="rightbutton" src="images/filter.png">
 					</button>
 				</div>
-
-
-
 
 				<div class="col d-flex spacearound">
 
@@ -109,9 +105,9 @@
 					</div>
 
 					<div class="d-flex ">
-						<ul class="navbar-nav rightHeader align-items-between">
-							<img class="rightbutton "
-								style="padding-top: 22% !important; padding-right: 10%;"
+						<ul class="navbar-nav rightHeader d-flex align-items-center">
+							<img class="rightbutton"
+								style="padding-right: 10%;"
 								src="images/search.png">
 
 							<li class="nav-item dropdown"><a
@@ -232,12 +228,19 @@
 			storyCards+=`<div class="col-12 col-md-6 col-lg-4">
 				                <div class="card">
 				                <div class="posRelative strCardBgBlack">
-				                    <div class="strViewDetails posAbsolute"><button> View Details<i
-				                                class="bi bi-arrow-right arrowright2"></i></button></div>
+				                    <div class="strViewDetails posAbsolute">
+				                    <form action="showDetailsStory" method="POST" name="storiesLoader">
+				                   		<input type="text" class="userIdforNextpage" name="user_id" value="${user.user_id}" hidden>
+					                    <input type="text" class="storydetails" id="uidl" name="storydetails" value="${story[i]}" hidden>
+					                    <button> 
+					                    View Details<i class="bi bi-arrow-right arrowright2"></i>
+					                    </button>
+					                </form>
+				                    </div>
 				                    <div class="strcategory posAbsolute">
 				                        <p>Environment</p>
 				                    </div>
-				                    <img class="card-img-top img1"
+				                    <img class="card-img-top img1" style="z-index:-1 ;"
 				                        src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
 				                </div>
 				

@@ -106,6 +106,9 @@
 				<value>
 					com.entities.story
 				</value>
+				<value>
+					com.entities.StoryMedia
+				</value>
 			</list>
 		</property>
 	</bean>

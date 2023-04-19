@@ -1,5 +1,6 @@
 package com.ctrl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,8 +90,17 @@ public class storyController {
 		}
 		return Output;
 	}
-	@RequestMapping(value = "/saveStoryToDraft")
+//	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
+//	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("images") ArrayList images,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
+//		System.out.println(images);
+//		user user=this.service1.getUserById(user_id);
+//		mission mission=this.service1.getMissionById(missionSelect);
+//		this.service.saveDraft(storyTitle,storyDate,description,videoURL,mission,user,status);
+//		return true;
+//	}
+	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
 	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
+//		System.out.println(images);
 		user user=this.service1.getUserById(user_id);
 		mission mission=this.service1.getMissionById(missionSelect);
 		this.service.saveDraft(storyTitle,storyDate,description,videoURL,mission,user,status);
@@ -108,6 +118,44 @@ public class storyController {
 		user user=this.service1.getUserById(user_id);
 		mission mission=this.service1.getMissionById(missionSelect);
 		return this.service.loadStoryStatus(mission,user);
+	}
+	@RequestMapping(value = "/previewStory",method = RequestMethod.POST)
+	public String previewStory(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("sharedby_user_id") int sb_user_id,Model m) {
+		user user=this.service1.getUserById(user_id);
+		user user1=this.service1.getUserById(sb_user_id);
+		mission mission=this.service1.getMissionById(missionSelect);
+		story story= this.service.savePreviewDraft(mission,user);
+		m.addAttribute("story",story);
+		m.addAttribute("user",user);
+		return "StoryDetail";
+	}
+	@RequestMapping(value = "/recommendMissionFromStory", method = RequestMethod.GET)
+	public @ResponseBody String recommend(@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
+		mission mission=this.service1.getMissionById(missionId);
+		user user=this.service1.getUserById(from_uid);
+		String result = this.service.recommendToCoWorker(mission,email,user);
+		return "true";
+	}
+	@RequestMapping(value = "/openMission",method = RequestMethod.GET)
+	public String openMission(@RequestParam("mission_id") int missionid,@RequestParam("user_id") int user_id,Model m) {
+		user user=this.service1.getUserById(user_id);
+		mission mission=this.service1.getMissionById(missionid);
+		m.addAttribute("user",user);
+		m.addAttribute("mission",mission);
+		Double rating=this.service1.getRatings(mission);
+		m.addAttribute("mission",mission);
+		m.addAttribute("user",user);
+		m.addAttribute("rating",rating);
+		m.addAttribute("user_id",user.getUser_id());
+		m.addAttribute("avgrating",rating);
+		return "VolunteeringMission";
+	}
+	@RequestMapping(value = "/showDetailsStory",method = RequestMethod.POST)
+	public String showDetailsStory(@RequestParam("user_id") int user_id,@RequestParam("storydetails") story story,Model m) {
+		user user=this.service1.getUserById(user_id);
+		m.addAttribute("story",story);
+		m.addAttribute("user",user);
+		return "StoryDetail";
 	}
 	
 }

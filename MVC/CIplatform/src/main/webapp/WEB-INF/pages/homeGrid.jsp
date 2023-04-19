@@ -53,7 +53,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
-						data-bs-dismiss="modal">Recommend</button>
+						data-bs-dismiss="modal" onclick="recommend(${missions[i].mission_id})">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -222,9 +222,11 @@
 
 						<ul class="dropdown-menu posAbsolute dropdown-menu-end"
 							aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Edit Profile</a></li>
-							<li><a class="dropdown-item" href="#">Volunteering
-									timesheet</a></li>
+							<form action="editProfile" method="POST" name="storiesLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
+								<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+							</form>
+							<li><a class="dropdown-item" href="#">Volunteering timesheet</a></li>
 							<li><a class="dropdown-item" href="login">Logout</a></li>
 						</ul></li>
 				</ul>
@@ -736,15 +738,17 @@
         	}
         function recommend(missionID){
         	let user_id=$('.usernameforlike').val();
-        	$.ajax({
-                url: "recommend",
-        		dataType: 'json',
-                data:{missionId: missionID},
-                type:"POST",
-                success: function(response){
-                	console.log("done");
-                   	}
-               	});
+        	console.log("aaaaaa");
+        	console.log(missionID);
+//         	$.ajax({
+//                 url: "recommend",
+//         		   dataType: 'json',
+//                 data:{'missionId': missionID},
+//                 type:"POST",
+//                 success: function(response){
+//                 	console.log("done");
+//                    	}
+//                	});
         	}
         
         function loopForFetchingMissionDetails(missions) {
@@ -965,7 +969,7 @@
 						</div>
 						<hr class="cardfooterline">
 						<div class="d-flex justify-content-center">
-							<form action="VolunteeringMission" method="POST" name="VolunteeringMission">
+							<form action="VolunteeringMission" method="GET" name="VolunteeringMission">
 								<button class="d-flex apply " type="submit" style="min-width:120px";>
 									<input type="text" class="missionIdforNextpage" name="mid" value="`+missions[i].mission_id+`" hidden>
 									<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
