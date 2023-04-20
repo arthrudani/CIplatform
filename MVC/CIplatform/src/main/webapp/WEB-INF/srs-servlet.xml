@@ -41,7 +41,9 @@
 		<property name="username" value="root" />
 		<property name="password" value="ZXcv!@34"></property>
 	</bean>
-
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" ></bean>
+			
 	<bean
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
 		name="sessionFactory">
@@ -108,6 +110,9 @@
 				</value>
 				<value>
 					com.entities.StoryMedia
+				</value>
+				<value>
+					com.entities.UserSkill
 				</value>
 			</list>
 		</property>

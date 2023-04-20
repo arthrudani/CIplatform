@@ -39,7 +39,7 @@ public class user {
 	private String password;
 	private String avatar;
 	private String why_i_volunteer;
-	private String employee_id="";
+	private int employee_id;
 	private String department;
 	private String profile_text;
 	private String linked_in_url;
@@ -54,7 +54,8 @@ public class user {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<favourite_mission> favourite_missions;
-	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<UserSkill> userSkills;
 	public enum Status{
 		ACTIVE,
 		INACTIVE
@@ -65,7 +66,7 @@ public class user {
 	}
 	
 	public user(int user_id, com.entities.country country, com.entities.city city, String first_name, String last_name,
-			String email, String phone_number, String password, String avatar, String why_i_volunteer, String employee_id,
+			String email, String phone_number, String password, String avatar, String why_i_volunteer, int employee_id,
 			String department, String profile_text, String linked_in_url, String title, Status status, Date created_at,
 			Date updated_at, Date deleted_at) {
 		super();
@@ -170,12 +171,12 @@ public class user {
 		this.why_i_volunteer = why_i_volunteer;
 	}
 
-	public String getEmployee_id() {
+	public int getEmployee_id() {
 		return employee_id;
 	}
 
-	public void setEmployee_id(String employee_id) {
-		this.employee_id = employee_id;
+	public void setEmployee_id(int i) {
+		this.employee_id = i;
 	}
 
 	public String getDepartment() {

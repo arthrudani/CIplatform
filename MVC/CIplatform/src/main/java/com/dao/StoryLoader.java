@@ -9,7 +9,9 @@ import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.entities.StoryMedia;
 import com.entities.country;
 import com.entities.mission;
 import com.entities.mission_application;
@@ -59,9 +61,9 @@ public class StoryLoader implements StoryLoaderInterface {
 	}
 
 	@Transactional
-	public void saveDraft(String storyTitle, Date storyDate, String description, String videoURL,mission mission,user user,status status) {
+	public void saveDraft(String storyTitle, Date storyDate, String description, mission mission,user user,status status) {
 		String que = "from story where user=:user and mission=:mission and status=:status";
-		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
 		q.setParameter("user",user);
 		q.setParameter("mission",mission);
 		q.setParameter("status",status.DRAFT);
@@ -79,7 +81,30 @@ public class StoryLoader implements StoryLoaderInterface {
 		story.setStatus(status);
 		this.hibernateTemplate.saveOrUpdate(story);
 	}
-
+	@Transactional
+	public void saveStoryMedia(String videoURL, CommonsMultipartFile[] images,mission mission,user user) {
+		String que = "from story where user=:user and mission=:mission and status=:status";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("user",user);
+		q.setParameter("mission",mission);
+		q.setParameter("status",status.DRAFT);
+		story story=new story();
+		if(q.list().size()>0) {
+			story=(story)q.list().get(0);
+		}
+		String que1 = "from StoryMedia where story=:story";
+		Query q1 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q1.setParameter("story",story);
+		StoryMedia media=new StoryMedia();
+		if(videoURL!=null) {
+			media.setCreatedAt(new Date());
+			media.setStory(story);
+			media.setType("video");
+			media.setPath(videoURL);
+		}
+		this.hibernateTemplate.saveOrUpdate(media);
+	}
+	
 	@Transactional
 	public void submitStory(mission mission, user user) {
 		String que = "from story where user=:user and mission=:mission and status=:status";
@@ -111,7 +136,6 @@ public class StoryLoader implements StoryLoaderInterface {
 			return story.getStatus();
 		}
 		return null;
-		
 	}
 
 	@Transactional
@@ -127,4 +151,6 @@ public class StoryLoader implements StoryLoaderInterface {
 		}
 		return story;
 	}
+
+
 }

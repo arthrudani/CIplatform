@@ -1,4 +1,4 @@
-package com.ctrl;
+package com.CIplatform.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

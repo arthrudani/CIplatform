@@ -1,4 +1,4 @@
-package com.ctrl;
+package com.CIplatform.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.entities.mission;
 import com.entities.mission_application;
@@ -23,7 +24,7 @@ import com.service.missionLoader;
 import com.service.storyLoader;
 
 @Controller
-public class storyController {
+public class StoryController {
 	
 	@Autowired
 	storyLoader service;
@@ -90,22 +91,22 @@ public class storyController {
 		}
 		return Output;
 	}
+	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
+	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("images") CommonsMultipartFile[] images,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
+		System.out.println(images);
+		user user=this.service1.getUserById(user_id);
+		mission mission=this.service1.getMissionById(missionSelect);
+		this.service.saveDraft(storyTitle,storyDate,description,mission,user,status);
+		this.service.saveStoryMedia(videoURL,images,mission,user);
+		return true;
+	}
 //	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
-//	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("images") ArrayList images,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
-//		System.out.println(images);
+//	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
 //		user user=this.service1.getUserById(user_id);
 //		mission mission=this.service1.getMissionById(missionSelect);
 //		this.service.saveDraft(storyTitle,storyDate,description,videoURL,mission,user,status);
 //		return true;
 //	}
-	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
-	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
-//		System.out.println(images);
-		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(missionSelect);
-		this.service.saveDraft(storyTitle,storyDate,description,videoURL,mission,user,status);
-		return true;
-	}
 	@RequestMapping(value = "/submitStory")
 	public @ResponseBody boolean submitStory(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id) {
 		user user=this.service1.getUserById(user_id);

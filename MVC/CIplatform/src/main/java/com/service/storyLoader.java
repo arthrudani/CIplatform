@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.entities.mission;
 import com.entities.mission_application;
@@ -22,7 +23,7 @@ public interface storyLoader {
 
 	story loadDraft(user user, mission mission);
 
-	void saveDraft(String storyTitle, Date storyDate, String description, String videoURL, mission mission, user user, status status);
+	void saveDraft(String storyTitle, Date storyDate, String description, mission mission, user user, status status);
 
 	void submitStory(mission mission, user user);
 
@@ -32,5 +33,7 @@ public interface storyLoader {
 			user user);
 
 	String recommendToCoWorker(mission mission, String email, user user);
+
+	void saveStoryMedia(String videoURL, CommonsMultipartFile[] images, mission mission, user user);
 
 }

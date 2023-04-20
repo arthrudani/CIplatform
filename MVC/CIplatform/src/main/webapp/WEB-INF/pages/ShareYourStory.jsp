@@ -198,7 +198,7 @@
 
 		<!-- Drag and drop -->
 		<div class="title2">
-			<div>Enter video url</div>
+			<div>Enter images here</div>
 			<div class="container strUploadBox">
 				<fieldset class="d-flex justify-content-center">
 					<a href="javascript:void(0)" onclick="$('#pro-image').click()">
@@ -356,11 +356,12 @@
     	myeditor.setData('');
     }
     function saveDraft(){
-    	let images=[];
-    	for(var i in files){
-    		images.push(files[i].name);
-    	}
-    	console.log(images);
+//     	var formData = new FormData();
+//         var totalFiles = files.length;
+//         for (var i = 0; i < totalFiles; i++) {
+//             var file = files[i];
+//             formData.append("fileUpload",file);
+//         }
     	storyStatus="DRAFT";
     	$.ajax({
             url: "saveStoryToDraft",
@@ -370,8 +371,10 @@
             	  'storyDate':new Date(storyDate),
             	  'description':myeditor.getData(),
             	  'videoURL':videoURL,
+            	  'images':files,
             	  'user_id':user_id,
             	  'storyStatus':storyStatus},
+          
             type:"GET",
             success: function(response){
             	if(response)

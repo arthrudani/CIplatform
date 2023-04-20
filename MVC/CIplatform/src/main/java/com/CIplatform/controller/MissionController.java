@@ -1,4 +1,4 @@
-package com.ctrl;
+package com.CIplatform.controller;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.missionLoader;
 
 @Controller
-public class missionController {
+public class MissionController {
 
 	@Autowired
 	missionLoader service;
@@ -82,7 +82,6 @@ public class missionController {
 	@RequestMapping(value = "/loadListOfCity", method = RequestMethod.POST)
 	public @ResponseBody String loadCountryList(@RequestParam("countryId") int countryId) {
 		List<city> mylist = this.service.loadCityOfCountry(countryId);
-		System.out.println(mylist);
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
 		try {

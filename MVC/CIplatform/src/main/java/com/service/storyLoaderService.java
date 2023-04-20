@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.dao.MissionLoaderInterface;
 import com.dao.StoryLoaderInterface;
@@ -45,10 +46,13 @@ public class storyLoaderService implements storyLoader{
 	}
 
 
-	public void saveDraft(String storyTitle, Date storyDate, String description, String videoURL,mission mission,user user,status status) {
-		this.storyLoaderInterface.saveDraft(storyTitle,storyDate,description,videoURL,mission,user,status);
+	public void saveDraft(String storyTitle, Date storyDate, String description,mission mission,user user,status status) {
+		this.storyLoaderInterface.saveDraft(storyTitle,storyDate,description,mission,user,status);
 	}
-
+	public void saveStoryMedia(String videoURL, CommonsMultipartFile[] images,mission mission,user user) {
+		this.storyLoaderInterface.saveStoryMedia(videoURL,images,mission,user);
+		
+	}
 	public void submitStory(mission mission, user user) {
 		this.storyLoaderInterface.submitStory(mission,user);
 		
@@ -78,4 +82,6 @@ public class storyLoaderService implements storyLoader{
 		SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", email, "You are recommended to ","http://localhost:8080/CIplatform/VolunteeringMission?mid="+mission.getMission_id()+"&uid="+user.getUser_id());
 		return null;
 	}
+
+	
 }

@@ -13,7 +13,11 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 }
-
+.countrySelector{
+	width: 100%;
+    height: 29px;
+    border-radius: 5px;
+}
 .userimage {
     height: 40px;
     width: 40px;

@@ -1,4 +1,4 @@
-package com.ctrl;
+package com.CIplatform.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -25,7 +25,7 @@ import com.entities.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class HomeCtrl {
+public class HomeController {
 
 	@Autowired
 	private RegistrationDao registrationDao;

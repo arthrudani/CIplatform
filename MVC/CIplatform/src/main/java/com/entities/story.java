@@ -49,7 +49,7 @@ public class story {
 	private Date updated_at;
 	private Date deleted_at;
 	
-	@OneToMany(targetEntity = StoryMedia.class, mappedBy = "story", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
 	private List<StoryMedia> medias;
 	
 	public story() {

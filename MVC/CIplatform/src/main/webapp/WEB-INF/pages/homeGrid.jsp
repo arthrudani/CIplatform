@@ -481,6 +481,7 @@
 		        updateMissionsOnChange();
 		    });
 		});
+		
 		function getLikedMission(){
 			let LikedMission=[];
 			let user_id=$('.usernameforlike').val();

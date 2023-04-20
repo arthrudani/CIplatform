@@ -232,7 +232,7 @@
 				                    <form action="showDetailsStory" method="POST" name="storiesLoader">
 				                   		<input type="text" class="userIdforNextpage" name="user_id" value="${user.user_id}" hidden>
 					                    <input type="text" class="storydetails" id="uidl" name="storydetails" value="${story[i]}" hidden>
-					                    <button> 
+					                    <button>
 					                    View Details<i class="bi bi-arrow-right arrowright2"></i>
 					                    </button>
 					                </form>
