@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,7 +68,7 @@ public class EditProfileController {
 		return Output;
 	}
 	@RequestMapping(value = "/updateProfile")
-	public @ResponseBody String updateProfile(@RequestParam("uid") int user_id,@RequestParam("EditProfile") String EditProfileObject) throws JsonMappingException {
+	public @ResponseBody String updateProfile(@RequestParam("uid") int user_id,@RequestParam("EditProfile") String EditProfileObject) {
 		user user=this.service1.getUserById(user_id);
 		
 		String Output = "";
@@ -81,5 +82,17 @@ public class EditProfileController {
 			e.printStackTrace();
 		}
 		return EditProfileObject;	
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public @ResponseBody int changePassword(@RequestParam("uid") int user_id,@RequestParam("oldPass") String oldPass,@RequestParam("newPass") String newPass) {
+		user user=this.service1.getUserById(user_id);
+		if(this.service.validateOldPass(user,oldPass,newPass)) {
+			this.service.changePassword(user,newPass);
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 }

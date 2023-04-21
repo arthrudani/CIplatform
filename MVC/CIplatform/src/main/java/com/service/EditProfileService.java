@@ -33,6 +33,23 @@ public class EditProfileService implements EditProfile{
 		this.editProfileInterface.updateProfile(user,editProfileObject1);
 	}
 
+	public boolean validateOldPass(user user, String oldPass,String newPass) {
+		System.out.println(user.getPassword());
+		System.out.println(oldPass);
+		System.out.println(newPass);
+		
+		if(user.getPassword().equals(oldPass)) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public void changePassword(user user, String newPass) {
+		this.editProfileInterface.changePassword(user,newPass);
+	}
+
 	
 
 

@@ -14,6 +14,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap"
@@ -192,8 +193,9 @@
 		<!-- Enter video url -->
 		<div class="title2">
 			<div>Enter video url</div>
-			<input type="text" name="videoURL" class="form-control videoURL"
-				id="Videourl">
+				<input type="text" name="videoURL" class="form-control videoURL"
+					id="Videourl">
+			
 		</div>
 
 		<!-- Drag and drop -->
@@ -209,7 +211,7 @@
 					</a> 
 					<input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control storyImages" multiple>
 				</fieldset>
-				<div class="preview-images-zone"></div>
+				<div class="preview-images-zone" id="preview-images-zone"></div>
 			</div>
 		</div>
 
@@ -241,6 +243,7 @@
 
 
 	</div>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -281,7 +284,9 @@
     	
     	$('.missionSelect').on('change', function () {
            	CheckedMission = $(this).find("option:selected").val();
+           	clearAllDataExceptTitle();
             getDraftDetails(CheckedMission);
+            getDraftMedia(CheckedMission);
         });
     	$('.storyTitle').on('change', function () {
     		storyTitle = $('.storyTitle').val();
@@ -348,6 +353,7 @@
     	myeditor.setData('');
     }
     function clearAllData(){
+    	$(".preview-images-zone").empty();
     	$('.missionSelect').val('');
     	$('.storyTitle').val('');
     	$('.storyDate').val('');
@@ -356,31 +362,38 @@
     	myeditor.setData('');
     }
     function saveDraft(){
-//     	var formData = new FormData();
-//         var totalFiles = files.length;
-//         for (var i = 0; i < totalFiles; i++) {
-//             var file = files[i];
-//             formData.append("fileUpload",file);
-//         }
+    	
+    	var formData = new FormData();
+    	
+    	var totalFiles = files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            formData.append("files",files[i]);
+        }
     	storyStatus="DRAFT";
+    	formData.append("title", storyTitle);
+    	formData.append("chekedMission", CheckedMission);
+    	formData.append("date", new Date(storyDate));
+    	formData.append("description", myeditor.getData());
+    	formData.append("videoUrl", videoURL);
+    	formData.append("user_id", user_id);
+    	formData.append("status", storyStatus);
+
     	$.ajax({
             url: "saveStoryToDraft",
     		dataType: 'json',
-            data:{'storyTitle':storyTitle,
-            	  'missionSelect':CheckedMission,
-            	  'storyDate':new Date(storyDate),
-            	  'description':myeditor.getData(),
-            	  'videoURL':videoURL,
-            	  'images':files,
-            	  'user_id':user_id,
-            	  'storyStatus':storyStatus},
-          
-            type:"GET",
+            data:formData,
+            type:"POST",
+            processData: false,
+            contentType: false,
             success: function(response){
             	if(response)
             	{
+            		swal("Sucsess!", "Story shared successfully!", "success");
                 	clearAllData();
                 	loadStoryStatus();
+            	}
+            	else{
+            		swal("Error!", "success");
             	}
             }
     	});
@@ -393,6 +406,7 @@
             data:{'missionSelect':CheckedMission,
             	  'user_id':user_id},
             type:"POST",
+           
             success: function(response){
             	
             	if(response)
@@ -404,8 +418,34 @@
     	});
     }
     
+    function getDraftMedia(CheckedMission){
+    	$.ajax({
+            url: "loadDraftMedia",
+    		dataType: 'json',
+            data:{'user_id': user_id,
+            	  'mission_id':CheckedMission},
+            success: function(response){
+            	console.log(response);
+            	if(response==null){
+            		clearAllDataExceptTitle();
+            	}
+            	loadStoryStatus();
+            	setDraftMedia(response);
+            }
+       	});
+    }
+    function setDraftMedia(draftedMedia){
+    	for(i in draftedMedia){
+    		if(draftedMedia[i].type=="Image"){
+    			$(".preview-images-zone").val(draftedMedia[i].path);
+        		console.log($(".preview-images-zone").val());
+    		}
+    		else{
+    			$('.videoURL').val(draftedMedia[i].path);
+    		}
+    	}
+    }
     function getDraftDetails(CheckedMission){
-    	
     	$.ajax({
             url: "loadDraft",
     		dataType: 'json',
@@ -420,12 +460,16 @@
             }
        	});
     }
+    
+    
     function setDraftStory(draftedStory){
     	timedate= new Date(draftedStory.created_at);
     	$('.storyDate').get(0).valueAsDate=timedate;
     	myeditor.setData(draftedStory.description);
     	$('.storyTitle').val(draftedStory.title);
+    	storyTitle = $('.storyTitle').val();
     	$('.description').val(draftedStory.decription);
+    	description = $('.description').val();
     	loadStoryStatus();
     }
     

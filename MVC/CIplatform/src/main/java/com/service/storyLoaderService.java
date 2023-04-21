@@ -13,6 +13,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.dao.MissionLoaderInterface;
 import com.dao.StoryLoaderInterface;
+import com.dto.ShareStoryDto;
+import com.entities.StoryMedia;
 import com.entities.mission;
 import com.entities.mission_application;
 import com.entities.mission_invite;
@@ -45,14 +47,6 @@ public class storyLoaderService implements storyLoader{
 		return this.storyLoaderInterface.loadDraft(user,mission);
 	}
 
-
-	public void saveDraft(String storyTitle, Date storyDate, String description,mission mission,user user,status status) {
-		this.storyLoaderInterface.saveDraft(storyTitle,storyDate,description,mission,user,status);
-	}
-	public void saveStoryMedia(String videoURL, CommonsMultipartFile[] images,mission mission,user user) {
-		this.storyLoaderInterface.saveStoryMedia(videoURL,images,mission,user);
-		
-	}
 	public void submitStory(mission mission, user user) {
 		this.storyLoaderInterface.submitStory(mission,user);
 		
@@ -83,5 +77,14 @@ public class storyLoaderService implements storyLoader{
 		return null;
 	}
 
-	
+	public void saveDraft(ShareStoryDto shareStoryObject,user user,mission mission) {
+		this.storyLoaderInterface.saveDraft(shareStoryObject,user,mission);
+	}
+
+	@Override
+	public List<StoryMedia> loadDraftMediaOfStory(story story) {
+		return this.storyLoaderInterface.loadDraftMedia(story);
+	}
+
+
 }

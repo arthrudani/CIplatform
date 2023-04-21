@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.dto.ShareStoryDto;
+import com.entities.StoryMedia;
 import com.entities.mission;
 import com.entities.mission_application;
 import com.entities.story;
@@ -70,12 +72,10 @@ public class StoryController {
 		try {
 			Output = obj.writeValueAsString(mylist);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return Output;
 	}
-	
 	@RequestMapping(value = "/loadDraft")
 	public @ResponseBody String loadDraft(@RequestParam("user_id") int user_id,@RequestParam("mission_id") int mission_id) {
 		user user=this.service1.getUserById(user_id);
@@ -91,22 +91,24 @@ public class StoryController {
 		}
 		return Output;
 	}
-	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
-	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("images") CommonsMultipartFile[] images,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
-		System.out.println(images);
+	@RequestMapping(value = "/loadDraftMedia")
+	public @ResponseBody List<StoryMedia> loadDraftMedia(@RequestParam("user_id") int user_id,@RequestParam("mission_id") int mission_id) {
 		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(missionSelect);
-		this.service.saveDraft(storyTitle,storyDate,description,mission,user,status);
-		this.service.saveStoryMedia(videoURL,images,mission,user);
+		mission mission=this.service1.getMissionById(mission_id);
+		story story =this.service.loadDraft(user,mission);
+		List<StoryMedia> storyMedia =this.service.loadDraftMediaOfStory(story);
+		return storyMedia;
+	}
+	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.POST)
+	public @ResponseBody boolean saveStoryToDraft(ShareStoryDto shareStoryObject) {
+		user user=this.service1.getUserById(shareStoryObject.getUser_id());
+		mission mission=this.service1.getMissionById(shareStoryObject.getChekedMission());
+		this.service.saveDraft(shareStoryObject,user,mission);
+//		for(CommonsMultipartFile x : shareStoryObject.getFiles()) {
+//			System.out.println(x.getOriginalFilename());
+//		}
 		return true;
 	}
-//	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.GET)
-//	public @ResponseBody boolean saveStoryToDraft(@RequestParam("storyTitle") String storyTitle,@RequestParam("storyDate") Date storyDate,@RequestParam("description") String description,@RequestParam("videoURL") String videoURL,@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("storyStatus") status status) {
-//		user user=this.service1.getUserById(user_id);
-//		mission mission=this.service1.getMissionById(missionSelect);
-//		this.service.saveDraft(storyTitle,storyDate,description,videoURL,mission,user,status);
-//		return true;
-//	}
 	@RequestMapping(value = "/submitStory")
 	public @ResponseBody boolean submitStory(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id) {
 		user user=this.service1.getUserById(user_id);
@@ -128,6 +130,7 @@ public class StoryController {
 		story story= this.service.savePreviewDraft(mission,user);
 		m.addAttribute("story",story);
 		m.addAttribute("user",user);
+		m.addAttribute("user1",user1);
 		return "StoryDetail";
 	}
 	@RequestMapping(value = "/recommendMissionFromStory", method = RequestMethod.GET)

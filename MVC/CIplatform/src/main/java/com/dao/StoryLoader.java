@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.dto.ShareStoryDto;
 import com.entities.StoryMedia;
 import com.entities.country;
 import com.entities.mission;
@@ -60,50 +61,6 @@ public class StoryLoader implements StoryLoaderInterface {
 		return (story) q.uniqueResult();
 	}
 
-	@Transactional
-	public void saveDraft(String storyTitle, Date storyDate, String description, mission mission,user user,status status) {
-		String que = "from story where user=:user and mission=:mission and status=:status";
-		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
-		q.setParameter("user",user);
-		q.setParameter("mission",mission);
-		q.setParameter("status",status.DRAFT);
-		story story=new story();
-		if(q.list().size()>0) {
-			story=(story)q.list().get(0);
-		}
-		else {
-			story.setMission(mission);
-			story.setUser(user);
-		}
-		story.setCreated_at(storyDate);
-		story.setDescription(description);
-		story.setTitle(storyTitle);
-		story.setStatus(status);
-		this.hibernateTemplate.saveOrUpdate(story);
-	}
-	@Transactional
-	public void saveStoryMedia(String videoURL, CommonsMultipartFile[] images,mission mission,user user) {
-		String que = "from story where user=:user and mission=:mission and status=:status";
-		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
-		q.setParameter("user",user);
-		q.setParameter("mission",mission);
-		q.setParameter("status",status.DRAFT);
-		story story=new story();
-		if(q.list().size()>0) {
-			story=(story)q.list().get(0);
-		}
-		String que1 = "from StoryMedia where story=:story";
-		Query q1 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
-		q1.setParameter("story",story);
-		StoryMedia media=new StoryMedia();
-		if(videoURL!=null) {
-			media.setCreatedAt(new Date());
-			media.setStory(story);
-			media.setType("video");
-			media.setPath(videoURL);
-		}
-		this.hibernateTemplate.saveOrUpdate(media);
-	}
 	
 	@Transactional
 	public void submitStory(mission mission, user user) {
@@ -152,5 +109,64 @@ public class StoryLoader implements StoryLoaderInterface {
 		return story;
 	}
 
+	@Transactional
+	public void saveDraft(ShareStoryDto shareStoryObject,user user,mission mission) {
+		String que = "from story where user=:user and mission=:mission and status=:status";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("user",user);
+		q.setParameter("mission",mission);
+		q.setParameter("status",status.DRAFT);
+		story story=new story();
+		if(q.list().size()>0) {
+			story=(story)q.list().get(0);
+		}
+		else {
+			story.setMission(mission);
+			story.setUser(user);
+		}
+		story.setCreated_at(shareStoryObject.getDate());
+		story.setDescription(shareStoryObject.getDescription());
+		story.setTitle(shareStoryObject.getTitle());
+		story.setStatus(status.DRAFT);
+		this.hibernateTemplate.saveOrUpdate(story);
+		
+		
+		String que1 = "from StoryMedia where story=:story and type=:type";
+		Query q1 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que1);
+		q1.setParameter("story",story);
+		q1.setParameter("type","video");
+		
+		StoryMedia media =  (StoryMedia) q1.uniqueResult();
+		
+		if(media != null) {
+			media.setCreatedAt(new Date());
+			media.setStory(story);
+			media.setType("video");
+			media.setPath(shareStoryObject.getVideoUrl());
+			this.hibernateTemplate.saveOrUpdate(media);
+		}
+		
+		
+		if(shareStoryObject.getFiles()!=null) {
+			for(CommonsMultipartFile x : shareStoryObject.getFiles()) {
+				StoryMedia media1=new StoryMedia();
+				System.out.println(x.getOriginalFilename());
+				media1.setCreatedAt(new Date());
+				media1.setStory(story);
+				media1.setType("Image");
+				media1.setPath(x.getOriginalFilename());
+				this.hibernateTemplate.save(media1);
+			}
+		}
 
+		
+		
+	}
+
+	public List<StoryMedia> loadDraftMedia(story story) {
+		String que = "from StoryMedia where story=:story";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("story",story);
+		return q.list();
+	}
 }

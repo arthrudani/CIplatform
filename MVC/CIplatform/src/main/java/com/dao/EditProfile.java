@@ -43,7 +43,6 @@ public class EditProfile  implements EditProfileInterface{
 
 	@Transactional
 	public void updateProfile(user user,EditProfileObject editProfileObject1) {
-		
 		String que = "from user where user_id=:user_id";
 		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
 		q.setParameter("user_id", user.getUser_id());
@@ -67,12 +66,26 @@ public class EditProfile  implements EditProfileInterface{
 		if(editProfileObject1.getWhyIVolunteer()!="") {
 			user1.setWhy_i_volunteer(editProfileObject1.getWhyIVolunteer());
 		}
-		city city=this.hibernateTemplate.get(city.class,Integer.parseInt(editProfileObject1.getCity()));
-		country country=this.hibernateTemplate.get(country.class,Integer.parseInt(editProfileObject1.getCountry()));
+		System.out.println(editProfileObject1);
+		if(editProfileObject1.getCity()!=null) {
+			city city=this.hibernateTemplate.get(city.class,Integer.parseInt(editProfileObject1.getCity()));
+			user1.setCity(city);
+		}
+		if(editProfileObject1.getCountry()!=null) {
+			country country=this.hibernateTemplate.get(country.class,Integer.parseInt(editProfileObject1.getCountry()));
+			user1.setCountry(country);
+		}
 		
-		user1.setCity(city);
-		user1.setCountry(country);
-		
+		this.hibernateTemplate.saveOrUpdate(user1);
+	}
+
+	@Transactional
+	public void changePassword(user user, String newPass) {
+		String que = "from user where user_id=:user_id";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("user_id", user.getUser_id());
+		user user1 = (user) q.uniqueResult();
+		user1.setPassword(newPass);
 		this.hibernateTemplate.saveOrUpdate(user1);
 	}
 }

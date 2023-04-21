@@ -18,4 +18,8 @@ public interface EditProfile {
 
 	void updateProfile(user user, EditProfileObject editProfileobj);
 
+	boolean validateOldPass(user user, String oldPass, String newPass);
+
+	void changePassword(user user, String newPass);
+
 }

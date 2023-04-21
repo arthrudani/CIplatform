@@ -1,6 +1,6 @@
 $(document).ready(function() {
   document.getElementById('pro-image').addEventListener('change', readImage, false);
-  
+  $("#pro-image").val('');
 //  $(".preview-images-zone").sortable();
   $(document).on('click', '.image-cancel', function() {
       let no = $(this).data('no');

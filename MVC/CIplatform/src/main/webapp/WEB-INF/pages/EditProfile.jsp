@@ -53,9 +53,10 @@
 				<div class="modal-body ">
 					<input type="password" name="oldpass" class="form-control my-3"
 						id="oldpass" aria-describedby="emailHelp"
-						placeholder="Enter old password"> <input type="password"
-						name="newpass" class="form-control my-3" id="newpass"
-						aria-describedby="emailHelp" placeholder="Enter new password">
+						placeholder="Enter old password"> 
+					<input type="password" name="newpass" class="form-control my-3" 
+						id="newpass" aria-describedby="emailHelp" 
+						placeholder="Enter new password">
 					<input type="password" name="confpass" class="form-control my-3"
 						id="confpass" aria-describedby="emailHelp"
 						placeholder="Confirm new password">
@@ -63,7 +64,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
 					<button type="button" class="btn changepass"
-						data-bs-dismiss="modal" aria-label="Close">Change
+						data-bs-dismiss="modal" aria-label="Close" onclick="changePass()">Change
 						password</button>
 				</div>
 			</div>
@@ -354,7 +355,7 @@
 						<input type="text" class="defaultCityid" value="${user.city.city_id}" hidden>
 							<span>City*</span> 
 								<select name="country" id="city" class="countrySelector">
-									<option value="country" hidden>Country</option>
+									<option value="city" hidden>city</option>
 								</select> 
 						</div>
 						<div class="col">
@@ -377,7 +378,7 @@
 					<div class="d-flex EPnameSurname justify-content-around mt-1 row">
 						<div class="col">
 							<span>Availability</span>
-								<select name="country" id="country" class="countrySelector">
+								<select name="availability" id="availability" class="countrySelector">
 									<option value="starter" selected>Select availability</option>
 										<option value="DAILY">DAILY</option>
 										<option value="WEEKLY">WEEKLY</option>
@@ -432,7 +433,7 @@
 
 
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script
@@ -469,12 +470,15 @@
 		let title = "";
 		let department = "";
 		let WhyIvolunteer = "";
-		let city = "";
+		let city = CityIdOfUser;
 		let cityList = "";
 		let country = CountryIdOfUser;
 		let countries = "";
 		let LinkedIn = "";
 		let selectedSkills="";
+		let oldPass="";
+		let newPass="";
+		let confPass="";
 
 		$(document).ready(function() {
 			getCityList(CountryIdOfUser);
@@ -521,8 +525,45 @@
 			loadAllSkill();
 			loadUserSkill();
 			loadAllDetails();
-			
 		});
+		function changePass(){
+			oldPass=$('#oldpass').val();
+			newPass=$('#newpass').val();
+			confPass=$('#confpass').val();
+			if(oldPass==''){
+				swal("Error!", "Please enter old password!", "error");
+				clearPasswordFields();
+			}
+			if(newPass!=confPass){
+				swal("Error!", "New password and confirm password are not same!", "error"); 
+				clearPasswordFields();
+			}	
+			if(oldPass!='' && newPass==confPass){
+				changePassword();
+			}
+		}
+		function changePassword(){
+			$.ajax({
+				url : "changePassword",
+				dataType : 'json',
+				data : {'uid' : user_id,
+						'oldPass' : oldPass,
+						'newPass' : newPass,
+						},
+				type : "POST",
+				success : function(response) {
+					
+					console.log(response);
+					if(response==0){
+						swal("Error!", "Old pass did not matched!", "error"); 
+					}
+					else if(response==1){
+						swal("Success!", "Password changed successfully!", "success"); 
+					}
+					clearPasswordFields();
+				}
+			});
+		}
 		function getCityList(CheckedCountry) {
 			cityList="";
 			//get City List
@@ -577,9 +618,7 @@
 			$.ajax({
 				url : "loadUserSkill",
 				dataType : 'json',
-				data : {
-					'uid' : user_id
-				},
+				data : {'uid' : user_id},
 				type : "GET",
 				success : function(response) {
 					userSkills = response;
@@ -625,6 +664,7 @@
 			});
 		}
 		function setUserData() {
+			clearPasswordFields();
 			$('#name').val(user.first_name);
 			$('#surname').val(user.last_name);
 			$('#employeeID').val(user.employee_id);
@@ -634,6 +674,13 @@
 			$('#city').val(user.city.name);
 			$('#country').val(user.country.name);
 			$('#linkedINUrl').val(user.linked_in_url);
+			console.log(city);
+			console.log(country);
+		}
+		function clearPasswordFields(){
+			$('#oldpass').val('');
+			$('#newpass').val('');
+			$('#confpass').val('');
 		}
 		function updateProfile(){
 			EditProfileObject={

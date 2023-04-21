@@ -162,18 +162,13 @@
 						type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
 						aria-expanded="false"
 						style="box-shadow: none; text-transform: capitalize; width: 12rem;">
-
-						<img src="images/<c:out value="${user.avatar}"></c:out>"
-							class="userimage "> <span class="blocking uNameuImage"
-							class="uNameuImage"> <c:out
-								value="${user.first_name} ${user.last_name}"></c:out></span> <input
-							type="text" id="title" name="title" value="${mission.title}"
-							hidden> <input type="text" class="missionID"
-							value="${mission.mission_id}" hidden> <input type="text"
-							class="userId" id="uid" name="uid" value="${user_id}" hidden>
-						<input type="text" class="average" id="average" name="average"
-							value="${avgrating}" hidden> <img
-							src="images/drop-down.png" alt="" class="user-image-downarrow">
+						<img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> 
+						<span class="blocking uNameuImage" class="uNameuImage"> <c:out value="${user.first_name} ${user.last_name}"></c:out></span> 
+						<input type="text" id="title" name="title" value="${mission.title}" hidden> 
+						<input type="text" class="missionID" value="${mission.mission_id}" hidden> 
+						<input type="text" class="userId" id="uid" name="uid" value="${user_id}" hidden>
+						<input type="text" class="average" id="average" name="average" value="${avgrating}" hidden> 
+						<img src="images/drop-down.png" alt="" class="user-image-downarrow">
 					</button>
 
 					<ul class="dropdown-menu user" aria-labelledby="dropdownMenuLink">

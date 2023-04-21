@@ -13,5 +13,7 @@ public interface EditProfileInterface {
 
 	void updateProfile(user user, EditProfileObject editProfileObject1);
 
+	void changePassword(user user, String newPass);
+
 
 }

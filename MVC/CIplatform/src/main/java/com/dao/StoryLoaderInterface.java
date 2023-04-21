@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.dto.ShareStoryDto;
+import com.entities.StoryMedia;
 import com.entities.mission;
 import com.entities.mission_application;
 import com.entities.story;
@@ -21,7 +23,6 @@ public interface StoryLoaderInterface {
 
 	story loadDraft(user user, mission mission);
 
-	void saveDraft(String storyTitle, Date storyDate, String description, mission mission, user user,status status);
 
 	void submitStory(mission mission, user user);
 
@@ -30,6 +31,8 @@ public interface StoryLoaderInterface {
 	story savePreviewDraft(mission mission,
 			user user);
 
-	void saveStoryMedia(String videoURL, CommonsMultipartFile[] images, mission mission, user user);
+	void saveDraft(ShareStoryDto shareStoryObject, user user, mission mission);
+
+	List<StoryMedia> loadDraftMedia(story story);
 
 }

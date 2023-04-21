@@ -35,7 +35,7 @@ $(document).ready(function() {
         $('#selectedSkills').append($(savedSkill).clone());
 //        console.log(savedSkill);
 //        console.log($('#selectedSkills').val());
-        console.log($("#lstBox2").clone());
+//        console.log($("#lstBox2").clone());
     });
 
 });
