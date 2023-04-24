@@ -4,20 +4,20 @@ import java.util.List;
 
 import com.dto.EditProfileObject;
 import com.entities.UserSkill;
-import com.entities.skill;
-import com.entities.user;
+import com.entities.Skill;
+import com.entities.User;
 
 public interface EditProfileInterface {
 
-	List<UserSkill> loadUserSkill(user user);
+	List<UserSkill> loadUserSkill(User user);
 
-	void updateProfile(user user, EditProfileObject editProfileObject1);
+	void updateProfile(User user, EditProfileObject editProfileObject1);
 
-	void changePassword(user user, String newPass);
+	void changePassword(User user, String newPass);
 
-	void updateProfilePic(user user, String profilePic);
+	void updateProfilePic(User user, String profilePic);
 
-	void updateUserSkills(user user, List<Integer> skills);
+	void updateUserSkills(User user, List<Integer> skills);
 
 
 }

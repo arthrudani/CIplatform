@@ -18,29 +18,29 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import com.dto.Filters;
-import com.entities.city;
-import com.entities.comment;
-import com.entities.country;
-import com.entities.favourite_mission;
-import com.entities.mission;
-import com.entities.mission_application;
-import com.entities.mission_application.approval;
-import com.entities.mission_document;
-import com.entities.mission_rating;
-import com.entities.mission_skill;
-import com.entities.mission_theme;
-import com.entities.skill;
-import com.entities.user;
+import com.entities.City;
+import com.entities.Comment;
+import com.entities.Country;
+import com.entities.FavouriteMission;
+import com.entities.Mission;
+import com.entities.MissionApplication;
+import com.entities.MissionApplication.approval;
+import com.entities.MissionDocument;
+import com.entities.MissionRating;
+import com.entities.MissionSkill;
+import com.entities.MissionTheme;
+import com.entities.Skill;
+import com.entities.User;
 
 @Component
 public class MissionLoader implements MissionLoaderInterface {
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 
-	public List<mission> loadAllMissionOnSearch(Filters filters) {
+	public List<Mission> loadAllMissionOnSearch(Filters filters) {
 
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria c = s.createCriteria(mission.class);
+		Criteria c = s.createCriteria(Mission.class);
 		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
 		if (filters.getSearchedKeyword() != "") {
 			c.add(Restrictions.like("title", "%" + filters.getSearchedKeyword() + "%"));
@@ -72,7 +72,7 @@ public class MissionLoader implements MissionLoaderInterface {
 
 	public Long countAllMission(Filters filters) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria c = s.createCriteria(mission.class);
+		Criteria c = s.createCriteria(Mission.class);
 		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
 		if (filters.getSearchedKeyword() != "") {
 			c.add(Restrictions.like("title", "%" + filters.getSearchedKeyword() + "%"));
@@ -101,53 +101,53 @@ public class MissionLoader implements MissionLoaderInterface {
 		return result;
 	}
 
-	public List<country> loadListOfCountry() {
-		return this.hibernateTemplate.loadAll(country.class);
+	public List<Country> loadListOfCountry() {
+		return this.hibernateTemplate.loadAll(Country.class);
 	}
 
-	public List<city> loadCityOfCountry(int country_id) {
-		String que = "from city where country_id=:country_id";
+	public List<City> loadCityOfCountry(int country_id) {
+		String que = "from City where country_id=:country_id";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("country_id", country_id);
-		List<city> mylist = q.list();
+		List<City> mylist = q.list();
 		return mylist;
 	}
 
-	public List<mission_theme> loadAllThemes() {
-		return this.hibernateTemplate.loadAll(mission_theme.class);
+	public List<MissionTheme> loadAllThemes() {
+		return this.hibernateTemplate.loadAll(MissionTheme.class);
 	}
 
-	public List<mission> loadAllMission() {
-		String que = "from mission";
+	public List<Mission> loadAllMission() {
+		String que = "from Mission";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setFirstResult(0);
 		q.setMaxResults(10);
 		return q.list();
 	}
 
-	public List<skill> loadAllSkillOnSearch() {
-		return this.hibernateTemplate.loadAll(skill.class);
+	public List<Skill> loadAllSkillOnSearch() {
+		return this.hibernateTemplate.loadAll(Skill.class);
 	}
 
-	public List<user> loadAllUserOnSearch() {
-		return this.hibernateTemplate.loadAll(user.class);
+	public List<User> loadAllUserOnSearch() {
+		return this.hibernateTemplate.loadAll(User.class);
 	}
 
 	@Transactional
-	public void save(favourite_mission fv) {
+	public void save(FavouriteMission fv) {
 		this.hibernateTemplate.save(fv);
 	}
 	
 	@Transactional
-	public void delete(favourite_mission fv) {
+	public void delete(FavouriteMission fv) {
 		this.hibernateTemplate.delete(fv);
 	}
 
-	public List<mission> loadrelatedmission(mission mission1,city city, country country, mission_theme mission_theme) {
+	public List<Mission> loadrelatedmission(Mission mission1,City city, Country country, MissionTheme mission_theme) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria ccity = s.createCriteria(mission.class);
-		Criteria ccountry = s.createCriteria(mission.class);
-		Criteria ctheme = s.createCriteria(mission.class);
+		Criteria ccity = s.createCriteria(Mission.class);
+		Criteria ccountry = s.createCriteria(Mission.class);
+		Criteria ctheme = s.createCriteria(Mission.class);
 		
 		ccity.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
 		ccountry.setResultTransformer(ccity.DISTINCT_ROOT_ENTITY);
@@ -174,25 +174,25 @@ public class MissionLoader implements MissionLoaderInterface {
 		
 	}
 
-	public List<mission> getLikedMission(user user) {
-		String que = "from favourite_mission where user_id=:user_id";
+	public List<Mission> getLikedMission(User user) {
+		String que = "from FavouriteMission where user_id=:user_id";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("user_id", user.getUser_id());
-		List<mission> mylist=q.list();
+		List<Mission> mylist=q.list();
 		return mylist;
 	}
 
-	public int getRatingCount(mission mission) {
+	public int getRatingCount(Mission mission) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria avg = s.createCriteria(mission.class);
+		Criteria avg = s.createCriteria(Mission.class);
 		avg.add(Restrictions.eq("mission", mission));
 		
 		return 0;
 	}
 
-	public Double getAverageRatings(mission mission) {
+	public Double getAverageRatings(Mission mission) {
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria criteria = s.createCriteria(mission_rating.class);
+		Criteria criteria = s.createCriteria(MissionRating.class);
 		criteria.add(Restrictions.eq("mission", mission));
 		if(criteria.list().size()==0) {
 			return (double) 0;
@@ -206,65 +206,65 @@ public class MissionLoader implements MissionLoaderInterface {
 	}
 
 	@Transactional
-	public void save(mission_rating mission_rating1) {
+	public void save(MissionRating mission_rating1) {
 		this.hibernateTemplate.save(mission_rating1);
 		System.out.println("saved");
 		
 	}
 	@Transactional
-	public void saveorupdate(mission_rating mission_rating1) {
+	public void saveorupdate(MissionRating mission_rating1) {
 		this.hibernateTemplate.saveOrUpdate(mission_rating1);
 		System.out.println("saved");
 		
 	}
 	@Transactional
-	public void delete(mission_rating mission_rating1) {
+	public void delete(MissionRating mission_rating1) {
 		this.hibernateTemplate.delete(mission_rating1);
 		System.out.println("deleted");
 		
 	}
 
-	public List<comment> getAllComments(mission mission) {
-		String que= "from comment where mission=:mission";
+	public List<Comment> getAllComments(Mission mission) {
+		String que= "from Comment where mission=:mission";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("mission",mission);
-		List<comment> mylist=q.list();
+		List<Comment> mylist=q.list();
 		return mylist;
 	}
 	
-	public List<mission_document> loadAllDocuments(mission mission) {
-		String que= "from mission_document where mission=:mission";
+	public List<MissionDocument> loadAllDocuments(Mission mission) {
+		String que= "from MissionDocument where mission=:mission";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("mission",mission);
-		List<mission_document> mylist=q.list();
+		List<MissionDocument> mylist=q.list();
 		return mylist;
 	}
 	
-	public List<mission_skill> loadMissionSkills(mission mission) {
-		String que= "from mission_skill where mission=:mission";
+	public List<MissionSkill> loadMissionSkills(Mission mission) {
+		String que= "from MissionSkill where mission=:mission";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("mission",mission);
-		List<mission_skill> mylist=q.list();
+		List<MissionSkill> mylist=q.list();
 		return mylist;
 	}
 
 	
-	public List<mission_application> loadRecentVolunteers(mission mission,int currentPage) {		
+	public List<MissionApplication> loadRecentVolunteers(Mission mission,int currentPage) {		
 		int firstresultcount=0;
 		firstresultcount = ((currentPage-1) * 3) + 3;
-		String que= "from mission_application where mission=:mission and approval_status=:as";
+		String que= "from MissionApplication where mission=:mission and approval_status=:as";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("mission",mission);
 		q.setParameter("as",approval.ONE);
 		q.setFirstResult(firstresultcount);
 		q.setMaxResults(3);
-		List<mission_application> mylist=q.list();
+		List<MissionApplication> mylist=q.list();
 		return mylist;
 	}
 	
-	public int loadTotalRecentVolunteers(mission mission) {		
+	public int loadTotalRecentVolunteers(Mission mission) {		
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
-		Criteria c = s.createCriteria(mission_application.class);
+		Criteria c = s.createCriteria(MissionApplication.class);
 		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
 		c.add(Restrictions.eq("approval_status", approval.ONE));
 		c.add(Restrictions.eq("mission.mission_id", mission.getMission_id()));

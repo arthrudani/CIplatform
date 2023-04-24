@@ -12,11 +12,12 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.entities.user;
+import com.entities.User;
+import com.entities.User.Status;
 import com.service.SendMailSSL;
 import com.service.TokenGenerator;
-import com.entities.country;
-import com.entities.password_reset;
+import com.entities.Country;
+import com.entities.PasswordReset;
 
 @Component
 public class RegistrationDao {
@@ -25,25 +26,30 @@ public class RegistrationDao {
 	HibernateTemplate hibernateTemplate;
 	
 	@Transactional
-	public int save(user user) {
+	public int save(User user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
+		query.setParameter("email", user.getEmail());
+		User user1 = (User) query.uniqueResult();
+		if (user1 != null) {
+			return 0;
+		}
+		user.setStatus(Status.ACTIVE);
+		user.setAvatar("noImageFound.png");
 		Integer i=(Integer) this.hibernateTemplate.save(user);
 		return i;
 	}
-	
-
-	
 	@Transactional
-	public int savecountry(country country) {
+	public int savecountry(Country country) {
 		int i=(Integer) this.hibernateTemplate.save(country);
 		return i;
 	}
 
 	public String verifyuser(String email, String password) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email and password=:password");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email and password=:password");
 		String result="";
 		query.setParameter("email", email);
 		query.setParameter("password", password);
-		user user1 = (user) query.uniqueResult();
+		User user1 = (User) query.uniqueResult();
 		if (user1 != null) {
 			result="true";
 		} else {
@@ -54,13 +60,13 @@ public class RegistrationDao {
 
 	@Transactional
 	public String ResetPass(String email) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
 		String result1="";
 		query.setParameter("email", email);
-		user user1 = (user) query.uniqueResult();
+		User user1 = (User) query.uniqueResult();
 		if (user1 != null) {
 			String token = TokenGenerator.generateToken();
-			password_reset psrt=new password_reset();
+			PasswordReset psrt=new PasswordReset();
 			psrt.setEmail(email);
 			psrt.setToken(token);
 			psrt.setCreated_at(new Date());
@@ -75,26 +81,26 @@ public class RegistrationDao {
 	}
 
 	@Transactional
-	public void savePass(password_reset password_reset) {
+	public void savePass(PasswordReset password_reset) {
 		this.hibernateTemplate.saveOrUpdate(password_reset);
 	}
 	
 	@Transactional
-	public void deletetoken(password_reset password_reset) {
+	public void deletetoken(PasswordReset password_reset) {
 		this.hibernateTemplate.delete(password_reset);
 	}
 
 
 	@Transactional
 	public String tokencheck(String token) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from password_reset where token=:token");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from PasswordReset where token=:token");
 		query.setParameter("token", token);
-		password_reset password_reset = (password_reset) query.uniqueResult();
+		PasswordReset password_reset = (PasswordReset) query.uniqueResult();
 		Date tokentime=password_reset.getCreated_at();
 		System.out.println("old token created at : "+ password_reset.getCreated_at());
 		Date current_time=new Date();
 		System.out.println("current time : "+current_time);
-		if(current_time.getTime() - tokentime.getTime() > 20000) {
+		if(current_time.getTime() - tokentime.getTime() > 1000000) {
 			this.deletetoken(password_reset);
 			System.out.println("Token deleted");
 			return "false";
@@ -121,7 +127,7 @@ public class RegistrationDao {
         pstmt.setString(2,email);
         pstmt.executeUpdate();
 
-        String q1="delete from password_reset where email=?";
+        String q1="delete from PasswordReset where email=?";
 		PreparedStatement pstmt1=con.prepareStatement(q1);
         pstmt1.setString(1,email);
         pstmt1.executeUpdate();

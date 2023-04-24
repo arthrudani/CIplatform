@@ -15,11 +15,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.dto.ShareStoryDto;
 import com.entities.StoryMedia;
-import com.entities.mission;
-import com.entities.mission_application;
-import com.entities.story;
-import com.entities.story.status;
-import com.entities.user;
+import com.entities.Mission;
+import com.entities.MissionApplication;
+import com.entities.Story;
+import com.entities.Story.status;
+import com.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.MissionLoader;
@@ -36,13 +36,13 @@ public class StoryController {
 	
 	@RequestMapping(path = "/storiesLoader", method = RequestMethod.POST)
 	public String myFormHandler(@RequestParam("uid") int userId,Model m) {
-		user user=this.service1.getUserById(userId);
+		User user=this.service1.getUserById(userId);
 		m.addAttribute("user",user);
 		return "story";
 	}
 	@RequestMapping(value = "/loadAllStories")
 	public @ResponseBody String loadAllStories(@RequestParam("currentPage") int currentPage) {
-		List<story> mylist = this.service.loadAllStories(currentPage);
+		List<Story> mylist = this.service.loadAllStories(currentPage);
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
 		try {
@@ -59,14 +59,14 @@ public class StoryController {
 	}
 	@RequestMapping(value = "/shareYourStory")
 	public String shareYourStory(@RequestParam("uid") int userId,Model m) {
-		user user=this.service1.getUserById(userId);
+		User user=this.service1.getUserById(userId);
 		m.addAttribute("user",user);
 		return "ShareYourStory";
 	}
 	@RequestMapping(value = "/loadApprovedMissions")
 	public @ResponseBody String loadApprovedMissions(@RequestParam("user_id") int user_id) {
-		user user=this.service1.getUserById(user_id);
-		List<mission_application> mylist =this.service.loadApprovedMissions(user);
+		User user=this.service1.getUserById(user_id);
+		List<MissionApplication> mylist =this.service.loadApprovedMissions(user);
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
 		try {
@@ -78,9 +78,9 @@ public class StoryController {
 	}
 	@RequestMapping(value = "/loadDraft")
 	public @ResponseBody String loadDraft(@RequestParam("user_id") int user_id,@RequestParam("mission_id") int mission_id) {
-		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(mission_id);
-		story mylist =this.service.loadDraft(user,mission);
+		User user=this.service1.getUserById(user_id);
+		Mission mission=this.service1.getMissionById(mission_id);
+		Story mylist =this.service.loadDraft(user,mission);
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
 		try {
@@ -93,16 +93,16 @@ public class StoryController {
 	}
 	@RequestMapping(value = "/loadDraftMedia")
 	public @ResponseBody List<StoryMedia> loadDraftMedia(@RequestParam("user_id") int user_id,@RequestParam("mission_id") int mission_id) {
-		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(mission_id);
-		story story =this.service.loadDraft(user,mission);
+		User user=this.service1.getUserById(user_id);
+		Mission mission=this.service1.getMissionById(mission_id);
+		Story story =this.service.loadDraft(user,mission);
 		List<StoryMedia> storyMedia =this.service.loadDraftMediaOfStory(story);
 		return storyMedia;
 	}
 	@RequestMapping(value = "/saveStoryToDraft",method = RequestMethod.POST)
 	public @ResponseBody boolean saveStoryToDraft(ShareStoryDto shareStoryObject) {
-		user user=this.service1.getUserById(shareStoryObject.getUser_id());
-		mission mission=this.service1.getMissionById(shareStoryObject.getChekedMission());
+		User user=this.service1.getUserById(shareStoryObject.getUser_id());
+		Mission mission=this.service1.getMissionById(shareStoryObject.getChekedMission());
 		this.service.saveDraft(shareStoryObject,user,mission);
 //		for(CommonsMultipartFile x : shareStoryObject.getFiles()) {
 //			System.out.println(x.getOriginalFilename());
@@ -111,23 +111,23 @@ public class StoryController {
 	}
 	@RequestMapping(value = "/submitStory")
 	public @ResponseBody boolean submitStory(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id) {
-		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(missionSelect);
+		User user=this.service1.getUserById(user_id);
+		Mission mission=this.service1.getMissionById(missionSelect);
 		this.service.submitStory(mission,user);
 		return true;
 	}
 	@RequestMapping(value = "/loadStoryStatus")
 	public @ResponseBody status loadStoryStatus(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id) {
-		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(missionSelect);
+		User user=this.service1.getUserById(user_id);
+		Mission mission=this.service1.getMissionById(missionSelect);
 		return this.service.loadStoryStatus(mission,user);
 	}
 	@RequestMapping(value = "/previewStory",method = RequestMethod.POST)
 	public String previewStory(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("sharedby_user_id") int sb_user_id,Model m) {
-		user user=this.service1.getUserById(user_id);
-		user user1=this.service1.getUserById(sb_user_id);
-		mission mission=this.service1.getMissionById(missionSelect);
-		story story= this.service.savePreviewDraft(mission,user);
+		User user=this.service1.getUserById(user_id);
+		User user1=this.service1.getUserById(sb_user_id);
+		Mission mission=this.service1.getMissionById(missionSelect);
+		Story story= this.service.savePreviewDraft(mission,user);
 		m.addAttribute("story",story);
 		m.addAttribute("user",user);
 		m.addAttribute("user1",user1);
@@ -135,15 +135,15 @@ public class StoryController {
 	}
 	@RequestMapping(value = "/recommendMissionFromStory", method = RequestMethod.GET)
 	public @ResponseBody String recommend(@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
-		mission mission=this.service1.getMissionById(missionId);
-		user user=this.service1.getUserById(from_uid);
+		Mission mission=this.service1.getMissionById(missionId);
+		User user=this.service1.getUserById(from_uid);
 		String result = this.service.recommendToCoWorker(mission,email,user);
 		return "true";
 	}
 	@RequestMapping(value = "/openMission",method = RequestMethod.GET)
 	public String openMission(@RequestParam("mission_id") int missionid,@RequestParam("user_id") int user_id,Model m) {
-		user user=this.service1.getUserById(user_id);
-		mission mission=this.service1.getMissionById(missionid);
+		User user=this.service1.getUserById(user_id);
+		Mission mission=this.service1.getMissionById(missionid);
 		m.addAttribute("user",user);
 		m.addAttribute("mission",mission);
 		Double rating=this.service1.getRatings(mission);
@@ -156,8 +156,8 @@ public class StoryController {
 	}
 	@RequestMapping(value = "/showDetailsStory",method = RequestMethod.POST)
 	public String showDetailsStory(@RequestParam("user_id") int user_id,@RequestParam("storydetails") int story_id,Model m) {
-		user user=this.service1.getUserById(user_id);
-		story story=this.service1.getStoryById(story_id);
+		User user=this.service1.getUserById(user_id);
+		Story story=this.service1.getStoryById(story_id);
 		List<StoryMedia> medias=this.service.loadDraftMediaOfStory(story);
 		m.addAttribute("story",story);
 		m.addAttribute("user",user);

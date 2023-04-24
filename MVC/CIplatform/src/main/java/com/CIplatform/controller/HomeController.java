@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dao.LandingpageDao;
 import com.dao.RegistrationDao;
-import com.entities.city;
-import com.entities.country;
-import com.entities.mission;
-import com.entities.mission_theme;
-import com.entities.user;
+import com.entities.City;
+import com.entities.Country;
+import com.entities.Mission;
+import com.entities.MissionTheme;
+import com.entities.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -38,9 +38,15 @@ public class HomeController {
 	}
 
 	@RequestMapping(path = "/savedata", method = RequestMethod.POST)
-	public String myFormHandler(@ModelAttribute("user") user user, Model m) {
-		this.registrationDao.save(user);
-		m.addAttribute("msg" , "Successfully registered");
+	public String myFormHandler(@ModelAttribute("user") User user, Model m) {
+		int i=this.registrationDao.save(user);
+		if(i==0) {
+			m.addAttribute("msg" , "Email already exists");
+		}
+		else {
+			m.addAttribute("msg" , "Successfully registered");
+		}
+		
 		return "registration";
 	}
 
@@ -65,13 +71,13 @@ public class HomeController {
 		vr = this.registrationDao.verifyuser(email, password);
 		if (vr == "true") {
 			
-			user userdetail = this.landingpageDao.getuserdetails(email);
+			User userdetail = this.landingpageDao.getuserdetails(email);
 			m.addAttribute("first_name" , userdetail.getFirst_name());
 			m.addAttribute("user_id" , userdetail.getUser_id());
 			m.addAttribute("last_name" , userdetail.getLast_name());
 			m.addAttribute("avatar" , userdetail.getAvatar());
 			
-			List<mission> missiondetail=this.landingpageDao.getallmission();
+			List<Mission> missiondetail=this.landingpageDao.getallmission();
 //			List<country> countrydetails=this.landingpageDao.getcountrydetails();
 //			List<city> citydetails=this.landingpageDao.getcitydetails(userdetail.getCountry().getCountry_id());
 //			List<mission_theme> missionthemedetails=this.landingpageDao.getmissionthemedetails();

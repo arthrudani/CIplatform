@@ -8,35 +8,35 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.dto.ShareStoryDto;
 import com.entities.StoryMedia;
-import com.entities.mission;
-import com.entities.mission_application;
-import com.entities.story;
-import com.entities.story.status;
-import com.entities.user;
+import com.entities.Mission;
+import com.entities.MissionApplication;
+import com.entities.Story;
+import com.entities.Story.status;
+import com.entities.User;
 
 @Service
 public interface StoryLoader {
 
-	List<story> loadAllStories(int currentPage);
+	List<Story> loadAllStories(int currentPage);
 
 	int loadNumberOfStoriesForPagination();
 
-	List<mission_application> loadApprovedMissions(user user);
+	List<MissionApplication> loadApprovedMissions(User user);
 
-	story loadDraft(user user, mission mission);
+	Story loadDraft(User user, Mission mission);
 
-	void submitStory(mission mission, user user);
+	void submitStory(Mission mission, User user);
 
-	status loadStoryStatus(mission mission, user user);
+	status loadStoryStatus(Mission mission, User user);
 
-	story savePreviewDraft(mission mission,
-			user user);
+	Story savePreviewDraft(Mission mission,
+			User user);
 
-	String recommendToCoWorker(mission mission, String email, user user);
+	String recommendToCoWorker(Mission mission, String email, User user);
 
 
-	void saveDraft(ShareStoryDto shareStoryObject, user user, mission mission);
+	void saveDraft(ShareStoryDto shareStoryObject, User user, Mission mission);
 
-	List<StoryMedia> loadDraftMediaOfStory(story story);
+	List<StoryMedia> loadDraftMediaOfStory(Story story);
 
 }

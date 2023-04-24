@@ -8,9 +8,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class skill {
+@Table(name = "skill")
+public class Skill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int skill_id;
@@ -26,12 +28,12 @@ public class skill {
 		INACTIVE
 	}
 
-	public skill() {
+	public Skill() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public skill(int skill_id, String skill_name, Status status, Date created_at, Date updated_at, Date deleted_at) {
+	public Skill(int skill_id, String skill_name, Status status, Date created_at, Date updated_at, Date deleted_at) {
 		super();
 		this.skill_id = skill_id;
 		this.skill_name = skill_name;

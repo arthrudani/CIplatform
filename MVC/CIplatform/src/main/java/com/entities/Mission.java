@@ -15,11 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import com.entities.mission.Status;
+import com.entities.Mission.Status;
 
 @Entity
-public class mission {
+@Table(name = "mission")
+public class Mission {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,15 +29,15 @@ public class mission {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "theme_id")
-	private mission_theme mission_theme;
+	private MissionTheme mission_theme;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "city_id")
-	private city city;
+	private City city;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id")
-	private country country;
+	private Country country;
 	
 	private String title;
 	private String short_description;
@@ -68,25 +70,25 @@ public class mission {
 	}
 	
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
-	private List<mission_skill> mission_skills;
+	private List<MissionSkill> mission_skills;
 
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
-	private List<mission_rating> mission_ratings;
+	private List<MissionRating> mission_ratings;
 
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
-	private List<mission_document> mission_documents;
+	private List<MissionDocument> mission_documents;
 
-	public mission() {
+	public Mission() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public mission(int mission_id, com.entities.mission_theme mission_theme, com.entities.city city,
-			com.entities.country country, String title, String short_description, String description, Date start_date,
-			Date end_date, com.entities.mission.mission_type mission_type, Status status, String organization_name,
-			String organization_detail, com.entities.mission.availability availability, Date created_at,
-			Date updated_at, Date deleted_at, List<mission_skill> mission_skills, List<mission_rating> mission_ratings,
-			List<mission_document> mission_documents) {
+	public Mission(int mission_id, com.entities.MissionTheme mission_theme, com.entities.City city,
+			com.entities.Country country, String title, String short_description, String description, Date start_date,
+			Date end_date, com.entities.Mission.mission_type mission_type, Status status, String organization_name,
+			String organization_detail, com.entities.Mission.availability availability, Date created_at,
+			Date updated_at, Date deleted_at, List<MissionSkill> mission_skills, List<MissionRating> mission_ratings,
+			List<MissionDocument> mission_documents) {
 		super();
 		this.mission_id = mission_id;
 		this.mission_theme = mission_theme;
@@ -118,27 +120,27 @@ public class mission {
 		this.mission_id = mission_id;
 	}
 
-	public mission_theme getMission_theme() {
+	public MissionTheme getMission_theme() {
 		return mission_theme;
 	}
 
-	public void setMission_theme(mission_theme mission_theme) {
+	public void setMission_theme(MissionTheme mission_theme) {
 		this.mission_theme = mission_theme;
 	}
 
-	public city getCity() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCity(city city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
 
-	public country getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(country country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 
@@ -246,27 +248,27 @@ public class mission {
 		this.deleted_at = deleted_at;
 	}
 
-	public List<mission_skill> getMission_skills() {
+	public List<MissionSkill> getMission_skills() {
 		return mission_skills;
 	}
 
-	public void setMission_skills(List<mission_skill> mission_skills) {
+	public void setMission_skills(List<MissionSkill> mission_skills) {
 		this.mission_skills = mission_skills;
 	}
 
-	public List<mission_rating> getMission_ratings() {
+	public List<MissionRating> getMission_ratings() {
 		return mission_ratings;
 	}
 
-	public void setMission_ratings(List<mission_rating> mission_ratings) {
+	public void setMission_ratings(List<MissionRating> mission_ratings) {
 		this.mission_ratings = mission_ratings;
 	}
 
-	public List<mission_document> getMission_documents() {
+	public List<MissionDocument> getMission_documents() {
 		return mission_documents;
 	}
 
-	public void setMission_documents(List<mission_document> mission_documents) {
+	public void setMission_documents(List<MissionDocument> mission_documents) {
 		this.mission_documents = mission_documents;
 	}
 	

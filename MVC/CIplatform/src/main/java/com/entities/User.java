@@ -15,20 +15,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class user {
+@Table(name = "user")
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int user_id;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id")
-	private country country;
+	private Country country;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "city_id")
-	private city city;
+	private City city;
 	
 	private String first_name;
 	private String last_name;
@@ -53,7 +55,7 @@ public class user {
 	private Date deleted_at;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private List<favourite_mission> favourite_missions;
+	private List<FavouriteMission> favourite_missions;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<UserSkill> userSkills;
 	public enum Status{
@@ -61,11 +63,11 @@ public class user {
 		INACTIVE
 	}
 	
-	public user() {
+	public User() {
 		super();
 	}
 	
-	public user(int user_id, com.entities.country country, com.entities.city city, String first_name, String last_name,
+	public User(int user_id, com.entities.Country country, com.entities.City city, String first_name, String last_name,
 			String email, String phone_number, String password, String avatar, String why_i_volunteer, int employee_id,
 			String department, String profile_text, String linked_in_url, String title, Status status, Date created_at,
 			Date updated_at, Date deleted_at) {
@@ -99,19 +101,19 @@ public class user {
 		this.user_id = user_id;
 	}
 
-	public country getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(country country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 
-	public city getCity() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCity(city city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
 

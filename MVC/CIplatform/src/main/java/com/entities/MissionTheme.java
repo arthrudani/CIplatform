@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class mission_theme {
+@Table(name = "mission_theme")
+public class MissionTheme {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mission_theme_id;
@@ -18,12 +20,12 @@ public class mission_theme {
 	private Date updated_at;
 	private Date deleted_at;
 	
-	public mission_theme() {
+	public MissionTheme() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public mission_theme(int mission_theme_id, String title, String status, Date created_at, Date updated_at,
+	public MissionTheme(int mission_theme_id, String title, String status, Date created_at, Date updated_at,
 			Date deleted_at) {
 		super();
 		this.mission_theme_id = mission_theme_id;

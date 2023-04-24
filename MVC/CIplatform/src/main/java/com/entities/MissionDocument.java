@@ -9,30 +9,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class mission_document {
+@Table(name = "mission_document")
+public class MissionDocument {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mission_document_id;
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = mission.class)
+	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = Mission.class)
 	@JoinColumn(name = "mission_id")
-	private mission mission;
+	private Mission mission;
 	private String document_name;
 	private String document_type;
 	private String document_path;
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
-	public mission_document() {
+	public MissionDocument() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public mission_document(int mission_document_id, com.entities.mission mission, String document_name,
+	public MissionDocument(int mission_document_id, com.entities.Mission mission, String document_name,
 			String document_type, String document_path, Date created_at, Date updated_at, Date deleted_at) {
 		super();
 		this.mission_document_id = mission_document_id;
@@ -50,10 +52,10 @@ public class mission_document {
 	public void setMission_document_id(int mission_document_id) {
 		this.mission_document_id = mission_document_id;
 	}
-	public mission getMission() {
+	public Mission getMission() {
 		return mission;
 	}
-	public void setMission(mission mission) {
+	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
 	public String getDocument_name() {

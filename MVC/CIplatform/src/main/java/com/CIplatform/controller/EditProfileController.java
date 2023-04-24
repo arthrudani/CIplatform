@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dto.EditProfileObject;
 import com.dto.Filters;
 import com.entities.UserSkill;
-import com.entities.skill;
-import com.entities.user;
+import com.entities.Skill;
+import com.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,7 +33,7 @@ public class EditProfileController {
 	
 	@RequestMapping(value = "/loadAllSkill")
 	public @ResponseBody String loadAllSkill() {
-		List<skill> mylist = this.service.loadAllSkill();
+		List<Skill> mylist = this.service.loadAllSkill();
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
 		try {
@@ -46,7 +46,7 @@ public class EditProfileController {
 	}
 	@RequestMapping(value = "/loadUserSkill")
 	public @ResponseBody String loadUserSkill(@RequestParam("uid") int user_id) {
-		user user=this.service1.getUserById(user_id);
+		User user=this.service1.getUserById(user_id);
 		List<UserSkill> mylist = this.service.loadUserSkill(user);
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
@@ -60,7 +60,7 @@ public class EditProfileController {
 	}
 	@RequestMapping(value = "/loadAllDetails")
 	public @ResponseBody String loadAllDetails(@RequestParam("uid") int user_id) {
-		user user=this.service1.getUserById(user_id);
+		User user=this.service1.getUserById(user_id);
 		ObjectMapper obj = new ObjectMapper();
 		String Output = "";
 		try {
@@ -73,7 +73,7 @@ public class EditProfileController {
 	}
 	@RequestMapping(value = "/updateProfile")
 	public @ResponseBody String updateProfile(@RequestParam("uid") int user_id,@RequestParam("EditProfile") String EditProfileObject) {
-		user user=this.service1.getUserById(user_id);
+		User user=this.service1.getUserById(user_id);
 		
 		String Output = "";
 		ObjectMapper obj = new ObjectMapper();
@@ -90,7 +90,7 @@ public class EditProfileController {
 	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public @ResponseBody int changePassword(@RequestParam("uid") int user_id,@RequestParam("oldPass") String oldPass,@RequestParam("newPass") String newPass) {
-		user user=this.service1.getUserById(user_id);
+		User user=this.service1.getUserById(user_id);
 		if(this.service.validateOldPass(user,oldPass,newPass)) {
 			this.service.changePassword(user,newPass);
 			return 1;
@@ -101,13 +101,13 @@ public class EditProfileController {
 	}
 	@RequestMapping(value = "/updateProfilePic")
 	public @ResponseBody String updateProfilePic(@RequestParam("uid") int user_id,@RequestParam("profilePic") String profilePic) {
-		user user=this.service1.getUserById(user_id);
+		User user=this.service1.getUserById(user_id);
 		this.service.updateProfilePic(user, profilePic);
 		return "true";
 	}
 	@RequestMapping(value = "/updateUserSkills")
 	public @ResponseBody String updateUserSkills(@RequestParam("uid") int user_id,@RequestParam("skills[]") List<Integer> skills) {
-		user user=this.service1.getUserById(user_id);
+		User user=this.service1.getUserById(user_id);
 		this.service.updateUserSkills(user, skills);
 		return "true";
 	}

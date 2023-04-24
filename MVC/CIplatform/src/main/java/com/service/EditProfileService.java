@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.dao.EditProfileInterface;
 import com.dao.StoryLoaderInterface;
 import com.entities.UserSkill;
-import com.entities.skill;
-import com.entities.user;
+import com.entities.Skill;
+import com.entities.User;
 @Service
 public class EditProfileService implements EditProfile{
 	
@@ -20,20 +20,20 @@ public class EditProfileService implements EditProfile{
 	@Autowired
 	EditProfileInterface editProfileInterface;
 
-	public List<skill> loadAllSkill() {
-		return this.hibernateTemplate.loadAll(skill.class);
+	public List<Skill> loadAllSkill() {
+		return this.hibernateTemplate.loadAll(Skill.class);
 	}
 
-	public List<UserSkill> loadUserSkill(user user) {
+	public List<UserSkill> loadUserSkill(User user) {
 		return this.editProfileInterface.loadUserSkill(user);
 	}
 
-	public void updateProfile(user user, com.dto.EditProfileObject editProfileObject1) {
+	public void updateProfile(User user, com.dto.EditProfileObject editProfileObject1) {
 		
 		this.editProfileInterface.updateProfile(user,editProfileObject1);
 	}
 
-	public boolean validateOldPass(user user, String oldPass,String newPass) {
+	public boolean validateOldPass(User user, String oldPass,String newPass) {
 		
 		if(user.getPassword().equals(oldPass)) {
 			return true;
@@ -43,15 +43,15 @@ public class EditProfileService implements EditProfile{
 		}
 	}
 
-	public void changePassword(user user, String newPass) {
+	public void changePassword(User user, String newPass) {
 		this.editProfileInterface.changePassword(user,newPass);
 	}
 
-	public void updateProfilePic(user user, String profilePic) {
+	public void updateProfilePic(User user, String profilePic) {
 		this.editProfileInterface.updateProfilePic(user,profilePic);
 	}
 
-	public void updateUserSkills(user user, List<Integer> skills) {
+	public void updateUserSkills(User user, List<Integer> skills) {
 		this.editProfileInterface.updateUserSkills(user,skills);
 		
 	}

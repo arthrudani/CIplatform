@@ -23,11 +23,11 @@ public class UserSkill {
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "skill_id")
-	private skill skill;
+	private Skill skill;
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	private user user;
+	private User user;
 	@Column(name = "created_at")
 	private Date createdAt;
 	@Column(name = "updated_at")
@@ -38,7 +38,7 @@ public class UserSkill {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserSkill(int userSkillId, com.entities.skill skill, com.entities.user user, Date createdAt, Date updatedAt,
+	public UserSkill(int userSkillId, com.entities.Skill skill, com.entities.User user, Date createdAt, Date updatedAt,
 			Date deletedAt) {
 		super();
 		this.userSkillId = userSkillId;
@@ -54,16 +54,16 @@ public class UserSkill {
 	public void setUserSkillId(int userSkillId) {
 		this.userSkillId = userSkillId;
 	}
-	public skill getSkill() {
+	public Skill getSkill() {
 		return skill;
 	}
-	public void setSkill(skill skill) {
+	public void setSkill(Skill skill) {
 		this.skill = skill;
 	}
-	public user getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(user user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	public Date getCreatedAt() {

@@ -9,31 +9,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class favourite_mission {
+@Table(name = "favourite_mission")
+public class FavouriteMission {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int favourite_mission_id;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "user_id")
-	private user user;
+	private User user;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "mission_id")
-	private mission mission;
+	private Mission mission;
 	
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
-	public favourite_mission() {
+	public FavouriteMission() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public favourite_mission(int favourite_mission_id, com.entities.user user, com.entities.mission mission,
+	public FavouriteMission(int favourite_mission_id, com.entities.User user, com.entities.Mission mission,
 			Date created_at, Date updated_at, Date deleted_at) {
 		super();
 		this.favourite_mission_id = favourite_mission_id;
@@ -49,16 +51,16 @@ public class favourite_mission {
 	public void setFavourite_mission_id(int favourite_mission_id) {
 		this.favourite_mission_id = favourite_mission_id;
 	}
-	public user getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(user user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
-	public mission getMission() {
+	public Mission getMission() {
 		return mission;
 	}
-	public void setMission(mission mission) {
+	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
 	public Date getCreated_at() {

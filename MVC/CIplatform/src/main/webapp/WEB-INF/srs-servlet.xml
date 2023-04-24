@@ -64,49 +64,49 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>
-					com.entities.user
+					com.entities.User
 				</value>
 				<value>
-					com.entities.country
+					com.entities.Country
 				</value>
 				<value>
-					com.entities.city
+					com.entities.City
 				</value>
 				<value>
-					com.entities.mission_theme
+					com.entities.MissionTheme
 				</value>
 				<value>
-					com.entities.mission
+					com.entities.Mission
 				</value>
 				<value>
-					com.entities.password_reset
+					com.entities.PasswordReset
 				</value>
 				<value>
-					com.entities.skill
+					com.entities.Skill
 				</value>
 				<value>
-					com.entities.mission_skill
+					com.entities.MissionSkill
 				</value>
 				<value>
-					com.entities.favourite_mission
+					com.entities.FavouriteMission
 				</value>
 				<value>
-					com.entities.mission_rating
+					com.entities.MissionRating
 				</value>
 				<value>
-					com.entities.mission_invite
+					com.entities.MissionInvite
 				</value>
 				<value>
-					com.entities.comment
+					com.entities.Comment
 				</value>
 				<value>
-					com.entities.mission_document
+					com.entities.MissionDocument
 				</value>
 				<value>
-					com.entities.mission_application
+					com.entities.MissionApplication
 				</value>
 				<value>
-					com.entities.story
+					com.entities.Story
 				</value>
 				<value>
 					com.entities.StoryMedia

@@ -11,35 +11,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class mission_rating {
+@Table(name = "mission_rating")
+public class MissionRating {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mission_rating_id;
 	
 
-	@ManyToOne(cascade=CascadeType.MERGE,targetEntity = user.class)
+	@ManyToOne(cascade=CascadeType.MERGE,targetEntity = User.class)
 	@JoinColumn(name = "user_id")
-	private user user;
+	private User user;
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = mission.class)
+	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = Mission.class)
 	@JoinColumn(name = "mission_id")
-	private mission mission;
+	private Mission mission;
 	
 	private int rating;
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
 	
-	public mission_rating() {
+	public MissionRating() {
 		super();
 	}
 
-	public mission_rating(int mission_rating_id, com.entities.user user, com.entities.mission mission, int rating,
+	public MissionRating(int mission_rating_id, com.entities.User user, com.entities.Mission mission, int rating,
 			Date created_at, Date updated_at, Date deleted_at) {
 		super();
 		this.mission_rating_id = mission_rating_id;
@@ -59,19 +61,19 @@ public class mission_rating {
 		this.mission_rating_id = mission_rating_id;
 	}
 
-	public user getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(user user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public mission getMission() {
+	public Mission getMission() {
 		return mission;
 	}
 
-	public void setMission(mission mission) {
+	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
 

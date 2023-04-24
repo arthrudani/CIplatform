@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.entities.skill;
+import com.entities.Skill;
 
 public class EditProfileObject {
 	private String name;
@@ -28,14 +28,14 @@ public class EditProfileObject {
 		MONTHLY
 	}
 	private String linkedInUrl;
-	private List<skill> skills;
+	private List<Skill> skills;
 	public EditProfileObject() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public EditProfileObject(String name, String surname, int employeeId, String manager, String title,
 			String whyIVolunteer, String department, String myComments, String city, String country,
-			com.dto.EditProfileObject.availability availability, String linkedInUrl, List<skill> skills) {
+			com.dto.EditProfileObject.availability availability, String linkedInUrl, List<Skill> skills) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -123,10 +123,10 @@ public class EditProfileObject {
 	public void setLinkedInUrl(String linkedInUrl) {
 		this.linkedInUrl = linkedInUrl;
 	}
-	public List<skill> getSkills() {
+	public List<Skill> getSkills() {
 		return skills;
 	}
-	public void setSkills(List<skill> skills) {
+	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
 	

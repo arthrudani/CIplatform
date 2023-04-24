@@ -6,24 +6,24 @@ import org.springframework.stereotype.Service;
 
 import com.dto.EditProfileObject;
 import com.entities.UserSkill;
-import com.entities.skill;
-import com.entities.user;
+import com.entities.Skill;
+import com.entities.User;
 
 @Service
 public interface EditProfile {
 
-	List<skill> loadAllSkill();
+	List<Skill> loadAllSkill();
 
-	List<UserSkill> loadUserSkill(user user);
+	List<UserSkill> loadUserSkill(User user);
 
-	void updateProfile(user user, EditProfileObject editProfileobj);
+	void updateProfile(User user, EditProfileObject editProfileobj);
 
-	boolean validateOldPass(user user, String oldPass, String newPass);
+	boolean validateOldPass(User user, String oldPass, String newPass);
 
-	void changePassword(user user, String newPass);
+	void changePassword(User user, String newPass);
 
-	void updateProfilePic(user user, String profilePic);
+	void updateProfilePic(User user, String profilePic);
 
-	void updateUserSkills(user user, List<Integer> skills);
+	void updateUserSkills(User user, List<Integer> skills);
 
 }

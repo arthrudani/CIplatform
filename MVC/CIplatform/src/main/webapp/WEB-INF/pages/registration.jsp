@@ -16,18 +16,24 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap"
 	rel="stylesheet">
 <title>Registration</title>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="" type="images/x-icon">
 <link rel="stylesheet" href="css/Registration.css">
-<script type="text/javascript" src="<c:url value='/js/home.js'/>"></script>
+<%-- <script type="text/javascript" src="<c:url value='/js/registration.js'/>"></script> --%>
 </head>
 
 
@@ -118,7 +124,7 @@
 					class="col-md-4 col-sm-12 d-flex flex-column justify-content-between">
 					<c:if test="${not empty msg }">
 						<div class="alert alert-success">
-							<b><c:out value="${msg }"></c:out></b>
+							<b><c:out value="${msg}"></c:out></b>
 						</div>
 					</c:if>
 					<div class="row"></div>
@@ -149,7 +155,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Email
-										address</label> <input type="email" name="email" class="form-control"
+										address</label> <input type="email" name="email" class="form-control email"
 										id="email" aria-describedby="emailHelp"
 										placeholder="Enter email" required>
 								</div>
@@ -157,7 +163,7 @@
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">New
 										Password</label> <input type="password" name="password" id="password"
-										class="form-control" aria-describedby="emailHelp"
+										class="form-control password" aria-describedby="emailHelp"
 										placeholder="**************" required>
 								</div>
 								<div class="form-group">
@@ -200,7 +206,35 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+		console.log($('.email').val());
+		console.log($('.password').val());
+		$('.email').val('');
+		$('.password').val('');
+	});
 
+
+
+	function verifyPassword() {  
+	  var pw = document.getElementById("password").value;
+	  var cpw = document.getElementById("confpassword").value;
+	  if(pw.length<8){
+		  swal("Error!", "Minimum length is 8 character!", "error");
+		  return false;
+	  }
+	  
+	  if(pw != cpw) {  
+		  	swal("Error!", "Password and confirm password are not same!", "error");
+	     	return false;
+	  }
+	    return true;
+	}   
+	</script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

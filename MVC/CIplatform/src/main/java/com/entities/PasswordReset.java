@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
-public class password_reset {
+@Table(name = "password_reset")
+public class PasswordReset {
 	
 	private String token;
 	@Id
@@ -19,11 +21,11 @@ public class password_reset {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Date created_at;
 	
-	public password_reset() {
+	public PasswordReset() {
 		super();
 	}
 
-	public password_reset(String token, String email, Date created_at) {
+	public PasswordReset(String token, String email, Date created_at) {
 		super();
 		this.token = token;
 		this.email = email;

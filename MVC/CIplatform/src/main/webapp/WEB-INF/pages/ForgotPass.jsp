@@ -58,7 +58,7 @@
 
 							<div class="carousel-item active" data-bs-interval="2000">
 								<img
-									src="resources/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
 									class="d-block w-100 size-fix" alt="...">
 								<div class="carousel-caption d-none d-md-block"
 									style="color: white; text-align: left;">

@@ -14,24 +14,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class story {
+@Table(name = "story")
+public class Story {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int story_id;
 	
-	@ManyToOne(cascade=CascadeType.MERGE,targetEntity = user.class)
+	@ManyToOne(cascade=CascadeType.MERGE,targetEntity = User.class)
 	@JoinColumn(name = "user_id")
-	private user user;
+	private User user;
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = mission.class)
+	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = Mission.class)
 	@JoinColumn(name = "mission_id")
-	private mission mission;
+	private Mission mission;
 	
 	private String title;
 	private String description;
@@ -52,13 +54,13 @@ public class story {
 	@OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
 	private List<StoryMedia> medias;
 	
-	public story() {
+	public Story() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public story(int story_id, com.entities.user user, com.entities.mission mission, String title, String description,
-			com.entities.story.status status, Date published_at, Date created_at, Date updated_at, Date deleted_at,
+	public Story(int story_id, com.entities.User user, com.entities.Mission mission, String title, String description,
+			com.entities.Story.status status, Date published_at, Date created_at, Date updated_at, Date deleted_at,
 			List<StoryMedia> medias) {
 		super();
 		this.story_id = story_id;
@@ -82,19 +84,19 @@ public class story {
 		this.story_id = story_id;
 	}
 
-	public user getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(user user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public mission getMission() {
+	public Mission getMission() {
 		return mission;
 	}
 
-	public void setMission(mission mission) {
+	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
 

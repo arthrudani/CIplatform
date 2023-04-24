@@ -27,7 +27,10 @@
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="" type="images/x-icon">
-<link rel="stylesheet" href="css/ResetPass.css">
+<link rel="stylesheet" href="../css/ResetPass.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="<c:url value='../js/home.js'/>"></script>
 </head>
 
@@ -56,10 +59,9 @@
 								data-bs-slide-to="3" aria-label="Slide 4"></button>
 						</div>
 						<div class="carousel-inner">
-
 							<div class="carousel-item active" data-bs-interval="2000">
 								<img
-									src="/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+									src="../images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
 									class="d-block w-100 size-fix" alt="...">
 								<div class="carousel-caption d-none d-md-block"
 									style="color: white; text-align: left;">
@@ -71,7 +73,7 @@
 							</div>
 							<div class="carousel-item" data-bs-interval="2000">
 								<img
-									src="/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+									src="../images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
 									class="d-block w-100 size-fix" alt="...">
 								<div class="carousel-caption d-none d-md-block"
 									style="color: white; text-align: left;">
@@ -83,7 +85,7 @@
 							</div>
 							<div class="carousel-item" data-bs-interval="2000">
 								<img
-									src="/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+									src="../images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
 									class="d-block w-100 size-fix" alt="...">
 								<div class="carousel-caption d-none d-md-block"
 									style="color: white; text-align: left;">
@@ -95,7 +97,7 @@
 							</div>
 							<div class="carousel-item" data-bs-interval="2000">
 								<img
-									src="/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+									src="../images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
 									class="d-block w-100 size-fix" alt="...">
 								<div class="carousel-caption d-none d-md-block"
 									style="color: white; text-align: left;">
@@ -133,7 +135,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="box">Confirm
 										Password</label> <input type="password" name="confpassword"
-										id="password" class="form-control"
+										id="confpassword" class="form-control"
 										aria-describedby="emailHelp" placeholder="**********" required>
 								</div>
 								<div class="col-md-12 d-grid gap-2 text-center mt-4">
@@ -158,7 +160,7 @@
 						</div>
 					</div>
 
-
+				<div class="row"></div>
 				</div>
 
 			</div>
@@ -166,7 +168,9 @@
 
 
 	</div>
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

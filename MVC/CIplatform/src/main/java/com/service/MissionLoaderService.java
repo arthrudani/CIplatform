@@ -15,21 +15,21 @@ import org.springframework.stereotype.Service;
 
 import com.dao.MissionLoaderInterface;
 import com.dto.Filters;
-import com.entities.city;
-import com.entities.comment;
-import com.entities.country;
-import com.entities.favourite_mission;
-import com.entities.mission;
-import com.entities.mission_application;
-import com.entities.mission_application.approval;
-import com.entities.mission_document;
-import com.entities.mission_invite;
-import com.entities.mission_rating;
-import com.entities.mission_skill;
-import com.entities.mission_theme;
-import com.entities.skill;
-import com.entities.story;
-import com.entities.user;
+import com.entities.City;
+import com.entities.Comment;
+import com.entities.Country;
+import com.entities.FavouriteMission;
+import com.entities.Mission;
+import com.entities.MissionApplication;
+import com.entities.MissionApplication.approval;
+import com.entities.MissionDocument;
+import com.entities.MissionInvite;
+import com.entities.MissionRating;
+import com.entities.MissionSkill;
+import com.entities.MissionTheme;
+import com.entities.Skill;
+import com.entities.Story;
+import com.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
@@ -41,36 +41,36 @@ public class MissionLoaderService implements MissionLoader {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 	
-	public List<mission> loadAllMission() {
+	public List<Mission> loadAllMission() {
 		return this.missionLoaderInterface.loadAllMission();
 	}
 
-	public List<country> loadListOfCountry() {
+	public List<Country> loadListOfCountry() {
 		return missionLoaderInterface.loadListOfCountry();
 	}
 
-	public List<city> loadCityOfCountry(int country_id) {
+	public List<City> loadCityOfCountry(int country_id) {
 		return this.missionLoaderInterface.loadCityOfCountry(country_id);
 	}
 
-	public List<mission_theme> loadAllThemes() {
+	public List<MissionTheme> loadAllThemes() {
 		return this.missionLoaderInterface.loadAllThemes();
 	}
 	
-	public List<skill> loadAllSkill() {
+	public List<Skill> loadAllSkill() {
 		return this.missionLoaderInterface.loadAllSkillOnSearch();
 	}
 	
-	public List<user> loadAllUsers() {
+	public List<User> loadAllUsers() {
 		return this.missionLoaderInterface.loadAllUserOnSearch();
 	}
 	
 	public String loadAllMissionOnSearch(Filters filters) {
-		Map<Long, List<mission>> map=new HashMap<Long,List<mission>>();
+		Map<Long, List<Mission>> map=new HashMap<Long,List<Mission>>();
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
 		Long totalmission=this.missionLoaderInterface.countAllMission(filters);
-		List<mission> missions=this.missionLoaderInterface.loadAllMissionOnSearch(filters);
+		List<Mission> missions=this.missionLoaderInterface.loadAllMissionOnSearch(filters);
 		map.put(totalmission, missions);
 		try {
 			output=obj.writeValueAsString(map);
@@ -81,26 +81,26 @@ public class MissionLoaderService implements MissionLoader {
 	}
 	
 
-	public mission getMissionById(int missionId) {
-		return this.hibernateTemplate.get(mission.class, missionId);
+	public Mission getMissionById(int missionId) {
+		return this.hibernateTemplate.get(Mission.class, missionId);
 	}
 
 
-	public user getUserById(int userId) {
-		return this.hibernateTemplate.get(user.class, userId);
+	public User getUserById(int userId) {
+		return this.hibernateTemplate.get(User.class, userId);
 	}
 
 	public String addToFavourite(int mID, int uID) {
-		mission mission=this.hibernateTemplate.get(mission.class, mID);
-		user user=this.hibernateTemplate.get(user.class, uID);
+		Mission mission=this.hibernateTemplate.get(Mission.class, mID);
+		User user=this.hibernateTemplate.get(User.class, uID);
 		
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from favourite_mission where mission_id=:mission_id and user_id=:user_id");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from FavouriteMission where mission_id=:mission_id and user_id=:user_id");
 		query.setParameter("mission_id", mID);
 		query.setParameter("user_id", uID);
-		favourite_mission favourite_mission1 = (favourite_mission) query.uniqueResult();
+		FavouriteMission favourite_mission1 = (FavouriteMission) query.uniqueResult();
 		
 		if(favourite_mission1==null) {
-			favourite_mission favourite_mission=new favourite_mission();
+			FavouriteMission favourite_mission=new FavouriteMission();
 			favourite_mission.setCreated_at(new Date());
 			favourite_mission.setMission(mission);
 			favourite_mission.setUser(user);
@@ -114,31 +114,31 @@ public class MissionLoaderService implements MissionLoader {
 		}
 	}
 
-	public city getCityForRelated(String CMCT) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from city where name=:name");
+	public City getCityForRelated(String CMCT) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from City where name=:name");
 		query.setParameter("name", CMCT);
-		city city=(com.entities.city) query.uniqueResult();
+		City city=(com.entities.City) query.uniqueResult();
 		return city;
 	}
 
-	public country getCountryForRelated(String CMCR) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from country where name=:name");
+	public Country getCountryForRelated(String CMCR) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from Country where name=:name");
 		query.setParameter("name", CMCR);
-		country country=(com.entities.country) query.uniqueResult();
+		Country country=(com.entities.Country) query.uniqueResult();
 		return country;
 	}
 
-	public mission_theme getThemeForRelated(String CMT) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_theme where title=:title");
+	public MissionTheme getThemeForRelated(String CMT) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from MissionTheme where title=:title");
 		query.setParameter("title", CMT);
-		mission_theme mission_theme=(com.entities.mission_theme) query.uniqueResult();
+		MissionTheme mission_theme=(com.entities.MissionTheme) query.uniqueResult();
 		return mission_theme;
 	}
 
-	public String loadRelatedMissions(mission mission,city city, country country, mission_theme mission_theme) {
+	public String loadRelatedMissions(Mission mission,City city, Country country, MissionTheme mission_theme) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<mission> missions=this.missionLoaderInterface.loadrelatedmission(mission,city,country,mission_theme);
+		List<Mission> missions=this.missionLoaderInterface.loadrelatedmission(mission,city,country,mission_theme);
 		if(missions.size()>3) {
 			missions=missions.subList(0, 3);
 		}
@@ -151,14 +151,14 @@ public class MissionLoaderService implements MissionLoader {
 		return output;
 	}
 
-	public List<mission> loadLikedMission(user user) {
+	public List<Mission> loadLikedMission(User user) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<mission> liked=this.missionLoaderInterface.getLikedMission(user);
+		List<Mission> liked=this.missionLoaderInterface.getLikedMission(user);
 		return liked;
 	}
 
-	public Double getRatings(mission mission) {
+	public Double getRatings(Mission mission) {
 		
 		Double sum=this.missionLoaderInterface.getAverageRatings(mission);
 //		int totalRatedBy=this.missionLoaderInterface.getRatingCount(mission);
@@ -167,13 +167,13 @@ public class MissionLoaderService implements MissionLoader {
 	}
 
 	public String rateMission(int mID, int uID, int ratings) {
-		mission mission=this.hibernateTemplate.get(mission.class, mID);
-		user user=this.hibernateTemplate.get(user.class, uID);
+		Mission mission=this.hibernateTemplate.get(Mission.class, mID);
+		User user=this.hibernateTemplate.get(User.class, uID);
 		
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_rating where mission_id=:mission_id and user_id=:user_id");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from MissionRating where mission_id=:mission_id and user_id=:user_id");
 		query.setParameter("mission_id", mID);
 		query.setParameter("user_id", uID);
-		mission_rating mission_rating=(mission_rating) query.uniqueResult();
+		MissionRating mission_rating=(MissionRating) query.uniqueResult();
 		
 		if(mission_rating!=null) {
 			this.missionLoaderInterface.delete(mission_rating);
@@ -181,7 +181,7 @@ public class MissionLoaderService implements MissionLoader {
 		else {
 			
 		}
-		mission_rating mission_rating1=new mission_rating();
+		MissionRating mission_rating1=new MissionRating();
 		mission_rating1.setCreated_at(new Date());
 		mission_rating1.setMission(mission);
 		mission_rating1.setUser(user);
@@ -191,13 +191,13 @@ public class MissionLoaderService implements MissionLoader {
 	}
 
 	public int getRatingsOfCurrent(int mID, int uID) {
-		mission mission=this.hibernateTemplate.get(mission.class, mID);
-		user user=this.hibernateTemplate.get(user.class, uID);
+		Mission mission=this.hibernateTemplate.get(Mission.class, mID);
+		User user=this.hibernateTemplate.get(User.class, uID);
 		
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_rating where mission_id=:mission_id and user_id=:user_id");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from MissionRating where mission_id=:mission_id and user_id=:user_id");
 		query.setParameter("mission_id", mission.getMission_id());
 		query.setParameter("user_id", user.getUser_id());
-		mission_rating mission_rating=(mission_rating) query.uniqueResult();
+		MissionRating mission_rating=(MissionRating) query.uniqueResult();
 		if(mission_rating != null) {
 			return mission_rating.getRating();
 		}
@@ -205,12 +205,12 @@ public class MissionLoaderService implements MissionLoader {
 	}
 
 	@Transactional
-	public String recommendToCoWorker(mission mission,String email,user user) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email");
+	public String recommendToCoWorker(Mission mission,String email,User user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
 		query.setParameter("email", email);
-		user touser=(com.entities.user) query.uniqueResult();
+		User touser=(com.entities.User) query.uniqueResult();
 		
-		mission_invite mission_invite=new mission_invite();
+		MissionInvite mission_invite=new MissionInvite();
 		mission_invite.setCreated_at(new Date());
 		mission_invite.setMission(mission);;
 		mission_invite.setTo_user(touser);
@@ -222,8 +222,8 @@ public class MissionLoaderService implements MissionLoader {
 	}
 
 	@Transactional
-	public String addComment(mission mission, String comments, user user) {
-		comment comment=new comment();
+	public String addComment(Mission mission, String comments, User user) {
+		Comment comment=new Comment();
 		comment.setCreated_at(new Date());
 		comment.setMission(mission);
 		comment.setUser(user);
@@ -232,10 +232,10 @@ public class MissionLoaderService implements MissionLoader {
 		return null;
 	}
 
-	public String loadAllComment(mission mission) {
+	public String loadAllComment(Mission mission) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<comment> comments=this.missionLoaderInterface.getAllComments(mission);
+		List<Comment> comments=this.missionLoaderInterface.getAllComments(mission);
 		try {
 			output=obj.writeValueAsString(comments);
 		} catch (JsonProcessingException e) {
@@ -245,10 +245,10 @@ public class MissionLoaderService implements MissionLoader {
 		return output;
 	}
 	
-	public String loadAllDocuments(mission mission) {
+	public String loadAllDocuments(Mission mission) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<mission_document> comments=this.missionLoaderInterface.loadAllDocuments(mission);
+		List<MissionDocument> comments=this.missionLoaderInterface.loadAllDocuments(mission);
 		try {
 			output=obj.writeValueAsString(comments);
 		} catch (JsonProcessingException e) {
@@ -258,10 +258,10 @@ public class MissionLoaderService implements MissionLoader {
 		return output;
 	}
 	
-	public String loadMissionSkills(mission mission) {
+	public String loadMissionSkills(Mission mission) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<mission_skill> comments=this.missionLoaderInterface.loadMissionSkills(mission);
+		List<MissionSkill> comments=this.missionLoaderInterface.loadMissionSkills(mission);
 		try {
 			output=obj.writeValueAsString(comments);
 		} catch (JsonProcessingException e) {
@@ -272,8 +272,8 @@ public class MissionLoaderService implements MissionLoader {
 	}
 	
 	@Transactional
-	public void applyForMission(mission mission,user user) {
-		mission_application application=new mission_application();
+	public void applyForMission(Mission mission,User user) {
+		MissionApplication application=new MissionApplication();
 		application.setApplied_at(new Date());
 		application.setMission(mission);
 		application.setUser(user);
@@ -281,21 +281,21 @@ public class MissionLoaderService implements MissionLoader {
 		this.hibernateTemplate.save(application);
 	}
 	
-	public approval appliedOrNotForMission(mission mission,user user) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from mission_application where mission_id=:mission_id and user_id=:user_id");
+	public approval appliedOrNotForMission(Mission mission,User user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from MissionApplication where mission_id=:mission_id and user_id=:user_id");
 		query.setParameter("mission_id", mission.getMission_id());
 		query.setParameter("user_id", user.getUser_id());
 		if(query.list().size()==1) {
-			mission_application application=(mission_application) query.uniqueResult();
+			MissionApplication application=(MissionApplication) query.uniqueResult();
 			return application.getApproval_status();
 		}
 		return approval.ZERO;
 	}
 
-	public String loadRecentVolunteers(mission mission,int currentPage) {
+	public String loadRecentVolunteers(Mission mission,int currentPage) {
 		String output="";
 		ObjectMapper obj=new ObjectMapper();
-		List<mission_application> users=this.missionLoaderInterface.loadRecentVolunteers(mission,currentPage);
+		List<MissionApplication> users=this.missionLoaderInterface.loadRecentVolunteers(mission,currentPage);
 		try {
 			output=obj.writeValueAsString(users);
 		} catch (JsonProcessingException e) {
@@ -305,11 +305,11 @@ public class MissionLoaderService implements MissionLoader {
 		return output;
 	}
 	
-	public int loadTotalRecentVolunteers(mission mission) {
+	public int loadTotalRecentVolunteers(Mission mission) {
 		return this.missionLoaderInterface.loadTotalRecentVolunteers(mission);
 	}
 
-	public story getStoryById(int story_id) {
-		return this.hibernateTemplate.get(story.class, story_id);
+	public Story getStoryById(int story_id) {
+		return this.hibernateTemplate.get(Story.class, story_id);
 	}
 }

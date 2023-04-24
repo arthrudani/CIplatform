@@ -15,12 +15,12 @@ import com.dao.MissionLoaderInterface;
 import com.dao.StoryLoaderInterface;
 import com.dto.ShareStoryDto;
 import com.entities.StoryMedia;
-import com.entities.mission;
-import com.entities.mission_application;
-import com.entities.mission_invite;
-import com.entities.story;
-import com.entities.story.status;
-import com.entities.user;
+import com.entities.Mission;
+import com.entities.MissionApplication;
+import com.entities.MissionInvite;
+import com.entities.Story;
+import com.entities.Story.status;
+import com.entities.User;
 
 @Service
 public class StoryLoaderService implements StoryLoader{
@@ -31,7 +31,7 @@ public class StoryLoaderService implements StoryLoader{
 	HibernateTemplate hibernateTemplate;
 
 
-	public List<story> loadAllStories(int currentPage) {
+	public List<Story> loadAllStories(int currentPage) {
 		return this.storyLoaderInterface.loadAllMissionOnSearch(currentPage);
 	}
 
@@ -39,34 +39,34 @@ public class StoryLoaderService implements StoryLoader{
 		return this.storyLoaderInterface.loadNumberOfStoriesForPagination();
 	}
 
-	public List<mission_application> loadApprovedMissions(user user) {
+	public List<MissionApplication> loadApprovedMissions(User user) {
 		return this.storyLoaderInterface.loadApprovedMissions(user);
 	}
 
-	public story loadDraft(user user, mission mission) {
+	public Story loadDraft(User user, Mission mission) {
 		return this.storyLoaderInterface.loadDraft(user,mission);
 	}
 
-	public void submitStory(mission mission, user user) {
+	public void submitStory(Mission mission, User user) {
 		this.storyLoaderInterface.submitStory(mission,user);
 		
 	}
 
-	public status loadStoryStatus(mission mission, user user) {
+	public status loadStoryStatus(Mission mission, User user) {
 		return this.storyLoaderInterface.loadStoryStatus(mission,user);
 	}
 
-	public story savePreviewDraft(mission mission, user user) {
-		story story= this.storyLoaderInterface.savePreviewDraft(mission,user);
+	public Story savePreviewDraft(Mission mission, User user) {
+		Story story= this.storyLoaderInterface.savePreviewDraft(mission,user);
 		return story;
 	}
 	@Transactional
-	public String recommendToCoWorker(mission mission,String email,user user) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from user where email=:email");
+	public String recommendToCoWorker(Mission mission,String email,User user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
 		query.setParameter("email", email);
-		user touser=(com.entities.user) query.uniqueResult();
+		User touser=(com.entities.User) query.uniqueResult();
 		
-		mission_invite mission_invite=new mission_invite();
+		MissionInvite mission_invite=new MissionInvite();
 		mission_invite.setCreated_at(new Date());
 		mission_invite.setMission(mission);;
 		mission_invite.setTo_user(touser);
@@ -77,11 +77,11 @@ public class StoryLoaderService implements StoryLoader{
 		return null;
 	}
 
-	public void saveDraft(ShareStoryDto shareStoryObject,user user,mission mission) {
+	public void saveDraft(ShareStoryDto shareStoryObject,User user,Mission mission) {
 		this.storyLoaderInterface.saveDraft(shareStoryObject,user,mission);
 	}
 
-	public List<StoryMedia> loadDraftMediaOfStory(story story) {
+	public List<StoryMedia> loadDraftMediaOfStory(Story story) {
 		return this.storyLoaderInterface.loadDraftMedia(story);
 	}
 

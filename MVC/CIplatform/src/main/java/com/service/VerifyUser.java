@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import com.entities.user;
+import com.entities.User;
 
 public class VerifyUser {
 
@@ -14,10 +14,10 @@ public class VerifyUser {
 		SessionFactory sessionFactory = cfg.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		/* Get record using HQL query */
-		Query query = session.createQuery("from user where email=:email and password=:password");
+		Query query = session.createQuery("from User where email=:email and password=:password");
 		query.setParameter("email", "test");
 		query.setParameter("password", "test1234");
-		user user = (user) query.uniqueResult();
+		User user = (User) query.uniqueResult();
 		if (user != null) {
 			System.out.println("email and password are valid");
 		} else {

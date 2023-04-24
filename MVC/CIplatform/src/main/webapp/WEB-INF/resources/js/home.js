@@ -1,11 +1,14 @@
 $(document).ready(function() {
-  document.getElementById('pro-image').addEventListener('change', readImage, false);
-  $("#pro-image").val('');
-//  $(".preview-images-zone").sortable();
-  $(document).on('click', '.image-cancel', function() {
-      let no = $(this).data('no');
-      $(".preview-image.preview-show-"+no).remove();
-  });
+  	document.getElementById('pro-image').addEventListener('change', readImage, false);
+  	$("#pro-image").val('');
+ 	$(document).on('click', '.image-cancel', function() {
+	    let no = $(this).data('no');
+	    $(".preview-image.preview-show-"+no).remove();
+		$('#email').val('');
+	    console.log($('#email').val());
+	    console.log($('#password').val());
+	    $('#password').val('');
+  	});
 });
 
 function openLeftMenu() {
@@ -60,9 +63,13 @@ function readImage() {
 function verifyPassword() {  
   var pw = document.getElementById("password").value;
   var cpw = document.getElementById("confpassword").value;
+  if(pw.length<8){
+	  swal("Error!", "Minimum length is 8 character!", "error");
+	  return false;
+  }
+  
   if(pw != cpw) {  
-	  	alert("password are not same");
-		console.log("passwords are not same"); 
+	  	swal("Error!", "Password and confirm password are not same!", "error");
      	return false;
   }
     return true;

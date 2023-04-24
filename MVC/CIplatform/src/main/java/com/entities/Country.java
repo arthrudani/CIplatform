@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class country {
+@Table(name = "country")
+public class Country {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int country_id;
@@ -17,10 +19,10 @@ public class country {
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
-	public country() {
+	public Country() {
 		super();
 	}
-	public country(int country_id, String name, String iSO, Date created_at, Date updated_at, Date deleted_at) {
+	public Country(int country_id, String name, String iSO, Date created_at, Date updated_at, Date deleted_at) {
 		this.country_id = country_id;
 		this.name = name;
 		ISO = iSO;

@@ -9,32 +9,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class mission_skill {
+@Table(name = "mission_skill")
+public class MissionSkill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mission_skill_id;
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "skill_id")
-	private skill skill;
+	private Skill skill;
 	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "mission_id")
-	private mission mission;
+	private Mission mission;
 	
 	private Date created_at;
 	private Date updated_at;
 	private Date deleted_at;
-	public mission_skill() {
+	public MissionSkill() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public mission_skill(int mission_skill_id, com.entities.skill skill, com.entities.mission mission, Date created_at,
+	public MissionSkill(int mission_skill_id, com.entities.Skill skill, com.entities.Mission mission, Date created_at,
 			Date updated_at, Date deleted_at) {
 		super();
 		this.mission_skill_id = mission_skill_id;
@@ -50,16 +52,16 @@ public class mission_skill {
 	public void setMission_skill_id(int mission_skill_id) {
 		this.mission_skill_id = mission_skill_id;
 	}
-	public skill getSkill() {
+	public Skill getSkill() {
 		return skill;
 	}
-	public void setSkill(skill skill) {
+	public void setSkill(Skill skill) {
 		this.skill = skill;
 	}
-	public mission getMission() {
+	public Mission getMission() {
 		return mission;
 	}
-	public void setMission(mission mission) {
+	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
 	public Date getCreated_at() {

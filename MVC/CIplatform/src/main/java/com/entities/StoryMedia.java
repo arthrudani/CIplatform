@@ -22,9 +22,9 @@ public class StoryMedia {
 	@Column(name = "story_media_id")
 	private int storyMediaId;
 	@JsonIgnore
-	@ManyToOne(targetEntity = story.class)
+	@ManyToOne(targetEntity = Story.class)
 	@JoinColumn(name = "story_id")
-	private story story;
+	private Story story;
 
 	private String type;
 	private String path;
@@ -42,7 +42,7 @@ public class StoryMedia {
 	}
 
 
-	public StoryMedia(int storyMediaId, com.entities.story story, String type, String path, Date createdAt,
+	public StoryMedia(int storyMediaId, com.entities.Story story, String type, String path, Date createdAt,
 			Date updatedAt, Date deletedAt) {
 		super();
 		this.storyMediaId = storyMediaId;
@@ -65,12 +65,12 @@ public class StoryMedia {
 	}
 
 
-	public story getStory() {
+	public Story getStory() {
 		return story;
 	}
 
 
-	public void setStory(story story) {
+	public void setStory(Story story) {
 		this.story = story;
 	}
 

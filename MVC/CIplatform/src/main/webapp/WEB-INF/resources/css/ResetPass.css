@@ -21,7 +21,9 @@ h3 {
     margin-left: 15%;
     padding-top: 2% !important;
 }
-
+.carousel-item .img{
+	height:100vh !important;
+}
 .myform {
     position: relative;
     display: -ms-flexbox;
