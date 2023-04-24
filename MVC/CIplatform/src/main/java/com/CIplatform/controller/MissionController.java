@@ -25,13 +25,13 @@ import com.entities.skill;
 import com.entities.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.service.missionLoader;
+import com.service.MissionLoader;
 
 @Controller
 public class MissionController {
 
 	@Autowired
-	missionLoader service;
+	MissionLoader service;
 
 	@RequestMapping(value = "/loadAllMission")
 	public @ResponseBody String loadAllMission() {

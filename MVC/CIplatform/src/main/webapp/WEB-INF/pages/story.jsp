@@ -15,6 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap"
 	rel="stylesheet">
@@ -178,6 +179,7 @@
 		</div>
 
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -229,10 +231,10 @@
 				                <div class="card">
 				                <div class="posRelative strCardBgBlack">
 				                    <div class="strViewDetails posAbsolute">
-				                    <form action="showDetailsStory" method="POST" name="storiesLoader">
+				                    <form action="showDetailsStory" method="POST" name="storiesLoader" >
 				                   		<input type="text" class="userIdforNextpage" name="user_id" value="${user.user_id}" hidden>
-					                    <input type="text" class="storydetails" id="uidl" name="storydetails" value="${story[i]}" hidden>
-					                    <button>
+					                    <input type="text" class="storydetails" name="storydetails" value="`+story[i].story_id+`" hidden >
+					                    <button style="z-index:100 !important">
 					                    View Details<i class="bi bi-arrow-right arrowright2"></i>
 					                    </button>
 					                </form>
@@ -275,13 +277,12 @@
     	$(".pagination").html(pagination);
     }
 	function setcurrentpage(CP,totalMissions){
-		console.log(CP);
     	currentPage=CP;
-    	if(currentPage<totalMissions/3){
+    	if(currentPage<=totalMissions/3){
     		loadAllStories(); 
     	}
     	else{
-    		alert("Reached at the end of stories");
+    		swal("Error!", "Reached at the end of stories!", "error");
     	}
     }
 </script>

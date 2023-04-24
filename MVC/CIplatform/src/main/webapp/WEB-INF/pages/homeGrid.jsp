@@ -19,6 +19,7 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap"
 	rel="stylesheet">
 <title>Home Grid</title>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -369,7 +370,7 @@
 	</div>
 
 
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -706,7 +707,7 @@
         		updateMissionsOnChange(); 
         	}
         	else{
-        		alert("Reached at the end of missions");
+        		swal("Warning!", "Reached at the end of missions!", "error");
         	}
         }
         

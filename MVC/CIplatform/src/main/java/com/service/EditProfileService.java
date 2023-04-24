@@ -34,9 +34,6 @@ public class EditProfileService implements EditProfile{
 	}
 
 	public boolean validateOldPass(user user, String oldPass,String newPass) {
-		System.out.println(user.getPassword());
-		System.out.println(oldPass);
-		System.out.println(newPass);
 		
 		if(user.getPassword().equals(oldPass)) {
 			return true;
@@ -48,6 +45,15 @@ public class EditProfileService implements EditProfile{
 
 	public void changePassword(user user, String newPass) {
 		this.editProfileInterface.changePassword(user,newPass);
+	}
+
+	public void updateProfilePic(user user, String profilePic) {
+		this.editProfileInterface.updateProfilePic(user,profilePic);
+	}
+
+	public void updateUserSkills(user user, List<Integer> skills) {
+		this.editProfileInterface.updateUserSkills(user,skills);
+		
 	}
 
 	

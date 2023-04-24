@@ -12,11 +12,12 @@ import com.entities.mission_application.approval;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
+import com.entities.story;
 import com.entities.user;
 
 
 @Service
-public interface missionLoader {
+public interface MissionLoader {
 	public String loadAllMissionOnSearch(Filters filters);
 	public List<country> loadListOfCountry();
 	public List<city> loadCityOfCountry(int country_id);
@@ -44,4 +45,5 @@ public interface missionLoader {
 	public approval appliedOrNotForMission(mission mission, user user);
 	public String loadRecentVolunteers(mission mission, int currentPage);
 	public int loadTotalRecentVolunteers(mission mission);
+	public story getStoryById(int story_id);
 }

@@ -7,7 +7,7 @@ import org.hibernate.query.Query;
 
 import com.entities.user;
 
-public class verifyuser {
+public class VerifyUser {
 
 	public static void main(String[] args) {
 		Configuration cfg = new Configuration();

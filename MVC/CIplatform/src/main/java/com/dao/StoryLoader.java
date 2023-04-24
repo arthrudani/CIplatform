@@ -27,6 +27,9 @@ public class StoryLoader implements StoryLoaderInterface {
 	public List<story> loadAllMissionOnSearch(int cp) {
 		int firstresultcount=0;
 		int currentPage=cp;
+		if(cp<0) {
+			currentPage=0;
+		}
 		firstresultcount = ((currentPage-1) * 3) + 3;
 		String que = "from story where status=:status";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
@@ -134,7 +137,7 @@ public class StoryLoader implements StoryLoaderInterface {
 		String que1 = "from StoryMedia where story=:story and type=:type";
 		Query q1 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que1);
 		q1.setParameter("story",story);
-		q1.setParameter("type","video");
+		q1.setParameter("type","Video");
 		
 		StoryMedia media =  (StoryMedia) q1.uniqueResult();
 		
@@ -146,7 +149,12 @@ public class StoryLoader implements StoryLoaderInterface {
 			this.hibernateTemplate.saveOrUpdate(media);
 		}
 		
-		
+		String hql = "delete from StoryMedia where story=:story and type=:type";
+		Query q2 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(hql);
+		q2.setParameter("story",story);
+		q2.setParameter("type","Image");
+		q2.executeUpdate();
+		     
 		if(shareStoryObject.getFiles()!=null) {
 			for(CommonsMultipartFile x : shareStoryObject.getFiles()) {
 				StoryMedia media1=new StoryMedia();
@@ -154,19 +162,20 @@ public class StoryLoader implements StoryLoaderInterface {
 				media1.setCreatedAt(new Date());
 				media1.setStory(story);
 				media1.setType("Image");
-				media1.setPath(x.getOriginalFilename());
+				media1.setPath("images/"+x.getOriginalFilename());
 				this.hibernateTemplate.save(media1);
 			}
 		}
+			 
 
 		
 		
 	}
 
 	public List<StoryMedia> loadDraftMedia(story story) {
-		String que = "from StoryMedia where story=:story";
+		String que = "from StoryMedia where story_id=:story_id";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
-		q.setParameter("story",story);
+		q.setParameter("story_id",story.getStory_id());
 		return q.list();
 	}
 }

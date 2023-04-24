@@ -28,11 +28,12 @@ import com.entities.mission_rating;
 import com.entities.mission_skill;
 import com.entities.mission_theme;
 import com.entities.skill;
+import com.entities.story;
 import com.entities.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
-public class missionLoaderService implements missionLoader {
+public class MissionLoaderService implements MissionLoader {
 
 	@Autowired
 	MissionLoaderInterface missionLoaderInterface;
@@ -306,5 +307,9 @@ public class missionLoaderService implements missionLoader {
 	
 	public int loadTotalRecentVolunteers(mission mission) {
 		return this.missionLoaderInterface.loadTotalRecentVolunteers(mission);
+	}
+
+	public story getStoryById(int story_id) {
+		return this.hibernateTemplate.get(story.class, story_id);
 	}
 }

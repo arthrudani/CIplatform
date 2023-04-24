@@ -18,6 +18,14 @@ body {
     border: 2px solid #F88634;
     border-radius: 25px;
 }
+.lowerimage{
+/* 	width:255px !important; */
+	height:122px !important;
+}
+.upperimage{
+/* 	width:1018px !important; */
+	height:609px !important;
+}
 .filter-close-button {
     background-color: transparent;
     border: none;

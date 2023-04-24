@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.entities.skill;
 
 public class EditProfileObject {
@@ -31,9 +33,8 @@ public class EditProfileObject {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public EditProfileObject(String name, String surname, int employeeId, String manager, String title, String whyIVolunteer,
-			String department, String myComments, String city, String country,
+	public EditProfileObject(String name, String surname, int employeeId, String manager, String title,
+			String whyIVolunteer, String department, String myComments, String city, String country,
 			com.dto.EditProfileObject.availability availability, String linkedInUrl, List<skill> skills) {
 		super();
 		this.name = name;

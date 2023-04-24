@@ -22,17 +22,17 @@ import com.entities.story.status;
 import com.entities.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.service.missionLoader;
-import com.service.storyLoader;
+import com.service.MissionLoader;
+import com.service.StoryLoader;
 
 @Controller
 public class StoryController {
 	
 	@Autowired
-	storyLoader service;
+	StoryLoader service;
 	
 	@Autowired
-	missionLoader service1;
+	MissionLoader service1;
 	
 	@RequestMapping(path = "/storiesLoader", method = RequestMethod.POST)
 	public String myFormHandler(@RequestParam("uid") int userId,Model m) {
@@ -155,10 +155,15 @@ public class StoryController {
 		return "VolunteeringMission";
 	}
 	@RequestMapping(value = "/showDetailsStory",method = RequestMethod.POST)
-	public String showDetailsStory(@RequestParam("user_id") int user_id,@RequestParam("storydetails") story story,Model m) {
+	public String showDetailsStory(@RequestParam("user_id") int user_id,@RequestParam("storydetails") int story_id,Model m) {
 		user user=this.service1.getUserById(user_id);
+		story story=this.service1.getStoryById(story_id);
+		List<StoryMedia> medias=this.service.loadDraftMediaOfStory(story);
 		m.addAttribute("story",story);
 		m.addAttribute("user",user);
+		m.addAttribute("user1",story.getUser());
+		m.addAttribute("medias",medias);
+		
 		return "StoryDetail";
 	}
 	

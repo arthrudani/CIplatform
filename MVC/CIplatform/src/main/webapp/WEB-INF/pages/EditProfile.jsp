@@ -267,10 +267,17 @@
 
 			<!-- sideimage -->
 			<div class=" EPuserimg col-md-3 ">
-				<div class="d-flex justify-content-center">
-					<img src="images/<c:out value="${user.avatar}"></c:out>"
-						class="userimage ">
+			
+				<div class="container">
+				    <div class="picture-container">
+				        <div class="picture d-flex justify-content-center">
+				            <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage profilePic">
+				            <input type="file" id="wizard-picture" class="d-none">
+				        </div>
+				    </div>
 				</div>
+
+				
 				<div class="EDchangepass d-flex justify-content-center mt-3">${user.first_name}
 					${user.last_name}</div>
 				<div class="EDchangepass d-flex justify-content-center mt-2">
@@ -475,10 +482,11 @@
 		let country = CountryIdOfUser;
 		let countries = "";
 		let LinkedIn = "";
-		let selectedSkills="";
+		let selectedSkills=[];
 		let oldPass="";
 		let newPass="";
 		let confPass="";
+		let profilePic="";
 
 		$(document).ready(function() {
 			getCityList(CountryIdOfUser);
@@ -490,7 +498,12 @@
 					addCountryList(countries);
 				}
 			});
-
+			$("#wizard-picture").change(function(){
+			    readURL(this);
+			});
+			$(".profilePic").click(function(){		
+				$("#wizard-picture").click();
+			});
 			$('#name').on('change', function() {
 				name = $('#name').val();
 			});
@@ -519,13 +532,25 @@
 			$('#linkedINUrl').on('change', function() {
 				LinkedIn = $('#linkedINUrl').val();
 			});
-			$('#selectedSkills').on('change', function() {
-				selectedSkills = $('#selectedSkills').val();
+			$('#lstBox1').on('change', function() {
+				selectedSkills.push($(this).val());
 			});
 			loadAllSkill();
 			loadUserSkill();
 			loadAllDetails();
 		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+
+		        reader.onload = function (e) {
+		            $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		    profilePic=input.files[0].name;
+		    swal("Please click on save button to update profile pic!", "info");
+		}
 		function changePass(){
 			oldPass=$('#oldpass').val();
 			newPass=$('#newpass').val();
@@ -552,8 +577,6 @@
 						},
 				type : "POST",
 				success : function(response) {
-					
-					console.log(response);
 					if(response==0){
 						swal("Error!", "Old pass did not matched!", "error"); 
 					}
@@ -635,21 +658,13 @@
 				userskill[i]=userSkills[i].skill;
 			}
 			for (var i in allSkills) {
-// 				for (var j in userskill) {
-// 					if(allSkills.includes(userskill[j])){
-// 						console.log("not includes");
-// 					}
-// 					else{
-// 						console.log("includes");
-						data1 +='<option value="' + allSkills[i].skill_id + '"> ' + allSkills[i].skill_name + '</option>';
-// 					}
-// 				}
+				data1 +='<option value="' + allSkills[i].skill_id + '"> ' + allSkills[i].skill_name + '</option>';
 			}
 			for (var i in userSkills) {
 				data2 +='<option value="' + userSkills[i].skill.skill_id + '"> ' + userSkills[i].skill.skill_name + '</option>';
 			}
 			$("#lstBox1").append(data1);
-			$("#selectedSkills").append(data2);		
+			$("#selectedSkills").append(data2);
 		}
 		function loadAllDetails() {
 			$.ajax({
@@ -674,15 +689,46 @@
 			$('#city').val(user.city.name);
 			$('#country').val(user.country.name);
 			$('#linkedINUrl').val(user.linked_in_url);
-			console.log(city);
-			console.log(country);
 		}
 		function clearPasswordFields(){
 			$('#oldpass').val('');
 			$('#newpass').val('');
 			$('#confpass').val('');
 		}
+		function updateProfilePic(){
+			$.ajax({
+				url : "updateProfilePic",
+				dataType : 'json',
+				data : {'uid' : user_id,
+						'profilePic':profilePic},
+				type : "POST",
+				success : function(response) {
+					location.reload(true);
+				}
+			});
+		}
+		function updateSkills(skills){
+			for(var i in skills){
+				skills[i]=parseInt(skills[i]);
+			}
+			$.ajax({
+				url : "updateUserSkills",
+				data : {'uid' : user_id,
+						'skills':skills},
+				type : "POST",
+				success : function(response) { 
+// 					location.reload(true);
+				}
+			});
+		}
 		function updateProfile(){
+			if(profilePic!=""){
+				updateProfilePic();
+			}
+			let length=selectedSkills.length;
+			if(length>0){
+				updateSkills(selectedSkills[length-1]);
+			}
 			EditProfileObject={
 					name :name ,
 					surname:surname,

@@ -178,42 +178,38 @@
 			<div class="main-content mb-6" style="margin-bottom: 0 !important;">
 
 				<div class="row mx-4 gx-5">
-
 					<div class="col-xl-6 col-lg-12 col-12 col-md-12 px-1 cars">
 						<div id="wrap">
 							<ul id="slider" class="slider">
-								<li class="slide-item"><img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/Plantation-and-Afforestation-programme-1.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/Nourish-the-Children-in--African-country-1.png"
-									alt="画像"></li>
+								<c:choose>
+				                 	<c:when test="${medias.size() gt 0}" >	
+				                 		<c:forEach begin="0" end="${medias.size()}" var="i">
+											<c:if test="${medias[i].type=='Video'}">
+												<iframe src="<c:out value="${medias[i].path}"/>" class="mainPhotoVideo upperimage"  style="position: relative; height: 100%; width: 100%;"></iframe>
+											</c:if>
+											<c:if test="${medias[i].type=='Image'}">
+				                        		<img src="<c:out value="${medias[i].path}"/>" class="slide-item upperimage">
+											</c:if>
+										</c:forEach> 
+				               		</c:when>
+				               		<c:otherwise>
+										<img src="images/noImageFound.png" class="mainPhoto">
+				               		</c:otherwise>
+				                </c:choose>
 							</ul>
 							<ul id="thumbnail_slider" class="thumbnail_slider">
-								<li class="thumbnail-item"><img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/Plantation-and-Afforestation-programme-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/Nourish-the-Children-in--African-country-1.png"
-									alt="画像"></li>
+								<c:choose>
+				                 	<c:when test="${medias.size() gt 0}" >	
+				                 		<c:forEach begin="0" end="${medias.size()}" var="i">
+											<c:if test="${medias[i].type=='Video'}">
+												<img src="images/Youtube_logo.png" class="lowerimage">
+											</c:if>
+											<c:if test="${medias[i].type=='Image'}">
+				                        		<img src="<c:out value="${medias[i].path}"/>" class="slide-item lowerimage">
+											</c:if>
+										</c:forEach> 
+				               		</c:when>
+				                </c:choose>
 							</ul>
 						</div>
 					</div>
@@ -231,7 +227,8 @@
 								class="userimage">
 						</div>
 						<div class="SDunameNviews d-flex justify-content-between">
-							<div class="SDuname">${user1.first_name}${user1.last_name}</div>
+							<div class="SDuname">${user1.first_name} ${user1.last_name}</div>
+							
 							<div class="SDviews">
 								<img src="images/eye.png" alt="">12000 Views
 							</div>
@@ -357,7 +354,7 @@
             focusOnSelect: true,
             asNavFor: "#slider"
         });
-        loadMedia(mission_id);
+//         loadMedia(mission_id);
 	});
 	 function loadMedia(mission_id){
 	    $.ajax({
@@ -367,18 +364,19 @@
 	           	  'mission_id':mission_id},
 	        success: function(response){
 	        	console.log(response);
-	           	setDraftMedia(response);
+// 	           	setDraftMedia(response);
 	    	}
 		});
 	}
+	 
 	function setDraftMedia(draftedMedia){
 		let data1="";
 		let data2="";
 	    for(i in draftedMedia){
 	    	data1+=`<li class="slide-item">
-	    			<img src="<c:out value="images/`+draftedMedia[i].path+`"/>" alt="画像"></li>`;
+	    			<img src="<c:out value="`+draftedMedia[i].path+`"/>"></li>`;
 	    	data2+=`<li class="thumbnail-item">
-	    			<img src="<c:out value="images/`+draftedMedia[i].path+`"/>" alt="画像"></li>`;
+	    			<img src="<c:out value="`+draftedMedia[i].path+`"/>"></li>`;
 		}
 	    console.log(data1);
 	    console.log(data2);

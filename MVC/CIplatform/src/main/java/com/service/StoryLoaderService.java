@@ -23,7 +23,7 @@ import com.entities.story.status;
 import com.entities.user;
 
 @Service
-public class storyLoaderService implements storyLoader{
+public class StoryLoaderService implements StoryLoader{
 	@Autowired
 	StoryLoaderInterface storyLoaderInterface;
 	
@@ -81,7 +81,6 @@ public class storyLoaderService implements storyLoader{
 		this.storyLoaderInterface.saveDraft(shareStoryObject,user,mission);
 	}
 
-	@Override
 	public List<StoryMedia> loadDraftMediaOfStory(story story) {
 		return this.storyLoaderInterface.loadDraftMedia(story);
 	}

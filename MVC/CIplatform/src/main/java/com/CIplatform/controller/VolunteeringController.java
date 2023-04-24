@@ -16,12 +16,12 @@ import com.entities.story;
 import com.entities.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.service.missionLoader;
+import com.service.MissionLoader;
 
 @Controller
 public class VolunteeringController {
 	@Autowired
-	missionLoader service;
+	MissionLoader service;
 	
 	@RequestMapping(value = "/loadRelatedMission")
 	public @ResponseBody String loadRelatedMission(@RequestParam("currentMissionCity") String CMCT,@RequestParam("currentMissionTheme") String CMT,@RequestParam("currentMissionCountry") String CMCR,@RequestParam("currentMission") int CM) {

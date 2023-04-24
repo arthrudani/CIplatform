@@ -425,7 +425,6 @@
             data:{'user_id': user_id,
             	  'mission_id':CheckedMission},
             success: function(response){
-            	console.log(response);
             	if(response==null){
             		clearAllDataExceptTitle();
             	}
@@ -435,10 +434,15 @@
        	});
     }
     function setDraftMedia(draftedMedia){
+    	$(".preview-images-zone").empty();
     	for(i in draftedMedia){
     		if(draftedMedia[i].type=="Image"){
-    			$(".preview-images-zone").val(draftedMedia[i].path);
-        		console.log($(".preview-images-zone").val());
+    			var html =  '<div class="preview-image preview-show-' + i + '">' +
+			                '<div class="image-cancel" data-no="' + i + '">x</div>' +
+			                '<div class="image-zone"><img id="pro-img-' + i + '" src="' + draftedMedia[i].path + '"></div>' +
+			                '<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + i + '" class="btn btn-light btn-edit-image">edit</a></div>' +
+			                '</div>';
+    			$(".preview-images-zone").append(html);
     		}
     		else{
     			$('.videoURL').val(draftedMedia[i].path);

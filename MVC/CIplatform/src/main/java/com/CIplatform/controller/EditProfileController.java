@@ -1,7 +1,11 @@
 package com.CIplatform.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +22,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.EditProfile;
-import com.service.missionLoader;
+import com.service.MissionLoader;
 @Controller
 public class EditProfileController {
 	@Autowired
 	EditProfile service;
 	
 	@Autowired
-	missionLoader service1;
+	MissionLoader service1;
 	
 	@RequestMapping(value = "/loadAllSkill")
 	public @ResponseBody String loadAllSkill() {
@@ -95,4 +99,18 @@ public class EditProfileController {
 			return 0;
 		}
 	}
+	@RequestMapping(value = "/updateProfilePic")
+	public @ResponseBody String updateProfilePic(@RequestParam("uid") int user_id,@RequestParam("profilePic") String profilePic) {
+		user user=this.service1.getUserById(user_id);
+		this.service.updateProfilePic(user, profilePic);
+		return "true";
+	}
+	@RequestMapping(value = "/updateUserSkills")
+	public @ResponseBody String updateUserSkills(@RequestParam("uid") int user_id,@RequestParam("skills[]") List<Integer> skills) {
+		user user=this.service1.getUserById(user_id);
+		this.service.updateUserSkills(user, skills);
+		return "true";
+	}
+	
+	
 }

@@ -26,6 +26,10 @@
     border: 2px solid #F88634;
     border-radius: 25px;
 }
+.card:hover .strViewDetails {
+    display: block;
+    z-index:100;
+}
 .dropdown-toggle::after {
 	display: none;
 }

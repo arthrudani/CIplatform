@@ -15,5 +15,9 @@ public interface EditProfileInterface {
 
 	void changePassword(user user, String newPass);
 
+	void updateProfilePic(user user, String profilePic);
+
+	void updateUserSkills(user user, List<Integer> skills);
+
 
 }

@@ -15,7 +15,7 @@ import com.entities.story.status;
 import com.entities.user;
 
 @Service
-public interface storyLoader {
+public interface StoryLoader {
 
 	List<story> loadAllStories(int currentPage);
 
