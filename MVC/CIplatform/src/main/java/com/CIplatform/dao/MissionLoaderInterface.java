@@ -1,9 +1,9 @@
-package com.dao;
+package com.CIplatform.dao;
 
 
 import java.util.List;
 
-import com.dto.Filters;
+import com.CIplatform.dto.Filters;
 import com.entities.City;
 import com.entities.Comment;
 import com.entities.Country;

@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.dto.ShareStoryDto;
-import com.entities.StoryMedia;
+import com.CIplatform.dto.ShareStoryDto;
+import com.CIplatform.service.MissionLoader;
+import com.CIplatform.service.StoryLoader;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.Story;
-import com.entities.Story.status;
+import com.entities.StoryMedia;
 import com.entities.User;
+import com.entities.Story.status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.service.MissionLoader;
-import com.service.StoryLoader;
 
 @Controller
 public class StoryController {

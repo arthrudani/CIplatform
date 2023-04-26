@@ -1,4 +1,4 @@
-package com.dto;
+package com.CIplatform.dto;
 
 import java.util.List;
 

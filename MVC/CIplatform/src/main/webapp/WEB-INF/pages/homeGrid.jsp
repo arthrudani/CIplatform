@@ -227,7 +227,11 @@
 								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
 								<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
 							</form>
-							<li><a class="dropdown-item" href="#">Volunteering timesheet</a></li>
+							<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
+								<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+							</form>
+							
 							<li><a class="dropdown-item" href="login">Logout</a></li>
 						</ul></li>
 				</ul>

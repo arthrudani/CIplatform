@@ -1,4 +1,4 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.util.List;
 

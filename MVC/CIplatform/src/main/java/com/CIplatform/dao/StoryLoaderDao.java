@@ -1,4 +1,4 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.util.Date;
 import java.util.List;
@@ -11,16 +11,17 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.dto.ShareStoryDto;
-import com.entities.StoryMedia;
+import com.CIplatform.dto.ShareStoryDto;
 import com.entities.Country;
 import com.entities.Mission;
 import com.entities.MissionApplication;
+import com.entities.MissionApplication.approval;
 import com.entities.Story;
-import com.entities.Story.status;
+import com.entities.StoryMedia;
 import com.entities.User;
+import com.entities.Story.status;
 @Component
-public class StoryLoader implements StoryLoaderInterface {
+public class StoryLoaderDao implements StoryLoaderInterface {
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 
@@ -49,9 +50,10 @@ public class StoryLoader implements StoryLoaderInterface {
 
 	
 	public List<MissionApplication> loadApprovedMissions(User user) {
-		String que = "from MissionApplication where user=:user";
+		String que = "from MissionApplication where user=:user and approval_status=:status";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("user",user);
+		q.setParameter("status",approval.ONE);
 		return q.list();
 	}
 

@@ -4,10 +4,6 @@ $(document).ready(function() {
  	$(document).on('click', '.image-cancel', function() {
 	    let no = $(this).data('no');
 	    $(".preview-image.preview-show-"+no).remove();
-		$('#email').val('');
-	    console.log($('#email').val());
-	    console.log($('#password').val());
-	    $('#password').val('');
   	});
 });
 

@@ -1,17 +1,17 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.dto.ShareStoryDto;
-import com.entities.StoryMedia;
+import com.CIplatform.dto.ShareStoryDto;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.Story;
-import com.entities.Story.status;
+import com.entities.StoryMedia;
 import com.entities.User;
+import com.entities.Story.status;
 
 public interface StoryLoaderInterface {
 

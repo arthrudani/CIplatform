@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dao.LandingpageDao;
-import com.dao.RegistrationDao;
+import com.CIplatform.dao.LandingpageDao;
+import com.CIplatform.dao.RegistrationDao;
 import com.entities.City;
 import com.entities.Country;
 import com.entities.Mission;

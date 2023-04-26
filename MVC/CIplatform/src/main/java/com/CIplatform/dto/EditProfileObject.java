@@ -1,4 +1,4 @@
-package com.dto;
+package com.CIplatform.dto;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class EditProfileObject {
 	}
 	public EditProfileObject(String name, String surname, int employeeId, String manager, String title,
 			String whyIVolunteer, String department, String myComments, String city, String country,
-			com.dto.EditProfileObject.availability availability, String linkedInUrl, List<Skill> skills) {
+			com.CIplatform.dto.EditProfileObject.availability availability, String linkedInUrl, List<Skill> skills) {
 		super();
 		this.name = name;
 		this.surname = surname;

@@ -1,13 +1,13 @@
-package com.service;
+package com.CIplatform.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dto.EditProfileObject;
-import com.entities.UserSkill;
+import com.CIplatform.dto.EditProfileObject;
 import com.entities.Skill;
 import com.entities.User;
+import com.entities.UserSkill;
 
 @Service
 public interface EditProfile {

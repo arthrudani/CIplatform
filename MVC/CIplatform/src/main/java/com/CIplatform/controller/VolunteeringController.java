@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.CIplatform.service.MissionLoader;
 import com.entities.City;
 import com.entities.Country;
 import com.entities.Mission;
@@ -16,7 +17,6 @@ import com.entities.Story;
 import com.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.service.MissionLoader;
 
 @Controller
 public class VolunteeringController {

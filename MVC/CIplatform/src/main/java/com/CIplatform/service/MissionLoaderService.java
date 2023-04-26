@@ -1,4 +1,4 @@
-package com.service;
+package com.CIplatform.service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,15 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
-import com.dao.MissionLoaderInterface;
-import com.dto.Filters;
+import com.CIplatform.dao.MissionLoaderInterface;
+import com.CIplatform.dto.Filters;
 import com.entities.City;
 import com.entities.Comment;
 import com.entities.Country;
 import com.entities.FavouriteMission;
 import com.entities.Mission;
 import com.entities.MissionApplication;
-import com.entities.MissionApplication.approval;
 import com.entities.MissionDocument;
 import com.entities.MissionInvite;
 import com.entities.MissionRating;
@@ -30,6 +29,7 @@ import com.entities.MissionTheme;
 import com.entities.Skill;
 import com.entities.Story;
 import com.entities.User;
+import com.entities.MissionApplication.approval;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Service

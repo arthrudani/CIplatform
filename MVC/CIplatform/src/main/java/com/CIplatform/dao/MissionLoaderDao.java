@@ -1,4 +1,4 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,23 +17,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.dto.Filters;
+import com.CIplatform.dto.Filters;
 import com.entities.City;
 import com.entities.Comment;
 import com.entities.Country;
 import com.entities.FavouriteMission;
 import com.entities.Mission;
 import com.entities.MissionApplication;
-import com.entities.MissionApplication.approval;
 import com.entities.MissionDocument;
 import com.entities.MissionRating;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
 import com.entities.Skill;
 import com.entities.User;
+import com.entities.MissionApplication.approval;
 
 @Component
-public class MissionLoader implements MissionLoaderInterface {
+public class MissionLoaderDao implements MissionLoaderInterface {
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 

@@ -20,7 +20,12 @@ body {
     border-radius: 50%;
 
 }
-
+.missionSelect{
+	width: 100%;
+    height: 25px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 .rightHeader {
     flex-direction: row !important;
     align-items: flex-start;

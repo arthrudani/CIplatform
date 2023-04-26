@@ -114,6 +114,9 @@
 				<value>
 					com.entities.UserSkill
 				</value>
+				<value>
+					com.entities.Timesheet
+				</value>
 			</list>
 		</property>
 	</bean>

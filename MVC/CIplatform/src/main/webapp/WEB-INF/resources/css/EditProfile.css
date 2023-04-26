@@ -302,7 +302,33 @@ body {
     border: none !important;
     background-color: white !important;
 }
+
+
+
+
+    
+    
+    
+@media only screen and (min-width: 1199px) {
+	.EPuserimg img {
+	    margin-left:56px;
+	}
+}
+@media only screen and (max-width: 1199px) {
+	.EPuserimg img {
+	    margin-left:36px;
+	}
+}
+@media only screen and (max-width: 991px) {
+	.EPuserimg img {
+	    margin-left:14px;
+	}
+}
 @media only screen and (max-width: 767px) {
+	.userprofilepic{
+		display:flex;
+		justify-content:center;
+	}
     .rightbutton {
         display: block !important;
     }

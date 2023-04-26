@@ -1,4 +1,4 @@
-package com.dto;
+package com.CIplatform.dto;
 
 import java.util.Date;
 
@@ -28,7 +28,7 @@ public class ShareStoryDto {
 		// TODO Auto-generated constructor stub
 	}
 	public ShareStoryDto(int chekedMission, int user_id, String title, Date date, String description, String videoUrl,
-			CommonsMultipartFile[] files, com.dto.ShareStoryDto.status status) {
+			CommonsMultipartFile[] files, com.CIplatform.dto.ShareStoryDto.status status) {
 		super();
 		this.chekedMission = chekedMission;
 		this.user_id = user_id;

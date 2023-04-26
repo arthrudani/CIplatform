@@ -1,4 +1,4 @@
-package com.service;
+package com.CIplatform.service;
 
 import java.security.SecureRandom;
 

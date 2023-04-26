@@ -1,11 +1,7 @@
 package com.CIplatform.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
-
-import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,16 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dto.EditProfileObject;
-import com.dto.Filters;
-import com.entities.UserSkill;
+import com.CIplatform.dto.EditProfileObject;
+import com.CIplatform.service.EditProfile;
+import com.CIplatform.service.MissionLoader;
 import com.entities.Skill;
 import com.entities.User;
+import com.entities.UserSkill;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.service.EditProfile;
-import com.service.MissionLoader;
 @Controller
 public class EditProfileController {
 	@Autowired

@@ -1,11 +1,11 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.util.List;
 
-import com.dto.EditProfileObject;
-import com.entities.UserSkill;
+import com.CIplatform.dto.EditProfileObject;
 import com.entities.Skill;
 import com.entities.User;
+import com.entities.UserSkill;
 
 public interface EditProfileInterface {
 

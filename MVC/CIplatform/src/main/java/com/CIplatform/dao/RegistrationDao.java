@@ -1,4 +1,4 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,12 +12,12 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.entities.User;
-import com.entities.User.Status;
-import com.service.SendMailSSL;
-import com.service.TokenGenerator;
+import com.CIplatform.service.SendMailSSL;
+import com.CIplatform.service.TokenGenerator;
 import com.entities.Country;
 import com.entities.PasswordReset;
+import com.entities.User;
+import com.entities.User.Status;
 
 @Component
 public class RegistrationDao {

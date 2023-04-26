@@ -1,19 +1,19 @@
-package com.service;
+package com.CIplatform.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dto.Filters;
+import com.CIplatform.dto.Filters;
 import com.entities.City;
 import com.entities.Country;
 import com.entities.FavouriteMission;
 import com.entities.Mission;
-import com.entities.MissionApplication.approval;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
 import com.entities.Skill;
 import com.entities.Story;
 import com.entities.User;
+import com.entities.MissionApplication.approval;
 
 
 @Service

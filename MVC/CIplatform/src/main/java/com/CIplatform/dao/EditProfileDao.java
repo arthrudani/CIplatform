@@ -1,4 +1,4 @@
-package com.dao;
+package com.CIplatform.dao;
 
 import java.util.Date;
 import java.util.List;
@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.dto.EditProfileObject;
-import com.entities.UserSkill;
+import com.CIplatform.dto.EditProfileObject;
 import com.entities.City;
 import com.entities.Country;
 import com.entities.Skill;
 import com.entities.User;
+import com.entities.UserSkill;
 
 @Component
-public class EditProfile  implements EditProfileInterface{
+public class EditProfileDao  implements EditProfileInterface{
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 

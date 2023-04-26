@@ -1,4 +1,4 @@
-package com.service;
+package com.CIplatform.service;
 
 import java.util.Date;
 import java.util.List;
@@ -11,16 +11,16 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.dao.MissionLoaderInterface;
-import com.dao.StoryLoaderInterface;
-import com.dto.ShareStoryDto;
-import com.entities.StoryMedia;
+import com.CIplatform.dao.MissionLoaderInterface;
+import com.CIplatform.dao.StoryLoaderInterface;
+import com.CIplatform.dto.ShareStoryDto;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionInvite;
 import com.entities.Story;
-import com.entities.Story.status;
+import com.entities.StoryMedia;
 import com.entities.User;
+import com.entities.Story.status;
 
 @Service
 public class StoryLoaderService implements StoryLoader{
