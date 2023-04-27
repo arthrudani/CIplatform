@@ -17,6 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -49,6 +53,8 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Enumerated(EnumType.STRING)
+	private type type;
 	
 	private Date created_at;
 	private Date updated_at;
@@ -62,15 +68,21 @@ public class User {
 		ACTIVE,
 		INACTIVE
 	}
-	
+	public enum type{
+		VOLUNTEER,
+		ADMIN
+	}
 	public User() {
 		super();
 	}
 	
-	public User(int user_id, com.entities.Country country, com.entities.City city, String first_name, String last_name,
-			String email, String phone_number, String password, String avatar, String why_i_volunteer, int employee_id,
-			String department, String profile_text, String linked_in_url, String title, Status status, Date created_at,
-			Date updated_at, Date deleted_at) {
+
+
+	public User(int user_id, Country country, City city, String first_name, String last_name, String email,
+			String phone_number, String password, String avatar, String why_i_volunteer, int employee_id,
+			String department, String profile_text, String linked_in_url, String title, Status status,
+			com.entities.User.type type, Date created_at, Date updated_at, Date deleted_at,
+			List<FavouriteMission> favourite_missions, List<UserSkill> userSkills) {
 		super();
 		this.user_id = user_id;
 		this.country = country;
@@ -88,11 +100,20 @@ public class User {
 		this.linked_in_url = linked_in_url;
 		this.title = title;
 		this.status = status;
+		this.type = type;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.deleted_at = deleted_at;
+		this.favourite_missions = favourite_missions;
+		this.userSkills = userSkills;
 	}
 
+	public type getType() {
+		return type;
+	}
+	public void setType(type type) {
+		this.type = type;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

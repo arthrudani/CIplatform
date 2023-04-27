@@ -30,7 +30,6 @@ public class Story {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = Mission.class)
 	@JoinColumn(name = "mission_id")
 	private Mission mission;

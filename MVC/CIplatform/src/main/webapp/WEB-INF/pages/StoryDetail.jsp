@@ -63,7 +63,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
-						data-bs-dismiss="modal" onclick="recommendToCoworker()">Recommend</button>
+						data-bs-dismiss="modal" onclick="recommendToCoworker(${story.story_id})">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -383,12 +383,13 @@
 	  	$(".slider").html(data1);
 	  	$(".thumbnail_slider").html(data2);
 	}
-	function recommendToCoworker(){
+	function recommendToCoworker(storyid){
 		let recommendEmail=$('.recommendEmail').val();
 		$.ajax({
             url: "recommendMissionFromStory",
     		dataType: 'json',
-            data:{'mid':mission_id,
+            data:{'sid':storyid,
+            	  'mid':mission_id,
             	  'email':recommendEmail,
             	  'from':user_id},
             type:"GET",

@@ -17,4 +17,6 @@ public interface VolunteerTimesheetDaoInterface {
 
 	List<Mission> loadApprovedMissionsGoalbased(User user);
 
+	void deleteTimesheet(int tid);
+
 }

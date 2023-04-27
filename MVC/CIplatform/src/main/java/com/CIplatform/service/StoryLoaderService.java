@@ -21,6 +21,7 @@ import com.entities.Story;
 import com.entities.StoryMedia;
 import com.entities.User;
 import com.entities.Story.status;
+import com.entities.StoryInvite;
 
 @Service
 public class StoryLoaderService implements StoryLoader{
@@ -76,7 +77,22 @@ public class StoryLoaderService implements StoryLoader{
 		SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", email, "You are recommended to ","http://localhost:8080/CIplatform/VolunteeringMission?mid="+mission.getMission_id()+"&uid="+user.getUser_id());
 		return null;
 	}
-
+	@Transactional
+	public String recommendToCoWorker(Story story, Mission mission, String email, User user) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
+		query.setParameter("email", email);
+		User touser=(com.entities.User) query.uniqueResult();
+		
+		StoryInvite storyInvite=new StoryInvite();
+		storyInvite.setCreatedAt(new Date());
+		storyInvite.setTo_user(touser);
+		storyInvite.setFromUser(user);
+		storyInvite.setStory(story);
+		this.hibernateTemplate.save(storyInvite);
+		
+		SendMailSSL.send("arthrudanitatvasoft@gmail.com", "unydsjatgfbcbawb", email, "You are recommended to ","http://localhost:8080/CIplatform/VolunteeringMission?mid="+mission.getMission_id()+"&uid="+user.getUser_id());
+		return null;
+	}
 	public void saveDraft(ShareStoryDto shareStoryObject,User user,Mission mission) {
 		this.storyLoaderInterface.saveDraft(shareStoryObject,user,mission);
 	}
@@ -84,6 +100,8 @@ public class StoryLoaderService implements StoryLoader{
 	public List<StoryMedia> loadDraftMediaOfStory(Story story) {
 		return this.storyLoaderInterface.loadDraftMedia(story);
 	}
+
+	
 
 
 }

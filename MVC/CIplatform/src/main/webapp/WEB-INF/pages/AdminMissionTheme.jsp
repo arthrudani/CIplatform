@@ -1,3 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,15 +13,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel='stylesheet'
+	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
-    <title>Admin User</title>
-    <link rel="stylesheet" href="CSS/Admin.css">
+    <title>Admin Mission Theme</title>
+    <link rel="stylesheet" href="css/Admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -26,7 +35,6 @@
     <div class="container-fluid">
         <div class="row flex-nowrap">
 
-
             <!-- sidebar -->
             <div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
                 <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
@@ -36,55 +44,78 @@
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
 
-                        <li class="nav-item  activepage">
-                            <a href="http://127.0.0.1:5500/Adminuser.html" class="nav-link align-middle px-0">
-                                <i class="bi bi-person-fill" style="color: #F88634;"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons" style="color: #F88634;">User</span>
-                            </a>
+                        <li class="nav-item  ">
+                        	<form action="usersLoader" name="usersLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-person-fill"></i><span
+                                    class="ms-1 d-none d-sm-inline sidebarbuttons">User</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/AdminCMS.html" class="nav-link align-middle px-0">
-                                <i class="bi bi-file-earmark-medical-fill"></i><span
-                                    class="ms-2 d-none d-sm-inline sidebarbuttons">CMS Page</span>
-                            </a>
+							<form action="cmsPageLoader" name="cmsPageLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+								<button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-file-earmark-medical-fill"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">CMS Page</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/Adminmission.html#" class="nav-link align-middle px-0">
-                                <i class="bi bi-bullseye"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Mission</span>
-                            </a>
+                            <form action="missionLoader" name="missionLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                               	<i class="bi bi-bullseye"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Missions</span>
+	                            </a></button>
+                            </form>
+                        </li>
+                        <li class="nav-item activepage">
+                            <form action="missionThemeLoader" name="missionThemeLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-columns-gap"  style="color: #F88634;"></i> <span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons"  style="color: #F88634;">Mission Theme</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/AdminmissionTheme.html#" class="nav-link align-middle px-0">
-                                <i class="bi bi-columns-gap"></i> <span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Mission Theme</span>
-                            </a>
+                            <form action="missionSkillLoader" name="missionSkillLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-tools"></i></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Skill</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/AdminmissionSkills.html#" class="nav-link align-middle px-0">
-                                <i class="bi bi-tools"></i><span class="ms-1 d-none d-sm-inline sidebarbuttons">Mission
-                                    Skills</span>
-                            </a>
+                            <form action="missionApplicationLoader" name="missionApplicationLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-folder-fill"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Application</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/AdminMissionApplication.html##" class="nav-link align-middle px-0">
-                                <i class="bi bi-folder-fill"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Mission Application</span>
-                            </a>
+                            <form action="storyLoader" name="storyLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-bookmark-star-fill"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Story</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/AdminStory.html#" class="nav-link align-middle px-0">
-                                <i class="bi bi-bookmark-star-fill"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Story</span>
-                            </a>
+                            <form action="bannerManagementLoader" name="bannerManagementLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <img src="images/folded-ribbon.png" alt=""> <span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Banner Management</span>
+	                            </a></button>
+                            </form>
                         </li>
-                        <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/AdminBanner.html#" class="nav-link align-middle px-0">
-                                <img src="images/folded-ribbon.png" alt=""> <span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Banner Management</span>
-                            </a>
-                        </li>
-
                     </ul>
                     <hr>
                 </div>
@@ -92,7 +123,6 @@
 
             <!-- main content -->
             <div class="col py-3">
-
                 <div class="headerbar d-flex justify-content-between">
                     <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
                     <div class="d-flex justify-content-between align-items-center ">
@@ -118,7 +148,7 @@
                 <div class="headerborder"></div>
 
                 <div class="EPbasicInfo">
-                    <p> User</p>
+                    <p>MIssion Theme</p>
                 </div>
                 <div class="userborder"></div>
 
@@ -126,60 +156,27 @@
                 <div class="d-flex justify-content-between">
                     <div class="searchBoxborder">
                         <div class="searchboxh2">
-                            <button class="w3-button ">
+                            <button class="w3-button">
                                 <img src="images/search.png">
                             </button>
-                            <input type="text" placeholder=" Search missions..." id="searchboxing" name="search"
-                                class="searchBoxPh" id="example_filter">
+                            <input type="search" placeholder=" Search missions..." id="searchboxing" name="search"
+                                class="searchBoxPh">
                         </div>
                     </div>
                     <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
                 </div>
 
                 <!-- table -->
-                <table id="example" class="display mt-4" style="width: 100%;"> 
+                <table id="example" class="display mt-4" style="width:100%">
                     <thead>
                         <tr>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Email</th>
-                            <th>Employee id</th>
-                            <th>Department</th>
-                            <th>Status</th>
+                            <th>Mission theme id</th>
+                            <th>Mission theme title</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Arth</td>
-                            <td>Rudani</td>
-                            <td>arthrudani200q@gmail.com</td>
-                            <td>004</td>
-                            <td>Java</td>
-                            <td>Active</td>
-                            <td class="d-flex gap-3"><button class="d-flex ju"><img src="images/editing.png"
-                                        alt=""></button><button><img src="images/delete.png" alt="" ></button></td>
-                        </tr>
-                        <tr>
-                            <td>bArth</td>
-                            <td>Rudani</td>
-                            <td>arthrudani200q@gmail.com</td>
-                            <td>004</td>
-                            <td>Java</td>
-                            <td>Active</td>
-                            <td class="d-flex gap-3"><button><img src="images/editing.png" alt=""></button><button><img
-                                        src="images/delete.png" alt=""></button></td>
-                        </tr>
-                        <tr>
-                            <td>cArth</td>
-                            <td>Rudani</td>
-                            <td>arthrudani200q@gmail.com</td>
-                            <td>004</td>
-                            <td>Java</td>
-                            <td>Active</td>
-                            <td class="d-flex gap-3"><button><img src="images/editing.png" alt=""></button><button><img
-                                        src="images/delete.png" alt=""></button></td>
-                        </tr>
+
                     </tbody>
                 </table>
 
@@ -187,6 +184,7 @@
         </div>
     </div>
 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
@@ -201,12 +199,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script>
+    	let table;
         $(document).ready(function () {
-            var table = $('#example').DataTable({
+            table = $('#example').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },
@@ -215,11 +215,50 @@
             $('#searchboxing').on('keyup', function () {
                 table.search(this.value).draw();
             });
+            loadAllThemesForAdmin();
         });
+        function loadAllThemesForAdmin(){
+        	$.ajax({
+				url : "loadAllThemesForAdmin",
+				dataType : 'json',
+				type : "GET",
+				success : function(response) {
+					console.log(response);
+					setAllThemesForAdmin(response);
+				}
+			});
+        }
+        function setAllThemesForAdmin(themes){
+        	table
+            .clear()
+            .draw();
+        	let GEB="";
+        	
+        	for(var i in themes){
+        		GEB=`<div class="d-flex gap-2"><button class="d-flex"><img src="images/editing.png" alt=""></button>
+   	            	 <button onclick="deleteTheme(`+themes[i].mission_theme_id+`)"><img src="images/delete.png" alt="" ></button></div>`;
+        		table.row.add([
+        			themes[i].mission_theme_id,
+        			themes[i].title,
+        			GEB
+        		]).draw(false);
+        	}
+        }
+        function deleteTheme(themeid){
+        	$.ajax({
+				url : "deleteTheme",
+				dataType : 'json',
+				data : {'theme_id' : themeid},
+				type : "GET",
+				success : function(response) {
+					swal("Success!", "Successfully deleted!", "success");
+					loadAllThemesForAdmin();
+				}
+			});
+        }
     </script>
 
     <script src="js/EditProfile.js"></script>
-    <script src="js/home.js"></script>
 </body>
 
 </html>

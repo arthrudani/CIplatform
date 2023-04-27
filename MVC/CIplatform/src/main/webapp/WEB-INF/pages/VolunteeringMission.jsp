@@ -663,20 +663,20 @@
 	            type:"GET",
 	            success: function(response){
 	            	x=response;
-	            	if(x=="ZERO"){
-	            		appliedOrNot+=`<button class="Apply__Mission" onclick="applyForMission()">
-										Apply&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/right-arrow.png"
-											alt="">
-										</button>`;
-	            	}
+	            	if(x=="TWO"){
+	            		appliedOrNot+=`<button class="Apply__Mission"">
+											Application pending
+											</button>`;
+					}
 	            	else if(x=="ONE"){
 	            		appliedOrNot+=`<button class="Apply__Mission">
 										Already applied
 										</button>`;
 	            	}
 	            	else{
-	            		appliedOrNot+=`<button class="Apply__Mission"">
-										Application pending
+	            		appliedOrNot+=`<button class="Apply__Mission" onclick="applyForMission()">
+											Apply&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/right-arrow.png"
+											alt="">
 										</button>`;
 	            	}
 	            	$(".applyButton").html(appliedOrNot);

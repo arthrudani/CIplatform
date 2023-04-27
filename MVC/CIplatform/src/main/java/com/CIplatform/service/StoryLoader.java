@@ -39,4 +39,6 @@ public interface StoryLoader {
 
 	List<StoryMedia> loadDraftMediaOfStory(Story story);
 
+	String recommendToCoWorker(Story story, Mission mission, String email, User user);
+
 }

@@ -20,4 +20,6 @@ public interface VolunteerTimesheetInterface {
 
 	List<Mission> loadApprovedMissionsGoalbased(User user);
 
+	void deleteTimesheet(int tid);
+
 }

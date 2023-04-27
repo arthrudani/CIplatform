@@ -24,7 +24,7 @@ public class VolunteerTimesheetDao implements VolunteerTimesheetDaoInterface{
 	private HibernateTemplate hibernateTemplate;
 	
 	public List<Timesheet> loadAllMissionByTimesheet(User user) {
-		String que = "from Timesheet where user=:user and status=:status";
+		String que = "from Timesheet where user=:user and status=:status and (deletedAt is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("user", user);
 		q.setParameter("status", approval.PUBLISHED);
@@ -107,5 +107,14 @@ public class VolunteerTimesheetDao implements VolunteerTimesheetDaoInterface{
 		q.setParameter("status", com.entities.MissionApplication.approval.ONE);
 		q.setParameter("type", mission_type.GOAL);
 		return q.list();
+	}
+	
+	@Transactional
+	public void deleteTimesheet(int tid) {
+		Timesheet timesheet1=this.hibernateTemplate.get(Timesheet.class, tid);
+		if(timesheet1!=null) {
+			timesheet1.setDeletedAt(new Date());
+			this.hibernateTemplate.saveOrUpdate(timesheet1);
+		}
 	}
 }

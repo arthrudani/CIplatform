@@ -36,4 +36,8 @@ public class VolunteerTimesheetService implements VolunteerTimesheetInterface{
 	public List<Mission> loadApprovedMissionsGoalbased(User user) {
 		return this.timesheetDaoInterface.loadApprovedMissionsGoalbased(user);
 	}
+
+	public void deleteTimesheet(int tid) {
+		this.timesheetDaoInterface.deleteTimesheet(tid);
+	}
 }

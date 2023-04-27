@@ -22,6 +22,7 @@ import com.entities.Country;
 import com.entities.Mission;
 import com.entities.MissionTheme;
 import com.entities.User;
+import com.entities.User.type;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -72,25 +73,23 @@ public class HomeController {
 		if (vr == "true") {
 			
 			User userdetail = this.landingpageDao.getuserdetails(email);
+			m.addAttribute("user" , userdetail);
 			m.addAttribute("first_name" , userdetail.getFirst_name());
 			m.addAttribute("user_id" , userdetail.getUser_id());
 			m.addAttribute("last_name" , userdetail.getLast_name());
 			m.addAttribute("avatar" , userdetail.getAvatar());
 			
 			List<Mission> missiondetail=this.landingpageDao.getallmission();
-//			List<country> countrydetails=this.landingpageDao.getcountrydetails();
-//			List<city> citydetails=this.landingpageDao.getcitydetails(userdetail.getCountry().getCountry_id());
-//			List<mission_theme> missionthemedetails=this.landingpageDao.getmissionthemedetails();
-			
 			m.addAttribute("missionlist" ,  missiondetail);
-//			m.addAttribute("countrylist" ,  countrydetails);
-//			m.addAttribute("citylist" ,  citydetails);
-//			m.addAttribute("missionthemelist" ,  missionthemedetails);
 			m.addAttribute("usercountry" ,  userdetail.getCountry().getName());
-			
-			homeGrid();
-			return "homeGrid";
-		} else {
+			if(userdetail.getType()==type.VOLUNTEER) {
+				return "homeGrid";
+			}
+			else {
+				return "AdminUser";
+			}
+		}
+		else {
 			m.addAttribute("msg" , "Email id or password is incorrect");
 			return "login";
 		}

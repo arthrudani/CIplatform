@@ -94,7 +94,7 @@ pageEncoding="ISO-8859-1"%>
 					<button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
 					<button type="button" class="btn changepass"
 						data-bs-dismiss="modal" aria-label="Close"
-						onclick="saveTimesheet()">Save</button>
+						onclick="validateData()">Save</button>
 				</div>
 			</div>
 		</div>
@@ -139,7 +139,7 @@ pageEncoding="ISO-8859-1"%>
 					<button type="button" class="btn cancel" data-bs-dismiss="modal">Cancel</button>
 					<button type="button" class="btn changepass"
 						data-bs-dismiss="modal" aria-label="Close"
-						onclick="saveTimesheet()">Save</button>
+						onclick="validateData()">Save</button>
 				</div>
 			</div>
 		</div>
@@ -406,6 +406,19 @@ pageEncoding="ISO-8859-1"%>
 			loadApprovedMissionsGoalbased();
 			loadAllTimesheetsByUser();
 		});
+		function validateData(){
+			if(hours>23){
+				swal("Error!", "Hours must be less than 24!", "error");
+				return;
+			}
+			else if(minutes>59){
+				swal("Error!", "Minutes must be less than 60!", "error");
+				return;
+			}
+			else{
+				saveTimesheet();
+			}
+		}
 		function saveTimesheet(){
 			ShareTimesheetObject={
 					timesheetId:timesheetid,
@@ -457,11 +470,6 @@ pageEncoding="ISO-8859-1"%>
 		}
 		function editGoalTimesheet(sheetid,mission_id,action,date,message){
 			newTimesheet();
-			console.log(sheetid);
-			console.log(mission_id);
-			console.log(action);
-			console.log(date);
-			console.log(message);
 			timesheetid=sheetid;
 			$('.missionSelectGoal').val(mission_id);
 			CheckedMission=$('.missionSelectGoal').val();
@@ -479,48 +487,55 @@ pageEncoding="ISO-8859-1"%>
 				dataType : 'json',
 				data : {'user_id' : user_id},
 				success : function(response) {
-					console.log(response);
 					setAllTimesheet(response);
+				}
+			});
+		}
+		function deleteTimeTimesheet(tid){
+			$.ajax({
+				url : "deleteTimesheet",
+				dataType : 'json',
+				data : {'timesheetId' : tid},
+				type : "POST",
+				success : function(response) {
+					swal("Sucsess!", "Timesheet deleted successfully!", "success");
+					loadAllTimesheetsByUser();
 				}
 			});
 		}
 		function setAllTimesheet(timesheet){
 			var data1= "";
 			var data2= "";
-			
 			for (var i in timesheet) {
 				var todate=new Date(timesheet[i].dateVolunteered).getDate();
 			    var tomonth=new Date(timesheet[i].dateVolunteered).getMonth()+1;
 			    var toyear=new Date(timesheet[i].dateVolunteered).getFullYear();
 			    var d=todate+'/'+tomonth+'/'+toyear;
-				console.log(timesheet[i].timesheetId);
-				console.log(timesheet[i].notes);
 				if(timesheet[i].mission.mission_type=="TIME"){
 					data1+=`<tr>
 								<td>`+timesheet[i].mission.title+`</td>
 								<td>`+d+`</td>
 								<td>`+timesheet[i].time[0]+`</td>
 								<td>`+timesheet[i].time[1]+`</td>
-								<td><button onclick="editTimeTimesheet(`+timesheet[i].timesheetId+`,`+timesheet[i].mission.mission_id+`,`+timesheet[i].dateVolunteered+`,`+timesheet[i].time[0]+`,`+timesheet[i].time[1]+`,`+timesheet[i].notes+`)">
+								<td><button onclick='editTimeTimesheet(`+timesheet[i].timesheetId+`,`+timesheet[i].mission.mission_id+`,`+timesheet[i].dateVolunteered+`,`+timesheet[i].time[0]+`,`+timesheet[i].time[1]+`,\``+timesheet[i].notes+`\`)'>
 										<img src="images/editing.png" alt="" data-bs-toggle="modal"
 											data-bs-target="#exampleModal1">
 									</button></td>
-								<td><button>
+								<td><button onclick="deleteTimeTimesheet(`+timesheet[i].timesheetId+`)">
 										<img src="images/delete.png" alt="">
 									</button></td>
 							</tr>`;
 				}
 				else{
-					
 					data2+= `<tr>
 								<td>`+timesheet[i].mission.title+`</td>
 								<td>`+d+`</td>
 								<td>`+timesheet[i].action+`</td>
-								<td><button onclick="editGoalTimesheet(`+timesheet[i].timesheetId+`,`+timesheet[i].mission.mission_id+`,`+timesheet[i].action+`,`+timesheet[i].dateVolunteered+`,`+timesheet[i].notes+`)">
+								<td><button onclick='editGoalTimesheet(`+timesheet[i].timesheetId+`,`+timesheet[i].mission.mission_id+`,`+timesheet[i].action+`,`+timesheet[i].dateVolunteered+`,\``+timesheet[i].notes+`\`)'>
 										<img src="images/editing.png" alt="" data-bs-toggle="modal"
 											data-bs-target="#exampleModal2  ">
 									</button></td>
-								<td><button>
+								<td><button  onclick="deleteTimeTimesheet(`+timesheet[i].timesheetId+`)">
 										<img src="images/delete.png" alt="">
 									</button></td>
 							</tr>`;

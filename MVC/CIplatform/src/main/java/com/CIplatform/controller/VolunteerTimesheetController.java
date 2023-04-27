@@ -77,4 +77,10 @@ public class VolunteerTimesheetController {
 		this.service.saveTimesheet(shareTimesheetDto);
 		return "true";
 	}
+	@RequestMapping(value = "/deleteTimesheet",method = RequestMethod.POST)
+	public @ResponseBody String deleteTimesheet(@RequestParam("timesheetId") int tid) {
+		this.service.deleteTimesheet(tid);
+		return "true";
+	}
+	
 }

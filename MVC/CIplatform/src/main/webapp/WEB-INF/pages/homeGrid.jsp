@@ -744,8 +744,6 @@
         	}
         function recommend(missionID){
         	let user_id=$('.usernameforlike').val();
-        	console.log("aaaaaa");
-        	console.log(missionID);
 //         	$.ajax({
 //                 url: "recommend",
 //         		   dataType: 'json',

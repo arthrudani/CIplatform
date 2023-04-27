@@ -32,7 +32,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 			currentPage=0;
 		}
 		firstresultcount = ((currentPage-1) * 3) + 3;
-		String que = "from Story where status=:status";
+		String que = "from Story where status=:status and and (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("status",status.PUBLISHED);
 		q.setFirstResult(firstresultcount);
@@ -42,7 +42,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 	}
 
 	public int loadNumberOfStoriesForPagination() {
-		String que = "from Story where status=:status";
+		String que = "from Story where status=:status and and (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("status",status.PUBLISHED);
 		return q.list().size();
@@ -50,7 +50,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 
 	
 	public List<MissionApplication> loadApprovedMissions(User user) {
-		String que = "from MissionApplication where user=:user and approval_status=:status";
+		String que = "from MissionApplication where user=:user and approval_status=:status and (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("user",user);
 		q.setParameter("status",approval.ONE);
@@ -58,7 +58,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 	}
 
 	public Story loadDraft(User user, Mission mission) {
-		String que = "from Story where user=:user and mission=:mission and status=:status";
+		String que = "from Story where user=:user and mission=:mission and status=:status and (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("user",user);
 		q.setParameter("mission",mission);

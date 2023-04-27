@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class StoryController {
+	@Autowired
+	HibernateTemplate hibernateTemplate;
 	
 	@Autowired
 	StoryLoader service;
@@ -134,10 +137,11 @@ public class StoryController {
 		return "StoryDetail";
 	}
 	@RequestMapping(value = "/recommendMissionFromStory", method = RequestMethod.GET)
-	public @ResponseBody String recommend(@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
+	public @ResponseBody String recommend(@RequestParam("sid") int storyId,@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
 		Mission mission=this.service1.getMissionById(missionId);
 		User user=this.service1.getUserById(from_uid);
-		String result = this.service.recommendToCoWorker(mission,email,user);
+		Story story=this.hibernateTemplate.get(Story.class, storyId);
+		String result = this.service.recommendToCoWorker(story,mission,email,user);
 		return "true";
 	}
 	@RequestMapping(value = "/openMission",method = RequestMethod.GET)

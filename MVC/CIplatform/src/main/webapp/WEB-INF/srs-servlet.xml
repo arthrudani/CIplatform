@@ -117,6 +117,12 @@
 				<value>
 					com.entities.Timesheet
 				</value>
+				<value>
+					com.entities.CmsPage
+				</value>
+				<value>
+					com.entities.StoryInvite
+				</value>
 			</list>
 		</property>
 	</bean>

@@ -18,6 +18,7 @@ import com.entities.Country;
 import com.entities.PasswordReset;
 import com.entities.User;
 import com.entities.User.Status;
+import com.entities.User.type;
 
 @Component
 public class RegistrationDao {
@@ -33,6 +34,7 @@ public class RegistrationDao {
 		if (user1 != null) {
 			return 0;
 		}
+		user.setType(type.VOLUNTEER);
 		user.setStatus(Status.ACTIVE);
 		user.setAvatar("noImageFound.png");
 		Integer i=(Integer) this.hibernateTemplate.save(user);
@@ -45,7 +47,7 @@ public class RegistrationDao {
 	}
 
 	public String verifyuser(String email, String password) {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email and password=:password");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email and password=:password and (deleted_at is null)");
 		String result="";
 		query.setParameter("email", email);
 		query.setParameter("password", password);
