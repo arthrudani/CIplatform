@@ -152,9 +152,12 @@ pageEncoding="ISO-8859-1"%>
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                                 id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <div class="gap-2">
-                                    <img src="images/user-img.png" class="userimage ">
-                                    <span class="blocking uNameuImage"> Evan Donohue</span>
+                                <div class="gap-2 d-flex align-items-center">
+                                    <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage ">
+                                    <div> 
+                                   		<span class="blocking uNameuImage" class="uNameuImage">
+                                   		<c:out value="${user.first_name} ${user.last_name}"></c:out></span>
+									</div> 
                                     <img src="images/drop-down.png" class="uNameuImage">
                                 </div>
                             </a>
@@ -185,7 +188,10 @@ pageEncoding="ISO-8859-1"%>
                                 class="searchBoxPh">
                         </div>
                     </div>
-                    <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
+                    <form action="addCMS" method="GET" name="addCMS">
+                    	<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+                    	<button type="submit" class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
+                    </form>
                 </div>
 
                 <!-- table -->
@@ -243,7 +249,6 @@ pageEncoding="ISO-8859-1"%>
 			dataType : 'json',
 			type : "GET",
 			success : function(response) {
-				console.log(response);
 				setAllCmsForAdmin(response);
 			}
 		});
@@ -253,17 +258,25 @@ pageEncoding="ISO-8859-1"%>
         .clear()
         .draw();
     	let GEB="";
+    	let status="";
     	
     	for(var i in cms){
-    		GEB=`<div class="d-flex gap-2"><button class="d-flex"><img src="images/editing.png" alt=""></button>
+    		GEB=`<div class="d-flex gap-2"><a type="submit" class="d-flex btn" href="editCmsPage?cmsid=`+cms[i].cmsPageId+`&uid=${user.user_id}"><img src="images/editing.png" alt=""></a>
 	            	 <button onclick="deleteCms(`+cms[i].cmsPageId+`)"><img src="images/delete.png" alt="" ></button></div>`;
+	        if(cms[i].status=="ACTIVE"){
+	        	status=`<div style="color:green">`+cms[i].status+`</div>`;
+	        }
+	        else{
+	        	status=`<div style="color:red">`+cms[i].status+`</div>`;
+	        }
     		table.row.add([
     			cms[i].title,
-    			cms[i].status,
+    			status,
     			GEB
     		]).draw(false);
     	}
     }
+
     function deleteCms(cmsid){
     	$.ajax({
 			url : "deleteCms",

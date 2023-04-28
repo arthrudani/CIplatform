@@ -51,9 +51,8 @@ public class AdminDao implements AdminDaoInterface{
 		return q.list();
 	}
 	public List<CmsPage> loadAllCmsForAdmin() {
-		String que = "from CmsPage where status=:status and (deleted_at is null)";
+		String que = "from CmsPage where (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
-		q.setParameter("status", com.entities.CmsPage.status.ZERO);
 		return q.list();
 	}
 }

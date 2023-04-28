@@ -168,7 +168,11 @@ pageEncoding="ISO-8859-1"%>
                                 class="searchBoxPh" id="example_filter">
                         </div>
                     </div>
-                    <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
+                    <button class="addbutton">
+                    	<a class="d-flex align-items-center btn" href="addNewUserPage?uid=${user.user_id}">
+                    	<i class="bi bi-plus"></i>ADD</a>
+                    </button>
+                    
                 </div>
 
                 <!-- table -->
@@ -240,17 +244,26 @@ pageEncoding="ISO-8859-1"%>
             .clear()
             .draw();
         	let GEB="";
+        	let status="";
         	
         	for(var i in users){
-        		GEB=`<div class="d-flex gap-2"><button class="d-flex"><img src="images/editing.png" alt=""></button>
+        		GEB=`<div class="d-flex gap-2">
+        				<a type="submit" class="d-flex btn" href="editUserPage?uid=`+users[i].user_id+`&auid=${user.user_id}"><img src="images/editing.png" alt=""></a>
    	            	 <button onclick="deleteUser(`+users[i].user_id+`)"><img src="images/delete.png" alt="" ></button></div>`;
+   	            if(users[i].status=="ACTIVE"){
+   	            	status=`<div style="color:green">`+users[i].status+`</div>`;
+   	            }
+   	            else{
+   	            	status=`<div style="color:red">`+users[i].status+`</div>`;
+   	            }
+   	           
         		table.row.add([
         			users[i].first_name,
         			users[i].last_name,
         			users[i].email,
         			users[i].employee_id,
         			users[i].department,
-        			users[i].status,
+        			status,
         			GEB
         		]).draw(false);
         	}

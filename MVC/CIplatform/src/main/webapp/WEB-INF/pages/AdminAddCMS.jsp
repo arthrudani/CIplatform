@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,15 +13,13 @@ pageEncoding="ISO-8859-1"%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel='stylesheet'
-	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin Cms</title>
-    <link rel="stylesheet" href="CSS/Admin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/Admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
@@ -33,84 +31,114 @@ pageEncoding="ISO-8859-1"%>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
 
-            <!-- sidebar -->
-            <div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
-                <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline">Menu</span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+			<!-- sidebar -->
+			<div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
+				<div
+					class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
+					<a href="/"
+						class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
+						<span class="fs-5 d-none d-sm-inline">Menu</span>
+					</a>
+					<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
 
-                        <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/Adminuser.html" class="nav-link align-middle px-0">
-                                <i class="bi bi-person-fill"></i><span
+                        <li class="nav-item  ">
+                        	<form action="usersLoader" name="usersLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-person-fill" ></i><span
                                     class="ms-1 d-none d-sm-inline sidebarbuttons">User</span>
-                            </a>
+	                            </a></button>
+                            </form>
                         </li>
-                        <li class="nav-item  activepage">
-                            <a href="http://127.0.0.1:5500/AdminCMS.html" class="nav-link align-middle px-0">
-                                <i class="bi bi-file-earmark-medical-fill" style="color: #F88634;"></i><span
-                                    class="ms-2 d-none d-sm-inline sidebarbuttons" style="color: #F88634;">CMS Page</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://127.0.0.1:5500/Adminmission.html#" class="nav-link align-middle px-0">
-                                <i class="bi bi-bullseye"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Mission</span>
-                            </a>
+                        <li class="nav-item activepage">
+							<form action="cmsPageLoader" name="cmsPageLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+								<button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-file-earmark-medical-fill" style="color: #F88634;"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons"  style="color: #F88634;">CMS Page</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <i class="bi bi-columns-gap"></i> <span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Mission Theme</span>
-                            </a>
+                            <form action="missionLoader" name="missionLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                               	<i class="bi bi-bullseye"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Missions</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <i class="bi bi-tools"></i><span class="ms-1 d-none d-sm-inline sidebarbuttons">Mission
-                                    Skills</span>
-                            </a>
+                            <form action="missionThemeLoader" name="missionThemeLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-columns-gap"></i> <span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Theme</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <i class="bi bi-folder-fill"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Mission Application</span>
-                            </a>
+                            <form action="missionSkillLoader" name="missionSkillLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-tools"></i></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Skill</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <i class="bi bi-bookmark-star-fill"></i><span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Story</span>
-                            </a>
+                            <form action="missionApplicationLoader" name="missionApplicationLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-folder-fill"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Application</span>
+	                            </a></button>
+                            </form>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link align-middle px-0">
-                                <img src="images/folded-ribbon.png" alt=""> <span
-                                    class="ms-1 d-none d-sm-inline sidebarbuttons">Banner Management</span>
-                            </a>
+                            <form action="storyLoader" name="storyLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-bookmark-star-fill"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Story</span>
+	                            </a></button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <form action="bannerManagementLoader" name="bannerManagementLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <img src="images/folded-ribbon.png" alt=""> <span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Banner Management</span>
+	                            </a></button>
+                            </form>
                         </li>
 
                     </ul>
-                    <hr>
-                </div>
-            </div>
+					<hr>
+				</div>
+			</div>
 
-            <!-- main content -->
-            <div class="col py-3">
-                <div class="headerbar d-flex justify-content-between">
-                    <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
-                    <div class="d-flex justify-content-between align-items-center ">
-                        <li class="nav-item dropdown">
+			<!-- main content -->
+			<div class="col py-3">
+				<div class="headerbar d-flex justify-content-between">
+					<div class="d-flex align-items-center">Thursday november 3,
+						2022, 10:06 AM</div>
+					<div class="d-flex justify-content-between align-items-center ">
+						<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                                 id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <div class="gap-2">
-                                    <img src="images/user-img.png" class="userimage ">
-                                    <span class="blocking uNameuImage"> Evan Donohue</span>
+                                <div class="gap-2 d-flex align-items-center">
+                                    <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage ">
+                                    <div> 
+                                   		<span class="blocking uNameuImage" class="uNameuImage">
+                                   		<c:out value="${user.first_name} ${user.last_name}"></c:out></span>
+									</div> 
                                     <img src="images/drop-down.png" class="uNameuImage">
                                 </div>
                             </a>
@@ -121,43 +149,40 @@ pageEncoding="ISO-8859-1"%>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                    </div>
-                </div>
-                <div class="headerborder"></div>
+					</div>
+				</div>
+				<div class="headerborder"></div>
 
-                <div class="EPbasicInfo addbox">
-                    <div class="addtext">
-                        <p class="mt-2 ms-3">Add</p>
-                    </div>
-                    <div class="ms-3 mt-3 titleOfAddbox">
-                        Title
-                    </div>
-                    <input type="text" name="title" class="ms-3 mt-2 titlebox">
+				<div class="EPbasicInfo addbox">
+					<div class="addtext">
+						<p class="mt-2 ms-3">Add</p>
+					</div>
+					<div class="ms-3 mt-3 titleOfAddbox">Title</div>
+					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox cmsTitle" required>
 
-                    <div class="ms-3 mt-3 titleOfAddbox">
-                        Description
-                    </div>
-                    <div id="editor" class="w-100"></div>
+					<div class="ms-3 mt-3 titleOfAddbox">Description</div>
+					<div id="editor" class="w-100"></div>
 
-                    <div class="ms-3 mt-3 titleOfAddbox">
-                        Slug
-                    </div>
-                    <input type="text" name="slug" class="ms-3 mt-2 titlebox">
+					<div class="ms-3 mt-3 titleOfAddbox">Slug</div>
+					<input type="text" name="slug" class="ms-3 mt-2 me-3 titlebox cmsSlug" required>
 
-                    <div class="ms-3 mt-3 titleOfAddbox">
-                        Status
-                    </div>
-                    <input type="text" name="status" class="ms-3 mt-2 titlebox" style="margin-bottom: 15px;">
-                </div>
-
-
-
-
-            </div>
-        </div>
-    </div>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<!-- 					<div class="ms-3 mt-3 titleOfAddbox">Status</div> -->
+					<span class="ms-3 mt-3 titleOfAddbox">Status</span>
+					<div class="col">
+						<select name="Status" id="Status" class="cmsStatus titlebox ms-3 mt-2 me-3" required>
+								<option value="ACTIVE">ACTIVE</option>
+								<option value="INACTIVE">INACTIVE</option>
+						</select>
+					</div>
+					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="addNewCms()">
+						<i class="bi bi-plus"></i>ADD
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
@@ -175,30 +200,62 @@ pageEncoding="ISO-8859-1"%>
     <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script>
+    let cmsTitle="";
+    let cmsSlug="";
+    let cmsStatus="";
+    let cmsDescription="";
+    var myeditor;
         $(document).ready(function () {
-            var table = $('#example').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
-            $('#searchboxing').on('keyup', function () {
-                table.search(this.value).draw();
-            });
-        });
-    </script>
-    <script>
-        ClassicEditor
+        	
+        	ClassicEditor
             .create(document.querySelector('#editor'))
             .then(editor => {
-                console.log(editor);
+            	myeditor=editor;
             })
             .catch(error => {
-                console.error(error);
             });
+        	
+        	$('.cmsTitle').on('change', function () {
+        		cmsTitle = $('.cmsTitle').val();
+            });
+        	$('.cmsSlug').on('change', function () {
+        		cmsSlug = $('.cmsSlug').val();
+            });
+        	$('.cmsStatus').on('change', function() {
+        		cmsStatus = $(this).find("option:selected").val();
+        		console.log(cmsStatus);
+			});
+        });
+        function clearData(){
+        	$('.cmsTitle').val('');
+        	$('.cmsSlug').val('');
+        	$('.cmsStatus').val('');
+        	myeditor.setData('');
+        }
+        function addNewCms(){
+			AddCmsObject={
+					title :cmsTitle ,
+					description:myeditor.getData(),
+					slug:cmsSlug,
+					status:cmsStatus,
+	   		}
+			$.ajax({
+				url : "addNewCms",
+				dataType : 'json',
+				data : AddCmsObject,
+				type : "POST",
+				success : function(response) {
+					swal("Good job!", "Cms added successfully!", "success");
+					clearData();
+				}
+			});
+		}
+    </script>
+    <script>
+        
     </script>
 
-    <script src="js/EditProfile.js"></script>
+	<script src="js/EditProfile.js"></script>
 </body>
 
 </html>

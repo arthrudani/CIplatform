@@ -5,12 +5,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
 import com.CIplatform.dao.AdminDaoInterface;
+import com.CIplatform.dto.AddCmsDto;
+import com.CIplatform.dto.AddNewUserDto;
+import com.entities.City;
 import com.entities.CmsPage;
+import com.entities.Country;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionApplication.approval;
@@ -18,6 +23,7 @@ import com.entities.MissionTheme;
 import com.entities.Story;
 import com.entities.Story.status;
 import com.entities.User;
+import com.entities.User.type;
 
 @Service
 public class AdminService implements AdminInterface{
@@ -99,12 +105,120 @@ public class AdminService implements AdminInterface{
 			this.hibernateTemplate.saveOrUpdate(cmsPage);
 		}
 	}
-
+	@Transactional
+	public void saveNewCms(AddCmsDto addCmsObject) {
+		CmsPage cmsPage=new CmsPage();
+		cmsPage.setCreatedAt(new Date());
+		cmsPage.setDescription(addCmsObject.getDescription());
+		cmsPage.setSlug(addCmsObject.getSlug());
+		cmsPage.setStatus(addCmsObject.getStatus());
+		cmsPage.setTitle(addCmsObject.getTitle());
+		this.hibernateTemplate.save(cmsPage);
+	}
+	@Transactional
+	public int addNewUSer(AddNewUserDto addUserObject) {
+		String que = "from User where email=:emailid";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("emailid", addUserObject.getEmail());
+		User user1 =   (User) q.uniqueResult();
+		if(user1!=null) {
+			return 0;
+		}
+		
+		Country country=this.hibernateTemplate.get(Country.class,Integer.parseInt(addUserObject.getCountry()));
+		City city=this.hibernateTemplate.get(City.class,Integer.parseInt(addUserObject.getCountry()));
+		User user=new User();
+		user.setCreated_at(new Date());
+		user.setFirst_name(addUserObject.getFirstName());
+		user.setLast_name(addUserObject.getLastName());
+		user.setEmail(addUserObject.getEmail());
+		user.setPassword(addUserObject.getPassword());
+		user.setType(type.VOLUNTEER);
+		System.out.println(addUserObject.getAvatar());
+		if(addUserObject.getAvatar()=="") {
+			user.setAvatar("noImageFound.png");
+		}
+		else {
+			user.setAvatar(addUserObject.getAvatar());
+		}
+		user.setEmployee_id(addUserObject.getEmployeeId());
+		user.setDepartment(addUserObject.getDepartment());
+		user.setCity(city);
+		user.setCountry(country);
+		user.setProfile_text(addUserObject.getProfileText());
+		System.out.println(addUserObject.getStatus());
+		user.setStatus(addUserObject.getStatus());
+		this.hibernateTemplate.save(user);
+		return 1;
+	}
+	@Transactional
+	public void editCms(CmsPage cmsPage, AddCmsDto editCmsObject) {
+		String que = "from CmsPage where cmsPageId=:id";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("id", cmsPage.getCmsPageId());
+		CmsPage cmsPage1 =  (CmsPage) q.uniqueResult();
+		if(editCmsObject.getDescription()!="") {
+			cmsPage1.setDescription(editCmsObject.getDescription());
+		}
+		if(editCmsObject.getSlug()!="") {
+			cmsPage1.setSlug(editCmsObject.getSlug());
+		}
+		if(editCmsObject.getTitle()!="") {
+			cmsPage1.setTitle(editCmsObject.getTitle());
+		}
+		if(editCmsObject.getStatus()!=null) {
+			cmsPage1.setStatus(editCmsObject.getStatus());
+		}
+		cmsPage1.setUpdatedAt(new Date());
+		this.hibernateTemplate.saveOrUpdate(cmsPage1);
+	}
+	@Transactional
+	public void editUser(User user, AddNewUserDto addNewUserDto) {
+		String que = "from User where user_id=:id";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("id", user.getUser_id());
+		User user1 =  (User) q.uniqueResult();
+		if(addNewUserDto.getFirstName()!="") {
+			user1.setFirst_name(addNewUserDto.getFirstName());
+		}
+		if(addNewUserDto.getLastName()!="") {
+			user1.setLast_name(addNewUserDto.getLastName());
+		}
+		if(addNewUserDto.getEmail()!="") {
+			user1.setEmail(addNewUserDto.getEmail());
+		}
+		if(addNewUserDto.getPassword()!=null) {
+			user1.setPassword(addNewUserDto.getPassword());
+		}
+		if(addNewUserDto.getAvatar()!="") {
+			user1.setAvatar(addNewUserDto.getAvatar());
+		}
+		if(addNewUserDto.getCountry()!=null) {
+			Country country=this.hibernateTemplate.get(Country.class,Integer.parseInt(addNewUserDto.getCountry()));
+			user1.setCountry(country);
+		}
+		if(addNewUserDto.getCity()!=null) {
+			City city=this.hibernateTemplate.get(City.class,Integer.parseInt(addNewUserDto.getCity()));
+			user1.setCity(city);
+		}
+		if(addNewUserDto.getProfileText()!="") {
+			user1.setProfile_text(addNewUserDto.getProfileText());
+		}
+		if(addNewUserDto.getStatus()!=null) {
+			user1.setStatus(addNewUserDto.getStatus());
+		}
+		user1.setEmployee_id(addNewUserDto.getEmployeeId());
+		
+		user1.setUpdated_at(new Date());
+		this.hibernateTemplate.saveOrUpdate(user1);
+	}
+	
+	
+	
 	
 	public List<User> loadAllUsersForAdmin() {
 		return this.adminDaoInterface.loadAllUsersForAdmin();
 	}
-	
 	public List<Mission> loadAllMissionForAdmin() {
 		return this.adminDaoInterface.loadAllMissionForAdmin();
 	}
@@ -120,5 +234,4 @@ public class AdminService implements AdminInterface{
 	public List<CmsPage> loadAllCmsForAdmin() {
 		return this.adminDaoInterface.loadAllCmsForAdmin();
 	}
-	
 }

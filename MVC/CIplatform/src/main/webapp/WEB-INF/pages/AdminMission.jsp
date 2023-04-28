@@ -164,7 +164,10 @@ pageEncoding="ISO-8859-1"%>
                                 class="searchBoxPh">
                         </div>
                     </div>
-                    <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
+                    <button class="addbutton">
+                    	<a class="d-flex align-items-center btn" href="addNewMissionPage?uid=${user.user_id}">
+                    	<i class="bi bi-plus"></i>ADD</a>
+                    </button>
                 </div>
 
                 <!-- table -->

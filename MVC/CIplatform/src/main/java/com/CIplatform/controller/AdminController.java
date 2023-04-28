@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.CIplatform.dto.AddCmsDto;
+import com.CIplatform.dto.AddNewUserDto;
+import com.CIplatform.dto.EditProfileObject;
 import com.CIplatform.service.AdminInterface;
 import com.CIplatform.service.MissionLoader;
 import com.entities.CmsPage;
@@ -18,6 +21,8 @@ import com.entities.MissionApplication;
 import com.entities.MissionTheme;
 import com.entities.Story;
 import com.entities.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class AdminController {
@@ -105,6 +110,92 @@ public class AdminController {
 	public @ResponseBody int deleteCms(@RequestParam("cmsid") int cmsid) {
 		this.service.deleteCms(cmsid);
 		return 0;
+	}
+	@RequestMapping(value = "/addCMS")
+	public String addCMS(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddCMS";
+	}
+	@RequestMapping(value = "/addNewCms")
+	public @ResponseBody String addNewCms(AddCmsDto AddCmsObject) {
+		this.service.saveNewCms(AddCmsObject);
+		return "true";
+	}
+	@RequestMapping(value = "/addNewUSer")
+	public @ResponseBody int addNewUSer(AddNewUserDto AddUserObject) {
+		int result = this.service.addNewUSer(AddUserObject);
+		return result;
+	}
+	@RequestMapping(value = "/loadCmsData")
+	public @ResponseBody String loadCmsData(@RequestParam("cmsid") int cmsid) {
+		CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
+		ObjectMapper obj = new ObjectMapper();
+		String Output = "";
+		try {
+			Output = obj.writeValueAsString(cmsPage);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Output;
+	}
+	@RequestMapping(value = "/editCmsPage")
+	public String editCmsPage(@RequestParam("cmsid") int cmsid,@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
+		m.addAttribute("cms",cmsPage);
+		m.addAttribute("user",user);
+		return "AdminEditCMS";
+	}
+	@RequestMapping(value = "/editUserPage")
+	public String editUserPage(@RequestParam("uid") int uid,@RequestParam("auid") int auid,Model m) {
+		User adminuser=this.hibernateTemplate.get(User.class, auid);
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("edituser",user);
+		m.addAttribute("user",adminuser);
+		return "AdminEditUser";
+	}
+	@RequestMapping(value = "/editCms")
+	public @ResponseBody String editCms(@RequestParam("cmsid") int cmsid,@RequestParam("EditCmsObject") String EditCmsObject) {
+		CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
+		String Output = "";
+		ObjectMapper obj = new ObjectMapper();
+		try {
+			AddCmsDto addCmsDto = obj.readValue(EditCmsObject, AddCmsDto.class);
+			System.out.println(addCmsDto.getDescription());
+			this.service.editCms(cmsPage,addCmsDto);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "true";
+	}
+	@RequestMapping(value = "/editUSer")
+	public @ResponseBody String editUSer(@RequestParam("userid") int user_id,@RequestParam("EditUserObject") String EditUserObject) {
+		User user=this.hibernateTemplate.get(User.class, user_id);
+		String Output = "";
+		ObjectMapper obj = new ObjectMapper();
+		try {
+			AddNewUserDto addNewUserDto = obj.readValue(EditUserObject, AddNewUserDto.class);
+			this.service.editUser(user,addNewUserDto);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "true";
+	}
+	@RequestMapping(value = "/addNewUserPage")
+	public String addNewUserPage(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddUser";
+	}
+	@RequestMapping(value = "/addNewMissionPage")
+	public String addNewMissionPage(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddMission";
 	}
 	
 	

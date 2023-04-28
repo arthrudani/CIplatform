@@ -34,6 +34,7 @@ public class RegistrationDao {
 		if (user1 != null) {
 			return 0;
 		}
+		user.setEmployee_id(0);
 		user.setType(type.VOLUNTEER);
 		user.setStatus(Status.ACTIVE);
 		user.setAvatar("noImageFound.png");

@@ -16,13 +16,27 @@ body {
 #menu {
     width: 100%;
 }
-
+.missionStartDate,
+.missionEndDate,
+.missionSeats,
+.registrationDeadline{
+	margin-left:1rem;
+	margin-right:1rem;
+	width:90%;	
+}
+.videoURL{
+	margin-left:1rem;
+	margin-right:1rem;
+	width:96% !important;	
+}
 .nav>li>a {
     position: relative;
     display: block;
     padding: 10px 4px !important;
 }
-
+.ck-reset{
+	padding:1rem !important;
+}
 .nav-item {
     width: 100%;
 }
@@ -92,6 +106,9 @@ td button{
     padding-left: 5px;
     padding-right: 8px;
     background-color: white;
+}
+.addbutton a{
+    color: #F88634;
 }
 .EPbasicInfo p {
     border-bottom: 2px solid #D9D9D9;
@@ -195,7 +212,6 @@ li {
     color: rgb(255, 0, 0);  
     font-size: 20px !important;
 }
-
 @media only screen and (max-width: 767px) {
     .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
         padding: 1px !important;

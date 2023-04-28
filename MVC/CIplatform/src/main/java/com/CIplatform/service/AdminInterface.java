@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.CIplatform.dto.AddCmsDto;
+import com.CIplatform.dto.AddNewUserDto;
 import com.entities.CmsPage;
 import com.entities.Mission;
 import com.entities.MissionApplication;
@@ -43,5 +45,14 @@ public interface AdminInterface {
 	List<CmsPage> loadAllCmsForAdmin();
 
 	void deleteCms(int cmsid);
+
+	void saveNewCms(AddCmsDto addCmsObject);
+
+	void editCms(CmsPage cmsPage, AddCmsDto editCmsObject);
+
+	int addNewUSer(AddNewUserDto addUserObject);
+
+	void editUser(User user, AddNewUserDto addNewUserDto);
+
 
 }

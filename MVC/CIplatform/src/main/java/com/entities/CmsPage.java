@@ -24,8 +24,8 @@ public class CmsPage {
 	@Enumerated(EnumType.ORDINAL)
 	private status status;
 	public enum status{
-		ZERO,
-		ONE
+		ACTIVE,
+		INACTIVE
 	}
 	@Column(name = "created_at")
 	private Date createdAt;
@@ -97,6 +97,7 @@ public class CmsPage {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
+	
 	
 	
 }
