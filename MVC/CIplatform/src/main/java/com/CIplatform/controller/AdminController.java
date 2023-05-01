@@ -7,10 +7,12 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CIplatform.dto.AddCmsDto;
+import com.CIplatform.dto.AddNewMissionDto;
 import com.CIplatform.dto.AddNewUserDto;
 import com.CIplatform.dto.EditProfileObject;
 import com.CIplatform.service.AdminInterface;
@@ -62,6 +64,19 @@ public class AdminController {
 	public @ResponseBody List<CmsPage> loadAllCmsForAdmin() {
 		List<CmsPage> mylist = this.service.loadAllCmsForAdmin();
 		return mylist;
+	}
+	@RequestMapping(value = "/loadEditMissionDetails")
+	public @ResponseBody String loadEditMissionDetails(@RequestParam("mid") int mid) {
+		Mission mission=this.hibernateTemplate.get(Mission.class,mid);
+		ObjectMapper obj = new ObjectMapper();
+		String Output = "";
+		try {
+			Output = obj.writeValueAsString(mission);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Output;
 	}
 	
 	
@@ -156,6 +171,22 @@ public class AdminController {
 		m.addAttribute("user",adminuser);
 		return "AdminEditUser";
 	}
+	@RequestMapping(value = "/editMissionPage")
+	public String editMissionPage(@RequestParam("mid") int mid,@RequestParam("auid") int auid,Model m) {
+		User adminuser=this.hibernateTemplate.get(User.class, auid);
+		Mission mission=this.hibernateTemplate.get(Mission.class, mid);
+		m.addAttribute("mission",mission);
+		m.addAttribute("user",adminuser);
+		return "AdminEditMission";
+	}
+	@RequestMapping(value = "/editMissionThemePage")
+	public String editMissionThemePage(@RequestParam("mtid") int muid,@RequestParam("auid") int auid,Model m) {
+		User adminuser=this.hibernateTemplate.get(User.class, auid);
+		MissionTheme missionTheme=this.hibernateTemplate.get(MissionTheme.class,muid);
+		m.addAttribute("MissionTheme",missionTheme);
+		m.addAttribute("user",adminuser);
+		return "AdminEditTheme";
+	}
 	@RequestMapping(value = "/editCms")
 	public @ResponseBody String editCms(@RequestParam("cmsid") int cmsid,@RequestParam("EditCmsObject") String EditCmsObject) {
 		CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
@@ -185,11 +216,22 @@ public class AdminController {
 		}
 		return "true";
 	}
+	@RequestMapping(value = "/editMission",method = RequestMethod.POST)
+	public @ResponseBody boolean editMission(AddNewMissionDto EditMissionObject) {
+		this.service.editMission(EditMissionObject);
+		return true;
+	}
 	@RequestMapping(value = "/addNewUserPage")
 	public String addNewUserPage(@RequestParam("uid") int uid,Model m) {
 		User user=this.hibernateTemplate.get(User.class, uid);
 		m.addAttribute("user",user);
 		return "AdminAddUser";
+	}
+	@RequestMapping(value = "/addNewThemePage")
+	public String addNewThemePage(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddTheme";
 	}
 	@RequestMapping(value = "/addNewMissionPage")
 	public String addNewMissionPage(@RequestParam("uid") int uid,Model m) {
@@ -197,6 +239,13 @@ public class AdminController {
 		m.addAttribute("user",user);
 		return "AdminAddMission";
 	}
+	@RequestMapping(value = "/addNewMission")
+	public @ResponseBody int addNewMission(AddNewMissionDto addNewMissionDto) {
+		System.out.println(addNewMissionDto.getImages());
+		this.service.saveNewMission(addNewMissionDto);
+		return 1;
+	}
+	
 	
 	
 	

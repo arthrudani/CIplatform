@@ -123,6 +123,12 @@
 				<value>
 					com.entities.StoryInvite
 				</value>
+				<value>
+					com.entities.MissionMedia
+				</value>
+				<value>
+					com.entities.GoalMission
+				</value>
 			</list>
 		</property>
 	</bean>

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.entities.Mission.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "mission")
@@ -38,7 +40,7 @@ public class Mission {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id")
 	private Country country;
-	
+	private int seats;
 	private String title;
 	private String short_description;
 	private String description;
@@ -69,12 +71,13 @@ public class Mission {
 		DAILY
 	}
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionSkill> mission_skills;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionRating> mission_ratings;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionDocument> mission_documents;
 
@@ -83,9 +86,9 @@ public class Mission {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Mission(int mission_id, com.entities.MissionTheme mission_theme, com.entities.City city,
-			com.entities.Country country, String title, String short_description, String description, Date start_date,
-			Date end_date, com.entities.Mission.mission_type mission_type, Status status, String organization_name,
+	public Mission(int mission_id, MissionTheme mission_theme, City city, Country country, int seats, String title,
+			String short_description, String description, Date start_date, Date end_date,
+			com.entities.Mission.mission_type mission_type, Status status, String organization_name,
 			String organization_detail, com.entities.Mission.availability availability, Date created_at,
 			Date updated_at, Date deleted_at, List<MissionSkill> mission_skills, List<MissionRating> mission_ratings,
 			List<MissionDocument> mission_documents) {
@@ -94,6 +97,7 @@ public class Mission {
 		this.mission_theme = mission_theme;
 		this.city = city;
 		this.country = country;
+		this.seats = seats;
 		this.title = title;
 		this.short_description = short_description;
 		this.description = description;
@@ -112,6 +116,13 @@ public class Mission {
 		this.mission_documents = mission_documents;
 	}
 
+	public int getSeats() {
+		return seats;
+	}
+
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
 	public int getMission_id() {
 		return mission_id;
 	}

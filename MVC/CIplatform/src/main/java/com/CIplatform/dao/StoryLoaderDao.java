@@ -32,7 +32,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 			currentPage=0;
 		}
 		firstresultcount = ((currentPage-1) * 3) + 3;
-		String que = "from Story where status=:status and and (deleted_at is null)";
+		String que = "from Story where status=:status and (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("status",status.PUBLISHED);
 		q.setFirstResult(firstresultcount);
@@ -42,7 +42,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 	}
 
 	public int loadNumberOfStoriesForPagination() {
-		String que = "from Story where status=:status and and (deleted_at is null)";
+		String que = "from Story where status=:status and (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		q.setParameter("status",status.PUBLISHED);
 		return q.list().size();

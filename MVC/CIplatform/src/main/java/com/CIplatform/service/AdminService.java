@@ -9,18 +9,29 @@ import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.CIplatform.dao.AdminDaoInterface;
 import com.CIplatform.dto.AddCmsDto;
+import com.CIplatform.dto.AddNewMissionDto;
 import com.CIplatform.dto.AddNewUserDto;
 import com.entities.City;
 import com.entities.CmsPage;
 import com.entities.Country;
+import com.entities.GoalMission;
 import com.entities.Mission;
+import com.entities.Mission.Status;
+import com.entities.Mission.mission_type;
 import com.entities.MissionApplication;
 import com.entities.MissionApplication.approval;
+import com.entities.MissionDocument;
+import com.entities.MissionMedia;
+import com.entities.MissionMedia.defaultype;
+import com.entities.MissionSkill;
 import com.entities.MissionTheme;
+import com.entities.Skill;
 import com.entities.Story;
+import com.entities.StoryMedia;
 import com.entities.Story.status;
 import com.entities.User;
 import com.entities.User.type;
@@ -212,7 +223,172 @@ public class AdminService implements AdminInterface{
 		user1.setUpdated_at(new Date());
 		this.hibernateTemplate.saveOrUpdate(user1);
 	}
-	
+	@Transactional
+	public void saveNewMission(AddNewMissionDto addNewMissionDto) {
+		Mission mission=new Mission();
+		Country country=this.hibernateTemplate.get(Country.class,addNewMissionDto.getCountry());
+		City city=this.hibernateTemplate.get(City.class,addNewMissionDto.getCity());
+		MissionTheme missionTheme=this.hibernateTemplate.get(MissionTheme.class,addNewMissionDto.getThemeId());
+		mission.setCreated_at(new Date());
+		mission.setTitle(addNewMissionDto.getTitle());
+		mission.setShort_description(addNewMissionDto.getShortDescription());
+		mission.setDescription(addNewMissionDto.getDescription());
+		mission.setCountry(country);
+		mission.setCity(city);
+		mission.setSeats(addNewMissionDto.getTotalSeats());
+		mission.setStatus(Status.ACTIVE);
+		mission.setMission_type(addNewMissionDto.getType());
+		mission.setOrganization_name(addNewMissionDto.getOrganizationName());
+		mission.setOrganization_detail(addNewMissionDto.getOrganizationDetail());
+		mission.setStart_date(addNewMissionDto.getStartDate());
+		mission.setEnd_date(addNewMissionDto.getEndDate());
+		mission.setMission_theme(missionTheme);
+		mission.setAvailability(addNewMissionDto.getAvailability());
+		this.hibernateTemplate.save(mission);
+		if(addNewMissionDto.getType()==mission_type.GOAL) {
+			GoalMission goalMission=new GoalMission();
+			goalMission.setCreatedAt(new Date());
+			goalMission.setMission(mission);
+			this.hibernateTemplate.save(goalMission);
+		}
+		for(int j=0;j<addNewMissionDto.getSkill().length;j++) {
+			MissionSkill missionSkill=new MissionSkill();
+			Skill skill=this.hibernateTemplate.get(Skill.class, addNewMissionDto.getSkill()[j]);
+			missionSkill.setCreated_at(new Date());
+			missionSkill.setMission(mission);
+			missionSkill.setSkill(skill);
+			this.hibernateTemplate.save(missionSkill);
+		}
+		int i=0;
+		MissionMedia media11=new MissionMedia();
+		media11.setPath(addNewMissionDto.getVideoUrl());
+		media11.setCreatedAt(new Date());
+		media11.setType("Video");
+		this.hibernateTemplate.save(media11);
+		if(addNewMissionDto.getImages()!=null) {
+			for(CommonsMultipartFile x : addNewMissionDto.getImages()) {
+				i++;
+				MissionMedia media1=new MissionMedia();
+				media1.setCreatedAt(new Date());
+				media1.setMission(mission);
+				if(i==0) {
+					media1.setDefaultype(defaultype.ONE);
+				}
+				else {
+					media1.setDefaultype(defaultype.ZERO);
+				}
+				media1.setName(x.getOriginalFilename());
+				media1.setType("Image");
+				media1.setPath("images/"+x.getOriginalFilename());
+				this.hibernateTemplate.save(media1);
+			}
+		}
+		if(addNewMissionDto.getDocuments()!=null) {
+			for(CommonsMultipartFile x : addNewMissionDto.getDocuments()) {
+				MissionDocument missionDocument=new MissionDocument();
+				missionDocument.setCreated_at(new Date());
+				missionDocument.setMission(mission);
+				missionDocument.setDocument_name(x.getOriginalFilename());
+				missionDocument.setDocument_type(x.getContentType());
+				missionDocument.setDocument_path("MissionDocuments/"+x.getOriginalFilename());
+				this.hibernateTemplate.save(missionDocument);
+			}
+		}
+	}
+	@Transactional
+	public void editMission(AddNewMissionDto editMissionObject) {
+		String que1 = "from MissionMedia where mission_id=:id";
+		Query q1 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que1);
+		q1.setParameter("id", editMissionObject.getMissionId());
+		Mission mission=this.hibernateTemplate.get(Mission.class, editMissionObject.getMissionId());
+		mission.setCity(this.hibernateTemplate.get(City.class, editMissionObject.getCity()));
+		mission.setCountry(this.hibernateTemplate.get(Country.class, editMissionObject.getCountry()));
+		System.out.println(editMissionObject.getStatus());
+		mission.setStatus(editMissionObject.getStatus());
+		if(editMissionObject.getTotalSeats()>0){
+			mission.setSeats(editMissionObject.getTotalSeats());
+		}
+		if(editMissionObject.getDescription()!=null) {
+			mission.setDescription(editMissionObject.getDescription());
+		}
+		if(editMissionObject.getEndDate()!=null) {
+			mission.setEnd_date(editMissionObject.getEndDate());
+		}
+		if(editMissionObject.getOrganizationDetail()!=null) {
+			mission.setOrganization_detail(editMissionObject.getOrganizationDetail());
+		}
+		if(editMissionObject.getOrganizationName()!=null) {
+			mission.setOrganization_name(editMissionObject.getOrganizationName());
+		}
+		if(editMissionObject.getShortDescription()!=null) {
+			mission.setShort_description(editMissionObject.getShortDescription());
+		}
+		if(editMissionObject.getStartDate()!=null) {
+			mission.setStart_date(editMissionObject.getStartDate());
+		}
+		if(editMissionObject.getType()!=null) {
+			mission.setMission_type(editMissionObject.getType());
+		}
+		if(editMissionObject.getTitle()!=null) {
+			mission.setTitle(editMissionObject.getTitle());
+		}
+		if(editMissionObject.getVideoUrl().length()>0) {
+			MissionMedia media=new MissionMedia();
+			media.setPath(editMissionObject.getVideoUrl());
+			media.setCreatedAt(new Date());
+			media.setType("Video");
+			this.hibernateTemplate.save(media);
+		}
+		if(editMissionObject.getType()==mission_type.GOAL) {
+			GoalMission goalMission=new GoalMission();
+			goalMission.setCreatedAt(new Date());
+			goalMission.setMission(mission);
+			this.hibernateTemplate.save(goalMission);
+		}
+		String que = "from MissionSkill where mission_id=:id";
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+		q.setParameter("id", editMissionObject.getMissionId());
+		for(int j=0;j<editMissionObject.getSkill().length;j++) {
+			MissionSkill missionSkill=new MissionSkill();
+			Skill skill=this.hibernateTemplate.get(Skill.class, editMissionObject.getSkill()[j]);
+			missionSkill.setCreated_at(new Date());
+			missionSkill.setMission(mission);
+			missionSkill.setSkill(skill);
+			this.hibernateTemplate.save(missionSkill);
+		}
+		
+		int i=0;
+		if(editMissionObject.getImages()!=null) {
+			for(CommonsMultipartFile x : editMissionObject.getImages()) {
+				i++;
+				MissionMedia media1=new MissionMedia();
+				media1.setCreatedAt(new Date());
+				media1.setMission(mission);
+				if(i==0) {
+					media1.setDefaultype(defaultype.ONE);
+				}
+				else {
+					media1.setDefaultype(defaultype.ZERO);
+				}
+				media1.setName(x.getOriginalFilename());
+				media1.setType("Image");
+				media1.setPath("images/"+x.getOriginalFilename());
+				this.hibernateTemplate.save(media1);
+			}
+		}
+		if(editMissionObject.getDocuments()!=null) {
+			for(CommonsMultipartFile x : editMissionObject.getDocuments()) {
+				MissionDocument missionDocument=new MissionDocument();
+				missionDocument.setCreated_at(new Date());
+				missionDocument.setMission(mission);
+				missionDocument.setDocument_name(x.getOriginalFilename());
+				missionDocument.setDocument_type(x.getContentType());
+				missionDocument.setDocument_path("MissionDocuments/"+x.getOriginalFilename());
+				this.hibernateTemplate.save(missionDocument);
+			}
+		}
+	}
+
 	
 	
 	
@@ -234,4 +410,5 @@ public class AdminService implements AdminInterface{
 	public List<CmsPage> loadAllCmsForAdmin() {
 		return this.adminDaoInterface.loadAllCmsForAdmin();
 	}
+	
 }

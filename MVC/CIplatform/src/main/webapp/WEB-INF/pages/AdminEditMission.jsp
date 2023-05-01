@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
-    <title>Admin add new mission</title>
+    <title>Admin Edit mission</title>
     <link rel="stylesheet" href="css/Admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
@@ -124,6 +124,7 @@
 			</div>
 
 			<!-- main content -->
+			<input type="text" class="missionId" name="uid" value="${mission.mission_id}" hidden>
 			<div class="container">
 			<div class="col py-3">
 				<div class="headerbar d-flex justify-content-between">
@@ -156,7 +157,7 @@
 
 				<div class="EPbasicInfo addbox">
 					<div class="addtext">
-						<p class="mt-2 ms-3">Add new mission</p>
+						<p class="mt-2 ms-3">Edit mission</p>
 					</div>
 					
 					<div class="row">
@@ -181,6 +182,7 @@
 						<div class="col">
 							<div class="ms-3 mt-3 titleOfAddbox">Country</div>
 								<div class="col">
+								<input type="text" class="countryOfMission" name="uid" value="${mission.country.country_id}" hidden>
 									<select name="country" id="country" class="countrySelector cmsStatus titlebox ms-3 mt-2 me-3">
 										<option value="country" hidden>Country</option>
 									</select>
@@ -189,6 +191,7 @@
 						<div class="col">
 							<div class="ms-3 mt-3 titleOfAddbox">City</div>
 								<div class="col">
+								<input type="text" class="cityOfMission" name="uid" value="${mission.city.city_id}" hidden>
 									<select name="city" id="city" class="citySelector cmsStatus titlebox ms-3 mt-2 me-3">
 										<option value="city" hidden>City</option>
 									</select>
@@ -221,6 +224,7 @@
 					<div class="col">
 						<div class="ms-3 mt-3 titleOfAddbox">Mission type</div>
 						<div class="col">
+						<input type="text" class="missionTypeOfMission" name="uid" value="${mission.mission_type}" hidden>
 							<select name="Status" id="Status" class="cmsStatus missionType titlebox ms-3 mt-2 me-3" required>
 									<option value="TIME">TIME</option>
 									<option value="GOAL">GOAL</option>
@@ -243,6 +247,7 @@
 						<div class="col">
 							<div class="ms-3 mt-3 titleOfAddbox">Theme</div>
 							<div class="col">
+							<input type="text" class="themeOfMission" name="uid" value="${mission.mission_theme.mission_theme_id}" hidden>
 								<select name="theme" id="theme" class="missionTheme cmsStatus titlebox ms-3 mt-2 me-3">
 									<option value="theme" hidden>Theme</option>
 								</select>
@@ -309,10 +314,22 @@
 					<div class="col">
 						<div class="ms-3 mt-3 titleOfAddbox">Mission availability</div>
 						<div class="col">
+						<input type="text" class="availabilityOfMission" name="uid" value="${mission.availability}" hidden>
 							<select name="Status" id="Status" class="cmsStatus missionAvailability titlebox ms-3 mt-2 me-3" required>
 								<option value="DAILY">DAILY</option>
 								<option value="WEEKLY">WEEKLY</option>
 								<option value="MONTHLY">MONTHLY</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col">
+						<div class="ms-3 mt-3 titleOfAddbox">Mission status</div>
+						<div class="col">
+						<input type="text" class="statusOfMission" name="uid" value="${mission.status}" hidden>
+							<select name="Status" id="Status" class="statusMission cmsStatus missionAvailability titlebox ms-3 mt-2 me-3" required>
+								<option value="ACTIVE">ACTIVE</option>
+								<option value="INACTIVE">INACTIVE</option>
 							</select>
 						</div>
 					</div>
@@ -323,8 +340,8 @@
 					</div>
 
 					
-					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="addNewMission()">
-						<i class="bi bi-plus"></i>ADD
+					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="editMission()">
+						<i class="bi bi-plus"></i>Save
 					</button>
 				</div>
 			</div>
@@ -350,28 +367,31 @@
     <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script>
+    let mission_id=$(".missionId").val();
+    mission_id=Number(mission_id);
     let profilePic="";
-    let city="";
-	let country="";
+    let city=$(".cityOfMission").val();
+	let country=$(".countryOfMission").val();
+	let missionTheme=$(".themeOfMission").val();
+	let missionAvailability=$(".availabilityOfMission").val();
+	let missionType=$('.missionTypeOfMission').val();
+	let missionStatus=$('.statusOfMission').val();
 	var selectedSkill=[];
-	let missionTitle;
-	let missionShortDescription;
+	let missionTitle=$('.missionTitle').val();
+	let missionShortDescription=$('.missionShortDescription').val();
 	let missionDescription;
-	let missionOrganizationName;
-	let missionOrganizationDetail;
+	let missionOrganizationName=$('.organizationName').val();
+	let missionOrganizationDetail=$('.organizationDetail').val();
 	let missionStartDate;
 	let missionEndDate;
-	let missionType;
 	let missionSeats=0;
 	let registrationDeadline=new Date();
-	let missionTheme;
 	let missionSkill;
 	var files=[];
 	var docs=[];
 	let images=[];
 	let documents=[];
-	let missionAvailability;
-	let videoURL;
+	let videoURL="";
     var myeditor;
         $(document).ready(function () {
         	
@@ -405,6 +425,7 @@
 					addThemeList(themes);
 				}
 			});
+        	loadAllData();
         	$('.missionTitle').on('change', function() {
         		missionTitle = $('.missionTitle').val();
         	});
@@ -433,6 +454,9 @@
 			$('.missionEndDate').on('change', function() {
 				missionEndDate = $('.missionEndDate').val();
         	});
+			$('.statusMission').on('change', function() {
+				missionStatus = $('.statusMission').val();
+			});
 			$('.missionType').on('change', function() {
 				missionType = $('.missionType').val();
 				if(missionType=="GOAL"){
@@ -467,7 +491,40 @@
         	});
         	
         });
-        function addNewMission(){
+        function setMissionData(mission){
+        	timedate1= new Date(mission.start_date);
+        	timedate2= new Date(mission.end_date);
+        	$('.missionTitle').val(mission.title);
+        	$('.missionShortDescription').val(mission.short_description);
+        	myeditor.setData(mission.description);
+			$('.missionOrganizationName').val(mission.organization_name);
+        	$('.missionOrganizationDetail').val(mission.organization_detail);
+        	$('.missionStartDate').get(0).valueAsDate=timedate1;
+        	$('.missionEndDate').get(0).valueAsDate=timedate2;
+        	missionStartDate=timedate1;
+        	missionEndDate=timedate2;
+        	$('.missionType').val(mission.mission_type);
+			$('.missionSeats').val();
+        	$('.registrationDeadline').val();
+        	$('.statusOfMission').val();
+        	$('.missionAvailability').val(mission.availability);
+        	missionShortDescription=mission.short_description;
+        	missionOrganizationDetail=mission.organization_detail;
+        	missionOrganizationName=mission.organization_name;
+        	missionTitle=mission.title;
+        }
+        function loadAllData(){
+        	$.ajax({
+				url : "loadEditMissionDetails",
+				dataType : 'json',
+				data : {'mid' : mission_id},
+				type : "GET",
+				success : function(response) {
+					setMissionData(response);
+				}
+			});
+        }
+        function editMission(){
         	city=Number(city);
         	country=Number(country);
         	missionTheme=Number(missionTheme);
@@ -481,7 +538,7 @@
             for (var i = 0; i < totalDocFiles; i++) {
                 formData.append("documents",docs[i]);
             }
-            	formData.append("missionId",0);
+            	formData.append("missionId",mission_id);
 	        	formData.append("title", missionTitle);
 	        	formData.append("shortDescription", missionShortDescription);
 	        	formData.append("description", myeditor.getData());
@@ -498,22 +555,28 @@
 	        	formData.append("skill", selectedSkill);
 	        	formData.append("availability", missionAvailability);
 	        	formData.append("videoUrl", videoURL);
-	        	formData.append("status",ACTIVE);
-	        	
+	        	formData.append("status",missionStatus);
+	        	console.log(missionShortDescription);
+	        	console.log(missionOrganizationDetail);
+	        	console.log(missionOrganizationName);
+	        	console.log(missionTitle);
     			$.ajax({
-    				url : "addNewMission",
+    				url : "editMission",
     				dataType : 'json',
     				data:formData,
     	            type:"POST",
     	            processData: false,
     	            contentType: false,
     				success : function(response) {
-    					if(response==1){
-    						swal("Good job!", "Mission added successfully!", "success");
-//     						window.location.reload();
-    					}
-    					else{
-    						swal("Error!", "Email id already exists!", "error");
+    					console.log(response);
+    					if(response==true){
+    						swal({
+    						    title: "Done!",
+    						    text: "Mission edited successfully!",
+    						    type: "success"
+    						}).then(function() {
+    							window.location.reload();
+    						});
     					}
     				}
     			});

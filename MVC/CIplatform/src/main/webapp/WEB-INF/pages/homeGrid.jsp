@@ -598,7 +598,7 @@
 		    }
 		    $(".skillSelector").append(data);
 		    $(".skillSelectorSidebar").append(data);
-		    }
+		}
 		function  updateMissionsOnChange(){
        	let searchWord=$('.mySearchInput').val();
        	var selectedchips=""

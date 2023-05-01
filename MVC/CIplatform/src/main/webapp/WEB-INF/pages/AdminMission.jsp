@@ -13,13 +13,12 @@ pageEncoding="ISO-8859-1"%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel='stylesheet'
-	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin Mission</title>
     <link rel="stylesheet" href="css/Admin.css">
+    <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
@@ -189,8 +188,7 @@ pageEncoding="ISO-8859-1"%>
             </div>
         </div>
     </div>
-
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
@@ -238,15 +236,13 @@ pageEncoding="ISO-8859-1"%>
         	let data="";
         	let GEB="";
         	
-        	
-        	
-        	
         	for(var i in missions){
         		const dateObject1 = new Date(missions[i].start_date)
         		const humanDateFormat1 = dateObject1.toLocaleDateString("default");
         		const dateObject2 = new Date(missions[i].end_date)
         		const humanDateFormat2 = dateObject2.toLocaleDateString("default");
-        		GEB=`<div class="d-flex gap-2"><button class="d-flex"><img src="images/editing.png" alt=""></button>
+        		GEB=`<div class="d-flex gap-2">
+        				<a type="submit" class="d-flex btn" href="editMissionPage?mid=`+missions[i].mission_id+`&auid=${user.user_id}"><img src="images/editing.png" alt=""></a>
    	            	 <button onclick="deleteMission(`+missions[i].mission_id+`)"><img src="images/delete.png" alt="" ></button></div>`;
         		table.row.add([
         			missions[i].title,
@@ -258,16 +254,27 @@ pageEncoding="ISO-8859-1"%>
         	}
         }
         function deleteMission(uid){
-        	$.ajax({
-				url : "deleteMission",
-				dataType : 'json',
-				data : {'mission_id' : uid},
-				type : "GET",
-				success : function(response) {
-					swal("Success!", "Successfully deleted!", "success");
-					loadAllMissionForAdmin();
-				}
-			});
+        	swal({
+    	        title: "Warning",
+    	        text: "Are you sure you want to delete this mission?",
+    	        type: "warning",
+    	        showCancelButton: true,
+    	        confirmButtonColor: "#DD6B55",
+    	        confirmButtonText: "Ok ",
+    	        closeOnConfirm: false
+    	    }, function (isConfirm) {
+    	        if (!isConfirm) return;
+    	        $.ajax({
+						url : "deleteMission",
+						dataType : 'json',
+						data : {'mission_id' : uid},
+						type : "GET",
+						success : function(response) {
+							swal("Success!", "Successfully deleted!", "success");
+							loadAllMissionForAdmin();
+						}
+				});
+    	    });
         }
     </script>
 
