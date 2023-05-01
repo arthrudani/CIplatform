@@ -40,12 +40,12 @@ public class Mission {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id")
 	private Country country;
-	private int seats;
 	private String title;
 	private String short_description;
 	private String description;
 	private Date start_date;
 	private Date end_date;
+	private int seats;
 	@Enumerated(EnumType.STRING)
 	private mission_type mission_type;
 	@Enumerated(EnumType.STRING)
@@ -74,7 +74,7 @@ public class Mission {
 	@JsonIgnore
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionSkill> mission_skills;
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionRating> mission_ratings;
 	@JsonIgnore
@@ -86,7 +86,7 @@ public class Mission {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Mission(int mission_id, MissionTheme mission_theme, City city, Country country, int seats, String title,
+	public Mission(int mission_id, MissionTheme mission_theme, City city, Country country, String title,
 			String short_description, String description, Date start_date, Date end_date,
 			com.entities.Mission.mission_type mission_type, Status status, String organization_name,
 			String organization_detail, com.entities.Mission.availability availability, Date created_at,
@@ -97,7 +97,6 @@ public class Mission {
 		this.mission_theme = mission_theme;
 		this.city = city;
 		this.country = country;
-		this.seats = seats;
 		this.title = title;
 		this.short_description = short_description;
 		this.description = description;
@@ -115,7 +114,7 @@ public class Mission {
 		this.mission_ratings = mission_ratings;
 		this.mission_documents = mission_documents;
 	}
-
+	
 	public int getSeats() {
 		return seats;
 	}
@@ -123,6 +122,7 @@ public class Mission {
 	public void setSeats(int seats) {
 		this.seats = seats;
 	}
+
 	public int getMission_id() {
 		return mission_id;
 	}

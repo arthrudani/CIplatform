@@ -756,7 +756,7 @@
         	}
         
         function loopForFetchingMissionDetails(missions) {
-        	       	
+        	console.log(missions);
 			var htmlPageGrid = "";
 			var htmlPageList = "";
 			let sum=0;
