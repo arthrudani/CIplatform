@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import com.CIplatform.dto.AddCmsDto;
 import com.CIplatform.dto.AddNewMissionDto;
 import com.CIplatform.dto.AddNewUserDto;
+import com.entities.Banner;
 import com.entities.CmsPage;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionTheme;
+import com.entities.Skill;
 import com.entities.Story;
 import com.entities.User;
 
@@ -58,6 +60,26 @@ public interface AdminInterface {
 	void saveNewMission(AddNewMissionDto addNewMissionDto);
 
 	void editMission(AddNewMissionDto editMissionObject);
+
+	void saveNewMissionTheme(String title, String status);
+
+	void editTheme(int mtid, String title, String status);
+
+	List<Skill> loadAllSkillsForAdmin();
+
+	void deleteSkill(int skillId);
+
+	void saveNewSkill(String title, String status);
+
+	void editSkill(int skillId, String title, String status);
+
+	List<Banner> loadAllBannerForAdmin();
+
+	void saveNewBanner(String title, String image);
+
+	void deleteBanner(int bannerId);
+
+	void editBanner(int bannerId, String bannerTitle, String image);
 
 
 }

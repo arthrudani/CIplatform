@@ -1207,7 +1207,7 @@
 					                            </div>
 					                        </div>
 					                        <hr className='custom-hr m-0' style="margin: 0;" />
-					                       	<form action="VolunteeringMission" class="d-flex justify-content-center" method="POST" name="VolunteeringMission">
+					                       	<form action="VolunteeringMission" class="d-flex justify-content-center" method="GET" name="VolunteeringMission">
 						                        <button class="d-flex apply Apply__Mission" type="submit" style="min-width:120px";>
 													<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
 													<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>

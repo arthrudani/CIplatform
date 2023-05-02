@@ -17,10 +17,12 @@ import com.CIplatform.dto.AddNewUserDto;
 import com.CIplatform.dto.EditProfileObject;
 import com.CIplatform.service.AdminInterface;
 import com.CIplatform.service.MissionLoader;
+import com.entities.Banner;
 import com.entities.CmsPage;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionTheme;
+import com.entities.Skill;
 import com.entities.Story;
 import com.entities.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -50,6 +52,11 @@ public class AdminController {
 		List<MissionTheme> mylist = this.service.loadAllThemesForAdmin();
 		return mylist;
 	}
+	@RequestMapping(value = "/loadAllSkillsForAdmin")
+	public @ResponseBody List<Skill> loadAllSkillsForAdmin() {
+		List<Skill> mylist = this.service.loadAllSkillsForAdmin();
+		return mylist;
+	}
 	@RequestMapping(value = "/loadAllApplicationForAdmin")
 	public @ResponseBody List<MissionApplication> loadAllApplicationForAdmin() {
 		List<MissionApplication> mylist = this.service.loadAllApplicationForAdmin();
@@ -65,19 +72,33 @@ public class AdminController {
 		List<CmsPage> mylist = this.service.loadAllCmsForAdmin();
 		return mylist;
 	}
-	@RequestMapping(value = "/loadEditMissionDetails")
-	public @ResponseBody String loadEditMissionDetails(@RequestParam("mid") int mid) {
-		Mission mission=this.hibernateTemplate.get(Mission.class,mid);
-		ObjectMapper obj = new ObjectMapper();
-		String Output = "";
-		try {
-			Output = obj.writeValueAsString(mission);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return Output;
+	@RequestMapping(value = "/loadAllBannerForAdmin")
+	public @ResponseBody List<Banner> loadAllBannerForAdmin() {
+		List<Banner> mylist = this.service.loadAllBannerForAdmin();
+		return mylist;
 	}
+	
+	@RequestMapping(value = "/loadEditMissionDetails")
+	public @ResponseBody Mission loadEditMissionDetails(@RequestParam("mid") int mid) {
+		Mission mission=this.hibernateTemplate.get(Mission.class,mid);
+		return mission;
+	}
+	@RequestMapping(value = "/loadThemeDetail")
+	public @ResponseBody MissionTheme loadThemeDetail(@RequestParam("themeId") int themeId) {
+		MissionTheme missionTheme=this.hibernateTemplate.get(MissionTheme.class,themeId);
+		return missionTheme;
+	}
+	@RequestMapping(value = "/loadSkillDetail")
+	public @ResponseBody Skill loadSkillDetail(@RequestParam("skillId") int skillId) {
+		Skill skill=this.hibernateTemplate.get(Skill.class,skillId);
+		return skill;
+	}
+	@RequestMapping(value = "/loadBannerDetail",method = RequestMethod.POST)
+	public @ResponseBody Banner loadBannerDetail(@RequestParam("bannerId") int bannerId) {
+		Banner banner=this.hibernateTemplate.get(Banner.class,bannerId);
+		return banner;
+	}
+	
 	
 	
 	
@@ -96,6 +117,18 @@ public class AdminController {
 		this.service.deleteTheme(themeid);
 		return 0;
 	}
+	@RequestMapping(value = "/deleteSkill")
+	public @ResponseBody int deleteSkill(@RequestParam("skillId") int skillId) {
+		this.service.deleteSkill(skillId);
+		return 0;
+	}
+	@RequestMapping(value = "/deleteBanner")
+	public @ResponseBody int deleteBanner(@RequestParam("bannerId") int bannerId) {
+		this.service.deleteBanner(bannerId);
+		return 0;
+	}
+
+	
 	@RequestMapping(value = "/approveMissionApplication")
 	public @ResponseBody int approveMissionApplication(@RequestParam("application_Id") int applicationID) {
 		this.service.approveMissionApplication(applicationID);
@@ -142,6 +175,26 @@ public class AdminController {
 		int result = this.service.addNewUSer(AddUserObject);
 		return result;
 	}
+	@RequestMapping(value = "/addNewMission")
+	public @ResponseBody int addNewMission(AddNewMissionDto addNewMissionDto) {
+		this.service.saveNewMission(addNewMissionDto);
+		return 1;
+	}
+	@RequestMapping(value = "/addNewTheme")
+	public @ResponseBody int addNewTheme(@RequestParam("title") String title,@RequestParam("status") String status) {
+		this.service.saveNewMissionTheme(title,status);
+		return 1;
+	}
+	@RequestMapping(value = "/addNewSkill")
+	public @ResponseBody int addNewSkill(@RequestParam("title") String title,@RequestParam("status") String status) {
+		this.service.saveNewSkill(title,status);
+		return 1;
+	}
+	@RequestMapping(value = "/addNewBanner")
+	public @ResponseBody int addNewBanner(@RequestParam("bannerTitle") String title,@RequestParam("image") String image) {
+		this.service.saveNewBanner(title,image);
+		return 1;
+	}
 	@RequestMapping(value = "/loadCmsData")
 	public @ResponseBody String loadCmsData(@RequestParam("cmsid") int cmsid) {
 		CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
@@ -181,12 +234,31 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/editMissionThemePage")
 	public String editMissionThemePage(@RequestParam("mtid") int muid,@RequestParam("auid") int auid,Model m) {
-		User adminuser=this.hibernateTemplate.get(User.class, auid);
+		User user=this.hibernateTemplate.get(User.class, auid);
 		MissionTheme missionTheme=this.hibernateTemplate.get(MissionTheme.class,muid);
-		m.addAttribute("MissionTheme",missionTheme);
-		m.addAttribute("user",adminuser);
+		m.addAttribute("missionTheme",missionTheme);
+		m.addAttribute("user",user);
 		return "AdminEditTheme";
 	}
+	@RequestMapping(value = "/editSkillPage")
+	public String editSkillPage(@RequestParam("sid") int sid,@RequestParam("auid") int auid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, auid);
+		Skill skill=this.hibernateTemplate.get(Skill.class,sid);
+		m.addAttribute("skill",skill);
+		m.addAttribute("user",user);
+		return "AdminEditSkill";
+	}
+	@RequestMapping(value = "/editBannerPage")
+	public String editBannerPage(@RequestParam("bid") int bid,@RequestParam("auid") int auid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, auid);
+		Banner banner=this.hibernateTemplate.get(Banner.class,bid);
+		m.addAttribute("banner",banner);
+		m.addAttribute("user",user);
+		return "AdminEditBanner";
+	}
+
+	
+	
 	@RequestMapping(value = "/editCms")
 	public @ResponseBody String editCms(@RequestParam("cmsid") int cmsid,@RequestParam("EditCmsObject") String EditCmsObject) {
 		CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
@@ -194,7 +266,6 @@ public class AdminController {
 		ObjectMapper obj = new ObjectMapper();
 		try {
 			AddCmsDto addCmsDto = obj.readValue(EditCmsObject, AddCmsDto.class);
-			System.out.println(addCmsDto.getDescription());
 			this.service.editCms(cmsPage,addCmsDto);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
@@ -221,17 +292,28 @@ public class AdminController {
 		this.service.editMission(EditMissionObject);
 		return true;
 	}
+	@RequestMapping(value = "/editTheme",method = RequestMethod.POST)
+	public @ResponseBody boolean editTheme(@RequestParam("mtid") int mtid,@RequestParam("title") String title,@RequestParam("status") String status) {
+		this.service.editTheme(mtid,title,status);
+		return true;
+	}
+	@RequestMapping(value = "/editSkill",method = RequestMethod.POST)
+	public @ResponseBody boolean editSkill(@RequestParam("skillId") int skillId,@RequestParam("title") String title,@RequestParam("status") String status) {
+		this.service.editSkill(skillId,title,status);
+		return true;
+	}
+	@RequestMapping(value = "/editBanner",method = RequestMethod.POST)
+	public @ResponseBody boolean editBanner(@RequestParam("bannerId") int bannerId,@RequestParam("bannerTitle") String bannerTitle,@RequestParam("image") String image) {
+		this.service.editBanner(bannerId,bannerTitle,image);
+		return true;
+	}
+	
+	
 	@RequestMapping(value = "/addNewUserPage")
 	public String addNewUserPage(@RequestParam("uid") int uid,Model m) {
 		User user=this.hibernateTemplate.get(User.class, uid);
 		m.addAttribute("user",user);
 		return "AdminAddUser";
-	}
-	@RequestMapping(value = "/addNewThemePage")
-	public String addNewThemePage(@RequestParam("uid") int uid,Model m) {
-		User user=this.hibernateTemplate.get(User.class, uid);
-		m.addAttribute("user",user);
-		return "AdminAddTheme";
 	}
 	@RequestMapping(value = "/addNewMissionPage")
 	public String addNewMissionPage(@RequestParam("uid") int uid,Model m) {
@@ -239,12 +321,25 @@ public class AdminController {
 		m.addAttribute("user",user);
 		return "AdminAddMission";
 	}
-	@RequestMapping(value = "/addNewMission")
-	public @ResponseBody int addNewMission(AddNewMissionDto addNewMissionDto) {
-		System.out.println(addNewMissionDto.getImages());
-		this.service.saveNewMission(addNewMissionDto);
-		return 1;
+	@RequestMapping(value = "/addNewThemePage")
+	public String addNewThemePage(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddTheme";
 	}
+	@RequestMapping(value = "/addNewSkillPage")
+	public String addNewSkillPage(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddSkill";
+	}
+	@RequestMapping(value = "/addNewBannerPage")
+	public String addNewBannerPage(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "AdminAddBanner";
+	}
+	
 	
 	
 	

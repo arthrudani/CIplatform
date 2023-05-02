@@ -22,14 +22,16 @@
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="" type="images/x-icon">
 <link rel="stylesheet" href="css/Login.css">
-<script src="js/home.js"></script>
-</head> 
+<script src="js/login.js"></script>
+</head>
+
 
 
 <body>
@@ -44,71 +46,10 @@
 
 					<div id="carouselExampleDark" class="carousel carousel-dark slide"
 						data-bs-ride="carousel">
-						<div class="carousel-indicators">
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="0" class="active" aria-current="true"
-								aria-label="Slide 1"></button>
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="1" aria-label="Slide 2"></button>
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="2" aria-label="Slide 3"></button>
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="3" aria-label="Slide 4"></button>
-						</div>
-						<div class="carousel-inner">
+						<div class="carousel-indicators indicators">
 
-							<div class="carousel-item active" data-bs-interval="1000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="...">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet consectetur.</h5>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Quo sint ad dolorem ullam? Rem modi blanditiis molestias.
-										Voluptas magnam minus repellat temporibus voluptatem itaque
-										officiis.</p>
-								</div>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="... ">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet consectetur.</h5>
-									<p>Lorem ipsum dolor, sit amet consectetur adipisicing
-										elit. Tenetur molestias maxime iste eum magnam. Obcaecati
-										repellat quia iste accusamus corporis eius, ea ullam
-										accusantium necessitatibus?</p>
-								</div>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="...">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet.</h5>
-									<p>Lorem ipsumf dolor sit amet consectetur adipisicing
-										elit. Quidem quasi laborum id nam neque pariatur suscipit,
-										minus est, repellendus at enim excepturi ipsam facilis
-										dignissimos?</p>
-								</div>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="...">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet.</h5>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Nisi quia tempora quibusdam amet architecto et mollitia
-										voluptatem repellat id reprehenderit. Voluptate cupiditate
-										explicabo inventore aut.</p>
-								</div>
-							</div>
+						</div>
+						<div class="carousel-inner carouserImages">
 
 						</div>
 					</div>
@@ -128,14 +69,7 @@
 					<div class="row">
 						<div class="myform form">
 							<div class="myform form">
-								<div class="logo mb-3">
-									<div class="col-md-12 text-center">
-										<img
-											src="images/logo.png"
-											alt="">
-									</div>
-								</div>
-								<form action="verifyuser" method="post" name="login">
+								<form action="verifyuser" method="post" name="login" id="loginForm">
 									<div class="form-group">
 										<label for="exampleInputEmail1" class="box">Email
 											address</label> <input type="email" name="email" class="form-control"
@@ -145,12 +79,12 @@
 									<div class="form-group">
 										<label for="exampleInputEmail1" class="box">Password</label> <input
 											type="password" name="password" id="password"
-											class="form-control" aria-describedby="emailHelp"
+											class="form-control password" aria-describedby="emailHelp"
 											placeholder="Enter Password" required>
 									</div>
 									<div class="col-md-12 d-grid gap-2 text-center mt-4">
-										<button type="submit"
-											class=" btn btn-block mybtn btn-outline-warning tx-tfm"
+										<button type="submit" 
+											class="loginButton btn btn-block mybtn btn-outline-warning tx-tfm"
 											style="border-radius: 50px;">Login</button>
 									</div>
 									<div class="form-group mt-3 link">
@@ -186,22 +120,71 @@
 
 
 		</div>
-
-		<script
-			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-			integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-			integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-			crossorigin="anonymous"></script>
-</body>
-
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
 	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
 	integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
 	crossorigin="anonymous"></script>
+<script>
+	let password="";
+	$(document).ready(function() {
+		$.ajax({
+			url : "loadAllBanner",
+			dataType : 'json',
+			success : function(response) {
+				console.log(response);
+				setbanner(response);
+			}
+		});
+		$('.password').keyup(function(){
+			password=$('.password').val();
+        });
+	});
+	$(".loginButton").click(function(e){
+		e.preventDefault();
+		if($('.password').val().length>7){
+			$("#loginForm").submit();
+		}
+		else if($('.warning').val()!=""){
+			$('.password').after("<div class='text-danger warning'>Please enter valid password</div>");
+		}
+	});
+	function setbanner(banner){
+		let data1="";
+		let data2="";
+		for(i in banner){
+			if(i==0){
+				data2=`<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="`+i+`" class="active" aria-current="true"
+						aria-label="Slide 1"></button>`;
+						
+				data1+=`<div class="carousel-item active" data-bs-interval="2000">
+						<img src="images/`+banner[i].image+`" class="d-block w-100 size-fix" alt="...">
+							<div class="carousel-caption d-none d-md-block"
+								style="color: white; text-align: left;">
+								<p>`+banner[i].text+`</p>
+							</div>
+						</div>`;
+			}
+			else{
+				data2+=`<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="`+i+`" aria-label="Slide 2"></button>`;
+						
+				data1+=`<div class="carousel-item" data-bs-interval="2000">
+						<img src="images/`+banner[i].image+`" class="d-block w-100 size-fix" alt="..." > 
+							<div class="carousel-caption d-none d-md-block"
+								style="color: white; text-align: left;">
+								<p>`+banner[i].text+`</p>
+							</div>
+						</div>`;
+			}
+			
+		}
+		$('.carouserImages').html(data1);
+		$('.indicators').html(data2);
+	}
+</script>
+</body>
+</html>

@@ -34,7 +34,6 @@ pageEncoding="ISO-8859-1"%>
         <div class="row flex-nowrap">
 
             
-            <!-- modal for change password -->
             <div class="modal " id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -183,7 +182,6 @@ pageEncoding="ISO-8859-1"%>
                                 class="searchBoxPh">
                         </div>
                     </div>
-                    <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
                 </div>
 
                 <!-- table -->

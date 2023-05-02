@@ -15,6 +15,7 @@ import com.CIplatform.dao.AdminDaoInterface;
 import com.CIplatform.dto.AddCmsDto;
 import com.CIplatform.dto.AddNewMissionDto;
 import com.CIplatform.dto.AddNewUserDto;
+import com.entities.Banner;
 import com.entities.City;
 import com.entities.CmsPage;
 import com.entities.Country;
@@ -104,7 +105,8 @@ public class AdminService implements AdminInterface{
 	public void deleteStoryApplication(int applicationID) {
 		Story story=this.hibernateTemplate.get(Story.class, applicationID);
 		if(story!=null) {
-			story.setDeleted_at(new Date());;;
+			story.setDeleted_at(new Date());
+			story.setStatus(status.DELINED);
 			this.hibernateTemplate.saveOrUpdate(story);
 		}
 	}
@@ -388,12 +390,95 @@ public class AdminService implements AdminInterface{
 			}
 		}
 	}
-
-	
+	@Transactional
+	public void saveNewMissionTheme(String title, String status) {
+		MissionTheme missionTheme=new MissionTheme();
+		missionTheme.setCreated_at(new Date());
+		missionTheme.setStatus(status);
+		missionTheme.setTitle(title);
+		this.hibernateTemplate.save(missionTheme);
+	}
+	@Transactional
+	public void editTheme(int mtid, String title, String status) {
+		MissionTheme missionTheme=this.hibernateTemplate.get(MissionTheme.class,mtid);
+		if(title!="") {
+			missionTheme.setTitle(title);
+		}
+		if(status!="") {
+			missionTheme.setStatus(status);
+		}
+		missionTheme.setUpdated_at(new Date());
+		this.hibernateTemplate.saveOrUpdate(missionTheme);
+	}
+	@Transactional
+	public void deleteSkill(int skillid) {
+		Skill skill=this.hibernateTemplate.get(Skill.class, skillid);
+		if(skill!=null) {
+			skill.setDeleted_at(new Date());
+			this.hibernateTemplate.saveOrUpdate(skill);
+		}
+	}
+	@Transactional
+	public void saveNewSkill(String title, String status) {
+		Skill skill=new Skill();
+		skill.setCreated_at(new Date());
+		if(status.equalsIgnoreCase("ACTIVE")) {
+			skill.setStatus(com.entities.Skill.Status.ACTIVE);
+		}
+		else {
+			skill.setStatus(com.entities.Skill.Status.INACTIVE);
+		}
+		skill.setSkill_name(title);
+		this.hibernateTemplate.save(skill);
+	}
+	@Transactional
+	public void editSkill(int skillId, String title, String status) {
+		Skill skill=this.hibernateTemplate.get(Skill.class,skillId);
+		if(title!="") {
+			skill.setSkill_name(title);
+		}
+		if(status.equalsIgnoreCase("ACTIVE")) {
+			skill.setStatus(com.entities.Skill.Status.ACTIVE);
+		}
+		else {
+			skill.setStatus(com.entities.Skill.Status.INACTIVE);
+		}
+		skill.setUpdated_at(new Date());
+		this.hibernateTemplate.saveOrUpdate(skill);
+	}
+	@Transactional
+	public void saveNewBanner(String title, String image) {
+		Banner banner=new Banner();
+		banner.setCreatedAt(new Date());
+		banner.setImage(image);
+		banner.setText(title);
+		this.hibernateTemplate.save(banner);
+	}
+	@Transactional
+	public void deleteBanner(int bannerId) {
+		Banner banner=this.hibernateTemplate.get(Banner.class,bannerId);
+		banner.setDeletedAt(new Date());
+		this.hibernateTemplate.saveOrUpdate(banner);
+	}
+	@Transactional
+	public void editBanner(int bannerId, String bannerTitle, String image) {
+		Banner banner=this.hibernateTemplate.get(Banner.class,bannerId);
+		if(bannerTitle!="") {
+			banner.setText(bannerTitle);
+		}
+		if(image!="") {
+			banner.setImage(image);
+		}
+		banner.setUpdatedAt(new Date());
+		this.hibernateTemplate.saveOrUpdate(banner);
+	}
 	
 	
 	public List<User> loadAllUsersForAdmin() {
 		return this.adminDaoInterface.loadAllUsersForAdmin();
+	}
+	public List<Skill> loadAllSkillsForAdmin() {
+		return this.adminDaoInterface.loadAllSkillsForAdmin();
 	}
 	public List<Mission> loadAllMissionForAdmin() {
 		return this.adminDaoInterface.loadAllMissionForAdmin();
@@ -410,5 +495,10 @@ public class AdminService implements AdminInterface{
 	public List<CmsPage> loadAllCmsForAdmin() {
 		return this.adminDaoInterface.loadAllCmsForAdmin();
 	}
+	public List<Banner> loadAllBannerForAdmin() {
+		return this.adminDaoInterface.loadAllBannerForAdmin();
+	}
+
+
 	
 }

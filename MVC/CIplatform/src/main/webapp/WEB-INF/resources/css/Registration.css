@@ -7,8 +7,7 @@
 
 .form-control{
     line-height: 0;
-    width: 70%;
-    margin-left: 15%;
+    width: 100%;
     padding-top: 0.3% !important;
 }
 
@@ -51,8 +50,7 @@ h3 {
 
 .mybtn {
     border-radius: 50px;
-    width: 72%;
-    margin-left: 14%;
+    width: 100%;
 }
 
 .login-or {
@@ -125,4 +123,8 @@ input::placeholder{
     .first{
         margin-top: 0%;
     }
+    .carousel-item img{
+		min-height:350px !important;
+		max-height:350px !important;
+	}
 }

@@ -132,10 +132,6 @@
 	margin-right: 1%;
 }
 
-.upperButtons {
-	width: 20%;
-}
-
 .spacearound {
 	justify-content: space-between;
 }
@@ -148,7 +144,9 @@
 	max-width: 100%;
 	flex: 0 0 100%;
 }
-
+.navbar-nav{
+	margin:0 !important;
+}
 .list-view .card {
 	flex-direction: row;
 }

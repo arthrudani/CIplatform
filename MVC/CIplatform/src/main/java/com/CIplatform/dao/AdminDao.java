@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 
 import com.entities.User;
 import com.entities.User.type;
+import com.entities.Banner;
 import com.entities.CmsPage;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionApplication.approval;
 import com.entities.MissionTheme;
+import com.entities.Skill;
 import com.entities.Story;
 import com.entities.Story.status;
 @Component
@@ -38,6 +40,11 @@ public class AdminDao implements AdminDaoInterface{
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		return q.list();
 	}
+	public List<Skill> loadAllSkillsForAdmin() {
+		String que = "from Skill where (deleted_at is null)";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		return q.list();
+	}
 	public List<MissionApplication> loadAllApplicationForAdmin() {
 		String que = "from MissionApplication where approval_status=:status";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
@@ -52,6 +59,11 @@ public class AdminDao implements AdminDaoInterface{
 	}
 	public List<CmsPage> loadAllCmsForAdmin() {
 		String que = "from CmsPage where (deleted_at is null)";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		return q.list();
+	}
+	public List<Banner> loadAllBannerForAdmin() {
+		String que = "from Banner where (deleted_at is null)";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
 		return q.list();
 	}

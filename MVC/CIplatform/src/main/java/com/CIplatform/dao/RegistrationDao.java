@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.CIplatform.service.SendMailSSL;
 import com.CIplatform.service.TokenGenerator;
+import com.entities.Banner;
 import com.entities.Country;
 import com.entities.PasswordReset;
 import com.entities.User;
@@ -99,44 +101,38 @@ public class RegistrationDao {
 		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from PasswordReset where token=:token");
 		query.setParameter("token", token);
 		PasswordReset password_reset = (PasswordReset) query.uniqueResult();
-		Date tokentime=password_reset.getCreated_at();
-		System.out.println("old token created at : "+ password_reset.getCreated_at());
-		Date current_time=new Date();
-		System.out.println("current time : "+current_time);
-		if(current_time.getTime() - tokentime.getTime() > 1000000) {
-			this.deletetoken(password_reset);
-			System.out.println("Token deleted");
-			return "false";
+		
+		if(password_reset!=null) {
+			Date tokentime=password_reset.getCreated_at();
+			Date current_time=new Date();
+			if(current_time.getTime() - tokentime.getTime() > 1000000) {
+				this.deletetoken(password_reset);
+				return "false";
+			}
+			else if (password_reset != null) {
+				return password_reset.getEmail();
+			}
+			return token;
 		}
-		else if (password_reset != null) {
-			System.out.println("Token not deleted and valid");
-			return password_reset.getEmail();
-		}
-		return token; 
+		return "false"; 
 	}
 
 	@Transactional
 	public String passChanger(String password,String email) throws ClassNotFoundException, SQLException {
+		Query query = this.hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from User where email=:email");
+		query.setParameter("email", email);
+		User user=(User) query.uniqueResult();
+		user.setPassword(password);
+		this.hibernateTemplate.saveOrUpdate(user);
 		
-		Class.forName("com.mysql.cj.jdbc.Driver");
-        //creating connection
-        String url="jdbc:mysql://localhost:3306/ciplatform";
-        String username="root";
-        String password1="ZXcv!@34";
-        Connection con=DriverManager.getConnection(url,username,password1);
-		String q="update user set password=? where email=?";
-		PreparedStatement pstmt=con.prepareStatement(q);
-		pstmt.setString(1,password);
-        pstmt.setString(2,email);
-        pstmt.executeUpdate();
-
-        String q1="delete from PasswordReset where email=?";
-		PreparedStatement pstmt1=con.prepareStatement(q1);
-        pstmt1.setString(1,email);
-        pstmt1.executeUpdate();
-        
-        con.close();
-		
+		Query query1= this.hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from PasswordReset where email=:email");
+		query1.setParameter("email", email);
+		PasswordReset password_reset = (PasswordReset) query1.uniqueResult();
+		this.hibernateTemplate.delete(password_reset);
 		return "true";
+	}
+	public List<Banner> loadAllBanner() {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from Banner where (deleted_at is null)");
+		return query.list();
 	}
 }

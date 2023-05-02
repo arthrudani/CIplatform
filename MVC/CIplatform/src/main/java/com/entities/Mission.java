@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.entities.Mission.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,6 +49,9 @@ public class Mission {
 	private Date start_date;
 	private Date end_date;
 	private int seats;
+	@Column(name = "seats_left")
+	private int seatsLeft;
+	private Date deadline;
 	@Enumerated(EnumType.STRING)
 	private mission_type mission_type;
 	@Enumerated(EnumType.STRING)
@@ -75,8 +81,10 @@ public class Mission {
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionSkill> mission_skills;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionRating> mission_ratings;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionDocument> mission_documents;
@@ -115,6 +123,22 @@ public class Mission {
 		this.mission_documents = mission_documents;
 	}
 	
+	public int getSeatsLeft() {
+		return seatsLeft;
+	}
+
+	public void setSeatsLeft(int seatsLeft) {
+		this.seatsLeft = seatsLeft;
+	}
+
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+
 	public int getSeats() {
 		return seats;
 	}

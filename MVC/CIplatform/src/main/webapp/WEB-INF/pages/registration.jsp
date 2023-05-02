@@ -26,6 +26,7 @@
 	crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
@@ -49,72 +50,11 @@
 
 					<div id="carouselExampleDark" class="carousel carousel-dark slide"
 						data-bs-ride="carousel">
-						<div class="carousel-indicators">
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="0" class="active" aria-current="true"
-								aria-label="Slide 1"></button>
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="1" aria-label="Slide 2"></button>
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="2" aria-label="Slide 3"></button>
-							<button type="button" data-bs-target="#carouselExampleDark"
-								data-bs-slide-to="3" aria-label="Slide 4"></button>
+						<div class="carousel-indicators indicators">
+							
 						</div>
-						<div class="carousel-inner">
-
-							<div class="carousel-item active" data-bs-interval="1000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="...">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet consectetur.</h5>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Quo sint ad dolorem ullam? Rem modi blanditiis molestias.
-										Voluptas magnam minus repellat temporibus voluptatem itaque
-										officiis.</p>
-								</div>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="... ">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet consectetur.</h5>
-									<p>Lorem ipsum dolor, sit amet consectetur adipisicing
-										elit. Tenetur molestias maxime iste eum magnam. Obcaecati
-										repellat quia iste accusamus corporis eius, ea ullam
-										accusantium necessitatibus?</p>
-								</div>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="...">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet.</h5>
-									<p>Lorem ipsumf dolor sit amet consectetur adipisicing
-										elit. Quidem quasi laborum id nam neque pariatur suscipit,
-										minus est, repellendus at enim excepturi ipsam facilis
-										dignissimos?</p>
-								</div>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-								<img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
-									class="d-block w-100 size-fix" alt="...">
-								<div class="carousel-caption d-none d-md-block"
-									style="color: white; text-align: left;">
-									<h5>Lorem ipsum dolor sit amet.</h5>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Nisi quia tempora quibusdam amet architecto et mollitia
-										voluptatem repellat id reprehenderit. Voluptate cupiditate
-										explicabo inventore aut.</p>
-								</div>
-							</div>
-
+						<div class="carousel-inner carouserImages">
+						
 						</div>
 					</div>
 
@@ -130,45 +70,45 @@
 					<div class="row"></div>
 					<div class="row">
 						<div class="myform">
-							<form action="savedata" method="POST" name="login" onsubmit="return verifyPassword()">
+							<form action="savedata" method="POST" name="login" class="registerForm" onsubmit="return verifyPassword()">
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="first"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">First
-										name</label> <input type="Text" name="first_name" class="form-control "
+										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">First
+										name</label> <input type="Text" name="first_name" class="form-control firstName"
 										id="fname" aria-describedby="emailHelp"
 										placeholder="Enter first name" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Last
-										name</label> <input type="text" name="last_name" class="form-control"
+										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Last
+										name</label> <input type="text" name="last_name" class="form-control lastName"
 										id="lname" aria-describedby="emailHelp"
 										placeholder="Enter last name" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Phone
+										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Phone
 										number</label> <input type="tel" name="phone_number" id="number"
 										class="form-control" aria-describedby="emailHelp"
 										placeholder="Enter phone number">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Email
+										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Email
 										address</label> <input type="email" name="email" class="form-control email"
 										id="email" aria-describedby="emailHelp"
 										placeholder="Enter email" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">New
+										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">New
 										Password</label> <input type="password" name="password" id="password"
 										class="form-control password" aria-describedby="emailHelp"
 										placeholder="**************" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
-										style="font-size: 0.6rem; color: #8d8a8a; padding-left: 15%; padding-bottom: -1%;">Confirm
+										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Confirm
 										Password</label> <input type="password" name="confpassword"
 										id="confpassword" class="form-control"
 										aria-describedby="emailHelp" placeholder="**************"
@@ -176,7 +116,7 @@
 								</div>
 								<div class="col-md-12 d-grid gap-2 text-center mt-4">
 									<button type="submit"
-										class=" btn btn-block mybtn btn-outline-warning "
+										class=" btn btn-block registerButton mybtn btn-outline-warning "
 										style="border-radius: 50px;" >Register</button>
 								</div>
 								<div class="form-group mt-3 link">
@@ -208,27 +148,96 @@
 	</div>
 	<script>
 	$(document).ready(function() {
-		console.log($('.email').val());
-		console.log($('.password').val());
+		$.ajax({
+			url : "loadAllBanner",
+			dataType : 'json',
+			success : function(response) {
+				setbanner(response);
+			}
+		});
 		$('.email').val('');
 		$('.password').val('');
 	});
+	$(".registerButton").click(function(e){
+		e.preventDefault();
+		if($('.password').val().length>7 && $('.email').val()!="" && $('.firstName').val()!="" && $('.lastName').val()!=""){
+			$(".registerForm").submit();
+		}
+		else{
+			if($('.password').val().length<8 && $('.warning').val()!=""){
+				$('.password').after("<div class='text-danger warning'>Please enter valid password</div>");
+			}
+			else{
+				$('.password').after("");
+			}
+			if($('.email').val().length<1 && $('.warning1').val()!=""){
+				$('.email').after("<div class='text-danger warning1'>Please enter valid email</div>");
+			}
+			else{
+				$('.email').after("");
+			}
+			if($('.firstName').val().length<1 && $('.warning2').val()!=""){
+				$('.firstName').after("<div class='text-danger warning2'>This field is required</div>");
+			}
+			else{
+				$('.firstName').after("");
+			}
+			if($('.lastName').val().length<1 && $('.warning3').val()!=""){
+				$('.lastName').after("<div class='text-danger warning3'>This field is required</div>");
+			}
+			else{
+				$('.lastName').after("");
+			}
+		}
+	});	
 
-
-
+	function setbanner(banner){
+		let data1="";
+		let data2="";
+		for(i in banner){
+			if(i==0){
+				data2=`<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="`+i+`" class="active" aria-current="true"
+						aria-label="Slide 1"></button>`;
+						
+				data1+=`<div class="carousel-item active" data-bs-interval="2000">
+						<img src="images/`+banner[i].image+`" class="d-block w-100 size-fix" alt="...">
+							<div class="carousel-caption d-none d-md-block"
+								style="color: white; text-align: left;">
+								<p>`+banner[i].text+`</p>
+							</div>
+						</div>`;
+			}
+			else{
+				data2+=`<button type="button" data-bs-target="#carouselExampleDark"
+						data-bs-slide-to="`+i+`" aria-label="Slide 2"></button>`;
+						
+				data1+=`<div class="carousel-item" data-bs-interval="2000">
+						<img src="images/`+banner[i].image+`" class="d-block w-100 size-fix" alt="..." > 
+							<div class="carousel-caption d-none d-md-block"
+								style="color: white; text-align: left;">
+								<p>`+banner[i].text+`</p>
+							</div>
+						</div>`;
+			}
+			
+		}
+		$('.carouserImages').html(data1);
+		$('.indicators').html(data2);
+	}
 	function verifyPassword() {  
-	  var pw = document.getElementById("password").value;
-	  var cpw = document.getElementById("confpassword").value;
-	  if(pw.length<8){
-		  swal("Error!", "Minimum length is 8 character!", "error");
-		  return false;
-	  }
+		var pw = document.getElementById("password").value;
+	  	var cpw = document.getElementById("confpassword").value;
+	  	if(pw.length<8){
+		  	swal("Error!", "Minimum length is 8 character!", "error");
+		  	return false;
+	  	}
 	  
-	  if(pw != cpw) {  
+	  	if(pw != cpw) {  
 		  	swal("Error!", "Password and confirm password are not same!", "error");
 	     	return false;
-	  }
-	    return true;
+	  	}
+	  	return true;
 	}   
 	</script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

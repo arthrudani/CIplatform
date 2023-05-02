@@ -129,6 +129,12 @@
 				<value>
 					com.entities.GoalMission
 				</value>
+				<value>
+					com.entities.Banner
+				</value>
+				<value>
+					com.entities.Admin
+				</value>
 			</list>
 		</property>
 	</bean>

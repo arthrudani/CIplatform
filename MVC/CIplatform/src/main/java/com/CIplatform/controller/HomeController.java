@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CIplatform.dao.LandingpageDao;
 import com.CIplatform.dao.RegistrationDao;
+import com.entities.Banner;
 import com.entities.City;
 import com.entities.Country;
 import com.entities.Mission;
@@ -90,7 +91,7 @@ public class HomeController {
 			}
 		}
 		else {
-			m.addAttribute("msg" , "Email id or password is incorrect");
+			m.addAttribute("msg","Email id or password is incorrect");
 			return "login";
 		}
 	}
@@ -115,17 +116,13 @@ public class HomeController {
 		String email=this.registrationDao.tokencheck(token);
 		
 		if (email == "false") {	
-			System.out.println("generate new token");
 			m.addAttribute("email","Please send new mail");
 			return "ForgotPass";
 		}
-		else if (email != "") {	
-			System.out.println("email and token exists in database");
+		else if (email != "") {
 			m.addAttribute("email",email);
 			return "ResetPassword";
 		} else {
-			System.out.println(token);
-			System.out.println("email and token does not exists in database");
 			return "ForgotPass";
 		}
 	}
@@ -135,48 +132,12 @@ public class HomeController {
 		this.registrationDao.passChanger(password,email);
 		return "login";
 	}
+	@RequestMapping(value = "/loadAllBanner")
+	public @ResponseBody List<Banner> loadAllBanner() {
+		System.out.println("hello");
+		System.out.println(this.registrationDao.loadAllBanner());
+		return this.registrationDao.loadAllBanner();
+	}
 	
-//	@RequestMapping(value = "/searchMissions", method = RequestMethod.POST)
-//	public @ResponseBody String searchMissions(@RequestParam("key") String key){
-//		List<mission> result=this.landingpageDao.fetchmissionsbysearching(key);
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		String json=null;
-//		try {
-//			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
-//	      } catch(Exception e) {
-//	         e.printStackTrace();
-//	      }
-//		return json;
-//	}
-//	
-//	@RequestMapping(value = "/searchMissionsByCountry", method = RequestMethod.POST)
-//	public @ResponseBody String searchMissionsByCountry(@RequestParam("key") String key){
-//		int countryid=this.landingpageDao.fetchCountryIdbyCountryName(key);
-//		List<mission> result=this.landingpageDao.fetchmissionsbycountry(countryid);
-//		
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		String json=null;
-//		try {
-//			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
-//	      } catch(Exception e) {
-//	         e.printStackTrace();
-//	      }
-//		return json;
-//	}
-//	
-//	@RequestMapping(value = "/searchMissionsByCity", method = RequestMethod.POST)
-//	public @ResponseBody String searchMissionsByCity(@RequestParam("key") String key){
-//		int cityid=this.landingpageDao.fetchCountryIdbyCityName(key);
-//		List<mission> result=this.landingpageDao.fetchmissionsbycity(cityid);
-//		
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		String json=null;
-//		try {
-//			 json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
-//	      } catch(Exception e) {
-//	         e.printStackTrace();
-//	      }
-//		return json;
-//	}
-//	
+
 }

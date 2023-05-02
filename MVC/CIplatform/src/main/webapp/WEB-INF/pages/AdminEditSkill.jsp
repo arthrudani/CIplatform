@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,35 +13,37 @@ pageEncoding="ISO-8859-1"%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel='stylesheet'
-	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
-    <title>Admin Mission Theme</title>
+    <title>Admin Edit Skill</title>
     <link rel="stylesheet" href="css/Admin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.3.2/css/rowReorder.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
+	<div class="container-fluid">
+		<div class="row flex-nowrap">
 
-            <!-- sidebar -->
-            <div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
-                <div class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline">Menu</span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+			<!-- sidebar -->
+			<div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
+				<div
+					class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
+					<a href="/"
+						class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
+						<span class="fs-5 d-none d-sm-inline">Menu</span>
+					</a>
+					<input type="text" class="skillID" name="mtid" value="${skill.skill_id}" hidden>
+					<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                         id="menu">
 
                         <li class="nav-item  ">
@@ -71,24 +73,25 @@ pageEncoding="ISO-8859-1"%>
 	                            </a></button>
                             </form>
                         </li>
-                        <li class="nav-item activepage">
-                            <form action="missionThemeLoader" name="missionThemeLoader">
-								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
-	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
-	                                <i class="bi bi-columns-gap"  style="color: #F88634;"></i> <span
-	                                    class="ms-2 d-none d-sm-inline sidebarbuttons"  style="color: #F88634;">Mission Theme</span>
-	                            </a></button>
-                            </form>
-                        </li>
                         <li class="nav-item">
-                            <form action="missionSkillLoader" name="missionSkillLoader">
+                            <form action="missionThemeLoader" name="missionSkillLoader">
 								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
 	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
-	                                <i class="bi bi-tools"></i></i><span
-	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Skill</span>
+	                                <i class="bi bi-columns-gap"></i><span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons">Mission Theme</span>
 	                            </a></button>
                             </form>
                         </li>
+                        <li class="nav-item activepage">
+                            <form action="missionSkillLoader" name="missionThemeLoader">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+	                            <button type="submit" class="dropdown-item"><a class="nav-link align-middle px-0">
+	                                <i class="bi bi-tools"  style="color: #F88634;"></i> <span
+	                                    class="ms-2 d-none d-sm-inline sidebarbuttons"  style="color: #F88634;">Mission Skill</span>
+	                            </a></button>
+                            </form>
+                        </li>
+                        
                         <li class="nav-item">
                             <form action="missionApplicationLoader" name="missionApplicationLoader">
 								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
@@ -117,16 +120,17 @@ pageEncoding="ISO-8859-1"%>
                             </form>
                         </li>
                     </ul>
-                    <hr>
-                </div>
-            </div>
+					<hr>
+				</div>
+			</div>
 
-            <!-- main content -->
-            <div class="col py-3">
-                <div class="headerbar d-flex justify-content-between">
-                    <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
-                    <div class="d-flex justify-content-between align-items-center ">
-                        <li class="nav-item dropdown">
+			<!-- main content -->
+			<div class="col py-3">
+				<div class="headerbar d-flex justify-content-between">
+					<div class="d-flex align-items-center">Thursday november 3,
+						2022, 10:06 AM</div>
+					<div class="d-flex justify-content-between align-items-center ">
+						<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                                 id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -146,53 +150,33 @@ pageEncoding="ISO-8859-1"%>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                    </div>
-                </div>
-                <div class="headerborder"></div>
+					</div>
+				</div>
+				<div class="headerborder"></div>
 
-                <div class="EPbasicInfo">
-                    <p>MIssion Theme</p>
-                </div>
-                <div class="userborder"></div>
+				<div class="EPbasicInfo addbox">
+					<div class="addtext">
+						<p class="mt-2 ms-3">Add</p>
+					</div>
+					<div class="ms-3 mt-3 titleOfAddbox">Title</div>
+					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox skillTitle" required>
 
-                <!-- searchbar -->
-                <div class="d-flex justify-content-between">
-                    <div class="searchBoxborder">
-                        <div class="searchboxh2">
-                            <button class="w3-button">
-                                <img src="images/search.png">
-                            </button>
-                            <input type="search" placeholder=" Search missions..." id="searchboxing" name="search"
-                                class="searchBoxPh">
-                        </div>
-                    </div>
-                    <button class="addbutton">
-	                    <a class="d-flex align-items-center btn" href="addNewThemePage?uid=${user.user_id}">
-	                    <i class="bi bi-plus"></i>ADD</a>
-                 	</button>
-                </div>
-
-                <!-- table -->
-                <table id="example" class="display mt-4" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Mission theme id</th>
-                            <th>Mission theme title</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+					<span class="ms-3 mt-3 titleOfAddbox">Status</span>
+					<div class="col">
+						<select name="Status" id="Status" class="skillStatus titlebox ms-3 mt-2 me-3" required>
+								<option value="ACTIVE">ACTIVE</option>
+								<option value="INACTIVE">INACTIVE</option>
+						</select>
+					</div>
+					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="editSkill()">
+						<i class="bi bi-plus"></i>Save
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
@@ -206,74 +190,63 @@ pageEncoding="ISO-8859-1"%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script>
-    	let table;
+    let skillId=$('.skillID').val();
+    let skillTitle="";
+    let skillStatus="ACTIVE";
         $(document).ready(function () {
-            table = $('#example').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
-            $('#searchboxing').on('keyup', function () {
-                table.search(this.value).draw();
-            });
-            loadAllThemesForAdmin();
-        });
-        function loadAllThemesForAdmin(){
-        	$.ajax({
-				url : "loadAllThemesForAdmin",
-				dataType : 'json',
-				type : "GET",
-				success : function(response) {
-					console.log(response);
-					setAllThemesForAdmin(response);
-				}
-			});
-        }
-        function setAllThemesForAdmin(themes){
-        	table
-            .clear()
-            .draw();
-        	let GEB="";
         	
-        	for(var i in themes){
-        		GEB=`<div class="d-flex gap-2">
-        				<a type="submit" class="d-flex btn" href="editMissionThemePage?mtid=`+themes[i].mission_theme_id+`&auid=${user.user_id}"><img src="images/editing.png" alt=""></a>
-   	            	 <button onclick="deleteTheme(`+themes[i].mission_theme_id+`)"><img src="images/delete.png" alt="" ></button></div>`;
-        		if(themes[i].status=="ACTIVE"){
-   	            	status=`<div style="color:green">`+themes[i].status+`</div>`;
-   	            }
-   	            else{
-   	            	status=`<div style="color:red">`+themes[i].status+`</div>`;
-   	            }
-   	            	table.row.add([
-        			themes[i].mission_theme_id,
-        			themes[i].title,
-        			status,
-        			GEB
-        		]).draw(false);
-        	}
-        }
-        function deleteTheme(themeid){
+        	$('.skillTitle').on('change', function () {
+        		skillTitle = $('.skillTitle').val();
+            });
+        	$('.skillStatus').on('change', function() {
+        		skillStatus = $(this).find("option:selected").val();
+			});
+        	loadSkillDetail();
+        });
+        function loadSkillDetail(){
         	$.ajax({
-				url : "deleteTheme",
+				url : "loadSkillDetail",
 				dataType : 'json',
-				data : {'theme_id' : themeid},
-				type : "GET",
+				data :{'skillId':Number(skillId)},
+				type : "POST",
 				success : function(response) {
-					swal("Success!", "Successfully deleted!", "success");
-					loadAllThemesForAdmin();
+					setSkillDetail(response);
 				}
 			});
         }
+        function setSkillDetail(skill){
+        	$('.skillTitle').val(skill.skill_name);
+        	$('.skillStatus').val(skill.status);
+        	skillStatus=skill.status;
+        }
+        function clearData(){
+        	$('.skillTitle').val('');
+        	$('.skillStatus').val('');
+        }
+        function editSkill(){
+			$.ajax({
+				url : "editSkill",
+				dataType : 'json',
+				data :{'skillId':skillId,
+					   'title':skillTitle,
+					   'status':skillStatus},
+				type : "POST",
+				success : function(response) {
+					swal("Good job!", "Skill edited successfully!", "success");
+					clearData();
+				}
+			});
+		}
+    </script>
+    <script>
+        
     </script>
 
-    <script src="js/EditProfile.js"></script>
+	<script src="js/EditProfile.js"></script>
 </body>
 
 </html>

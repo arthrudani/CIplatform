@@ -169,16 +169,13 @@
 
 
 			<div class="col d-flex spacearound">
-				<div class="d-flex align-items-center">
-					<img src="images/logo.png" class="blocking">
-				</div>
 
-				<div class="leftHeader ">
+				<div class="leftHeader d-flex align-items-center">
 					<ul class="navbar-nav d-flex flex-row justify-content-between align-items-center">
 						<form action="storiesLoader" method="POST" name="storiesLoader">
 							<button type="submit" class="d-flex" style="background: none; border: none; min-width: 120px;">
 								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
-								<li class="nav-item upperButtons">Stories</li>
+								<li class="nav-item upperButtons blocking">Stories</li>
 							</button>
 						</form>
 						<li class="nav-item dropdown upperButtons blocking"><a
@@ -203,7 +200,7 @@
 						src="images/search.png">
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle d-flex align-items-center g-2"
+						class="nav-link dropdown-toggle d-flex align-items-center gap-2"
 						href="#" id="navbarDropdownMenuLink" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"
 						style="display: flex !important">

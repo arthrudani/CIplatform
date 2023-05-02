@@ -126,7 +126,10 @@ form .error {
         padding-left: 6%; 
         padding-bottom: 1%;
     }
-    
+    .carousel-item img{
+		min-height:350px !important;
+		max-height:350px !important;
+	}
 .form-control{
     line-height: 0;
     width: 90%;

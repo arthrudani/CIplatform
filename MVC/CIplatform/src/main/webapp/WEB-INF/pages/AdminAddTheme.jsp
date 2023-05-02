@@ -157,23 +157,16 @@
 						<p class="mt-2 ms-3">Add</p>
 					</div>
 					<div class="ms-3 mt-3 titleOfAddbox">Title</div>
-					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox cmsTitle" required>
+					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox themeTitle" required>
 
-					<div class="ms-3 mt-3 titleOfAddbox">Description</div>
-					<div id="editor" class="w-100"></div>
-
-					<div class="ms-3 mt-3 titleOfAddbox">Slug</div>
-					<input type="text" name="slug" class="ms-3 mt-2 me-3 titlebox cmsSlug" required>
-
-<!-- 					<div class="ms-3 mt-3 titleOfAddbox">Status</div> -->
 					<span class="ms-3 mt-3 titleOfAddbox">Status</span>
 					<div class="col">
-						<select name="Status" id="Status" class="cmsStatus titlebox ms-3 mt-2 me-3" required>
+						<select name="Status" id="Status" class="themeStatus titlebox ms-3 mt-2 me-3" required>
 								<option value="ACTIVE">ACTIVE</option>
 								<option value="INACTIVE">INACTIVE</option>
 						</select>
 					</div>
-					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="addNewCms()">
+					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="addNewTheme()">
 						<i class="bi bi-plus"></i>ADD
 					</button>
 				</div>
@@ -199,52 +192,30 @@
     <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script>
-    let cmsTitle="";
-    let cmsSlug="";
-    let cmsStatus="";
-    let cmsDescription="";
-    var myeditor;
+    let themeTitle="";
+    let themeStatus="ACTIVE";
         $(document).ready(function () {
         	
-        	ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-            	myeditor=editor;
-            })
-            .catch(error => {
+        	$('.themeTitle').on('change', function () {
+        		themeTitle = $('.themeTitle').val();
             });
-        	
-        	$('.cmsTitle').on('change', function () {
-        		cmsTitle = $('.cmsTitle').val();
-            });
-        	$('.cmsSlug').on('change', function () {
-        		cmsSlug = $('.cmsSlug').val();
-            });
-        	$('.cmsStatus').on('change', function() {
-        		cmsStatus = $(this).find("option:selected").val();
-        		console.log(cmsStatus);
+        	$('.themeStatus').on('change', function() {
+        		themeStatus = $(this).find("option:selected").val();
 			});
         });
         function clearData(){
-        	$('.cmsTitle').val('');
-        	$('.cmsSlug').val('');
-        	$('.cmsStatus').val('');
-        	myeditor.setData('');
+        	$('.themeTitle').val('');
+        	$('.themeStatus').val('');
         }
-        function addNewCms(){
-			AddCmsObject={
-					title :cmsTitle ,
-					description:myeditor.getData(),
-					slug:cmsSlug,
-					status:cmsStatus,
-	   		}
+        function addNewTheme(){
 			$.ajax({
-				url : "addNewCms",
+				url : "addNewTheme",
 				dataType : 'json',
-				data : AddCmsObject,
+				data :{'title':themeTitle,
+					   'status':themeStatus},
 				type : "POST",
 				success : function(response) {
-					swal("Good job!", "Cms added successfully!", "success");
+					swal("Good job!", "Theme added successfully!", "success");
 					clearData();
 				}
 			});

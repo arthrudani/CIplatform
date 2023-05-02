@@ -39,19 +39,16 @@ h3 {
 
 .mybtn {
     border-radius: 50px;
-    width: 70%;
-    margin-left: 15%;
+    width: 100%;
 }
 .box{
     font-size: 1rem; 
-    color: #8d8a8a; 
-    padding-left: 17%; 
+    color: #8d8a8a;  
     padding-bottom: 1%;
 }
 .form-control{
     line-height: 0;
-    width: 70%;
-    margin-left: 15%;
+    width: 100%;
     padding-top: 0.3% !important;
 }
 
@@ -118,10 +115,10 @@ form .error {
         padding-top: 0;
     }
 
-        .size-fix {
-            height: auto;
-        }
-        .mybtn {
+    .size-fix {
+        height: auto;
+    }
+    .mybtn {
             border-radius: 50px;
             width: 90%;
             margin-left: 5%;
@@ -139,5 +136,8 @@ form .error {
         margin-left: 5%;
         padding-top: 0.3% !important;
     }
-    
+    .carousel-item img{
+		min-height:350px !important;
+		max-height:350px !important;
+	}
 }

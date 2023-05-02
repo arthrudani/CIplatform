@@ -139,5 +139,8 @@ form .error {
         margin-left: 5%;
         padding-top: 0.3% !important;
     }
-    
+    .carousel-item img{
+		min-height:350px !important;
+		max-height:350px !important;
+	}
 }
