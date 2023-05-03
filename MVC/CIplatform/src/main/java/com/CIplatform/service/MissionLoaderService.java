@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.CIplatform.dao.MissionLoaderInterface;
 import com.CIplatform.dto.Filters;
 import com.entities.City;
+import com.entities.CmsPage;
 import com.entities.Comment;
 import com.entities.Country;
 import com.entities.FavouriteMission;
@@ -23,6 +24,7 @@ import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionDocument;
 import com.entities.MissionInvite;
+import com.entities.MissionMedia;
 import com.entities.MissionRating;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
@@ -65,7 +67,11 @@ public class MissionLoaderService implements MissionLoader {
 	public List<User> loadAllUsers() {
 		return this.missionLoaderInterface.loadAllUserOnSearch();
 	}
-	
+	public List<CmsPage> loadAllSlugs() {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from CmsPage where (deletedAt is null)");
+		return query.list();
+	}
+
 	public String loadAllMissionOnSearch(Filters filters) {
 		Map<Long, List<Mission>> map=new HashMap<Long,List<Mission>>();
 		String output="";
@@ -286,8 +292,8 @@ public class MissionLoaderService implements MissionLoader {
 		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from MissionApplication where mission_id=:mission_id and user_id=:user_id");
 		query.setParameter("mission_id", mission.getMission_id());
 		query.setParameter("user_id", user.getUser_id());
-		if(query.list().size()==1) {
-			MissionApplication application=(MissionApplication) query.uniqueResult();
+		MissionApplication application=(MissionApplication) query.uniqueResult();
+		if(application!=null) {
 			return application.getApproval_status();
 		}
 		return approval.ZERO;
@@ -309,9 +315,35 @@ public class MissionLoaderService implements MissionLoader {
 	public int loadTotalRecentVolunteers(Mission mission) {
 		return this.missionLoaderInterface.loadTotalRecentVolunteers(mission);
 	}
-
+	@Transactional
 	public Story getStoryById(int story_id) {
-		return this.hibernateTemplate.get(Story.class, story_id);
+		Story story= this.hibernateTemplate.get(Story.class, story_id);
+		int view=story.getTotalViews();
+		view=view+1;
+		story.setTotalViews(view);
+		this.hibernateTemplate.saveOrUpdate(story);
+		return story;
 	}
+
+	public String checkEmail(String email) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
+		String result1="";
+		query.setParameter("email", email);
+		User user1 = (User) query.uniqueResult();
+		if(user1!=null) {
+			return "true";
+		}
+		else {
+			return "false";
+		}
+	}
+
+	public List<MissionMedia> getMissionMedia(Mission mission) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from MissionMedia where mission=:mission");
+		String result1="";
+		query.setParameter("mission", mission);
+		return query.list();
+	}
+
 
 }

@@ -89,7 +89,7 @@
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Phone
 										number</label> <input type="tel" name="phone_number" id="number"
-										class="form-control" aria-describedby="emailHelp"
+										class="form-control phoneNumber" aria-describedby="emailHelp"
 										placeholder="Enter phone number">
 								</div>
 								<div class="form-group">
@@ -109,7 +109,7 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Confirm
-										Password</label> <input type="password" name="confpassword"
+										Password</label> <input type="password" name="confirmPassword"
 										id="confpassword" class="form-control"
 										aria-describedby="emailHelp" placeholder="**************"
 										required>
@@ -138,7 +138,7 @@
 					</div>
 					<div class="row privacylogin"
 						style="font-size: 14px; color: #8d8a8a;">
-						<p>Privacy Policy</p>
+						<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 					</div>
 
 				</div>
@@ -146,7 +146,14 @@
 			</div>
 		</div>
 	</div>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.js" type="text/javascript"></script>
 	<script>
+	let firstName=""
+	let lastName="";
+	let email="";
+	let password="";
+	let consfirmPassword="";
+	let phoneNumber="";
 	$(document).ready(function() {
 		$.ajax({
 			url : "loadAllBanner",
@@ -157,37 +164,69 @@
 		});
 		$('.email').val('');
 		$('.password').val('');
+		$('.firstName').keyup(function(){
+           	firstName=$('.firstName').val();
+        });
+		$('.lastName').keyup(function(){
+			lastName=$('.lastName').val();
+        });
+		$('.email').keyup(function(){
+			email=$('.email').val();
+        });
+		$('.password').keyup(function(){
+			password=$('.password').val();
+        });
+		$('.consfirmPassword').keyup(function(){
+			consfirmPassword=$('.consfirmPassword').val();
+        });
+		$('.phoneNumber').keyup(function(){
+			phoneNumber=$('.phoneNumber').val();
+        });
 	});
 	$(".registerButton").click(function(e){
 		e.preventDefault();
-		if($('.password').val().length>7 && $('.email').val()!="" && $('.firstName').val()!="" && $('.lastName').val()!=""){
-			$(".registerForm").submit();
+		if($('.password').val().length<8 && $('.warning').html()!=""){
+			$('.warning').html("");
+			$('.password').after("<div class='text-danger warning'><small>Please enter valid password</small></div>");
 		}
 		else{
-			if($('.password').val().length<8 && $('.warning').val()!=""){
-				$('.password').after("<div class='text-danger warning'>Please enter valid password</div>");
-			}
-			else{
-				$('.password').after("");
-			}
-			if($('.email').val().length<1 && $('.warning1').val()!=""){
-				$('.email').after("<div class='text-danger warning1'>Please enter valid email</div>");
-			}
-			else{
-				$('.email').after("");
-			}
-			if($('.firstName').val().length<1 && $('.warning2').val()!=""){
-				$('.firstName').after("<div class='text-danger warning2'>This field is required</div>");
-			}
-			else{
-				$('.firstName').after("");
-			}
-			if($('.lastName').val().length<1 && $('.warning3').val()!=""){
-				$('.lastName').after("<div class='text-danger warning3'>This field is required</div>");
-			}
-			else{
-				$('.lastName').after("");
-			}
+			$('.warning').html("");
+		}
+		if($('.email').val().length<1 && $('.warning1').html()!=""){
+			$('.warning1').html("");
+			$('.email').after("<div class='text-danger warning1'><small>Please enter valid email</small></div>");
+		}
+		else{
+			$('.warning1').html("");
+		}
+		if($('.firstName').val().length<1 && $('.warning2').html()!=""){
+			$('.warning2').html("");
+			$('.firstName').after("<div class='text-danger warning2'><small>This field is required</small></div>");
+		}
+		else{
+			$('.warning2').html("");
+		}
+		if($('.lastName').val().length<1 && $('.warning3').html()!=""){
+			$('.warning3').html("");
+			$('.lastName').after("<div class='text-danger warning3'><small>This field is required</small></div>");
+		}
+		else{
+			$('.warning3').html("");
+		}
+		if($('.phoneNumber').val().length<10 && $('.warning4').html()!=""){
+			$('.warning4').html("");
+			$('.phoneNumber').after("<div class='text-danger warning3'><small>Please enter 10 digit number</small></div>");
+		}
+		else if(phoneNumber.indexOf('0')==0){
+			console.log("hii");
+			$('.warning4').html("");
+			$('.phoneNumber').after("<div class='text-danger warning3'><small>Invalid number</small></div>");
+		}
+		else{
+			$('.warning4').html("");
+		}
+		if($('.password').val().length>7 && $('.email').val()!="" && $('.firstName').val()!="" && $('.lastName').val()!=""){
+			$(".registerForm").submit();
 		}
 	});	
 

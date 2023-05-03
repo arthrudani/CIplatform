@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,7 +34,8 @@ public class Story {
 	@ManyToOne(cascade = CascadeType.MERGE,targetEntity = Mission.class)
 	@JoinColumn(name = "mission_id")
 	private Mission mission;
-	
+	@Column(name = "total_views")
+	private int totalViews;
 	private String title;
 	private String description;
 	@Enumerated(EnumType.STRING)
@@ -73,6 +75,14 @@ public class Story {
 		this.updated_at = updated_at;
 		this.deleted_at = deleted_at;
 		this.medias = medias;
+	}
+
+	public int getTotalViews() {
+		return totalViews;
+	}
+
+	public void setTotalViews(int totalViews) {
+		this.totalViews = totalViews;
 	}
 
 	public int getStory_id() {

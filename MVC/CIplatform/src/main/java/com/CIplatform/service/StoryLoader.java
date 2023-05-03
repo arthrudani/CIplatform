@@ -27,8 +27,6 @@ public interface StoryLoader {
 
 	void submitStory(Mission mission, User user);
 
-	status loadStoryStatus(Mission mission, User user);
-
 	Story savePreviewDraft(Mission mission,
 			User user);
 
@@ -40,5 +38,9 @@ public interface StoryLoader {
 	List<StoryMedia> loadDraftMediaOfStory(Story story);
 
 	String recommendToCoWorker(Story story, Mission mission, String email, User user);
+
+	status loadStoryStatus(Story story);
+
+	String checkEmail(String email);
 
 }

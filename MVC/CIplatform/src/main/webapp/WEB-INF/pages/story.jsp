@@ -32,7 +32,6 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="css/HomeGrid.css">
-<script src="js/home.js"></script>
 </head>
 
 <body>
@@ -89,47 +88,51 @@
 					<div class="leftHeader ">
 						<ul class="navbar-nav d-flex flex-row justify-content-between"
 							style="padding-top: 7%;">
-							<li class="nav-item dropdown upperButtons blocking"><a
+							<li class="nav-item dropdown upperButtons blocking">
+								<a
 								class="nav-link dropdown-toggle" href="#"
 								id="navbarDropdownMenuLink" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false">
-									&nbsp;Policy &nbsp; <img src="images/drop-down.png">
-							</a>
-								<ul class="dropdown-menu  posAbsolute"
+								data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
+									&nbsp; <img src="images/drop-down.png">
+								</a>
+								<ul class="dropdown-menu slugs posAbsolute"
 									aria-labelledby="navbarDropdownMenuLink">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-								</ul></li>
+									
+								</ul>
+							</li>
 						</ul>
 					</div>
 
 					<div class="d-flex ">
-						<ul class="navbar-nav rightHeader d-flex align-items-center">
-							<img class="rightbutton"
-								style="padding-right: 10%;"
-								src="images/search.png">
-
-							<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle d-flex align-items-center"
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
 								href="#" id="navbarDropdownMenuLink" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false"
-								style="display: flex !important;"> <img
-									src="images/<c:out value="${user.avatar}"></c:out>"
-									class="userimage "> <span class="blocking uNameuImage">${user.first_name}
-										${user.last_name}</span> <img src="images/drop-down.png"
-									class="uNameuImage">
+								style="display: flex !important">
+								<div> <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> </div>
+								<div>
+									<span class="blocking uNameuImage" class="uNameuImage"><c:out
+										value="${user.first_name} ${user.last_name}"></c:out></span>
+								</div> 
+								<input type="text" class="usernameforlike" id="fname" name="fname" value="${user.user_id}" hidden>
+								<div>
+									<img src="images/drop-down.png" class="uNameuImage">
+								</div>
 							</a>
 
-								<ul class="dropdown-menu posAbsolute dropdown-menu-end"
-									aria-labelledby="navbarDropdownMenuLink">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-								</ul></li>
-						</ul>
+							<ul class="dropdown-menu posAbsolute dropdown-menu-end"
+								aria-labelledby="navbarDropdownMenuLink">
+								<form action="editProfile" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+								</form>
+								<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+								</form>
+								<li><a class="dropdown-item" href="login">Logout</a></li>
+							</ul>
+						</li>
 					</div>
 
 
@@ -175,6 +178,17 @@
 					</ul>
 				</nav>
 			</div>
+			<!-- footer -->
+		<div class="EPfooterline "></div>
+		<div class="EPprivacypolicy d-flex justify-content-start mt-3 gap-3">
+			<div class="privacypolicy">
+				<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
+			</div>
+			<div class="contactus">
+				<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+					id="contactus"> Contact us</a>
+			</div>
+		</div>
 
 		</div>
 
@@ -195,10 +209,26 @@
 	<script>
 	let stories=[];
 	let currentPage=0;
+	let STlength="";
 	$(document).ready(function(){
 		loadAllStories();
 		loadNumberOfStoriesForPagination();
+		$.ajax({
+            url: "loadAllSlugs",
+            dataType: 'json',
+            success: function(response){
+           		addSlugs(response);
+            }
+        });
 	});
+	function addSlugs(slugs){
+     	var data="";
+     	console.log(slugs);
+     	for(var i in slugs){
+     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
+     	}
+     	$(".slugs").html(data);
+     }
 	function loadNumberOfStoriesForPagination(){
 		let STlength=0;
 		$.ajax({
@@ -207,6 +237,7 @@
             dataType: 'json',
             success: function(response){
             	STlength=response;
+            	console.log(STlength);
           		editpagination(STlength);
 			}
 		});
@@ -226,7 +257,15 @@
 	}
 	function updateStories(story){
 		let storyCards="";
+		let imagepath="";
 		for (let i in story) {
+			imagepath="";
+			if(story[i].medias.length>0){
+				imagepath=story[i].medias[0].path;
+			}
+			else{
+				imagepath="images/noImageFound.png";
+			}
 			storyCards+=`<div class="col-12 col-md-6 col-lg-4">
 				                <div class="card">
 				                <div class="posRelative strCardBgBlack">
@@ -243,7 +282,7 @@
 				                        <p>Environment</p>
 				                    </div>
 				                    <img class="card-img-top img1" style="z-index:-1 ;"
-				                        src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
+				                        src=`+imagepath+`>
 				                </div>
 				
 				                <div class="card-body">
@@ -264,13 +303,20 @@
 		
 	}
 	function editpagination(totalMissions){
-    	let pagination="";
+    	pagination="";
     	let perPageMission=3;
     	let totalPages=totalMissions/perPageMission;
     	if(totalMissions>perPageMission){
     		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage-1)+`,`+totalMissions+`)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>`;
     		for(i=1;i<totalPages+1;i++){
-        		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)">`+i+`</a></li>`;		
+    			console.log(i);
+    			console.log(currentPage);
+    			if(i==currentPage+1){
+    				pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)" style="background-color: #f88634; color: white;">`+i+`</a></li>`;		
+    			}
+    			else{
+        			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)">`+i+`</a></li>`;		
+    			}
     		}
 			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage+1)+`,`+totalMissions+`)" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
     	}
@@ -278,11 +324,17 @@
     }
 	function setcurrentpage(CP,totalMissions){
     	currentPage=CP;
-    	if(currentPage<=totalMissions/3){
+    	if(currentPage<0){
+    		swal("Warning!", "Reached at the start of stories!", "error");
+    	}
+    	else if(currentPage<totalMissions/3){
+    		console.log(totalMissions);
+    		editpagination(totalMissions);
     		loadAllStories(); 
+    		
     	}
     	else{
-    		swal("Error!", "Reached at the end of stories!", "error");
+    		swal("Warning!", "Reached at the end of stories!", "error");
     	}
     }
 </script>

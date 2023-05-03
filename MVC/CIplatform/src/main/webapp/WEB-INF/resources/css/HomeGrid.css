@@ -18,6 +18,13 @@
 	flex-direction: row !important;
 	align-items: flex-start;
 }
+.activePage{
+	background-color: #f88634;
+    color: white;
+}
+.pagination>li>a, .pagination>li>span{
+	color: #f88634;
+}
 .missionImg{
 	padding:0 !important;
 }

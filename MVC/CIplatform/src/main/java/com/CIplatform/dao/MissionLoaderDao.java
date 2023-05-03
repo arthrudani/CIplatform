@@ -23,6 +23,7 @@ import com.entities.Comment;
 import com.entities.Country;
 import com.entities.FavouriteMission;
 import com.entities.Mission;
+import com.entities.Mission.mission_type;
 import com.entities.MissionApplication;
 import com.entities.MissionDocument;
 import com.entities.MissionRating;
@@ -63,6 +64,18 @@ public class MissionLoaderDao implements MissionLoaderInterface {
 		}
 		if (filters.getSortby().equals("Oldest")) {
 			c.addOrder(Order.desc("created_at"));
+		}
+		if (filters.getSortby().equals("LowestAvailable")) {
+			c.addOrder(Order.asc("seatsLeft"));
+			c.add(Restrictions.in("mission_type", mission_type.TIME));
+		}
+		if (filters.getSortby().equals("HighestAvailable")) {
+			c.addOrder(Order.desc("seatsLeft"));
+			c.add(Restrictions.in("mission_type", mission_type.TIME));
+		}
+		if (filters.getSortby().equals("RegistrationDeadline")) {
+			c.addOrder(Order.desc("deadline"));
+			c.add(Restrictions.in("mission_type", mission_type.TIME));
 		}
 		int firstresultcount = ((filters.getCurrentPage() - 1) * 3) + 3;
 		c.setFirstResult(firstresultcount);

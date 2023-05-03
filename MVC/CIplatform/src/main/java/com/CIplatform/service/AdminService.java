@@ -73,8 +73,13 @@ public class AdminService implements AdminInterface{
 	public void approveMissionApplication(int applicationID) {
 		MissionApplication missionApplication=this.hibernateTemplate.get(MissionApplication.class, applicationID);
 		if(missionApplication!=null) {
+			Mission mission=missionApplication.getMission();
+			int seatLeft=mission.getSeatsLeft();
+			seatLeft=seatLeft-1;
+			mission.setSeatsLeft(seatLeft);
 			missionApplication.setApproval_status(approval.ONE);;
 			this.hibernateTemplate.saveOrUpdate(missionApplication);
+			this.hibernateTemplate.saveOrUpdate(mission);
 		}
 	}
 	@Transactional
@@ -347,9 +352,10 @@ public class AdminService implements AdminInterface{
 			goalMission.setMission(mission);
 			this.hibernateTemplate.save(goalMission);
 		}
-		String que = "from MissionSkill where mission_id=:id";
+		String que = "delete from MissionSkill where mission_id=:id";
 		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
 		q.setParameter("id", editMissionObject.getMissionId());
+		q.executeUpdate();
 		for(int j=0;j<editMissionObject.getSkill().length;j++) {
 			MissionSkill missionSkill=new MissionSkill();
 			Skill skill=this.hibernateTemplate.get(Skill.class, editMissionObject.getSkill()[j]);

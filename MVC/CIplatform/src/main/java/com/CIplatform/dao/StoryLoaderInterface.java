@@ -26,13 +26,13 @@ public interface StoryLoaderInterface {
 
 	void submitStory(Mission mission, User user);
 
-	status loadStoryStatus(Mission mission, User user);
-
 	Story savePreviewDraft(Mission mission,
 			User user);
 
 	void saveDraft(ShareStoryDto shareStoryObject, User user, Mission mission);
 
 	List<StoryMedia> loadDraftMedia(Story story);
+
+	status loadStoryStatus(Story story);
 
 }

@@ -15,13 +15,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mission Page</title>
-
+<link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/MissionView.css">
 <link rel="stylesheet" href="css/MissionView1.css">
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 	rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
 	rel="stylesheet" />
@@ -50,7 +51,7 @@
 </head>
 
 <body>
-	<!-- modal for change password -->
+	<!-- modal for recommend mission -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -67,7 +68,7 @@
 					hidden>
 				<div class="modal-body d-flex justify-content-around">
 					<label for="email">Enter email:</label> <input type="email"
-						class="recommendEmail" id="email" name="email">
+						class="recommendToEmail" id="email" name="email">
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
@@ -135,8 +136,12 @@
 
 
 					<button class="btn common-hide" style="box-shadow: none;">
-						<a href=""
-							style="text-decoration: none; color: rgba(0, 0, 0, 0.66);">Stories</a>
+						<form action="storiesLoader" method="POST" name="storiesLoader">
+							<button type="submit" style="background: none; border: none; min-width: 120px;">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+								<div class="nav-item upperButtons blocking ">Stories</div>
+							</button>
+						</form>
 					</button>
 
 					<div class="dropdown common-hide">
@@ -144,9 +149,8 @@
 							role="button" id="dropdownMenuLink" data-mdb-toggle="dropdown"
 							aria-expanded="false"> policy </a>
 
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Volunteering</a></li>
-							<li><a class="dropdown-item" href="#">Sponsors</a></li>
+						<ul class="dropdown-menu slugs" aria-labelledby="dropdownMenuLink">
+						
 						</ul>
 					</div>
 
@@ -154,71 +158,69 @@
 				</div>
 
 				<div class="rightside d-flex align-items-center">
-
-					<!--                     <button><img src="images/search.png" alt="" class="nav-search btn " id="search1" hidden> -->
-					<!--                     </button> -->
-
 					<button class="btn dropdown d-flex align-items-center userprofile"
 						type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown"
 						aria-expanded="false"
 						style="box-shadow: none; text-transform: capitalize; width: 12rem;">
 						<img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> 
 						<span class="blocking uNameuImage" class="uNameuImage"> <c:out value="${user.first_name} ${user.last_name}"></c:out></span> 
-						<input type="text" id="title" name="title" value="${mission.title}" hidden> 
-						<input type="text" class="missionID" value="${mission.mission_id}" hidden> 
-						<input type="text" class="userId" id="uid" name="uid" value="${user_id}" hidden>
-						<input type="text" class="average" id="average" name="average" value="${avgrating}" hidden> 
+						
 						<img src="images/drop-down.png" alt="" class="user-image-downarrow">
 					</button>
 
 					<ul class="dropdown-menu user" aria-labelledby="dropdownMenuLink">
-						<li><a class="dropdown-item" href="#">Dashboard</a></li>
-						<li><a class="dropdown-item" href="#">My Account</a></li>
-						<li><a class="dropdown-item" href="#">Help Center</a></li>
-						<li><a class="dropdown-item" href="#">LogOut</a></li>
+						<form action="editProfile" method="POST" name="storiesLoader">
+							<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+							<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+						</form>
+						<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+							<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+							<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+						</form>
+						<li><a class="dropdown-item" href="login">Logout</a></li>
 					</ul>
 				</div>
 			</div>
 
 			<div class="main-content mb-6">
-
+				<input type="text" id="title" name="title" value="${mission.title}" hidden> 
+				<input type="text" class="missionID" value="${mission.mission_id}" hidden> 
+				<input type="text" class="userId" id="uid" name="uid" value="${user_id}" hidden>
+				<input type="text" class="average" id="average" name="average" value="${avgrating}" hidden> 
 				<div class="row mx-4 gx-5">
 
 					<div class="col-xl-6 col-lg-12 col-12 col-md-12 px-1 cars">
 						<div id="wrap">
-							<ul id="slider">
-								<li class="slide-item"><img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/Plantation-and-Afforestation-programme-1.png"
-									alt="画像"></li>
-								<li class="slide-item"><img
-									src="images/Nourish-the-Children-in--African-country-1.png"
-									alt="画像"></li>
+							<ul id="slider" class="slider">
+								<c:choose>
+				                 	<c:when test="${medias.size() gt 0}" >	
+				                 		<c:forEach begin="0" end="${medias.size()}" var="i">
+											<c:if test="${medias[i].type=='Video'}">
+												<iframe src="<c:out value="${medias[i].path}"/>" class="mainPhotoVideo upperimage"  style="position: relative; height: 100%; width: 100%;"></iframe>
+											</c:if>
+											<c:if test="${medias[i].type=='Image'}">
+				                        		<img src="<c:out value="${medias[i].path}"/>" class="slide-item upperimage">
+											</c:if>
+										</c:forEach> 
+				               		</c:when>
+				               		<c:otherwise>
+										<img src="images/noImageFound.png" class="mainPhoto">
+				               		</c:otherwise>
+				                </c:choose>
 							</ul>
-							<ul id="thumbnail_slider">
-								<li class="thumbnail-item"><img
-									src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/Plantation-and-Afforestation-programme-1.png"
-									alt="画像"></li>
-								<li class="thumbnail-item"><img
-									src="images/Nourish-the-Children-in--African-country-1.png"
-									alt="画像"></li>
+							<ul id="thumbnail_slider" class="thumbnail_slider">
+								<c:choose>
+				                 	<c:when test="${medias.size() gt 0}" >	
+				                 		<c:forEach begin="0" end="${medias.size()}" var="i">
+											<c:if test="${medias[i].type=='Video'}">
+												<img src="images/Youtube_logo.png" class="lowerimage">
+											</c:if>
+											<c:if test="${medias[i].type=='Image'}">
+				                        		<img src="<c:out value="${medias[i].path}"/>" class="slide-item lowerimage">
+											</c:if>
+										</c:forEach> 
+				               		</c:when>
+				                </c:choose>
 							</ul>
 						</div>
 					</div>
@@ -357,28 +359,7 @@
 								aria-labelledby="nav-home-tab">
 								<br>
 								<h3>Introduction</h3>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit.
-								Perferendis accusantium sit ullam inventore explicabo a aliquid
-								totam error quasi atque at quo cum id eveniet, sint, illum
-								voluptatem reprehenderit iure animi? Pariatur expedita culpa
-								neque adipisci cumque debitis. Aliquid, praesentium. Laudantium
-								aut consequatur ad at veritatis debitis magni ea harum?L <br>
-								<br> orem ipsum dolor sit amet consectetur adipisicing
-								elit. Sit error ea corrupti, placeat nisi obcaecati odit in
-								quisquam repudiandae, possimus pariatur quam cum omnis nesciunt
-								veritatis aliquam? Maxime corrupti, quam quia nemo, sapiente
-								fugiat vitae labore pariatur itaque dicta totam eligendi
-								possimus reprehenderit quasi provident assumenda amet odio
-								repellendus quo. <br> <br>
-
-								<h3>Challenge</h3>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								Doloremque, libero sapiente! Alias commodi eveniet expedita
-								culpa atque officia, incidunt quisquam, exercitationem nihil
-								tempore voluptatem veritatis sed quae consectetur rem mollitia
-								eum in cum illo obcaecati nisi illum esse dolorem sint.
-								Molestias rem mollitia, ab quibusdam totam iusto sed quis
-								soluta. <br>
+								<c:out value="${mission.description}"></c:out>
 
 
 								<!-- All documents -->
@@ -394,28 +375,7 @@
 									<c:out value="${mission.organization_name}"></c:out>
 								</h3>
 
-								Lorem ipsum dolor sit amet consectetur adipisicing elit.
-								Perferendis accusantium sit ullam inventore explicabo a aliquid
-								totam error quasi atque at quo cum id eveniet, sint, illum
-								voluptatem reprehenderit iure animi? Pariatur expedita culpa
-								neque adipisci cumque debitis. Aliquid, praesentium. Laudantium
-								aut consequatur ad at veritatis debitis magni ea harum?L <br>
-								<br> orem ipsum dolor sit amet consectetur adipisicing
-								elit. Sit error ea corrupti, placeat nisi obcaecati odit in
-								quisquam repudiandae, possimus pariatur quam cum omnis nesciunt
-								veritatis aliquam? Maxime corrupti, quam quia nemo, sapiente
-								fugiat vitae labore pariatur itaque dicta totam eligendi
-								possimus reprehenderit quasi provident assumenda amet odio
-								repellendus quo. <br> <br>
-
-								<h3>Challenge</h3>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								Doloremque, libero sapiente! Alias commodi eveniet expedita
-								culpa atque officia, incidunt quisquam, exercitationem nihil
-								tempore voluptatem veritatis sed quae consectetur rem mollitia
-								eum in cum illo obcaecati nisi illum esse dolorem sint.
-								Molestias rem mollitia, ab quibusdam totam iusto sed quis
-								soluta.
+								<c:out value="${mission.organization_detail}"></c:out>
 							</div>
 
 
@@ -514,7 +474,7 @@
 			<!-- mission list ends here -->
 
 			<div class="footer mt-3 d-flex">
-				<a href="#" class="px-3  text-black">Privacy Policy</a> <a href="#"
+				<a href="PrivacyPolicy?uid=${user.user_id}" class="px-3  text-black">Privacy Policy</a> <a href="#"
 					class="px-2 text-black">Contact Us</a>
 			</div>
 		</div>
@@ -524,6 +484,7 @@
 
 
 <!-- slick carsousel -->
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
@@ -534,6 +495,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
 	integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
@@ -564,6 +526,7 @@
 	let pagination="";
 	let totalRecentVolunteers=0;
 	let currentPage=0;
+	let recommendToEmail="";
 	
 	$(document).ready(function(){
 		
@@ -591,9 +554,26 @@
             focusOnSelect:true,
             asNavFor: "#slider"
         });
-        
+        $.ajax({
+            url: "loadAllSlugs",
+            dataType: 'json',
+            success: function(response){
+           		addSlugs(response);
+            }
+        });
+        $('.recommendToEmail').keyup(function(){
+			recommendToEmail=$('.recommendToEmail').val();
+        });
         
 	});
+	function addSlugs(slugs){
+     	var data="";
+     	console.log(slugs);
+     	for(var i in slugs){
+     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
+     	}
+     	$(".slugs").html(data);
+     }
 	function loadTotalRecentVolunteers(){
 		let volunteers='';
 		$.ajax({
@@ -653,7 +633,6 @@
     	}
     }
 	function loadAppliedOrNot(){
-		let x='';
 		let appliedOrNot=''
 			$.ajax({
 	            url: "appliedOrNotForMission",
@@ -662,13 +641,13 @@
 	            	  'uid':user_id},
 	            type:"GET",
 	            success: function(response){
-	            	x=response;
-	            	if(x=="TWO"){
+	            	console.log(response);
+	            	if(response=="TWO"){
 	            		appliedOrNot+=`<button class="Apply__Mission"">
 											Application pending
 											</button>`;
 					}
-	            	else if(x=="ONE"){
+	            	else if(response=="ONE"){
 	            		appliedOrNot+=`<button class="Apply__Mission">
 										Already applied
 										</button>`;
@@ -692,20 +671,27 @@
             	  'uid':user_id},
             type:"GET",
             success: function(response){
-            	loadAppliedOrNot();
+            	if(response==true){
+            		loadAppliedOrNot();
+            	}
         	}
 		});
 	}
 	function recommendToCoworker(){
-		let recommendEmail=$('.recommendEmail').val();
 		$.ajax({
             url: "recommendMission",
     		dataType: 'json',
             data:{'mid':mission_id,
-            	  'email':recommendEmail,
+            	  'email':recommendToEmail,
             	  'from':user_id},
             type:"GET",
             success: function(response){
+            	if(response==true){
+            		swal("Success!", "Successfully recommended!", "success");
+            	}
+            	else if(response==false){
+            		swal("Error!", "Email does not exists in database!", "error");
+            	}
         	}
 		});
 	}
@@ -777,7 +763,11 @@
 	}
 	function addComment(){
 		let comment=$('.comment').val();
-		$.ajax({
+		if(comment==""){
+			swal("Error!", "Can not post empty comment!", "error");
+		}
+		else{
+			$.ajax({
             url: "addComment",
     		dataType: 'json',
             data:{'mid':mission_id,
@@ -786,9 +776,12 @@
             type:"GET",
             success: function(response){
             	loadAllComments();
+            	swal("Success!", "Comment posted successfully!", "success");
             	$('.comment').val('');
-        	}
-		});
+        		}
+			});
+		}
+		
 		
 	}
 	function loadLikedOrNotOnCurrent(){
@@ -796,7 +789,7 @@
 		if(likedStatus=="liked" ){
 			mytag=`<button onclick="likeMission(${mission.mission_id},${user_id})" style="border: 0; background: none;">
 					<input type="text" class="userid" id="uidl" name="mid" value="${user_id}" hidden>
-					<i class="bi bi-heart-fill" style="color:red;"></i>Remove from favourites
+					<i class="bi bi-heart-fill" style="color:red;"></i>Added to favourites
 					</button>`;
 		}
 		else{

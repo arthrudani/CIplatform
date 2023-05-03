@@ -107,9 +107,6 @@ public class StoryController {
 		User user=this.service1.getUserById(shareStoryObject.getUser_id());
 		Mission mission=this.service1.getMissionById(shareStoryObject.getChekedMission());
 		this.service.saveDraft(shareStoryObject,user,mission);
-//		for(CommonsMultipartFile x : shareStoryObject.getFiles()) {
-//			System.out.println(x.getOriginalFilename());
-//		}
 		return true;
 	}
 	@RequestMapping(value = "/submitStory")
@@ -123,7 +120,11 @@ public class StoryController {
 	public @ResponseBody status loadStoryStatus(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id) {
 		User user=this.service1.getUserById(user_id);
 		Mission mission=this.service1.getMissionById(missionSelect);
-		return this.service.loadStoryStatus(mission,user);
+		Story story =this.service.loadDraft(user,mission);
+		if(story==null) {
+			return status.PENDING;
+		}
+		return this.service.loadStoryStatus(story);
 	}
 	@RequestMapping(value = "/previewStory",method = RequestMethod.POST)
 	public String previewStory(@RequestParam("missionSelect") int missionSelect,@RequestParam("user_id") int user_id,@RequestParam("sharedby_user_id") int sb_user_id,Model m) {
@@ -137,12 +138,17 @@ public class StoryController {
 		return "StoryDetail";
 	}
 	@RequestMapping(value = "/recommendMissionFromStory", method = RequestMethod.GET)
-	public @ResponseBody String recommend(@RequestParam("sid") int storyId,@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
-		Mission mission=this.service1.getMissionById(missionId);
-		User user=this.service1.getUserById(from_uid);
-		Story story=this.hibernateTemplate.get(Story.class, storyId);
-		String result = this.service.recommendToCoWorker(story,mission,email,user);
-		return "true";
+	public @ResponseBody boolean recommend(@RequestParam("sid") int storyId,@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
+		String result=this.service.checkEmail(email);
+		Mission mission=this.hibernateTemplate.get(Mission.class, missionId);
+		User user=this.hibernateTemplate.get(User.class, from_uid);
+		if(result=="true") {
+			this.service.recommendToCoWorker(mission,email,user);
+			return true;
+		}
+		else {
+			return false;
+		} 
 	}
 	@RequestMapping(value = "/openMission",method = RequestMethod.GET)
 	public String openMission(@RequestParam("mission_id") int missionid,@RequestParam("user_id") int user_id,Model m) {

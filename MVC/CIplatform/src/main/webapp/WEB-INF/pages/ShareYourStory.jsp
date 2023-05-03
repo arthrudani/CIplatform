@@ -97,52 +97,61 @@
 					</button>
 				</div>
 				<div class="col d-flex justify-content-between">
-
-
-					<div class="leftHeader d-flex align-items-center">
-						<ul
-							class="navbar-nav d-flex flex-row justify-content-between align-items-center">
-							<li class="nav-item upperButtons blocking"><a
-								class="nav-link" href="#">&nbsp;Stories</a></li>
-							<li class="nav-item dropdown upperButtons blocking"><a
+					<div class="d-flex justify-content-around align-items-center">
+					<div>
+						<form action="storiesLoader" method="POST" name="storiesLoader">
+							<button type="submit" style="background: none; border: none; min-width: 120px;">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+								<li class="nav-item upperButtons blocking ">Stories</li>
+							</button>
+						</form>
+					</div>
+					<div>
+						<li class="nav-item dropdown upperButtons blocking">
+								<a
 								class="nav-link dropdown-toggle" href="#"
 								id="navbarDropdownMenuLink" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false">
-									&nbsp;Policy &nbsp; <img src="images/drop-down.png">
-							</a>
-								<ul class="dropdown-menu  posAbsolute"
+								data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
+									&nbsp;
+								</a>
+								<ul class="dropdown-menu slugs posAbsolute"
 									aria-labelledby="navbarDropdownMenuLink">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-								</ul></li>
-						</ul>
+									
+								</ul>
+							</li>
 					</div>
-
+				</div>
 					<div class="d-flex ">
 						<ul class="navbar-nav rightHeader d-flex align-items-center">
 							<img class="rightbutton" src="images/search.png">
 
-							<li class="nav-item dropdown"><a
-								class="nav-link dropdown-toggle d-flex align-items-center"
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
 								href="#" id="navbarDropdownMenuLink" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"> <input
-									type="text" class="userid" id="uidl" name="mid"
-									value="${user.user_id}" hidden> <img
-									src="images/<c:out value="${user.avatar}"></c:out>"
-									class="userimage "> <span class="blocking uNameuImage">${user.first_name}
-										${user.last_name}</span> <img src="images/drop-down.png"
-									class="uNameuImage">
+								data-bs-toggle="dropdown" aria-expanded="false"
+								style="display: flex !important">
+								<div> <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> </div>
+								<div>
+									<span class="blocking uNameuImage" class="uNameuImage"><c:out
+										value="${user.first_name} ${user.last_name}"></c:out></span>
+								</div> 
+								<input type="text" class="usernameforlike" id="fname" name="fname" value="${user.user_id}" hidden>
+								
 							</a>
 
-								<ul class="dropdown-menu posAbsolute dropdown-menu-end"
-									aria-labelledby="navbarDropdownMenuLink">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-								</ul></li>
+							<ul class="dropdown-menu posAbsolute dropdown-menu-end"
+								aria-labelledby="navbarDropdownMenuLink">
+								<form action="editProfile" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+								</form>
+								<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+								</form>
+								<li><a class="dropdown-item" href="login">Logout</a></li>
+							</ul>
+						</li>
 						</ul>
 					</div>
 
@@ -233,7 +242,7 @@
 		<div class="EPfooterline "></div>
 		<div class="EPprivacypolicy d-flex justify-content-start mt-3 gap-3">
 			<div class="privacypolicy">
-				<a href="#">Privacy policy</a>
+				<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 			</div>
 			<div class="contactus">
 				<a href="#"> Contact us</a>
@@ -269,7 +278,7 @@
     let storyStatus="";
     var myeditor;
     let timedate;
-    let user_id=$('.userid').val();
+    let user_id=$('.userIdforNextpage').val();
     
     $(document).ready(function(){
     	
@@ -285,7 +294,7 @@
            	CheckedMission = $(this).find("option:selected").val();
            	clearAllDataExceptTitle();
             getDraftDetails(CheckedMission);
-            getDraftMedia(CheckedMission);
+            
         });
     	$('.storyTitle').on('change', function () {
     		storyTitle = $('.storyTitle').val();
@@ -301,12 +310,25 @@
         });
     	
     	loadApprovedMissions();
-    	
+    	$.ajax({
+            url: "loadAllSlugs",
+            dataType: 'json',
+            success: function(response){
+           		addSlugs(response);
+            }
+        });
 	});
+    function addSlugs(slugs){
+     	var data="";
+     	for(var i in slugs){
+     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
+     	}
+     	$(".slugs").html(data);
+     }
     function loadStoryStatus(){
     	let storystatus="";
     	let classOfStatus="";
-    	storyStatus="DRAFT";
+    	storystatus="DRAFT";
     	$.ajax({
             url: "loadStoryStatus",
     		dataType: 'json',
@@ -317,10 +339,10 @@
             	storystatus=response;
             	
             	if(storystatus=="DRAFT"){
-            		classOfStatus+=`<div><button class="strSave" onclick="saveDraft()">
+            		classOfStatus+=`<div><button class="strSave" id="saveStory" >
                         save
                     </button></div>
-                    <div><button class="strSubmit" onclick="submit()">
+                    <div><button class="strSubmit shareStory">
                          submit
                     </button></div>
                     <div>
@@ -335,12 +357,68 @@
                     </div>`;
             	}
             	else{
-            		classOfStatus+=`<button class="strSave" onclick="saveDraft()">
+            		classOfStatus+=`<button  class="strSave" id="saveStory">
 				                        save
 				                    </button>`;
+				                    
             	}
             	$(".strRight").html(classOfStatus);
             	$(".selectedMission").val(CheckedMission);
+            	
+                $("#saveStory").click(function(e){
+                	e.preventDefault();
+            		if($('.storyTitle').val().length<1 && $('.warning').html()!=""){
+            			$('.warning').html("");
+            			$('.storyTitle').after("<div class='text-danger warning'><small>This field is required</small></div>");
+            		}
+            		else{
+            			$('.warning').html("");
+            		}
+            		if(!document.getElementById('birthday').value && $('.warning2').html()!=""){
+            			$('.warning2').html("");
+            			$('.storyDate').after("<div class='text-danger warning2'><small>This field is required</small></div>");
+            		}
+            		else{
+            			$('.warning2').html("");
+            		}
+            		if(myeditor.getData().length<1 && $('.warning1').html()!=""){
+            			$('.warning1').html("");
+            			$('.ck-editor').after("<div class='text-danger warning1'><small>This field is required</small></div>");
+            		}
+            		else{
+            			$('.warning1').html("");
+            		}
+            		if($('.storyTitle').val().length>1 && myeditor.getData().length>1 && document.getElementById('birthday').value){
+            			saveDraft();
+            		}
+            	});
+                $(".shareStory").click(function(e){
+                	e.preventDefault();
+            		if($('.storyTitle').val().length<1 && $('.warning').html()!=""){
+            			$('.warning').html("");
+            			$('.storyTitle').after("<div class='text-danger warning'><small>This field is required</small></div>");
+            		}
+            		else{
+            			$('.warning').html("");
+            		}
+            		if(!document.getElementById('birthday').value && $('.warning2').html()!=""){
+            			$('.warning2').html("");
+            			$('.storyDate').after("<div class='text-danger warning2'><small>This field is required</small></div>");
+            		}
+            		else{
+            			$('.warning2').html("");
+            		}
+            		if(myeditor.getData().length<1 && $('.warning1').html()!=""){
+            			$('.warning1').html("");
+            			$('.ck-editor').after("<div class='text-danger warning1'><small>This field is required</small></div>");
+            		}
+            		else{
+            			$('.warning1').html("");
+            		}
+            		if($('.storyTitle').val().length>1 && myeditor.getData().length>1 && document.getElementById('birthday').value){
+            			 submit();
+            		}
+            	});
             }
     	});
     }
@@ -361,17 +439,17 @@
     	myeditor.setData('');
     }
     function saveDraft(){
-    	
     	var formData = new FormData();
     	
     	var totalFiles = files.length;
         for (var i = 0; i < totalFiles; i++) {
             formData.append("files",files[i]);
         }
+        let storydate=new Date(storyDate);
     	storyStatus="DRAFT";
     	formData.append("title", storyTitle);
     	formData.append("chekedMission", CheckedMission);
-    	formData.append("date", new Date(storyDate));
+    	formData.append("date", storydate);
     	formData.append("description", myeditor.getData());
     	formData.append("videoUrl", videoURL);
     	formData.append("user_id", user_id);
@@ -425,10 +503,13 @@
             	  'mission_id':CheckedMission},
             success: function(response){
             	if(response==null){
+            		loadStoryStatus();
             		clearAllDataExceptTitle();
             	}
-            	loadStoryStatus();
-            	setDraftMedia(response);
+            	else{
+            		loadStoryStatus();
+            		setDraftMedia(response);
+            	}
             }
        	});
     }
@@ -457,9 +538,13 @@
             success: function(response){
             	if(response==null){
             		clearAllDataExceptTitle();
+            		loadStoryStatus();
             	}
-            	loadStoryStatus();
-            	setDraftStory(response);
+            	else{
+            		loadStoryStatus();
+            		getDraftMedia(CheckedMission);
+            		setDraftStory(response);
+            	}
             }
        	});
     }
@@ -467,6 +552,9 @@
     
     function setDraftStory(draftedStory){
     	timedate= new Date(draftedStory.created_at);
+    	console.log(draftedStory.created_at);
+    	storyDate=timedate;
+    	console.log(storyDate);
     	$('.storyDate').get(0).valueAsDate=timedate;
     	myeditor.setData(draftedStory.description);
     	$('.storyTitle').val(draftedStory.title);
@@ -482,6 +570,7 @@
     		dataType: 'json',
             data:{'user_id': user_id},
             success: function(response){
+            	console.log(response);
             	approvedMission=response;
             	setMissions(approvedMission);
             }

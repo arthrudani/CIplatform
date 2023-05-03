@@ -111,7 +111,7 @@
 					<div class="row">
 						<div class="row privacylogin "
 							style="font-size: 0.8rem; color: #8d8a8a;">
-							<p>Privacy Policy</p>
+							<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 						</div>
 					</div>
 				</div>
@@ -145,10 +145,11 @@
 	$(".loginButton").click(function(e){
 		e.preventDefault();
 		if($('.password').val().length>7){
+			console.log("submitted");
 			$("#loginForm").submit();
 		}
 		else if($('.warning').val()!=""){
-			$('.password').after("<div class='text-danger warning'>Please enter valid password</div>");
+			$('.password').after("<div class='text-danger warning'>Please enter atleast 8 digit</div>");
 		}
 	});
 	function setbanner(banner){

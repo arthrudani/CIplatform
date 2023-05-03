@@ -82,16 +82,16 @@
 										will send you a reset password link</p>
 								</div>
 							</div>
-							<form action="ForgotPassword" method="POST" name="forgotpass">
+							<form action="ForgotPassword" method="POST" name="forgotpass" class="forgotPassword">
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="box">Email
 										Address</label> <input type="email" name="email" id="email"
-										class="form-control mt-1" aria-describedby="emailHelp"
+										class="form-control mt-1 email" aria-describedby="emailHelp"
 										placeholder="Enter your email address.." style="height: 40px;" required>
 								</div>
 								<div class="col-md-12 d-grid gap-2 text-center mt-4">
 									<input type="submit"
-										class=" btn btn-block mybtn btn-outline-warning"
+										class=" btn btn-block mybtn btn-outline-warning resetPass"
 										style="border-radius: 50px;" value="Reset my Password">
 								</div>
 								<div class="form-group mt-3 text-center">
@@ -103,7 +103,7 @@
 						</div>
 						<div class="privacylogin"
 							style="font-size: 0.8rem; color: #8d8a8a;">
-							<p>Privacy Policy</p>
+							<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 						</div>
 					</div>
 
@@ -135,6 +135,19 @@
 			}
 		});
 	});
+	$(".resetPass").click(function(e){
+		e.preventDefault();
+		if($('.email').val().length<1 && $('.warning').html()!=""){
+			$('.warning').html("");
+			$('.email').after("<div class='text-danger warning'><small>Please enter valid email</small></div>");
+		}
+		else{
+			$('.warning').html("");
+		}
+		if($('.email').val()!=""){
+			$(".forgotPassword").submit();
+		}
+	});	
 	function setbanner(banner){
 		let data1="";
 		let data2="";

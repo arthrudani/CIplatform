@@ -19,7 +19,9 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap"
 	rel="stylesheet">
 <title>Home Grid</title>
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
+ <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+<link rel='stylesheet'
+	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -37,7 +39,7 @@
 
 <body>
 
-	<!-- modal for change password -->
+	<!-- modal for recommend mission -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -48,13 +50,14 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body d-flex justify-content-center">
+				<div class="modal-body d-flex justify-content-center gap-5">
 					<label for="email">Enter your email:</label> <input type="email"
-						id="email" name="email">
+						id="email" name="email" class="recommendToEmail">
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
-						data-bs-dismiss="modal" onclick="recommend(${missions[i].mission_id})">Recommend</button>
+						data-bs-dismiss="modal"
+						onclick="recommend()">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -171,26 +174,28 @@
 			<div class="col d-flex spacearound">
 
 				<div class="leftHeader d-flex align-items-center">
-					<ul class="navbar-nav d-flex flex-row justify-content-between align-items-center">
+					<ul
+						class="navbar-nav d-flex flex-row justify-content-between align-items-center">
 						<form action="storiesLoader" method="POST" name="storiesLoader">
-							<button type="submit" class="d-flex" style="background: none; border: none; min-width: 120px;">
-								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
+							<button type="submit" class="d-flex"
+								style="background: none; border: none; min-width: 120px;">
+								<input type="text" class="userIdforNextpage" name="uid"
+									value="${user_id}" hidden>
 								<li class="nav-item upperButtons blocking">Stories</li>
 							</button>
 						</form>
-						<li class="nav-item dropdown upperButtons blocking"><a
+						<li class="nav-item dropdown upperButtons blocking">
+							<a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
 								&nbsp; <img src="images/drop-down.png">
-						</a>
-							<ul class="dropdown-menu  posAbsolute"
+							</a>
+							<ul class="dropdown-menu slugs posAbsolute"
 								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-							</ul></li>
+								
+							</ul>
+						</li>
 					</ul>
 				</div>
 
@@ -221,14 +226,19 @@
 						<ul class="dropdown-menu posAbsolute dropdown-menu-end"
 							aria-labelledby="navbarDropdownMenuLink">
 							<form action="editProfile" method="POST" name="storiesLoader">
-								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
-								<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+								<input type="text" class="userIdforNextpage" name="uid"
+									value="${user_id}" hidden>
+								<li><button type="submit" class="dropdown-item">Edit
+										Profile</button></li>
 							</form>
-							<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
-								<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
-								<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+							<form action="volunteeringTimesheet" method="POST"
+								name="storiesLoader">
+								<input type="text" class="userIdforNextpage" name="uid"
+									value="${user_id}" hidden>
+								<li><button type="submit" class="dropdown-item">Volunteering
+										timesheet</button></li>
 							</form>
-							
+
 							<li><a class="dropdown-item" href="login">Logout</a></li>
 						</ul></li>
 				</ul>
@@ -362,7 +372,7 @@
 		<div class="EPfooterline "></div>
 		<div class="EPprivacypolicy d-flex justify-content-start mt-3 gap-3">
 			<div class="privacypolicy">
-				<a href="#">Privacy policy</a>
+				<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 			</div>
 			<div class="contactus">
 				<a href="#"> Contact us</a>
@@ -370,8 +380,9 @@
 		</div>
 	</div>
 
-
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -390,6 +401,7 @@
 
 	<!-- 	search filter scripts -->
 	<script>
+		let userId=$('.userIdforNextpage').val();
 		let searchWord="";
 		let missions="";
 		let country="";
@@ -410,6 +422,8 @@
 		let totalmission="";
 		let currentPage=0;
 		let pagination="";
+		let recommendToEmail="";
+		let missionIdForRecommendation="";
 	 
 		$(document).ready(function() {
 			$("#gridlist").hide();
@@ -462,12 +476,22 @@
                	addSkillList(SkillList);
                 }
             });
+	       	$.ajax({
+                url: "loadAllSlugs",
+                dataType: 'json',
+                success: function(response){
+               		addSlugs(response);
+                }
+            });
 	       	
 
 	       	/* Search Mission Logic */
 			$('.mySearchInput').keyup(function(){
 	           	currentPage=0;
 	         	updateMissionsOnChange();
+	        });
+			$('.recommendToEmail').keyup(function(){
+				recommendToEmail=$('.recommendToEmail').val();
 	        });
 	       	 
 	        $('.countrySelect, .countrySelectSidebar').on('change', function () {
@@ -483,7 +507,13 @@
 		        updateMissionsOnChange();
 		    });
 		});
-		
+		function addSlugs(slugs){
+	     	var data="";
+	     	for(var i in slugs){
+	     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
+	     	}
+	     	$(".slugs").html(data);
+	     }
 		function getLikedMission(){
 			let LikedMission=[];
 			let user_id=$('.usernameforlike').val();
@@ -696,7 +726,12 @@
         	if(totalMissions>perPageMission){
         		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage-1)+`,`+totalMissions+`)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>`;
         		for(i=1;i<totalPages+1;i++){
-	        		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)">`+i+`</a></li>`;		
+        			if(i==currentPage+1){
+        				pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)" style="background-color: #f88634; color: white;">`+i+`</a></li>`;		
+        			}
+        			else{
+	        			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)">`+i+`</a></li>`;		
+        			}
         		}
 				pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage+1)+`,`+totalMissions+`)" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
         	}
@@ -704,7 +739,10 @@
         }
         function setcurrentpage(CP,totalMissions){
         	currentPage=CP;
-        	if(currentPage<totalMissions/3){
+        	if(currentPage<0){
+        		swal("Warning!", "Reached at the start of missions!", "error");
+        	}
+        	else if(currentPage<totalMissions/3){
         		updateMissionsOnChange(); 
         	}
         	else{
@@ -739,21 +777,26 @@
                    	}
                	});
         	}
-        function recommend(missionID){
-        	let user_id=$('.usernameforlike').val();
-//         	$.ajax({
-//                 url: "recommend",
-//         		   dataType: 'json',
-//                 data:{'missionId': missionID},
-//                 type:"POST",
-//                 success: function(response){
-//                 	console.log("done");
-//                    	}
-//                	});
-        	}
+        function recommend(){
+    		$.ajax({
+                url: "recommendMission",
+        		dataType: 'json',
+                data:{'mid':missionIdForRecommendation,
+                	  'email':recommendToEmail,
+                	  'from':userId},
+                type:"GET",
+                success: function(response){
+                	if(response==true){
+                		swal("Success!", "Successfully recommended!", "success");
+                	}
+                	else if(response==false){
+                		swal("Error!", "Email does not exists in database!", "error");
+                	}
+            	}
+    		});
+    	}
         
         function loopForFetchingMissionDetails(missions) {
-        	console.log(missions);
 			var htmlPageGrid = "";
 			var htmlPageList = "";
 			let sum=0;
@@ -789,117 +832,171 @@
 				else{
 					mytag=`<i class="bi bi-heart-fill" style="color:red;"></i>`;
 				}
+				var date_ob = new Date(missions[i].deadline);
+				var year = date_ob.getFullYear();
+				var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+				var date = ("0" + date_ob.getDate()).slice(-2);
+				let timedate=year+"-"+month+"-"+date;
+				let TimeOrGoal="";
+				if(missions[i].mission_type=="TIME"){
+					TimeOrGoal=`<div class="d-flex seatsleft">
+									<div>
+										<img src="images/Seats-left.png" alt="">
+									</div>
+									<div>
+										<div class="seatleftcontent11">`+missions[i].seatsLeft+`</div>
+										<div class="seatleftcontent12">seats left</div>
+									</div>
+								</div>
+								<div class="d-flex seatsleft">
+									<div>
+										<img src="images/deadline.png" alt="">
+									</div>
+									<div>
+										<div class="seatleftcontent11">`+timedate+`</div>
+										<div class="seatleftcontent12">Deadline</div>
+									</div>
+								</div>`;
+				}
+				else{
+					TimeOrGoal=`<div class="d-flex seatsleft">
+						<div>
+							<img src="images/Seats-left.png" alt="">
+						</div>
+// 						<div>
+// 							<div class="seatleftcontent11">`+missions[i].seatsLeft+`</div>
+// 							<div class="seatleftcontent12">seats left</div>
+// 						</div>
+					</div>
+					<div class="d-flex seatsleft">
+						<div>
+							<img src="images/deadline.png" alt="">
+						</div>
+// 						<div>
+// 							<div class="seatleftcontent11">`+missions[i].deadline+`</div>
+// 							<div class="seatleftcontent12">Deadline</div>
+// 						</div>
+					</div>`;
+				}
 				
 				let myrating="";
 				if(average>4){
-					myrating=`<button class="starbutton">
+					myrating=`<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow"></i>
-								</button>`;
+								</span>`;
 					
 				}
 				else if(average>3){
-					myrating=`<button class="starbutton">
+					myrating=`<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>`;
+								</span>`;
 				}
 				else if(average>2){
-					myrating=`<button class="starbutton">
+					myrating=`<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>`;
+								</span>`;
 				}
 				else if(average>1){
-					myrating=`<button class="starbutton">
+					myrating=`<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>`;
+								</span>`;
 				}
 				else if(average>0){
-					myrating=`<button class="starbutton">
+					myrating=`<span class="starbutton">
 									<i class="bi bi-star-fill" style="color:yellow  !important;"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>`;
+								</span>`;
 				}
 				else{
-					myrating=`<button class="starbutton">
+					myrating=`<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>
-								<button class="starbutton">
+								</span>
+								<span class="starbutton">
 									<i class="bi bi-star"></i>
-								</button>`;
+								</span>`;
+				}
+				let imagepath="";
+				if(missions[i].missionMedias.length>0){
+					imagepath=missions[i].missionMedias[0].name;
+				}
+				else{
+					imagepath="noImageFound.png";
 				}
 				
 				htmlPageGrid+=
 				`<div class="col-12 col-md-6 col-lg-4">
 				<div class="card ">
-					<img class="card-img-top"
-						src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png">
+				<input type="text" class="missionIdForRecommendation" value="`+missions[i].mission_id+`" hidden>
+					<img class="card-img-top" style="height:250px"
+						src="images/`+imagepath+`">
 					<div class="posAbsolute locationBox d-flex ">
 						<i class="bi bi-geo-alt locicon"></i>
 						<p>
@@ -910,8 +1007,8 @@
 						<input type="text" class="userid" name="mid" value="${user_id}" hidden>
 						`+mytag+`</button>
 					</div>
-					<div class="posAbsolute addBox" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-						<i class="bi bi-person-plus"></i>
+					<div class="posAbsolute addBox " data-bs-toggle="modal" data-bs-target="#exampleModal1">
+						<i class="bi bi-person-plus recommendButton"></i>
 					</div>
 					<div class="card-body">
 					<div class="d-flex justify-content-center">
@@ -947,26 +1044,9 @@
 							</div>
 						</div>
 
-						<div class="d-flex justify-content-between "
+						<div class="d-flex justify-content-between TimeOrGoal"
 							style="margin-top: 2%;">
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/Seats-left.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10</div>
-									<div class="seatleftcontent12">seats left</div>
-								</div>
-							</div>
-							<div class="d-flex seatsleft">
-								<div>
-									<img src="images/deadline.png" alt="">
-								</div>
-								<div>
-									<div class="seatleftcontent11">10-10-2023</div>
-									<div class="seatleftcontent12">Deadline</div>
-								</div>
-							</div>
+							`+TimeOrGoal+`
 						</div>
 						<hr class="cardfooterline">
 						<div class="d-flex justify-content-center">
@@ -1112,8 +1192,11 @@
 			}
 			$("#listgrid").html(htmlPageGrid);
 			$("#gridlist").html(htmlPageList);
-			
+			$('.recommendButton').click(function(){
+	        	missionIdForRecommendation=$('.missionIdForRecommendation').val();
+	        });
 		}
+       
 	</script>
 </body>
 

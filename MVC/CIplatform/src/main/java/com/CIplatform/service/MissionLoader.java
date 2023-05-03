@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.CIplatform.dto.Filters;
 import com.entities.City;
+import com.entities.CmsPage;
 import com.entities.Country;
 import com.entities.FavouriteMission;
 import com.entities.Mission;
@@ -15,6 +16,7 @@ import com.entities.Story;
 import com.entities.Timesheet;
 import com.entities.User;
 import com.entities.MissionApplication.approval;
+import com.entities.MissionMedia;
 
 
 @Service
@@ -47,4 +49,7 @@ public interface MissionLoader {
 	public String loadRecentVolunteers(Mission mission, int currentPage);
 	public int loadTotalRecentVolunteers(Mission mission);
 	public Story getStoryById(int story_id);
+	public List<CmsPage> loadAllSlugs();
+	public String checkEmail(String email);
+	public List<MissionMedia> getMissionMedia(Mission mission);
 }

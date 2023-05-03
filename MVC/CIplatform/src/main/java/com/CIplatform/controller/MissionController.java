@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.CIplatform.dto.Filters;
 import com.CIplatform.service.MissionLoader;
 import com.entities.City;
+import com.entities.CmsPage;
 import com.entities.Country;
 import com.entities.FavouriteMission;
 import com.entities.Mission;
@@ -24,6 +25,7 @@ import com.entities.MissionTheme;
 import com.entities.Skill;
 import com.entities.User;
 import com.entities.MissionApplication.approval;
+import com.entities.MissionMedia;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -123,14 +125,26 @@ public class MissionController {
 		}
 		return Output;
 	}
+	@RequestMapping(value = "/loadAllSlugs")
+	public @ResponseBody List<CmsPage> loadAllSlugs() {
+		List<CmsPage> mylist = this.service.loadAllSlugs();
+		return mylist;
+	}
 	
 	
 	@RequestMapping(value = "/recommendMission", method = RequestMethod.GET)
-	public @ResponseBody String recommend(@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
+	public @ResponseBody boolean recommend(@RequestParam("mid") int missionId,@RequestParam("email") String email,@RequestParam("from") int from_uid) {
+		String result=this.service.checkEmail(email);
 		Mission mission=this.service.getMissionById(missionId);
 		User user=this.service.getUserById(from_uid);
-		String result = this.service.recommendToCoWorker(mission,email,user);
-		return "true";
+		if(result=="true") {
+			this.service.recommendToCoWorker(mission,email,user);
+			return true;
+		}
+		else {
+			return false;
+		} 
+		
 	}
 	
 	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.GET)
@@ -138,11 +152,13 @@ public class MissionController {
 		Mission mission=this.service.getMissionById(missionId);
 		User user=this.service.getUserById(userId);
 		Double rating=this.service.getRatings(mission);
+		List<MissionMedia> media=this.service.getMissionMedia(mission);
 		m.addAttribute("mission",mission);
 		m.addAttribute("user",user);
 		m.addAttribute("rating",rating);
 		m.addAttribute("user_id",user.getUser_id());
 		m.addAttribute("avgrating",rating);
+		m.addAttribute("medias",media);
 		return "VolunteeringMission";
 	}
 	
@@ -220,19 +236,19 @@ public class MissionController {
 	}
 	
 	@RequestMapping(value = "/applyForMission", method = RequestMethod.GET)
-	public @ResponseBody void applyForMission(@RequestParam("mid") int missionId,@RequestParam("uid") int userId) {
+	public @ResponseBody boolean applyForMission(@RequestParam("mid") int missionId,@RequestParam("uid") int userId) {
 		Mission mission=this.service.getMissionById(missionId);
 		User user=this.service.getUserById(userId);
 		this.service.applyForMission(mission,user);
+		return true;
 	}
 	
 	@RequestMapping(value = "/appliedOrNotForMission", method = RequestMethod.GET)
 	public @ResponseBody approval appliedOrNotForMission(@RequestParam("mid") int missionId,@RequestParam("uid") int userId) {
 		Mission mission=this.service.getMissionById(missionId);
 		User user=this.service.getUserById(userId);
-		approval result=this.service.appliedOrNotForMission(mission,user);
-		
-		return result;
+		System.out.println(this.service.appliedOrNotForMission(mission,user));
+		return this.service.appliedOrNotForMission(mission,user);
 	}
 	
 	@RequestMapping(value = "/loadRecentVolunteers", method = RequestMethod.GET)

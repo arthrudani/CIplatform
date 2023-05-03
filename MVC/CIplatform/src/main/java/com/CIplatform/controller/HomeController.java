@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.print.DocFlavor.STRING;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,7 +35,8 @@ public class HomeController {
 	private RegistrationDao registrationDao;
 	@Autowired
 	private LandingpageDao landingpageDao;
-
+	@Autowired
+	private HibernateTemplate hibernateTemplate;
 	@RequestMapping("/registration")
 	public String home(Model m) {
 		return "registration";
@@ -134,10 +137,13 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/loadAllBanner")
 	public @ResponseBody List<Banner> loadAllBanner() {
-		System.out.println("hello");
-		System.out.println(this.registrationDao.loadAllBanner());
 		return this.registrationDao.loadAllBanner();
 	}
 	
-
+	@RequestMapping(value = "/PrivacyPolicy")
+	public String PrivacyPolicy(@RequestParam("uid") int uid,Model m) {
+		User user=this.hibernateTemplate.get(User.class, uid);
+		m.addAttribute("user",user);
+		return "PrivacyPolicy";
+	}
 }

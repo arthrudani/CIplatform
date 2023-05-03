@@ -84,6 +84,12 @@ public class Mission {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
 	private List<MissionRating> mission_ratings;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
+	private List<MissionMedia> missionMedias;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
+	private List<FavouriteMission> favouriteMissions;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
@@ -123,6 +129,14 @@ public class Mission {
 		this.mission_documents = mission_documents;
 	}
 	
+	public List<MissionMedia> getMissionMedias() {
+		return missionMedias;
+	}
+
+	public void setMissionMedias(List<MissionMedia> missionMedias) {
+		this.missionMedias = missionMedias;
+	}
+
 	public int getSeatsLeft() {
 		return seatsLeft;
 	}

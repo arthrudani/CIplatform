@@ -71,7 +71,7 @@
 										the fields below.</p>
 								</div>
 							</div>
-							<form action="../passwordReset" method="POST" name="login">
+							<form action="../passwordReset" method="POST" name="login" class="resetPassword">
 								<input type="hidden" name="email" value="${email}">
 								<div class="form-group" style="padding-bottom: 4%;">
 									<label for="exampleInputEmail1" class="box">New
@@ -87,7 +87,7 @@
 								</div>
 								<div class="col-md-12 d-grid gap-2 text-center mt-4">
 									<button type="submit"
-										class=" btn btn-block mybtn btn-outline-warning tx-tfm"
+										class=" btn btn-block mybtn btn-outline-warning tx-tfm changePassword"
 										style="border-radius: 50px;" onclick="return verifyPassword()">Change
 										password</button>
 								</div>
@@ -103,7 +103,7 @@
 						</div>
 						<div class="privacylogin"
 							style="font-size: 0.8rem; color: #8d8a8a;">
-							<p>Privacy Policy</p>
+							<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 						</div>
 					</div>
 
@@ -136,6 +136,31 @@
 			}
 		});
 	});
+	$(".changePassword").click(function(e){
+		e.preventDefault();
+		if($('#password').val().length<8 && $('.warning').html()!=""){
+			$('.warning').html("");
+			$('#password').after("<div class='text-danger warning'><small>Please enter valid password</small></div>");
+		}
+		else{
+			$('.warning').html("");
+		}
+		if($('#confpassword').val().length<8 && $('.warning2').html()!=""){
+			$('.warning2').html("");
+			$('#confpassword').after("<div class='text-danger warning2'><small>Please enter valid password</small></div>");
+		}
+		else{
+			$('.warning2').html("");
+		}
+		if($('#confpassword').val()!=$('#password').val()){
+			$('.warning2').html("");
+			$('.warning1').html("");
+			$('#confpassword').after("<div class='text-danger warning1'><small>Password and confirm password are not same</small></div>");
+		}
+		else if($('#confpassword').val().length>7 && $('#password').val().length>7){
+			$(".resetPassword").submit();
+		}
+	});	
 	function setbanner(banner){
 		let data1="";
 		let data2="";

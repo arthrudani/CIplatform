@@ -73,13 +73,13 @@ pageEncoding="ISO-8859-1"%>
 
 					<div class="row margin2">
 						<div class="col-6 textarea">
-							Hours <input type="text" name="Hours" class="form-control hours"
-								id="hours" aria-describedby="emailHelp"
+							Hours <input type="number" name="Hours" class="form-control hours"
+								id="hours quantity" aria-describedby="emailHelp"
 								placeholder="Enter spent hours">
 						</div>
 						<div class="col-6 textarea">
-							Minutes <input type="text" name="Minutes"
-								class="form-control minutes" id="minutes"
+							Minutes <input type="number" name="Minutes"
+								class="form-control minutes" id="minutes quantity"
 								aria-describedby="emailHelp" placeholder="Enter spent minutes">
 						</div>
 					</div>
@@ -195,80 +195,66 @@ pageEncoding="ISO-8859-1"%>
 					<img class="rightbutton" src="images/filter.png">
 				</button>
 			</div>
-
-
-
-
-			<div class="col d-flex justify-content-around">
-
-				<div class="leftHeader ">
-					<ul class="navbar-nav d-flex flex-row justify-content-between"
-						style="padding-top: 7%;">
-						<li class="nav-item upperButtons blocking"><a
-							class="nav-link" href="#">&nbsp;Stories</a></li>
-						<li class="nav-item dropdown upperButtons blocking"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
-								&nbsp; <img src="images/drop-down.png">
-						</a>
-							<ul class="dropdown-menu  posAbsolute"
-								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-							</ul></li>
-					</ul>
+			<div class="col d-flex justify-content-around align-items-center">
+				<div class="d-flex justify-content-around align-items-center">
+					<div>
+						<form action="storiesLoader" method="POST" name="storiesLoader">
+							<button type="submit" style="background: none; border: none; min-width: 120px;">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+								<li class="nav-item upperButtons blocking ">Stories</li>
+							</button>
+						</form>
+					</div>
+					<div>
+						<li class="nav-item dropdown upperButtons blocking">
+								<a
+								class="nav-link dropdown-toggle" href="#"
+								id="navbarDropdownMenuLink" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
+									&nbsp; <img src="images/drop-down.png">
+								</a>
+								<ul class="dropdown-menu slugs posAbsolute"
+									aria-labelledby="navbarDropdownMenuLink">
+									
+								</ul>
+							</li>
+					</div>
 				</div>
-
 				<div class="d-flex ">
-					<ul class="navbar-nav rightHeader align-items-between">
-						<img class="rightbutton "
-							style="padding-top: 22% !important; padding-right: 10%;"
-							src="images/search.png">
+					<ul class="d-flex navbar-nav rightHeader align-items-center">
+						<img class="rightbutton " src="images/search.png">
 
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle d-flex align-items-center g-2"
-							href="#" id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"
-							style="display: flex !important">
-								<div>
-									<img src="images/<c:out value="${user.avatar}"></c:out>"
-										class="userimage ">
-								</div>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
+								href="#" id="navbarDropdownMenuLink" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"
+								style="display: flex !important">
+								<div> <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> </div>
 								<div>
 									<span class="blocking uNameuImage" class="uNameuImage"><c:out
-											value="${user.first_name} ${user.last_name}"></c:out></span>
-								</div> <input type="text" class="userid" id="fname" name="fname"
-								value="${user.user_id}" hidden>
+										value="${user.first_name} ${user.last_name}"></c:out></span>
+								</div> 
+								<input type="text" class="usernameforlike" id="fname" name="fname" value="${user.user_id}" hidden>
 								<div>
 									<img src="images/drop-down.png" class="uNameuImage">
 								</div>
-						</a>
+							</a>
 
-							<ul class="dropdown-menu posAbsolute dropdown-menu-end"
-								aria-labelledby="navbarDropdownMenuLink">
+							<ul class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdownMenuLink" >
 								<form action="editProfile" method="POST" name="storiesLoader">
-									<input type="text" class="userIdforNextpage" name="uid"
-										value="${user.user_id}" hidden>
-									<li><button type="submit" class="dropdown-item">Edit
-											Profile</button></li>
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
 								</form>
-								<form action="volunteeringTimesheet" method="POST"
-									name="storiesLoader">
-									<input type="text" class="userid" name="uid"
-										value="${user.user_id}" hidden>
-									<li><button type="submit" class="dropdown-item">Volunteering
-											timesheet</button></li>
+								<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
 								</form>
-
 								<li><a class="dropdown-item" href="login">Logout</a></li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
-
-
 			</div>
 
 
@@ -276,11 +262,11 @@ pageEncoding="ISO-8859-1"%>
 	</div>
 
 	<!-- main content -->
-	<div class="VTheading container">Volunteering Timesheet</div>
+	<div class="VTheading container mt-5">Volunteering Timesheet</div>
 	<div class="container grid-container">
 		<div class="row">
 			<!-- Volunteering hours  -->
-			<div class="col-12 col-xl-6 ">
+			<div class="col-12 col-xl-6 mt-2">
 				<div class="card">
 					<div class="d-flex justify-content-between">
 						<div class="title">Volunteering hours</div>
@@ -347,13 +333,13 @@ pageEncoding="ISO-8859-1"%>
 	<div
 		class="container EPprivacypolicy d-flex justify-content-start mt-3 gap-3">
 		<div class="privacypolicy">
-			<a href="#">Privacy policy</a>
+			<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 		</div>
 		<div class="contactus">
-			<a href="#">Cookie policy</a>
+			<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 		</div>
 		<div class="contactus">
-			<a href="#">Terms of use</a>
+			<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 		</div>
 	</div>
 	<script
@@ -370,7 +356,7 @@ pageEncoding="ISO-8859-1"%>
 		let minutes=0;
 		let message="";
 		let action=0;
-		let user_id=$('.userid').val();
+		let user_id=$('.userIdforNextpage').val();
 		let timesheetid=0;
 		$(document).ready(function() {
 			
@@ -401,11 +387,24 @@ pageEncoding="ISO-8859-1"%>
 			$('.action').on('change', function () {
 				action = $('.action').val();
 	        });
-			
+			$.ajax({
+                url: "loadAllSlugs",
+                dataType: 'json',
+                success: function(response){
+               		addSlugs(response);
+                }
+            });
 			loadApprovedMissionsTimebased();
 			loadApprovedMissionsGoalbased();
 			loadAllTimesheetsByUser();
 		});
+		function addSlugs(slugs){
+	     	var data="";
+	     	for(var i in slugs){
+	     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
+	     	}
+	     	$(".slugs").html(data);
+	     }
 		function validateData(){
 			if(hours>23){
 				swal("Error!", "Hours must be less than 24!", "error");
@@ -453,34 +452,7 @@ pageEncoding="ISO-8859-1"%>
 			$('.messagetime').val('');
 			$('.action').val('');
 		}
-		function editTimeTimesheet(sheetid,mission_id,date,hour,minute,message){
-			newTimesheet();
-			timesheetid=sheetid;
-			timedate= new Date(date);
-	    	$('.datetime').get(0).valueAsDate=timedate;
-			date=$('.datetime').val();
-			$('.missionSelectTime').val(mission_id);
-			CheckedMission=$('.missionSelectTime').val();
-			$('.hours').val(hour);
-			hours = $('.hours').val();
-			$('.minutes').val(minute);
-			minutes = $('.minutes').val();
-			$('.messagetime').val(message);
-			message = $('.messagetime').val();
-		}
-		function editGoalTimesheet(sheetid,mission_id,action,date,message){
-			newTimesheet();
-			timesheetid=sheetid;
-			$('.missionSelectGoal').val(mission_id);
-			CheckedMission=$('.missionSelectGoal').val();
-			timedate= new Date(date);
-	    	$('.dategoal').get(0).valueAsDate=timedate;
-			date=$('.dategoal').val();
-			$('.action').val(action);
-			action = $('.action').val();
-			$('.messagegoal').val(message);
-			message = $('.messagegoal').val();
-		}
+		
 		function loadAllTimesheetsByUser() {
 			$.ajax({
 				url : "loadTimesheetsByUser",
@@ -544,6 +516,35 @@ pageEncoding="ISO-8859-1"%>
 			}
 			$(".timeBased").html(data1);
 			$(".goalBased").html(data2);
+		}
+		function editTimeTimesheet(sheetid,mission_id,datee,hour,minute,message){
+			newTimesheet();
+			timesheetid=sheetid;
+			timedate= new Date(datee);
+			$('.datetime').get(0).valueAsDate=timedate;
+			date=datee;
+			$('.missionSelectTime').val(mission_id);
+			CheckedMission=$('.missionSelectTime').val();
+			$('.hours').val(hour);
+			hours = $('.hours').val();
+			$('.minutes').val(minute);
+			minutes = $('.minutes').val();
+			$('.messagetime').val(message);
+			message = $('.messagetime').val();
+		}
+		function editGoalTimesheet(sheetid,mission_id,action,datee,message){
+			newTimesheet();
+			timesheetid=sheetid;
+			$('.missionSelectGoal').val(mission_id);
+			CheckedMission=$('.missionSelectGoal').val();
+			timedate= new Date(datee);
+			date=datee;
+	    	$('.dategoal').get(0).valueAsDate=timedate;
+			date=$('.dategoal').val();
+			$('.action').val(action);
+			action = $('.action').val();
+			$('.messagegoal').val(message);
+			message = $('.messagegoal').val();
 		}
 		function loadApprovedMissionsTimebased() {
 			$.ajax({

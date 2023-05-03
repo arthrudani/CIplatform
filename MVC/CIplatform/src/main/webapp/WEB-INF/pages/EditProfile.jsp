@@ -199,28 +199,29 @@
 
 
 			<div class="col d-flex justify-content-around">
-				<div class=" d-flex align-items-center">
-					<img src="images/logo.png" class="blocking">
-				</div>
 
-				<div class="leftHeader ">
-					<ul class="navbar-nav d-flex flex-row justify-content-between"
-						style="padding-top: 7%;">
-						<li class="nav-item upperButtons blocking"><a
-							class="nav-link" href="#">&nbsp;Stories</a></li>
-						<li class="nav-item dropdown upperButtons blocking"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
-								&nbsp; <img src="images/drop-down.png">
-						</a>
-							<ul class="dropdown-menu  posAbsolute"
-								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-							</ul></li>
+				<div class="leftHeader d-flex align-items-center">
+					<ul class="navbar-nav d-flex flex-row justify-content-between">
+						<div class="d-felx align-items-center" 	>
+						<form action="storiesLoader" method="POST" name="storiesLoader">
+							<button type="submit" style="background: none; border: none; min-width: 120px;">
+								<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+								<li class="nav-item upperButtons blocking" style="margin-top: 15px;">Stories</li>
+							</button>
+						</form>
+					</div>
+						<li class="nav-item dropdown upperButtons blocking">
+								<a
+								class="nav-link dropdown-toggle" href="#"
+								id="navbarDropdownMenuLink" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
+									&nbsp;<img src="images/drop-down.png">
+								</a>
+								<ul class="dropdown-menu slugs posAbsolute"
+									aria-labelledby="navbarDropdownMenuLink">
+									
+								</ul>
+							</li>
 					</ul>
 				</div>
 
@@ -230,24 +231,34 @@
 							style="padding-top: 22% !important; padding-right: 10%;"
 							src="images/search.png">
 
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle d-flex align-items-center"
-							href="#" id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"
-							style="display: flex !important;"> <img
-								src="images/<c:out value="${user.avatar}"></c:out>"
-								class="userimage"> <span class="blocking uNameuImage">${user.first_name}
-									${user.last_name}</span> <img src="images/drop-down.png"
-								class="uNameuImage">
-						</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
+								href="#" id="navbarDropdownMenuLink" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"
+								style="display: flex !important">
+								<div> <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> </div>
+								<div>
+									<span class="blocking uNameuImage" class="uNameuImage"><c:out
+										value="${user.first_name} ${user.last_name}"></c:out></span>
+								</div> 
+								<img src="images/drop-down.png">
+								<input type="text" class="usernameforlike" id="fname" name="fname" value="${user.user_id}" hidden>
+								
+							</a>
 
 							<ul class="dropdown-menu posAbsolute dropdown-menu-end"
 								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-							</ul></li>
+								<form action="editProfile" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+								</form>
+								<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+								</form>
+								<li><a class="dropdown-item" href="login">Logout</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 
@@ -419,7 +430,7 @@
 						id="addSkillButton">Add skill</button>
 				</div>
 				<div class="d-flex justify-content-end EPsave mt-3">
-					<button onclick="updateProfile()">Save</button>
+					<button class="save">Save</button>
 				</div>
 
 			</div>
@@ -430,7 +441,7 @@
 		<div class="EPfooterline "></div>
 		<div class="EPprivacypolicy d-flex justify-content-start mt-3 gap-3">
 			<div class="privacypolicy">
-				<a href="#">Privacy policy</a>
+				<a href="PrivacyPolicy?uid=${user.user_id}">Privacy policy</a>
 			</div>
 			<div class="contactus">
 				<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3"
@@ -504,10 +515,10 @@
 			$(".profilePic").click(function(){		
 				$("#wizard-picture").click();
 			});
-			$('#name').on('change', function() {
+			$('#name').keyup(function(){
 				name = $('#name').val();
 			});
-			$('#surname').on('change', function() {
+			$('#surname').keyup(function(){
 				surname = $('#surname').val();
 			});
 			$('#employeeID').on('change', function() {
@@ -538,7 +549,49 @@
 			loadAllSkill();
 			loadUserSkill();
 			loadAllDetails();
+			$.ajax({
+	            url: "loadAllSlugs",
+	            dataType: 'json',
+	            success: function(response){
+	           		addSlugs(response);
+	            }
+	        });
 		});
+		function addSlugs(slugs){
+	     	var data="";
+	     	console.log(slugs);
+	     	for(var i in slugs){
+	     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
+	     	}
+	     	$(".slugs").html(data);
+	     }
+		$(".save").click(function(e){
+			e.preventDefault();
+			if(name.length==0 && $('.warning').html()!=""){
+				$('.warning').html("");
+				$('#name').after("<div class='text-danger warning'><small>This field is compalsory</small></div>");
+			}
+			else{
+				$('.warning').html("");
+			}
+			if(surname.length==0 && $('.warning1').html()!=""){
+				$('.warning1').html("");
+				$('#surname').after("<div class='text-danger warning1'><small>This field is compalsory</small></div>");
+			}
+			else{
+				$('.warning1').html("");
+			}
+// 			if(city==0 && $('.warning1').html()!=""){
+// 				$('.warning1').html("");
+// 				$('#surname').after("<div class='text-danger warning1'><small>This field is compalsory</small></div>");
+// 			}
+// 			else{
+// 				$('.warning1').html("");
+// 			}
+			if(surname.length>0 && name.length>0){
+				updateProfile();
+			}
+		});	
 		function readURL(input) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
@@ -681,7 +734,9 @@
 		function setUserData() {
 			clearPasswordFields();
 			$('#name').val(user.first_name);
+			name=$('#name').val();
 			$('#surname').val(user.last_name);
+			surname=$('#surname').val();
 			$('#employeeID').val(user.employee_id);
 			$('#title').val(user.title);
 			$('#department').val(user.department);

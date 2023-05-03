@@ -53,8 +53,8 @@ public class StoryLoaderService implements StoryLoader{
 		
 	}
 
-	public status loadStoryStatus(Mission mission, User user) {
-		return this.storyLoaderInterface.loadStoryStatus(mission,user);
+	public status loadStoryStatus(Story story) {
+		return this.storyLoaderInterface.loadStoryStatus(story);
 	}
 
 	public Story savePreviewDraft(Mission mission, User user) {
@@ -101,7 +101,18 @@ public class StoryLoaderService implements StoryLoader{
 		return this.storyLoaderInterface.loadDraftMedia(story);
 	}
 
-	
+	public String checkEmail(String email) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from User where email=:email");
+		String result1="";
+		query.setParameter("email", email);
+		User user1 = (User) query.uniqueResult();
+		if(user1!=null) {
+			return "true";
+		}
+		else {
+			return "false";
+		}
+	}
 
 
 }

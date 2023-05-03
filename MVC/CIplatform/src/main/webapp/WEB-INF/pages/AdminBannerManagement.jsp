@@ -128,25 +128,33 @@ pageEncoding="ISO-8859-1"%>
                     <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
                     <div class="d-flex justify-content-between align-items-center ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
-                                id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <div class="gap-2 d-flex align-items-center">
-                                    <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage ">
-                                    <div> 
-                                   		<span class="blocking uNameuImage" class="uNameuImage">
-                                   		<c:out value="${user.first_name} ${user.last_name}"></c:out></span>
-									</div> 
-                                    <img src="images/drop-down.png" class="uNameuImage">
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu posAbsolute dropdown-menu-end"
-                                aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
+								href="#" id="navbarDropdownMenuLink" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"
+								style="display: flex !important">
+								<div> <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage "> </div>
+								<div>
+									<span class="blocking uNameuImage" class="uNameuImage"><c:out
+										value="${user.first_name} ${user.last_name}"></c:out></span>
+								</div> 
+								<img src="images/drop-down.png">
+								<input type="text" class="usernameforlike" id="fname" name="fname" value="${user.user_id}" hidden>
+								
+							</a>
+
+							<ul class="dropdown-menu posAbsolute dropdown-menu-end"
+								aria-labelledby="navbarDropdownMenuLink">
+								<form action="editProfile" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Edit Profile</button></li>
+								</form>
+								<form action="volunteeringTimesheet" method="POST" name="storiesLoader">
+									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
+									<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
+								</form>
+								<li><a class="dropdown-item" href="login">Logout</a></li>
+							</ul>
+						</li>
                     </div>
                 </div>
                 <div class="headerborder"></div>

@@ -15,7 +15,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Story Detail</title>
-
+<link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/MissionView.css">
 <link rel="stylesheet" href="css/MissionView1.css">
@@ -59,11 +59,11 @@
 				</div>
 				<div class="modal-body d-flex justify-content-center">
 					<label for="email">Enter email:</label> <input type="email"
-						class="recommendEmail" id="email" name="email">
+						class="recommendToEmail" id="email" name="email">
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
-						data-bs-dismiss="modal" onclick="recommendToCoworker(${story.story_id})">Recommend</button>
+						data-bs-dismiss="modal" onclick="recommendToCoworker()">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -230,7 +230,7 @@
 							<div class="SDuname">${user1.first_name} ${user1.last_name}</div>
 							
 							<div class="SDviews">
-								<img src="images/eye.png" alt="">12000 Views
+								<img src="images/eye.png" alt=""> ${story.totalViews} views
 							</div>
 						</div>
 						<div class="SDdetails1">
@@ -251,6 +251,8 @@
 
 							<button class="SDRecommend" data-bs-toggle="modal"
 								data-bs-target="#exampleModal1">
+								<input type="text" class="storyId" id="uidl" name="user_id"
+										value="${story.story_id}" hidden>
 								<i class="bi bi-person-add"></i> Recommend to a co-worker
 							</button>
 
@@ -303,7 +305,7 @@
 
 			<!-- mission list ends here -->
 			<div class="footer mt-3 d-flex container">
-				<a href="#" class="px-3 text-black">Privacy Policy</a> <a href="#"
+				<a href="PrivacyPolicy?uid=${user.user_id}" class="px-3 text-black">Privacy Policy</a> <a href="#"
 					class="px-2 text-black">Contact Us</a>
 			</div>
 		</div>
@@ -315,7 +317,7 @@
 
 <script src="js/bootstrap.min.js"></script>
 <!--<script src="/js/missionview.js"></script>-->
-
+<script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
 <!-- slick-carousel -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
@@ -336,6 +338,7 @@
 
 
 <script>
+	let storyId=$(".storyId").val();
 	let user_id=$('.userid').val();
 	let mission_id=$('.missionid').val();
 	
@@ -383,18 +386,23 @@
 	  	$(".slider").html(data1);
 	  	$(".thumbnail_slider").html(data2);
 	}
-	function recommendToCoworker(storyid){
-		let recommendEmail=$('.recommendEmail').val();
+	function recommendToCoworker(){
+		let recommendEmail=$('.recommendToEmail').val();
 		$.ajax({
             url: "recommendMissionFromStory",
     		dataType: 'json',
-            data:{'sid':storyid,
+            data:{'sid':storyId,
             	  'mid':mission_id,
             	  'email':recommendEmail,
             	  'from':user_id},
             type:"GET",
             success: function(response){
-            	console.log(response);
+            	if(response==true){
+            		swal("Success!", "Successfully recommended!", "success");
+            	}
+            	else if(response==false){
+            		swal("Error!", "Email does not exists in database!", "error");
+            	}
         	}
 		});
 	}

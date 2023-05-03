@@ -82,22 +82,22 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 			story.setMission(mission);
 			story.setUser(user);
 		}
+		story.setTotalViews(0);
 		story.setStatus(status.PENDING);
 		this.hibernateTemplate.saveOrUpdate(story);
 	}
 
-	public status loadStoryStatus(Mission mission, User user) {
-		String que = "from Story where user=:user and mission=:mission and status=:status";
+	public status loadStoryStatus(Story story) {
+		String que = "from Story where story_id=:id";
 		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
-		q.setParameter("user",user);
-		q.setParameter("mission",mission);
-		q.setParameter("status",status.DRAFT);
-		Story story=new Story();
-		if(q.list().size()>0) {
-			story=(Story)q.list().get(0);
-			return story.getStatus();
+		q.setParameter("id",story.getStory_id());
+		Story story1=(Story) q.uniqueResult();
+		if(story1==null) {
+			return status.DRAFT;
 		}
-		return null;
+		else {
+			return story1.getStatus();
+		}
 	}
 
 	@Transactional
@@ -168,10 +168,6 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 				this.hibernateTemplate.save(media1);
 			}
 		}
-			 
-
-		
-		
 	}
 
 	public List<StoryMedia> loadDraftMedia(Story story) {
@@ -180,4 +176,5 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 		q.setParameter("story_id",story.getStory_id());
 		return q.list();
 	}
+
 }

@@ -37,19 +37,14 @@ h3 {
 
 .mybtn {
     border-radius: 50px;
-    width: 70%;
-    margin-left: 15%;
 }
 .box{
     font-size: 1rem; 
     color: #8d8a8a; 
-    padding-left: 17%; 
     padding-bottom: 1%;
 }
 .form-control{
     line-height: 0;
-    width: 70%;
-    margin-left: 15%;
     padding-top: 0.3% !important;
 }
 

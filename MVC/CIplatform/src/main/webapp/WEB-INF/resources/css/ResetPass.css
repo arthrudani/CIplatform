@@ -17,8 +17,6 @@ h3 {
 
 .form-control{
     line-height: 0;
-    width: 70%;
-    margin-left: 15%;
     padding-top: 2% !important;
 }
 .carousel-item .img{
@@ -46,13 +44,10 @@ h3 {
 
 .mybtn {
     border-radius: 50px;
-    width: 70%;
-    margin-left: 15%;
 }
 .box{
     font-size: 16px; 
     color: #8d8a8a; 
-    padding-left: 17%; 
     padding-bottom: 1%;
 }
 
