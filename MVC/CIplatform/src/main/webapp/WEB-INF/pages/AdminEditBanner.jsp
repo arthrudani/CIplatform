@@ -169,7 +169,7 @@
 					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox bannerTitle" required>
 
 					<div class="bannerImage ms-3 mt-3"></div>
-					<input type="file" id="wizard-picture" class="ms-3 mt-3 titleOfAddbox">
+					<input type="file" id="wizard-picture" accept="image/*" class="ms-3 mt-3 titleOfAddbox">
 					
 					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="editBanner()">
 						<i class="bi bi-plus"></i>SAVE

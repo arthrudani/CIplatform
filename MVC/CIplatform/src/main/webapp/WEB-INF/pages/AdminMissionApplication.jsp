@@ -173,7 +173,7 @@ pageEncoding="ISO-8859-1"%>
                                 class="searchBoxPh">
                         </div>
                     </div>
-                    <button class="addbutton d-flex align-items-center"><i class="bi bi-plus"></i>ADD</button>
+                    
                 </div>
 
                 <!-- table -->
@@ -249,7 +249,7 @@ pageEncoding="ISO-8859-1"%>
         	for(var i in applications){
         		const dateObject1 = new Date(applications[i].applied_at)
         		const humanDateFormat1 = dateObject1.toLocaleDateString("default");
-        		GEB=`<div class="d-flex gap-2"><button class="view">View</button>
+        		GEB=`<div class="d-flex gap-2">
                      <button class="checkbs" onclick="approveMissionApplication(`+applications[i].mission_application_id+`)"><i class="bi bi-check-circle"></i></button>
                      <button class="circlebs" onclick="rejectMissionApplication(`+applications[i].mission_application_id+`)"><i class="bi bi-x-circle"></i></button></div>`;
         		table.row.add([

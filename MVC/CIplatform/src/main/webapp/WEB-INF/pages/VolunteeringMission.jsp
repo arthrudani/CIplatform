@@ -65,6 +65,9 @@
 				<input type="text" class="userId" id="uid" name="uid"
 					value="${user_id}" hidden> <input type="text"
 					class="missionID" name="missionID" value="${mission.mission_id}"
+					hidden> 
+				<input type="text"
+					class="missionType" name="missionID" value="${mission.mission_type}"
 					hidden>
 				<div class="modal-body d-flex justify-content-around">
 					<label for="email">Enter email:</label> <input type="email"
@@ -183,6 +186,7 @@
 			</div>
 
 			<div class="main-content mb-6">
+				<input type="text" class="deadline" id="averageRating" name="averageRating" value="${mission.deadline}" hidden>
 				<input type="text" id="title" name="title" value="${mission.title}" hidden> 
 				<input type="text" class="missionID" value="${mission.mission_id}" hidden> 
 				<input type="text" class="userId" id="uid" name="uid" value="${user_id}" hidden>
@@ -231,38 +235,33 @@
 					<div class="col-xl-6 col-lg-12 col-md-12 col-12 px-6 right-content">
 
 						<!-- mission details here -->
-
 						<p class="fs-1">
 							<c:out value="${mission.title}"></c:out>
 						</p>
-
 						<p class="fs-5">
 							<c:out value="${mission.short_description}"></c:out>
 						</p>
-
-						<div
-							class="deadline d-flex align-items-center justify-content-between flex-wrap">
-
-							<div
-								class=" px-3 seat-deadline d-flex align-items-center justify-content-between">
+						<div class="deadline d-flex align-items-center justify-content-between flex-wrap">
+							<div class=" px-3 seat-deadline d-flex align-items-center justify-content-between">
 								<img src="images/Seats-left.png" alt="" class="px-3">
-								<div>
-									10
-									<p>Seats left</p>
+								<div class="seatsLeftOrAlreadyVolunteer">
+<%-- 									<c:out value="${mission.seatsLeft}"></c:out> --%>
+<!-- 									<p>Seats left</p> -->
 								</div>
 							</div>
 
 							<div
 								class=" px-3 seat-deadline d-flex align-items-center justify-content-between">
 								<img src="images/mission.png" alt="">
-								<div class="ms-3">
-									<div class="progress"
-										style="height: 10px; border-radius: 10px; width: 10rem;">
-										<div class="progress-bar bg-warning" role="progressbar"
-											style="width: 75%; height: 10px;" aria-valuenow="75"
-											aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-									<p class="remove-margin">Deadline</p>
+								<div class="ms-3 deadlineOrProgress d-flex align-items-center" style="flex-direction: column;"> 
+<!-- 									<div class="progress" -->
+<!-- 										style="height: 10px; border-radius: 10px; width: 10rem;"> -->
+<!-- 										<div class="progress-bar bg-warning" role="progressbar" -->
+<!-- 											style="width: 75%; height: 10px;" aria-valuenow="75" -->
+<!-- 											aria-valuemin="0" aria-valuemax="100"></div> -->
+<!-- 									</div> -->
+<%-- 									<p class="remove-margin"><c:out value="${mission.deadline}"></c:out></p> --%>
+<!-- 									<p>Registration deadline</p> -->
 								</div>
 							</div>
 
@@ -279,6 +278,7 @@
 								style="width: 40%;"></div>
 							<input type="text" class="avgrating" id="averageRating"
 								name="averageRating" value="${avgrating}" hidden>
+							
 							<div role="button"
 								class="d-flex recommend-items align-items-center justify-content-center twobutton"
 								style="width: 40%;" data-bs-toggle="modal"
@@ -518,8 +518,10 @@
 	let missionSkill=[];
 	let likedMissionId=[];
 	let recentVolunteers=[];
+	let deadline=$('.deadline').val();
 	let user_id=$('.userId').val();
 	let mission_id=$('.missionID').val();
+	let missionType=$('.missionType').val();
 	let likedStatus="";
 	let averageOfRelated;
 	let starForRelatred="";
@@ -527,6 +529,7 @@
 	let totalRecentVolunteers=0;
 	let currentPage=0;
 	let recommendToEmail="";
+	let progress=0;
 	
 	$(document).ready(function(){
 		
@@ -564,11 +567,70 @@
         $('.recommendToEmail').keyup(function(){
 			recommendToEmail=$('.recommendToEmail').val();
         });
+        $.ajax({
+			url : "loadTotalActions",
+			dataType : 'json',
+			data : {'mid' : mission_id},
+			type : "GET",
+			success : function(response) {
+				progress=response;
+				loadMissionIfGoal();
+			}
+		});
         
 	});
+	
+	function loadMissionIfGoal(){
+		if(missionType=="GOAL"){
+			console.log(progress);
+	        $.ajax({
+				url : "loadGoalMission",
+				dataType : 'json',
+				data : {'mid' : mission_id},
+				type : "GET",
+				success : function(response) {
+					deadlineOrProgress(response);
+				}
+			});
+        }
+		
+		else{
+			var date_ob = new Date(deadline);
+			var year = date_ob.getFullYear();
+			var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+			var date1 = ("0" + date_ob.getDate()).slice(-2);
+			let timedate=year+"-"+month+"-"+date1;
+			let data1="";
+			let data2="";
+			data1=`<p class="remove-margin">`+timedate+`</p>
+				  <p>Registration deadline</p>`;
+			data2=`<c:out value="${mission.seatsLeft}"></c:out>
+					<p>Seats left</p>`;
+			$('.deadlineOrProgress').html(data1);
+			$('.seatsLeftOrAlreadyVolunteer').html(data2);
+		}
+	}
+	function deadlineOrProgress(mission){
+		let data1="";
+		let data2="";
+		let x=mission.goalValue;
+		let j=(100*progress)/x;
+		data1=`<div class="progress" style="height: 10px; border-radius: 10px; width: 10rem;">
+				<div class="progress-bar bg-warning" role="progressbar"
+						style="width: `+j+`%; height: 10px;"
+						aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				<div class="d-flex justify-content-between gap-3">
+					<div>`+progress+`</div>
+					<div>Achieved</div>
+				</div>`;
+		data2=`<p class="remove-margin">`+mission.alreadyVolunteer+`</p>
+				<p>Already volunteer</p>`;
+		$('.deadlineOrProgress').html(data1);
+		$('.seatsLeftOrAlreadyVolunteer').html(data2);
+	}
 	function addSlugs(slugs){
      	var data="";
-     	console.log(slugs);
      	for(var i in slugs){
      		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
      	}
@@ -582,7 +644,6 @@
             data:{'mid':mission_id},
             type:"GET",
             success: function(response){
-            	console.log(response);
             	totalRecentVolunteers=response;	
             	editpagination(totalRecentVolunteers);
         	}
@@ -597,7 +658,6 @@
             	  'currentPage':currentPage},
             type:"GET",
             success: function(response){
-            	console.log(response);
             	recentVolunteers=response;
             	for (let i in recentVolunteers){
             		volunteers+=`<div class="col-4 d-flex flex-column align-items-center">
@@ -641,7 +701,6 @@
 	            	  'uid':user_id},
 	            type:"GET",
 	            success: function(response){
-	            	console.log(response);
 	            	if(response=="TWO"){
 	            		appliedOrNot+=`<button class="Apply__Mission"">
 											Application pending

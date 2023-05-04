@@ -523,8 +523,9 @@ pageEncoding="ISO-8859-1"%>
 			timedate= new Date(datee);
 			$('.datetime').get(0).valueAsDate=timedate;
 			date=datee;
+			console.log(mission_id);
 			$('.missionSelectTime').val(mission_id);
-			CheckedMission=$('.missionSelectTime').val();
+			CheckedMission=mission_id;
 			$('.hours').val(hour);
 			hours = $('.hours').val();
 			$('.minutes').val(minute);

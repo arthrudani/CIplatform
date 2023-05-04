@@ -38,7 +38,7 @@
 			<div class="col-auto col-md-3 col-lg-3 col-xl-2 sidebar">
 				<div
 					class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
-					<a href="/"
+					<a href="#"
 						class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none">
 						<span class="fs-5 d-none d-sm-inline">Menu</span>
 					</a>
@@ -234,8 +234,7 @@
 						<div class="col">
 						<input type="text" class="missionTypeOfMission" name="uid" value="${mission.mission_type}" hidden>
 							<select name="Status" id="Status" class="cmsStatus missionType titlebox ms-3 mt-2 me-3" required>
-									<option value="TIME">TIME</option>
-									<option value="GOAL">GOAL</option>
+									<option value="${mission.mission_type}">${mission.mission_type}</option>
 							</select>
 						</div>
 					</div>
@@ -250,6 +249,17 @@
 							<input type="date" class="registrationDeadline" id="registrationDeadline" name="registrationDeadline" placeholder="Select Date">
 						</div>
 					</div>
+					<div class="row">
+						<div class="col">
+							<div class="ms-3 mt-3 titleOfAddbox">Goal value</div>
+							<input type="number" id="quantity" class="goalValue ms-3 mt-2 me-3 titlebox" name="quantity" min="1">
+						</div>
+						<div class="col">
+							<div class="ms-3 mt-3 titleOfAddbox">Goal objective</div>
+							<input type="text" class="goalObjective ms-3 mt-2 me-3 titlebox" id="goalObjective" name="goalObjective" placeholder="Goal objective">
+						</div>
+					</div>
+					
 					
 					<div class="d-flex EPnameSurname justify-content-around mt-1 row">
 						<div class="col">
@@ -313,7 +323,8 @@
 											</div>
 											<div class="UploadText">Drag and drop documents here</div>
 										</a> 
-										<input type="file" id="pro-docs" name="pro-docs" style="display: none;" class="form-control storyImages" multiple>
+										<input type="file" id="pro-docs" name="pro-docs" style="display: none;" class="form-control storyImages"  accept="image/*" multiple>
+										
 									</fieldset>
 								</div>
 						</div>
@@ -394,6 +405,8 @@
 	let missionEndDate;
 	let missionSeats=0;
 	let registrationDeadline=new Date();
+	let goalValue;
+	let goalObjective="";
 	let missionSkill;
 	var files=[];
 	var docs=[];
@@ -434,6 +447,7 @@
 				}
 			});
         	loadAllData();
+        	
         	$('.missionTitle').on('change', function() {
         		missionTitle = $('.missionTitle').val();
         	});
@@ -465,22 +479,18 @@
 			$('.statusMission').on('change', function() {
 				missionStatus = $('.statusMission').val();
 			});
-			$('.missionType').on('change', function() {
-				missionType = $('.missionType').val();
-				if(missionType=="GOAL"){
-					$( ".missionSeats" ).prop( "disabled", true );
-					$( ".registrationDeadline" ).prop( "disabled", true );
-				}
-				else {
-					$( ".missionSeats" ).prop( "disabled", false );
-					$( ".registrationDeadline" ).prop( "disabled", false );
-				}
-        	});
+				
 			$('.missionSeats').on('change', function() {
 				missionSeats = $('.missionSeats').val();
         	});
 			$('.registrationDeadline').on('change', function() {
 				registrationDeadline = $('.registrationDeadline').val();
+        	});
+			$('.goalValue').on('change', function() {
+				goalValue = $('.goalValue').val();
+        	});
+			$('.goalObjective').on('change', function() {
+				goalObjective = $('.goalObjective').val();
         	});
 			$('.missionTheme').on('change', function() {
 				missionTheme = $('.missionTheme').val();
@@ -499,6 +509,12 @@
         	});
         	
         });
+        function setGoalMissionData(Gmission){
+    		$('.goalValue').val(Gmission.goalValue);
+    		goalValue = Gmission.goalValue;
+    		$('.goalObjective').val(Gmission.goalObjectiveText);
+    		goalObjective = Gmission.goalObjectiveText;
+        }
         function setMissionData(mission){
         	timedate1= new Date(mission.start_date);
         	timedate2= new Date(mission.end_date);
@@ -512,8 +528,16 @@
         	missionStartDate=timedate1;
         	missionEndDate=timedate2;
         	$('.missionType').val(mission.mission_type);
-			$('.missionSeats').val();
-        	$('.registrationDeadline').val();
+			
+        	if(mission.mission_type=="GOAL"){
+//         		$('.goalValue').val(mission.seats);
+//         		$('.goalObjective').val(timedate3);
+        	}
+        	else{
+        		timedate3= new Date(mission.deadline);
+        		$('.missionSeats').val(mission.seats);
+        		$('.registrationDeadline').val(timedate3);
+        	}
         	$('.statusOfMission').val();
         	$('.missionAvailability').val(mission.availability);
         	missionShortDescription=mission.short_description;
@@ -528,6 +552,27 @@
 				data : {'mid' : mission_id},
 				type : "GET",
 				success : function(response) {
+					if(missionType=="GOAL"){
+						$.ajax({
+							url : "loadEditMissionDetailsIfGoal",
+							dataType : 'json',
+							data : {'mid' : mission_id},
+							type : "GET",
+							success : function(response) {
+								setGoalMissionData(response);
+							}
+						});
+						$( ".missionSeats" ).prop( "disabled", true );
+						$( ".registrationDeadline" ).prop( "disabled", true );
+						$( ".goalValue" ).prop( "disabled", false );
+						$( ".goalObjective" ).prop( "disabled", false );
+					}
+					else {
+						$( ".goalValue" ).prop( "disabled", true );
+						$( ".goalObjective" ).prop( "disabled", true );
+						$( ".missionSeats" ).prop( "disabled", false );
+						$( ".registrationDeadline" ).prop( "disabled", false );
+					}
 					setMissionData(response);
 				}
 			});
@@ -559,6 +604,8 @@
 	       		formData.append("type", missionType);
 	        	formData.append("totalSeats", missionSeats);
 	        	formData.append("registrationDeadline",new Date(registrationDeadline));
+	        	formData.append("goalValue",goalValue);
+	        	formData.append("goalObjective",goalObjective);
 	        	formData.append("themeId", missionTheme);
 	        	formData.append("skill", selectedSkill);
 	        	formData.append("availability", missionAvailability);

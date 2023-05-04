@@ -38,7 +38,7 @@
 </head>
 
 <body>
-
+	<jsp:include page="Loader.jsp"></jsp:include>
 	<!-- modal for recommend mission -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -352,6 +352,7 @@
 	</div>
 
 	<!-- 	total missions -->
+	<div id="spinner-div" class="pt-5">hello</div>
 	<div class="container grid-container gridListView">
 		<div class="row" id="listgrid"></div>
 		<div class="row" id="gridlist"></div>
@@ -476,6 +477,7 @@
                	addSkillList(SkillList);
                 }
             });
+	       	
 	       	$.ajax({
                 url: "loadAllSlugs",
                 dataType: 'json',
@@ -506,6 +508,7 @@
 		       	currentPage=0;
 		        updateMissionsOnChange();
 		    });
+	        
 		});
 		function addSlugs(slugs){
 	     	var data="";
@@ -797,6 +800,7 @@
     	}
         
         function loopForFetchingMissionDetails(missions) {
+        	$("#spinner-div").show();
 			var htmlPageGrid = "";
 			var htmlPageList = "";
 			let sum=0;
@@ -839,7 +843,7 @@
 				let timedate=year+"-"+month+"-"+date;
 				let TimeOrGoal="";
 				if(missions[i].mission_type=="TIME"){
-					TimeOrGoal=`<div class="d-flex seatsleft">
+					TimeOrGoal=`<div class="d-flex seatsleft align-items-center">
 									<div>
 										<img src="images/Seats-left.png" alt="">
 									</div>
@@ -848,7 +852,7 @@
 										<div class="seatleftcontent12">seats left</div>
 									</div>
 								</div>
-								<div class="d-flex seatsleft">
+								<div class="d-flex seatsleft align-items-center">
 									<div>
 										<img src="images/deadline.png" alt="">
 									</div>
@@ -859,24 +863,56 @@
 								</div>`;
 				}
 				else{
-					TimeOrGoal=`<div class="d-flex seatsleft">
-						<div>
-							<img src="images/Seats-left.png" alt="">
-						</div>
-// 						<div>
-// 							<div class="seatleftcontent11">`+missions[i].seatsLeft+`</div>
-// 							<div class="seatleftcontent12">seats left</div>
-// 						</div>
-					</div>
-					<div class="d-flex seatsleft">
-						<div>
-							<img src="images/deadline.png" alt="">
-						</div>
-// 						<div>
-// 							<div class="seatleftcontent11">`+missions[i].deadline+`</div>
-// 							<div class="seatleftcontent12">Deadline</div>
-// 						</div>
-					</div>`;
+					let progress=0;
+					let volunteers=0;
+					$.ajax({
+						url : "loadGoalMission",
+						dataType : 'json',
+						data : {'mid' : missions[i].mission_id},
+						type : "GET",
+						success : function(response) {
+							let x=response.goalValue;
+							volunteers=response.alreadyVolunteer;
+							$.ajax({
+								url : "loadTotalActions",
+								dataType : 'json',
+								data : {'mid' : missions[i].mission_id},
+								type : "GET",
+								success : function(response) {
+									progress=response;
+									let j=(100*progress)/x;
+									let progressbar=`<div class="progress-bar bg-warning" role="progressbar"
+														style="width: `+j+`%; height: 10px;"
+														aria-valuemin="0" aria-valuemax="100"></div>`;
+									$(".progress"+missions[i].mission_id+"").html(progress);
+									$(".volunteers"+missions[i].mission_id+"").html(volunteers);
+									$(".progressbar"+missions[i].mission_id+"").html(progressbar);
+								}
+							});
+						}
+					});
+					TimeOrGoal=`<div class="d-flex seatsleft align-items-center">
+									<div>
+										<img src="images/Seats-left.png" alt="">
+									</div>
+									<div>
+										<div class="seatleftcontent11 volunteers`+missions[i].mission_id+`"></div>
+										<div class="seatleftcontent12">Volunteered</div>
+									</div>
+								</div>
+								<div class="d-flex seatsleft align-items-center">
+									<div>
+										<img src="images/deadline.png" alt="">
+									</div>
+									<div class="ms-3 deadlineOrProgress d-flex align-items-center" style="flex-direction: column;"> 
+										<div class="progress margin-remove progressbar`+missions[i].mission_id+`" style="height: 10px; border-radius: 10px; width: 10rem;">
+											
+										</div>
+										<div class="d-flex justify-content-between gap-3">
+											<div class="progress`+missions[i].mission_id+`"></div>
+											<div>Achieved</div>
+										</div></div>
+								</div>`;
 				}
 				
 				let myrating="";
@@ -990,6 +1026,35 @@
 				else{
 					imagepath="noImageFound.png";
 				}
+				let appliedOrClosed="";
+				
+				$.ajax({
+	                url: "loadAppliedMissions",
+	                type:"GET",
+	                dataType: 'json',
+	                data:{'uid':userId,
+	                	  'mid':missions[i].mission_id},
+	                success: function(response){
+	                	
+	                	if(response==true){
+							appliedOrClosed=`<div class="posAbsolute appliedBox">
+												Applied
+											</div>`;
+						}
+						else if(response==false){
+							appliedOrClosed=`<div class="posAbsolute openBox">
+												Open
+											</div>`;
+						}
+	                	if(missions[i].end_date<new Date()){
+	                		appliedOrClosed=`<div class="posAbsolute closedBox">
+												Closed
+											</div>`;
+	                	}
+// 						$('.appliedOrClosed').html(appliedOrClosed);
+	                }
+	                
+	            });
 				
 				htmlPageGrid+=
 				`<div class="col-12 col-md-6 col-lg-4">
@@ -1003,6 +1068,7 @@
 						`+missions[i].city.name+`
 						</p>
 					</div>
+					<div class="appliedOrClosed"></div>
 					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
 						<input type="text" class="userid" name="mid" value="${user_id}" hidden>
 						`+mytag+`</button>
@@ -1192,6 +1258,7 @@
 			}
 			$("#listgrid").html(htmlPageGrid);
 			$("#gridlist").html(htmlPageList);
+			$("#spinner-div").hide();
 			$('.recommendButton').click(function(){
 	        	missionIdForRecommendation=$('.missionIdForRecommendation').val();
 	        });

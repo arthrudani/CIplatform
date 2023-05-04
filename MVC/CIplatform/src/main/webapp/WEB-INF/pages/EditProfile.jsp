@@ -283,7 +283,7 @@
 				    <div class="picture-container">
 				        <div class="picture d-flex userprofilepic">
 				            <img src="images/<c:out value="${user.avatar}"></c:out>" class="userimage profilePic">
-				            <input type="file" id="wizard-picture" class="d-none">
+				            <input type="file" id="wizard-picture" class="d-none" accept="image/*">
 				        </div>
 				    </div>
 				</div>

@@ -2,6 +2,7 @@ package com.CIplatform.controller;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.CIplatform.service.AdminInterface;
 import com.CIplatform.service.MissionLoader;
 import com.entities.Banner;
 import com.entities.CmsPage;
+import com.entities.GoalMission;
 import com.entities.Mission;
 import com.entities.MissionApplication;
 import com.entities.MissionTheme;
@@ -82,6 +84,15 @@ public class AdminController {
 	public @ResponseBody Mission loadEditMissionDetails(@RequestParam("mid") int mid) {
 		Mission mission=this.hibernateTemplate.get(Mission.class,mid);
 		return mission;
+	}
+	@RequestMapping(value = "/loadEditMissionDetailsIfGoal")
+	public @ResponseBody GoalMission loadEditMissionDetailsIfGoal(@RequestParam("mid") int mid) {
+		Mission mission=this.hibernateTemplate.get(Mission.class,mid);
+		String que = "from GoalMission where mission_id=:mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission", mission.getMission_id());
+		GoalMission goalMission=(GoalMission) q.uniqueResult();
+		return goalMission;
 	}
 	@RequestMapping(value = "/loadThemeDetail")
 	public @ResponseBody MissionTheme loadThemeDetail(@RequestParam("themeId") int themeId) {

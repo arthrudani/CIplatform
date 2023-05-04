@@ -22,6 +22,8 @@ public class GoalMission {
 	@ManyToOne(targetEntity = Mission.class)
 	@JoinColumn(name = "mission_id")
 	private Mission mission;
+	@Column(name = "alreadyVolunteer")
+	private int alreadyVolunteer;
 	@Column(name = "goal_objective_text")
 	private String goalObjectiveText;
 	@Column(name = "goal_value")
@@ -46,6 +48,13 @@ public class GoalMission {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.deletedAt = deletedAt;
+	}
+	
+	public int getAlreadyVolunteer() {
+		return alreadyVolunteer;
+	}
+	public void setAlreadyVolunteer(int alreadyVolunteer) {
+		this.alreadyVolunteer = alreadyVolunteer;
 	}
 	public int getGoalMissionId() {
 		return goalMissionId;

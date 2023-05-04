@@ -230,6 +230,7 @@
 						<div class="ms-3 mt-3 titleOfAddbox">Mission type</div>
 						<div class="col">
 							<select name="Status" id="Status" class="cmsStatus missionType titlebox ms-3 mt-2 me-3" required>
+									<option value="NONE" selected>Select mission type</option>
 									<option value="TIME">TIME</option>
 									<option value="GOAL">GOAL</option>
 							</select>
@@ -244,6 +245,17 @@
 						<div class="col">
 							<div class="ms-3 mt-3 titleOfAddbox">Registration deadline</div>
 							<input type="date" class="registrationDeadline" id="registrationDeadline" name="registrationDeadline" placeholder="Select Date">
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col">
+							<div class="ms-3 mt-3 titleOfAddbox">Goal value</div>
+							<input type="number" id="quantity" class="goalValue ms-3 mt-2 me-3 titlebox" name="quantity" min="1">
+						</div>
+						<div class="col">
+							<div class="ms-3 mt-3 titleOfAddbox">Goal objective</div>
+							<input type="text" class="goalObjective ms-3 mt-2 me-3 titlebox" id="goalObjective" name="goalObjective" placeholder="Goal objective">
 						</div>
 					</div>
 					
@@ -308,7 +320,7 @@
 											</div>
 											<div class="UploadText">Drag and drop documents here</div>
 										</a> 
-										<input type="file" id="pro-docs" name="pro-docs" style="display: none;" class="form-control storyImages" multiple>
+										<input type="file" id="pro-docs" name="pro-docs" style="display: none;" class="form-control storyImages" accept="image/*" multiple>
 									</fieldset>
 								</div>
 						</div>
@@ -371,6 +383,8 @@
 	let missionEndDate;
 	let missionType;
 	let missionSeats=0;
+	let goalValue;
+	let goalObjective="";
 	let registrationDeadline=new Date();
 	let missionTheme;
 	let missionSkill;
@@ -446,8 +460,12 @@
 				if(missionType=="GOAL"){
 					$( ".missionSeats" ).prop( "disabled", true );
 					$( ".registrationDeadline" ).prop( "disabled", true );
+					$( ".goalValue" ).prop( "disabled", false );
+					$( ".goalObjective" ).prop( "disabled", false );
 				}
 				else {
+					$( ".goalValue" ).prop( "disabled", true );
+					$( ".goalObjective" ).prop( "disabled", true );
 					$( ".missionSeats" ).prop( "disabled", false );
 					$( ".registrationDeadline" ).prop( "disabled", false );
 				}
@@ -457,6 +475,12 @@
         	});
 			$('.registrationDeadline').on('change', function() {
 				registrationDeadline = $('.registrationDeadline').val();
+        	});
+			$('.goalValue').on('change', function() {
+				goalValue = $('.goalValue').val();
+        	});
+			$('.goalObjective').on('change', function() {
+				goalObjective = $('.goalObjective').val();
         	});
 			$('.missionTheme').on('change', function() {
 				missionTheme = $('.missionTheme').val();
@@ -501,12 +525,14 @@
 	       		formData.append("endDate",new Date(missionEndDate));
 	       		formData.append("type", missionType);
 	        	formData.append("totalSeats", missionSeats);
-	        	formData.append("registrationDeadline",new Date(registrationDeadline));
+	        	formData.append("registrationDeadline",new Date(registrationDeadline));	        	
+	        	formData.append("goalValue",goalValue);
+	        	formData.append("goalObjective",goalObjective);
 	        	formData.append("themeId", missionTheme);
 	        	formData.append("skill", selectedSkill);
 	        	formData.append("availability", missionAvailability);
 	        	formData.append("videoUrl", videoURL);
-	        	formData.append("status",ACTIVE);
+	        	formData.append("status","ACTIVE");
 	        	
     			$.ajax({
     				url : "addNewMission",

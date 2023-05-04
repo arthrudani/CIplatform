@@ -74,12 +74,27 @@ public class AdminService implements AdminInterface{
 		MissionApplication missionApplication=this.hibernateTemplate.get(MissionApplication.class, applicationID);
 		if(missionApplication!=null) {
 			Mission mission=missionApplication.getMission();
-			int seatLeft=mission.getSeatsLeft();
-			seatLeft=seatLeft-1;
-			mission.setSeatsLeft(seatLeft);
-			missionApplication.setApproval_status(approval.ONE);;
-			this.hibernateTemplate.saveOrUpdate(missionApplication);
-			this.hibernateTemplate.saveOrUpdate(mission);
+			if(mission.getMission_type()==mission_type.GOAL) {
+				String que = "from GoalMission where mission_id=:mission";
+				Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+				q.setParameter("mission", mission.getMission_id());
+				GoalMission goalMission=(GoalMission) q.uniqueResult();
+				int alreadyVolunteer=goalMission.getAlreadyVolunteer();
+				alreadyVolunteer++;
+				goalMission.setAlreadyVolunteer(alreadyVolunteer);
+				missionApplication.setApproval_status(approval.ONE);
+				this.hibernateTemplate.saveOrUpdate(missionApplication);
+				this.hibernateTemplate.saveOrUpdate(mission);
+				this.hibernateTemplate.saveOrUpdate(goalMission);
+			}
+			if(mission.getMission_type()==mission_type.TIME) {
+				int seatLeft=mission.getSeatsLeft();
+				seatLeft=seatLeft-1;
+				mission.setSeatsLeft(seatLeft);
+				missionApplication.setApproval_status(approval.ONE);
+				this.hibernateTemplate.saveOrUpdate(missionApplication);
+				this.hibernateTemplate.saveOrUpdate(mission);
+			}
 		}
 	}
 	@Transactional
@@ -242,7 +257,6 @@ public class AdminService implements AdminInterface{
 		mission.setDescription(addNewMissionDto.getDescription());
 		mission.setCountry(country);
 		mission.setCity(city);
-		mission.setSeats(addNewMissionDto.getTotalSeats());
 		mission.setStatus(Status.ACTIVE);
 		mission.setMission_type(addNewMissionDto.getType());
 		mission.setOrganization_name(addNewMissionDto.getOrganizationName());
@@ -256,7 +270,14 @@ public class AdminService implements AdminInterface{
 			GoalMission goalMission=new GoalMission();
 			goalMission.setCreatedAt(new Date());
 			goalMission.setMission(mission);
+			goalMission.setAlreadyVolunteer(0);
+			goalMission.setGoalObjectiveText(addNewMissionDto.getGoalObjective());
+			goalMission.setGoalValue(addNewMissionDto.getGoalValue());
 			this.hibernateTemplate.save(goalMission);
+		}
+		else {
+			mission.setSeatsLeft(addNewMissionDto.getTotalSeats());
+			mission.setSeats(addNewMissionDto.getTotalSeats());
 		}
 		for(int j=0;j<addNewMissionDto.getSkill().length;j++) {
 			MissionSkill missionSkill=new MissionSkill();
@@ -304,14 +325,11 @@ public class AdminService implements AdminInterface{
 	}
 	@Transactional
 	public void editMission(AddNewMissionDto editMissionObject) {
-		String que1 = "from MissionMedia where mission_id=:id";
-		Query q1 = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que1);
-		q1.setParameter("id", editMissionObject.getMissionId());
 		Mission mission=this.hibernateTemplate.get(Mission.class, editMissionObject.getMissionId());
 		mission.setCity(this.hibernateTemplate.get(City.class, editMissionObject.getCity()));
 		mission.setCountry(this.hibernateTemplate.get(Country.class, editMissionObject.getCountry()));
-		System.out.println(editMissionObject.getStatus());
 		mission.setStatus(editMissionObject.getStatus());
+		mission.setUpdated_at(new Date());
 		if(editMissionObject.getTotalSeats()>0){
 			mission.setSeats(editMissionObject.getTotalSeats());
 		}
@@ -347,15 +365,22 @@ public class AdminService implements AdminInterface{
 			this.hibernateTemplate.save(media);
 		}
 		if(editMissionObject.getType()==mission_type.GOAL) {
-			GoalMission goalMission=new GoalMission();
-			goalMission.setCreatedAt(new Date());
+			String que = "from GoalMission where mission_id=:id";
+			Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+			q.setParameter("id", editMissionObject.getMissionId());
+			GoalMission goalMission=(GoalMission) q.uniqueResult();
 			goalMission.setMission(mission);
-			this.hibernateTemplate.save(goalMission);
+			goalMission.setGoalObjectiveText(editMissionObject.getGoalObjective());
+			goalMission.setGoalValue(editMissionObject.getGoalValue());
+			goalMission.setUpdatedAt(new Date());
+			this.hibernateTemplate.saveOrUpdate(goalMission);
 		}
-		String que = "delete from MissionSkill where mission_id=:id";
-		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
-		q.setParameter("id", editMissionObject.getMissionId());
-		q.executeUpdate();
+		if(editMissionObject.getSkill().length>0) {
+			String que = "delete from MissionSkill where mission_id=:id";
+			Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+			q.setParameter("id", editMissionObject.getMissionId());
+			q.executeUpdate();
+		}
 		for(int j=0;j<editMissionObject.getSkill().length;j++) {
 			MissionSkill missionSkill=new MissionSkill();
 			Skill skill=this.hibernateTemplate.get(Skill.class, editMissionObject.getSkill()[j]);
@@ -367,6 +392,10 @@ public class AdminService implements AdminInterface{
 		
 		int i=0;
 		if(editMissionObject.getImages()!=null) {
+			String que = "delete from MissionMedia where mission_id=:id";
+			Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+			q.setParameter("id", editMissionObject.getMissionId());
+			q.executeUpdate();
 			for(CommonsMultipartFile x : editMissionObject.getImages()) {
 				i++;
 				MissionMedia media1=new MissionMedia();
@@ -385,6 +414,10 @@ public class AdminService implements AdminInterface{
 			}
 		}
 		if(editMissionObject.getDocuments()!=null) {
+			String que = "delete from MissionDocument where mission_id=:id";
+			Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
+			q.setParameter("id", editMissionObject.getMissionId());
+			q.executeUpdate();
 			for(CommonsMultipartFile x : editMissionObject.getDocuments()) {
 				MissionDocument missionDocument=new MissionDocument();
 				missionDocument.setCreated_at(new Date());

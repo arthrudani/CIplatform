@@ -52,4 +52,5 @@ public interface MissionLoader {
 	public List<CmsPage> loadAllSlugs();
 	public String checkEmail(String email);
 	public List<MissionMedia> getMissionMedia(Mission mission);
+	public boolean loadAppliedMissions(User user, Mission mission);
 }

@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,9 +22,12 @@ import com.entities.City;
 import com.entities.CmsPage;
 import com.entities.Country;
 import com.entities.FavouriteMission;
+import com.entities.GoalMission;
 import com.entities.Mission;
+import com.entities.MissionDocument;
 import com.entities.MissionTheme;
 import com.entities.Skill;
+import com.entities.Timesheet;
 import com.entities.User;
 import com.entities.MissionApplication.approval;
 import com.entities.MissionMedia;
@@ -34,7 +39,8 @@ public class MissionController {
 
 	@Autowired
 	MissionLoader service;
-
+	@Autowired
+	HibernateTemplate hibernateTemplate;
 	@RequestMapping(value = "/loadAllMission")
 	public @ResponseBody String loadAllMission() {
 		List<Mission> mylist = this.service.loadAllMission();
@@ -130,6 +136,27 @@ public class MissionController {
 		List<CmsPage> mylist = this.service.loadAllSlugs();
 		return mylist;
 	}
+	@RequestMapping(value = "/loadGoalMission")
+	public @ResponseBody GoalMission loadGoalMission(@RequestParam("mid") int missionId) {
+		String que= "from GoalMission where mission_id=:mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission",missionId);
+		GoalMission goalMission=(GoalMission) q.uniqueResult();
+		return goalMission;
+	}
+	@RequestMapping(value = "/loadTotalActions")
+	public @ResponseBody int loadTotalActions(@RequestParam("mid") int missionId) {
+		String que= "from Timesheet where mission_id=:mission";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("mission",missionId);
+		List<Timesheet> timesheets=q.list();
+		int sum=0;
+		for(int i=0;i<timesheets.size();i++) {
+			Timesheet timesheet=timesheets.get(i);
+			sum=sum+timesheet.getAction();
+		}
+		return sum;
+	}
 	
 	
 	@RequestMapping(value = "/recommendMission", method = RequestMethod.GET)
@@ -197,6 +224,12 @@ public class MissionController {
 		}
 
 		return Output;
+	}
+	@RequestMapping(path = "/loadAppliedMissions", method = RequestMethod.GET)
+	public @ResponseBody boolean loadAppliedMissions(@RequestParam("uid") int userId,@RequestParam("mid") int missionId) {
+		User user=this.service.getUserById(userId);
+		Mission mission=this.service.getMissionById(missionId);
+		return this.service.loadAppliedMissions(user,mission);
 	}
 	
 	@RequestMapping(path = "/getRatingsOfCurrent", method = RequestMethod.GET)

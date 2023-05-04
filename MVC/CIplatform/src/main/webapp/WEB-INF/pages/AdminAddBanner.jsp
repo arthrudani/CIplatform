@@ -167,7 +167,7 @@
 					<div class="ms-3 mt-3 titleOfAddbox">Text</div>
 					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox bannerTitle" required>
 
-					<input type="file" id="wizard-picture" class="ms-3 mt-3 titleOfAddbox">
+					<input type="file" id="wizard-picture" class="ms-3 mt-3 titleOfAddbox" accept="image/*">
 					<button type="submit" class="addbutton d-flex align-items-center ms-3 mt-3 mb-3" onclick="addNewBanner()">
 						<i class="bi bi-plus"></i>ADD
 					</button>

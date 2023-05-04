@@ -22,6 +22,8 @@ public class AddNewMissionDto {
 	private mission_type type;
 	private int totalSeats;
 	private Date registrationDeadline;
+	private int goalValue;
+	private String goalObjective;
 	private int themeId;
 	private int skill[];
 	public CommonsMultipartFile[] images;
@@ -63,6 +65,26 @@ public class AddNewMissionDto {
 		this.videoUrl = videoUrl;
 	}
 	
+	public int getGoalValue() {
+		return goalValue;
+	}
+
+
+	public void setGoalValue(int goalValue) {
+		this.goalValue = goalValue;
+	}
+
+
+	public String getGoalObjective() {
+		return goalObjective;
+	}
+
+
+	public void setGoalObjective(String goalObjective) {
+		this.goalObjective = goalObjective;
+	}
+
+
 	public Status getStatus() {
 		return status;
 	}

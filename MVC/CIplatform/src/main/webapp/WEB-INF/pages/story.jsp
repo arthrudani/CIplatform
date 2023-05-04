@@ -281,7 +281,7 @@
 				                    <div class="strcategory posAbsolute">
 				                        <p>Environment</p>
 				                    </div>
-				                    <img class="card-img-top img1" style="z-index:-1 ;"
+				                    <img class="card-img-top img1" style="z-index:-1 ; height:250px;" 
 				                        src=`+imagepath+`>
 				                </div>
 				

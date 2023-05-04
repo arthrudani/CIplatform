@@ -192,7 +192,7 @@
 					<div class="row">
 						<div class="col">
 							<div class="ms-3 mt-3 titleOfAddbox">Edit Avatar</div>
-							<input type="file" class=" ms-3 mt-2 me-3 titlebox" id="wizard-picture">
+							<input type="file" class=" ms-3 mt-2 me-3 titlebox" accept="image/*" id="wizard-picture">
 						</div>
 					</div>
 					

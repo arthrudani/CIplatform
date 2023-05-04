@@ -86,7 +86,6 @@ public class MissionLoaderService implements MissionLoader {
 		}
 		return output;
 	}
-	
 
 	public Mission getMissionById(int missionId) {
 		return this.hibernateTemplate.get(Mission.class, missionId);
@@ -345,5 +344,17 @@ public class MissionLoaderService implements MissionLoader {
 		return query.list();
 	}
 
+	public boolean loadAppliedMissions(User user,Mission mission) {
+		String que = "from MissionApplication where user_id=:user_id and mission_id=:mission_id and approval_status=:status";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("user_id", user.getUser_id());
+		q.setParameter("mission_id", mission.getMission_id());
+		q.setParameter("status", approval.ONE);
+		MissionApplication application=(MissionApplication) q.uniqueResult();
+		if(application!=null) {
+			return true;
+		}
+		return false;
+	}
 
 }

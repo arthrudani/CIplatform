@@ -218,7 +218,7 @@
 						</div>
 						<div class="UploadText">Drag and drop pictures and videos here</div>
 					</a> 
-					<input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control storyImages" multiple>
+					<input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control storyImages" accept="image/*" multiple>
 				</fieldset>
 				<div class="preview-images-zone" id="preview-images-zone"></div>
 			</div>

@@ -46,7 +46,7 @@ public class VolunteerTimesheetDao implements VolunteerTimesheetDaoInterface{
 				timesheet.setDateVolunteered(shareTimesheetDto.getDate());
 				timesheet.setMission(mission);
 				timesheet.setNotes(shareTimesheetDto.getMessage());
-				timesheet.setStatus(approval.PENDING);
+				timesheet.setStatus(approval.PUBLISHED);
 				timesheet.setUser(user);
 				timesheet.setTime(ttime);
 				this.hibernateTemplate.save(timesheet);
