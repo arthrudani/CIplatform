@@ -19,6 +19,7 @@
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin add new user</title>
     <link rel="stylesheet" href="css/Admin.css">
+    <script src="js/time.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
@@ -30,7 +31,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body onload=display_ct();>
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
 
@@ -126,8 +127,7 @@
 			<!-- main content -->
 			<div class="col py-3">
 				<div class="headerbar d-flex justify-content-between">
-					<div class="d-flex align-items-center">Thursday november 3,
-						2022, 10:06 AM</div>
+					<div class="d-flex align-items-center" id="ct"></div>
 					<div class="d-flex justify-content-between align-items-center ">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
@@ -168,22 +168,22 @@
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">First Name</div>
+							<div class="ms-3 mt-3 titleOfAddbox">First Name*</div>
 							<input type="text" name="fname" class="ms-3 mt-2 me-3 titlebox firstname" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Last Name</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Last Name*</div>
 							<input type="text" name="lname" class="ms-3 mt-2 me-3 titlebox lastname" required>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Email</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Email*</div>
 							<input type="text" name="email" class="ms-3 mt-2 me-3 titlebox email" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Password</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Password*</div>
 							<input type="text" name="pass" class="ms-3 mt-2 me-3 titlebox password" required>
 						</div>
 					</div>
@@ -191,13 +191,13 @@
 					<div class="row">
 						<div class="col">
 							<div class="ms-3 mt-3 titleOfAddbox">Avatar</div>
-							<input type="file" class=" ms-3 mt-2 me-3 titlebox" id="wizard-picture">
+							<input type="file" class=" ms-3 mt-2 me-3 titlebox" id="wizard-picture" accept="image/*">
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Employee Id</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Employee Id*</div>
 							<input type="text" name="employeeid" class="ms-3 mt-2 me-3 titlebox employeeid" required>
 						</div>
 						<div class="col">
@@ -208,7 +208,7 @@
 
 					<div class="d-flex EPnameSurname justify-content-around mt-1 row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Country</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Country*</div>
 							<div class="col">
 								<select name="country" id="country" class="countrySelector cmsStatus titlebox ms-3 mt-2 me-3">
 									<option value="country" hidden>Country</option>
@@ -216,7 +216,7 @@
 							</div>
 						</div>
 						<div class="col">
-						<div class="ms-3 mt-3 titleOfAddbox">City</div>
+						<div class="ms-3 mt-3 titleOfAddbox">City*</div>
 							<div class="col">
 								<select name="city" id="city" class="citySelector cmsStatus titlebox ms-3 mt-2 me-3">
 									<option value="city" hidden>City</option>
@@ -232,7 +232,7 @@
 							<input type="text" name="text" class="ms-3 mt-2 me-3 titlebox text" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Status</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Status*</div>
 							<div class="col">
 								<select name="Status" id="Status" class="cmsStatus statusofcms titlebox ms-3 mt-2 me-3" required>
 										<option value="ACTIVE">ACTIVE</option>
@@ -337,7 +337,10 @@
 			});
         });
         function addNewUser(){
-        	if(password=="" || email==""){
+        	if(firstName=="" || lastName==""){
+        		swal("Error!", "First name and last name are compalsory!", "error");
+        	}
+        	else if(password=="" || email==""){
         		swal("Error!", "Email and password are compalsory!", "error");
         	}
         	else if(city=="" || country==""){

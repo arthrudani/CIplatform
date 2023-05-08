@@ -395,7 +395,7 @@
 				<div class="form-group ">
 					<div class="d-flex EPnameSurname justify-content-around mt-1 row">
 						<div class="col">
-							<span>Availability</span>
+							<span>Availability*</span>
 								<select name="availability" id="availability" class="countrySelector">
 									<option value="starter" selected>Select availability</option>
 										<option value="DAILY">DAILY</option>

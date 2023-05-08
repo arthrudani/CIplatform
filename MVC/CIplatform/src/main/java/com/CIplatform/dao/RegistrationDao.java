@@ -132,7 +132,7 @@ public class RegistrationDao {
 		return "true";
 	}
 	public List<Banner> loadAllBanner() {
-		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from Banner where (deleted_at is null)");
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from Banner where (deleted_at is null) ORDER BY sortOrder");
 		return query.list();
 	}
 }

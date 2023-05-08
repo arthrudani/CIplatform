@@ -285,8 +285,7 @@
 				                        src=`+imagepath+`>
 				                </div>
 				
-				                <div class="card-body">
-				
+				                <div class="card-body mt-4">
 				                    <h5 class="card-title">`+story[i].title+`</h5>
 				                    <p class="card-text">`+story[i].description+`</p>
 				                    <div class="strCardFooter d-flex align-items-center">

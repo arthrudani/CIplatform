@@ -19,9 +19,10 @@
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin add new mission</title>
     <link rel="stylesheet" href="css/Admin.css">
+    <script src="js/time.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
-    
+    <script src="js/home.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.3.2/css/rowReorder.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
@@ -30,7 +31,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body onload=display_ct();>
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
 
@@ -127,8 +128,7 @@
 			<div class="container">
 			<div class="col py-3">
 				<div class="headerbar d-flex justify-content-between">
-					<div class="d-flex align-items-center">Thursday november 3,
-						2022, 10:06 AM</div>
+					<div class="d-flex align-items-center" id="ct"></div>
 					<div class="d-flex justify-content-between align-items-center ">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
@@ -169,25 +169,25 @@
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission Title</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission Title*</div>
 							<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox missionTitle" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission short description</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission short description*</div>
 							<input type="text" name="description" class="ms-3 mt-2 me-3 titlebox missionShortDescription" required>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission description</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission description*</div>
 							<div id="editor" class="missionDescription" name="storyDetails" class="w-100"></div>
 						</div>
 					</div>
 					
 					<div class="d-flex EPnameSurname justify-content-around mt-1 row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Country</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Country*</div>
 								<div class="col">
 									<select name="country" id="country" class="countrySelector cmsStatus titlebox ms-3 mt-2 me-3">
 										<option value="country" hidden>Country</option>
@@ -195,7 +195,7 @@
 								</div>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">City</div>
+							<div class="ms-3 mt-3 titleOfAddbox">City*</div>
 								<div class="col">
 									<select name="city" id="city" class="citySelector cmsStatus titlebox ms-3 mt-2 me-3">
 										<option value="city" hidden>City</option>
@@ -206,28 +206,28 @@
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission organization name</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission organization name*</div>
 							<input type="text" name="employeeid" class="ms-3 mt-2 me-3 titlebox missionOrganizationName" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission organization detail</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission organization detail*</div>
 							<input type="text" name="department" class="ms-3 mt-2 me-3 titlebox missionOrganizationDetail" required>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission start date</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission start date*</div>
 							<input type="date" class="missionStartDate" id="missionStartDate" name="missionStartDate" placeholder="Select Date">
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Mission end date</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Mission end date*</div>
 							<input type="date" class="missionEndDate" id="missionEndDate" name="missionEndDate" placeholder="Select Date">
 						</div>
 					</div>
 
 					<div class="col">
-						<div class="ms-3 mt-3 titleOfAddbox">Mission type</div>
+						<div class="ms-3 mt-3 titleOfAddbox">Mission type*</div>
 						<div class="col">
 							<select name="Status" id="Status" class="cmsStatus missionType titlebox ms-3 mt-2 me-3" required>
 									<option value="NONE" selected>Select mission type</option>
@@ -239,29 +239,29 @@
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Total seats</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Total seats*</div>
 							<input type="number" id="quantity" class="missionSeats" name="quantity" min="1">
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Registration deadline</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Registration deadline*</div>
 							<input type="date" class="registrationDeadline" id="registrationDeadline" name="registrationDeadline" placeholder="Select Date">
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Goal value</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Goal value*</div>
 							<input type="number" id="quantity" class="goalValue ms-3 mt-2 me-3 titlebox" name="quantity" min="1">
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Goal objective</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Goal objective*</div>
 							<input type="text" class="goalObjective ms-3 mt-2 me-3 titlebox" id="goalObjective" name="goalObjective" placeholder="Goal objective">
 						</div>
 					</div>
 					
 					<div class="d-flex EPnameSurname justify-content-around mt-1 row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Theme</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Theme*</div>
 							<div class="col">
 								<select name="theme" id="theme" class="missionTheme cmsStatus titlebox ms-3 mt-2 me-3">
 									<option value="theme" hidden>Theme</option>
@@ -284,10 +284,6 @@
 									aria-labelledby="dropdownMenuButton1">
 					
 								</ul>
-			
-<!-- 								<select name="skill" id="skill" class="missionSkill cmsStatus titlebox ms-3 mt-2 me-3"> -->
-<!-- 									<option value="skill" hidden>Skill</option> -->
-<!-- 								</select> -->
 							</div>
 						</div>
 					</div>
@@ -303,7 +299,7 @@
 											</div>
 											<div class="UploadText">Drag and drop pictures here</div>
 										</a> 
-										<input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control storyImages" multiple>
+										<input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control storyImages" multiple accept="image/*">
 									</fieldset>
 								</div>
 						</div>
@@ -320,14 +316,15 @@
 											</div>
 											<div class="UploadText">Drag and drop documents here</div>
 										</a> 
-										<input type="file" id="pro-docs" name="pro-docs" style="display: none;" class="form-control storyImages" accept="image/*" multiple>
+										<input type="file" id="pro-docs" name="pro-docs" style="display: none;" class="form-control storyImages"  multiple >
 									</fieldset>
+									<div class="preview-images-zone" id="preview-images-zone"></div>
 								</div>
 						</div>
 					</div>
 					
 					<div class="col">
-						<div class="ms-3 mt-3 titleOfAddbox">Mission availability</div>
+						<div class="ms-3 mt-3 titleOfAddbox">Mission availability*</div>
 						<div class="col">
 							<select name="Status" id="Status" class="cmsStatus missionAvailability titlebox ms-3 mt-2 me-3" required>
 								<option value="DAILY">DAILY</option>
@@ -383,7 +380,7 @@
 	let missionEndDate;
 	let missionType;
 	let missionSeats=0;
-	let goalValue;
+	let goalValue=0;
 	let goalObjective="";
 	let registrationDeadline=new Date();
 	let missionTheme;
@@ -451,9 +448,14 @@
         	});
 			$('.missionStartDate').on('change', function() {
 				missionStartDate = $('.missionStartDate').val();
+				var today = new Date(missionStartDate).toISOString().split('T')[0];
+				document.getElementsByName("missionEndDate")[0].setAttribute('min', today);
+				document.getElementsByName("registrationDeadline")[0].setAttribute('min', today);
         	});
 			$('.missionEndDate').on('change', function() {
 				missionEndDate = $('.missionEndDate').val();
+				var end = new Date(missionEndDate).toISOString().split('T')[0];
+				document.getElementsByName("registrationDeadline")[0].setAttribute('max', end);
         	});
 			$('.missionType').on('change', function() {
 				missionType = $('.missionType').val();
@@ -503,6 +505,14 @@
         	city=Number(city);
         	country=Number(country);
         	missionTheme=Number(missionTheme);
+        	if(new Date(missionStartDate)>new Date(missionEndDate)){
+        		swal("Info!", "End date must be greater than start date!", "info");
+        		return;
+        	}
+        	if(new Date(missionStartDate)>new Date(registrationDeadline) || new Date(missionEndDate)<new Date(registrationDeadline)){
+        		swal("Info!", "Enter valid deadline!", "info");
+        		return;
+        	}
         	var formData = new FormData();
         	
         	var totalImages = files.length;

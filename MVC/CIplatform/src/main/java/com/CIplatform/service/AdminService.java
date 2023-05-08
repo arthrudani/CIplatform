@@ -240,6 +240,7 @@ public class AdminService implements AdminInterface{
 		if(addNewUserDto.getStatus()!=null) {
 			user1.setStatus(addNewUserDto.getStatus());
 		}
+		user1.setDepartment(addNewUserDto.getDepartment());
 		user1.setEmployee_id(addNewUserDto.getEmployeeId());
 		
 		user1.setUpdated_at(new Date());
@@ -486,11 +487,18 @@ public class AdminService implements AdminInterface{
 		this.hibernateTemplate.saveOrUpdate(skill);
 	}
 	@Transactional
-	public void saveNewBanner(String title, String image) {
+	public void saveNewBanner(String title, String image,int sortOrder) {
+		List<Banner> banners= this.hibernateTemplate.loadAll(Banner.class);
 		Banner banner=new Banner();
 		banner.setCreatedAt(new Date());
 		banner.setImage(image);
 		banner.setText(title);
+		if(sortOrder==-1) {
+			banner.setSortOrder(banners.size()+1);
+		}
+		else {
+			banner.setSortOrder(sortOrder);
+		}
 		this.hibernateTemplate.save(banner);
 	}
 	@Transactional
@@ -500,13 +508,16 @@ public class AdminService implements AdminInterface{
 		this.hibernateTemplate.saveOrUpdate(banner);
 	}
 	@Transactional
-	public void editBanner(int bannerId, String bannerTitle, String image) {
+	public void editBanner(int sortOrder,int bannerId, String bannerTitle, String image) {
 		Banner banner=this.hibernateTemplate.get(Banner.class,bannerId);
 		if(bannerTitle!="") {
 			banner.setText(bannerTitle);
 		}
 		if(image!="") {
 			banner.setImage(image);
+		}
+		if(sortOrder!=0) {
+			banner.setSortOrder(sortOrder);
 		}
 		banner.setUpdatedAt(new Date());
 		this.hibernateTemplate.saveOrUpdate(banner);

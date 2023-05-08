@@ -19,6 +19,7 @@
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin Edit user</title>
     <link rel="stylesheet" href="css/Admin.css">
+    <script src="js/time.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
@@ -30,7 +31,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body onload=display_ct();>
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
 
@@ -127,8 +128,7 @@
 			<div class="col py-3">
 				<div class="headerbar d-flex justify-content-between">
 				<input type="text" class="userId" name="uid" value="${edituser.user_id}" hidden>
-					<div class="d-flex align-items-center">Thursday november 3,
-						2022, 10:06 AM</div>
+					<div class="d-flex align-items-center" id="ct"></div>
 					<div class="d-flex justify-content-between align-items-center ">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
@@ -169,22 +169,22 @@
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">First Name</div>
+							<div class="ms-3 mt-3 titleOfAddbox">First Name*</div>
 							<input type="text" name="fname" class="ms-3 mt-2 me-3 titlebox firstname" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Last Name</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Last Name*</div>
 							<input type="text" name="lname" class="ms-3 mt-2 me-3 titlebox lastname" required>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Email</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Email*</div>
 							<input type="text" name="email" class="ms-3 mt-2 me-3 titlebox email" required>
 						</div>
 						<div class="col">
-							<div class="ms-3 mt-3 titleOfAddbox">Password</div>
+							<div class="ms-3 mt-3 titleOfAddbox">Password*</div>
 							<input type="text" name="pass" class="ms-3 mt-2 me-3 titlebox password" required>
 						</div>
 					</div>
@@ -313,7 +313,6 @@
         	$('.password').on('change', function() {
         		password = $('.password').val();
 			});
-        	
         	$('.employeeid').on('change', function() {
         		employeeId = $('.employeeid').val();
 			});
@@ -348,7 +347,17 @@
 			});
         });
         function updateUser(){
-        	AddUserObject={
+        	if(firstName=="" || lastName==""){
+        		swal("Error!", "First name and last name are compalsory!", "error");
+        	}
+        	else if(password=="" || email==""){
+        		swal("Error!", "Email and password are compalsory!", "error");
+        	}
+        	else if(city=="" || country==""){
+        		swal("Error!", "City and country are compalsory!", "error");
+        	}
+        	else{
+        		AddUserObject={
         			firstName:firstName,
 					lastName:lastName,
 					email:email,
@@ -361,22 +370,23 @@
 					profileText:profileText,
 					status:status,
 	   		}
-			$.ajax({
-				url : "editUSer",
-				dataType : 'json',
-				data : {'userid' : user_id,
-						'EditUserObject':JSON.stringify(AddUserObject)},
-				type : "POST",
-				success : function(response) {
-					if(response==1){
-						swal("Good job!", "User added successfully!", "success");
-// 						window.location.reload();
+				$.ajax({
+					url : "editUSer",
+					dataType : 'json',
+					data : {'userid' : user_id,
+							'EditUserObject':JSON.stringify(AddUserObject)},
+					type : "POST",
+					success : function(response) {
+						if(response==1){
+							swal("Good job!", "User added successfully!", "success");
+	// 						window.location.reload();
+						}
+						else{
+							swal("Error!", "Email id already exists!", "error");
+						}
 					}
-					else{
-						swal("Error!", "Email id already exists!", "error");
-					}
-				}
-			});
+				});
+        	}
         }
         function loadAllDetails() {
 			$.ajax({
@@ -392,11 +402,17 @@
 		}
         function setUserData(user) {
         	$('.firstname').val(user.first_name);
+        	firstName=user.first_name;
 			$('.lastname').val(user.last_name);
+        	lastName=user.last_name;
 			$('.email').val(user.email);
+        	email=user.email;
 			$('.password').val(user.password);
+        	password=user.password;
 			$('.employeeid').val(user.employee_id);
+			employeeId=user.employee_id;
 			$('.department').val(user.department);
+			department=user.department;
 			$('.text').val(user.profile_text);
 		}
         function addCountryList(country) {

@@ -13,10 +13,18 @@
 	width: 40px;
 	border-radius: 50%;
 }
+.clearAllButton{
+	background: none;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 3px;
+}
 .progress{
 	margin-bottom:3px;
 }
-
+.card-title{
+	margin-top:-20px;
+}
 .rightHeader {
 	flex-direction: row !important;
 	align-items: flex-start;
@@ -45,6 +53,7 @@
 }
 .countrySelect{
 	border:0 !important;
+	width:50%;
 }
 .searchimg img {
 	height: 22px;
@@ -103,7 +112,6 @@
 
 .posAbsolute {
 	position: absolute !important;
-	transition: 2s;
 }
 
 .vl {
@@ -124,6 +132,8 @@
 
 .card {
 	margin: 1% !important;
+	box-shadow: 1.5px 1.5px 4px 1.5px #DDDDDD;
+	border:0;
 }
 
 .filter {
@@ -209,6 +219,19 @@
 	border-right: 1px solid black;
 	border-radius: 0;
 	width: 45%;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#dropdownMenuButton2 {
+	background-color: white !important;
+	color: black;
+	border-right: 1px solid black;
+	border-radius: 0;
+	width: 45%;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .searchboxh2 {
@@ -575,7 +598,7 @@
 .sortbybutton {
 	border: 1px solid #333333;
 	margin-right: 4%;
-	border-radius: 5px;
+	border-radius: 2px;
 }
 
 .swiper-container {
@@ -634,6 +657,7 @@
 
 .borderH2 .dropdown {
 	display: flex !important;
+	width:35%;
 }
 
 .strmainimg {
@@ -681,7 +705,7 @@
 .strCardFooter img {
 	height: 40px;
 	width: 40px;
-	border-radius: 25px;
+	border-radius: 25px !important;
 }
 
 .strCardFooter p {
@@ -707,12 +731,31 @@
 	background: none;
 	border: none;
 }
-
+.card{
+	border-radius:1px;
+}
+.card img{
+	border-radius:1px;
+}
+.Favourite {
+    position: absolute;
+    bottom: 461px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.500);
+    padding: 10px 13px;
+    border-radius: 50%;
+    color:white;
+}
+.Recommend {
+    position: absolute;
+    bottom: 400px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.511);
+    padding: 10px 12px;
+    border-radius: 50%;
+}
 .card:hover .img1 {
-	/* background-color: rgb(0, 0, 0,0);
-     */
 	opacity: 0.5;
-	/* filter: brightness(50%); */
 }
 
 .card:hover .strViewDetails {

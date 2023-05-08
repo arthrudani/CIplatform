@@ -75,11 +75,11 @@ public interface AdminInterface {
 
 	List<Banner> loadAllBannerForAdmin();
 
-	void saveNewBanner(String title, String image);
+	void saveNewBanner(String title, String image, int sortOrder);
 
 	void deleteBanner(int bannerId);
 
-	void editBanner(int bannerId, String bannerTitle, String image);
+	void editBanner(int bannerId, int bannerId2, String bannerTitle, String image);
 
 
 }

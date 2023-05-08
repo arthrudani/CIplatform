@@ -171,7 +171,7 @@
 		<div class="d-flex row missionStoryDate" style="margin-top: 10px;">
 
 			<div class="col">
-				<div>Select mission</div>
+				<div>Select mission*</div>
 				<div>
 					<select name="Mission" id="mission" class="missionSelect">
 						<option value="missionSelect" hidden>Select mission</option>
@@ -179,12 +179,12 @@
 				</div>
 			</div>
 			<div class="col">
-				<div>My story title</div>
+				<div>My story title*</div>
 				<input type="text" class="form-control storyTitle" name="title"
 					id="Storytitle">
 			</div>
 			<div class="col">
-				<div>Date</div>
+				<div>Date*</div>
 				
 					<input type="date" class="storyDate" id="birthday" name="storydate"
 						placeholder="Select Date">
@@ -289,7 +289,9 @@
         })
         .catch(error => {
         });
-    	
+    	missionStartDate = new Date();
+		var today = new Date(missionStartDate).toISOString().split('T')[0];
+		document.getElementsByName("storydate")[0].setAttribute('min', today);
     	$('.missionSelect').on('change', function () {
            	CheckedMission = $(this).find("option:selected").val();
            	clearAllDataExceptTitle();
@@ -300,6 +302,7 @@
     		storyTitle = $('.storyTitle').val();
         });
     	$('.storyDate').on('change', function () {
+    		
     		storyDate = $('.storyDate').val();
         });
     	$('.description').on('change', function () {
@@ -445,11 +448,10 @@
         for (var i = 0; i < totalFiles; i++) {
             formData.append("files",files[i]);
         }
-        let storydate=new Date(storyDate);
     	storyStatus="DRAFT";
     	formData.append("title", storyTitle);
     	formData.append("chekedMission", CheckedMission);
-    	formData.append("date", storydate);
+    	formData.append("date", new Date(storyDate));
     	formData.append("description", myeditor.getData());
     	formData.append("videoUrl", videoURL);
     	formData.append("user_id", user_id);
@@ -465,7 +467,7 @@
             success: function(response){
             	if(response)
             	{
-            		swal("Sucsess!", "Story shared successfully!", "success");
+            		swal("Sucsess!", "Story saved successfully!", "success");
                 	clearAllData();
                 	loadStoryStatus();
             	}
@@ -489,6 +491,7 @@
             	if(response)
             	{
                 	clearAllData();
+                	swal("Sucsess!", "Story shared successfully!", "success");
             	}
             	loadStoryStatus();
             }

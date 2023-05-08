@@ -19,6 +19,7 @@ pageEncoding="ISO-8859-1"%>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin Banner</title>
+    <script src="js/time.js"></script>
     <link rel="stylesheet" href="css/Admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -31,7 +32,7 @@ pageEncoding="ISO-8859-1"%>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body onload=display_ct();>
     <div class="container-fluid">
         <div class="row flex-nowrap">
 
@@ -125,7 +126,7 @@ pageEncoding="ISO-8859-1"%>
             <!-- main content -->
             <div class="col py-3">
                 <div class="headerbar d-flex justify-content-between">
-                    <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
+                    <div class="d-flex align-items-center" id="ct"></div>
                     <div class="d-flex justify-content-between align-items-center ">
                         <li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
@@ -225,6 +226,12 @@ pageEncoding="ISO-8859-1"%>
                 selector: 'td:nth-child(2)'
             },
             responsive: true,
+            aoColumnDefs: [
+	        	  {
+	        	     bSortable: false,
+	        	     aTargets: [ -1 ]
+	        	  }
+	        	]
         });
         $('#searchboxing').on('keyup', function () {
             table.search(this.value).draw();

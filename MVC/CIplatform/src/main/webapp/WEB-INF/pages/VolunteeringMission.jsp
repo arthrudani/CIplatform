@@ -530,6 +530,7 @@
 	let currentPage=0;
 	let recommendToEmail="";
 	let progress=0;
+	let totalGoalValue;
 	
 	$(document).ready(function(){
 		
@@ -582,7 +583,6 @@
 	
 	function loadMissionIfGoal(){
 		if(missionType=="GOAL"){
-			console.log(progress);
 	        $.ajax({
 				url : "loadGoalMission",
 				dataType : 'json',
@@ -590,6 +590,7 @@
 				type : "GET",
 				success : function(response) {
 					deadlineOrProgress(response);
+					totalGoalValue=response.goalValue;
 				}
 			});
         }
@@ -723,7 +724,11 @@
 	}
 	
 	function applyForMission(){
-		$.ajax({
+		if(totalGoalValue<progress){
+			swal("Info!", "Can not apply goal is achieved!", "info");
+		}
+		else{
+			$.ajax({
             url: "applyForMission",
     		dataType: 'json',
             data:{'mid':mission_id,
@@ -731,10 +736,13 @@
             type:"GET",
             success: function(response){
             	if(response==true){
+            		swal("Success!", "Applied!", "success");
             		loadAppliedOrNot();
             	}
         	}
 		});
+		}
+		
 	}
 	function recommendToCoworker(){
 		$.ajax({
@@ -821,7 +829,7 @@
 		});
 	}
 	function addComment(){
-		let comment=$('.comment').val();
+		let comment=$('.comment').val().trim();
 		if(comment==""){
 			swal("Error!", "Can not post empty comment!", "error");
 		}
@@ -1205,12 +1213,28 @@
 								<i class="bi bi-star"></i>
 							</button>`;
 			}
+			let imagepath="";
+			if(missions[i].missionMedias.length>0){
+				imagepath=missions[i].missionMedias[0].name;
+			}
+			else{
+				imagepath="noImageFound.png";
+			}
+			var fromDate = new Date(missions[i].start_date);
+			var toDate = new Date(missions[i].end_date);
+			var fromyear = fromDate.getFullYear();
+			var toyear = toDate.getFullYear();
+			var frommonth = ("0" + (fromDate.getMonth() + 1)).slice(-2);
+			var tomonth = ("0" + (fromDate.getMonth() + 1)).slice(-2);
+			var fromdate = ("0" + toDate.getDate()).slice(-2);
+			var todate = ("0" + toDate.getDate()).slice(-2);
+			let finalFromDate=fromyear+"-"+frommonth+"-"+fromdate;
+			let finalToDate=toyear+"-"+tomonth+"-"+todate;
 			
 	       		relatedMission+=`<div class="col col-md-6 col-xl-4 card-col mb-2 ">
 					                <div class="card">
 					                <div class="image-container">
-					                    <img class="w-100" src="images/Grow-Trees-On-the-path-to-environment-sustainability.png"
-					                        alt="Grow Trees" srcset="">
+					                    <img class="w-100 mainImg" src="images/`+imagepath+`" alt="Grow Trees" srcset="">
 					                    <div class="location d-flex align-items-center text-white">
 					                        <img src="images/pin.png" alt="" srcset=""> &nbsp;&nbsp;&nbsp;
 					                        `+missions[i].city.name+`
@@ -1238,7 +1262,9 @@
 					                                </div>
 					                            </div>
 					                            <p class='fromTo'>from
-													untill
+												`+finalFromDate+`
+												untill
+												`+finalToDate+`
 					                        </div>
 					                    </div>
 					                    <div class="info__Apply">

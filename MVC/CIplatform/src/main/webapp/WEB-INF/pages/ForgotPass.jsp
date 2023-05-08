@@ -85,7 +85,7 @@
 							<form action="ForgotPassword" method="POST" name="forgotpass" class="forgotPassword">
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="box">Email
-										Address</label> <input type="email" name="email" id="email"
+										Address*</label> <input type="email" name="email" id="email"
 										class="form-control mt-1 email" aria-describedby="emailHelp"
 										placeholder="Enter your email address.." style="height: 40px;" required>
 								</div>

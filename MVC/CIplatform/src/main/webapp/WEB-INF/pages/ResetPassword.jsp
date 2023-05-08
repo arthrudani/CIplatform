@@ -75,13 +75,13 @@
 								<input type="hidden" name="email" value="${email}">
 								<div class="form-group" style="padding-bottom: 4%;">
 									<label for="exampleInputEmail1" class="box">New
-										Password</label> <input type="password" name="password" id="password"
+										Password*</label> <input type="password" name="password" id="password"
 										class="form-control" aria-describedby="emailHelp"
 										placeholder="**********" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="box">Confirm
-										Password</label> <input type="password" name="confpassword"
+										Password*</label> <input type="password" name="confpassword"
 										id="confpassword" class="form-control"
 										aria-describedby="emailHelp" placeholder="**********" required>
 								</div>

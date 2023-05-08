@@ -74,14 +74,14 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1" class="first"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">First
-										name</label> <input type="Text" name="first_name" class="form-control firstName"
+										name*</label> <input type="Text" name="first_name" class="form-control firstName"
 										id="fname" aria-describedby="emailHelp"
 										placeholder="Enter first name" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Last
-										name</label> <input type="text" name="last_name" class="form-control lastName"
+										name*</label> <input type="text" name="last_name" class="form-control lastName"
 										id="lname" aria-describedby="emailHelp"
 										placeholder="Enter last name" required>
 								</div>
@@ -95,21 +95,21 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Email
-										address</label> <input type="email" name="email" class="form-control email"
+										address*</label> <input type="email" name="email" class="form-control email"
 										id="email" aria-describedby="emailHelp"
 										placeholder="Enter email" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">New
-										Password</label> <input type="password" name="password" id="password"
+										Password*</label> <input type="password" name="password" id="password"
 										class="form-control password" aria-describedby="emailHelp"
 										placeholder="**************" required>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1"
 										style="font-size: 0.6rem; color: #8d8a8a; padding-bottom: -1%;">Confirm
-										Password</label> <input type="password" name="confirmPassword"
+										Password*</label> <input type="password" name="confirmPassword"
 										id="confpassword" class="form-control"
 										aria-describedby="emailHelp" placeholder="**************"
 										required>
@@ -213,7 +213,7 @@
 		else{
 			$('.warning3').html("");
 		}
-		if($('.phoneNumber').val().length<10 && $('.warning4').html()!=""){
+		if($('.phoneNumber').val().length!=10 && $('.warning4').html()!=""){
 			$('.warning4').html("");
 			$('.phoneNumber').after("<div class='text-danger warning3'><small>Please enter 10 digit number</small></div>");
 		}

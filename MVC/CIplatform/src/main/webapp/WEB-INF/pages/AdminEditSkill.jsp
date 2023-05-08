@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin Edit Skill</title>
+    <script src="js/time.js"></script>
     <link rel="stylesheet" href="css/Admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
@@ -30,7 +31,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body onload=display_ct();>
 	<div class="container-fluid">
 		<div class="row flex-nowrap">
 
@@ -127,8 +128,7 @@
 			<!-- main content -->
 			<div class="col py-3">
 				<div class="headerbar d-flex justify-content-between">
-					<div class="d-flex align-items-center">Thursday november 3,
-						2022, 10:06 AM</div>
+					<div class="d-flex align-items-center" id="ct"></div>
 					<div class="d-flex justify-content-between align-items-center ">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
@@ -166,10 +166,10 @@
 					<div class="addtext">
 						<p class="mt-2 ms-3">Add</p>
 					</div>
-					<div class="ms-3 mt-3 titleOfAddbox">Title</div>
+					<div class="ms-3 mt-3 titleOfAddbox">Title*</div>
 					<input type="text" name="title" class="ms-3 mt-2 me-3 titlebox skillTitle" required>
 
-					<span class="ms-3 mt-3 titleOfAddbox">Status</span>
+					<span class="ms-3 mt-3 titleOfAddbox">Status*</span>
 					<div class="col">
 						<select name="Status" id="Status" class="skillStatus titlebox ms-3 mt-2 me-3" required>
 								<option value="ACTIVE">ACTIVE</option>

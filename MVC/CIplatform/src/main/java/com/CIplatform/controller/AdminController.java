@@ -1,5 +1,6 @@
 package com.CIplatform.controller;
 
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -177,9 +178,9 @@ public class AdminController {
 		return "AdminAddCMS";
 	}
 	@RequestMapping(value = "/addNewCms")
-	public @ResponseBody String addNewCms(AddCmsDto AddCmsObject) {
+	public String addNewCms(AddCmsDto AddCmsObject) {
 		this.service.saveNewCms(AddCmsObject);
-		return "true";
+		return "AdminCMS";
 	}
 	@RequestMapping(value = "/addNewUSer")
 	public @ResponseBody int addNewUSer(AddNewUserDto AddUserObject) {
@@ -202,8 +203,8 @@ public class AdminController {
 		return 1;
 	}
 	@RequestMapping(value = "/addNewBanner")
-	public @ResponseBody int addNewBanner(@RequestParam("bannerTitle") String title,@RequestParam("image") String image) {
-		this.service.saveNewBanner(title,image);
+	public @ResponseBody int addNewBanner(@RequestParam("sortOrder") int sortOrder,@RequestParam("bannerTitle") String title,@RequestParam("image") String image) {
+		this.service.saveNewBanner(title,image,sortOrder);
 		return 1;
 	}
 	@RequestMapping(value = "/loadCmsData")
@@ -314,8 +315,8 @@ public class AdminController {
 		return true;
 	}
 	@RequestMapping(value = "/editBanner",method = RequestMethod.POST)
-	public @ResponseBody boolean editBanner(@RequestParam("bannerId") int bannerId,@RequestParam("bannerTitle") String bannerTitle,@RequestParam("image") String image) {
-		this.service.editBanner(bannerId,bannerTitle,image);
+	public @ResponseBody boolean editBanner(@RequestParam("sortOrder") int sortOrder,@RequestParam("bannerId") int bannerId,@RequestParam("bannerTitle") String bannerTitle,@RequestParam("image") String image) {
+		this.service.editBanner(sortOrder,bannerId,bannerTitle,image);
 		return true;
 	}
 	

@@ -13,6 +13,9 @@ body {
     color: #000;
     cursor: pointer;
 }
+.mainImg{
+	height:250px;
+}
 .modal-footer .changepass {
     color: #F88634;
     border: 2px solid #F88634;

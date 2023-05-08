@@ -12,7 +12,9 @@ body {
 .sidebar {
     background-color: #F88634;
 }
-
+.nav-link{
+	color:none;
+}
 #menu {
     width: 100%;
 }
@@ -158,17 +160,16 @@ li {
 .dataTables_wrapper{
     margin-top: 15px !important;
 }
-.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    color: #ffffff !important;
     background: none !important;
     background-color: #F88634 !important;
-    color: #F88634 !important;
-    border: 1px solid #757575;
+    border: 1px solid #F88634;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
-    /* background: none !important; */
-    /* background-color: white !important; */
     color: #ffffff !important;
-    border: 1px solid #757575;
+    background-color: #F88634 !important;
+    border: 1px solid #F88634;
 }
 .addbox{
     border: 1px solid #E8E8E8;

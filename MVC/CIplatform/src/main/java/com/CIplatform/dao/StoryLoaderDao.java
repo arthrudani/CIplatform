@@ -70,7 +70,7 @@ public class StoryLoaderDao implements StoryLoaderInterface {
 	@Transactional
 	public void submitStory(Mission mission, User user) {
 		String que = "from Story where user=:user and mission=:mission and status=:status";
-		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		Query q = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(que);
 		q.setParameter("user",user);
 		q.setParameter("mission",mission);
 		q.setParameter("status",status.DRAFT);

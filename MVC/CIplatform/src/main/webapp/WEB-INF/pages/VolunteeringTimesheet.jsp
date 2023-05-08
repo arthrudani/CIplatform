@@ -60,25 +60,25 @@ pageEncoding="ISO-8859-1"%>
 				</div>
 				<div class="modal-body ">
 
-					<div class="margin2">Mission</div>
+					<div class="margin2">Mission*</div>
 					<div>
 						<select name="Mission" id="mission" class="missionSelectTime missionSelect">
 							<option value="missionSelect" hidden>Select mission</option>
 						</select>
 					</div>
 
-					<div class="margin2">Date</div>
+					<div class="margin2">Date*</div>
 					<input type="date" id="birthday" name="birthday"
 						placeholder="Select Date" class="datetime" style="width: 100%;">
 
 					<div class="row margin2">
 						<div class="col-6 textarea">
-							Hours <input type="number" name="Hours" class="form-control hours"
+							Hours* <input type="number" name="Hours" class="form-control hours"
 								id="hours quantity" aria-describedby="emailHelp"
 								placeholder="Enter spent hours">
 						</div>
 						<div class="col-6 textarea">
-							Minutes <input type="number" name="Minutes"
+							Minutes* <input type="number" name="Minutes"
 								class="form-control minutes" id="minutes quantity"
 								aria-describedby="emailHelp" placeholder="Enter spent minutes">
 						</div>
@@ -113,19 +113,19 @@ pageEncoding="ISO-8859-1"%>
 				</div>
 				<div class="modal-body ">
 
-					<div class="margin2">Mission</div>
+					<div class="margin2">Mission*</div>
 					<div>
 						<select name="Mission" id="mission" class="missionSelectGoal missionSelect">
 							<option value="missionSelect" hidden>Select mission</option>
 						</select>
 					</div>
 
-					<div class="margin2">Actions</div>
+					<div class="margin2">Actions*</div>
 					<input type="text" name="Actions" class="form-control action"
 						id="hours" aria-describedby="emailHelp"
 						placeholder="Enter actions" required>
 
-					<div class="margin2">Date</div>
+					<div class="margin2">Date*</div>
 					<input type="date" placeholder="Select Date" class="dategoal"
 						style="width: 100%;">
 
@@ -352,8 +352,8 @@ pageEncoding="ISO-8859-1"%>
 		var approvedMission = [];
 		let CheckedMission;
 		let date="";
-		let hours=0;
-		let minutes=0;
+		let hours=1;
+		let minutes=1;
 		let message="";
 		let action=0;
 		let user_id=$('.userIdforNextpage').val();
@@ -406,13 +406,17 @@ pageEncoding="ISO-8859-1"%>
 	     	$(".slugs").html(data);
 	     }
 		function validateData(){
-			if(hours>23){
-				swal("Error!", "Hours must be less than 24!", "error");
-				return;
+			if(CheckedMission==null){
+				swal("Error!", "Please select the mission!", "error");
 			}
-			else if(minutes>59){
-				swal("Error!", "Minutes must be less than 60!", "error");
-				return;
+			else if(hours>23 || hours==0){
+				swal("Error!", "Hours must be between 0 to 24!", "error");
+			}
+			else if(minutes>59 || minutes==0){
+				swal("Error!", "Minutes must be between 0 to 60!", "error");
+			}
+			else if(date==""){
+				swal("Error!", "Date can not be null!", "error");
 			}
 			else{
 				saveTimesheet();

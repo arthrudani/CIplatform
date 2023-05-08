@@ -19,6 +19,7 @@ pageEncoding="ISO-8859-1"%>
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
     <title>Admin Story</title>
     <link rel="stylesheet" href="css/Admin.css">
+    <script src="js/time.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="" type="images/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -29,7 +30,7 @@ pageEncoding="ISO-8859-1"%>
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
 </head>
 
-<body>
+<body onload=display_ct();>
     <div class="container-fluid">
         <div class="row flex-nowrap">
 
@@ -143,7 +144,7 @@ pageEncoding="ISO-8859-1"%>
             <!-- main content -->
             <div class="col py-3">
                 <div class="headerbar d-flex justify-content-between">
-                    <div class="d-flex align-items-center">Thursday november 3, 2022, 10:06 AM</div>
+                    <div class="d-flex align-items-center" id="ct"></div>
                     <div class="d-flex justify-content-between align-items-center ">
                         <li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle d-flex align-items-center gap-3"
@@ -250,6 +251,12 @@ pageEncoding="ISO-8859-1"%>
 	                selector: 'td:nth-child(2)'
 	            },
 	            responsive: true,
+	            aoColumnDefs: [
+		        	  {
+		        	     bSortable: false,
+		        	     aTargets: [ -1 ]
+		        	  }
+		        	]
 	        });
 	        $('#searchboxing').on('keyup', function () {
 	            table.search(this.value).draw();
@@ -274,7 +281,7 @@ pageEncoding="ISO-8859-1"%>
         	let GEB="";
         	
         	for(var i in story){
-        		GEB=`<div class="d-flex gap-2"><button class="view">View</button>
+        		GEB=`<div class="d-flex gap-3">
                      <button class="checkbs" onclick="approveStoryApplication(`+story[i].story_id+`)"><i class="bi bi-check-circle"></i></button>
                      <button class="circlebs" onclick="rejectStoryApplication(`+story[i].story_id+`)"><i class="bi bi-x-circle"></i></button>
                      <button onclick="deleteStoryApplication(`+story[i].story_id+`)"><img src="images/delete.png"></button></div>`;

@@ -30,6 +30,7 @@ import com.entities.MissionRating;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
 import com.entities.Skill;
+import com.entities.Skill.Status;
 import com.entities.User;
 import com.entities.MissionApplication.approval;
 
@@ -127,7 +128,10 @@ public class MissionLoaderDao implements MissionLoaderInterface {
 	}
 
 	public List<MissionTheme> loadAllThemes() {
-		return this.hibernateTemplate.loadAll(MissionTheme.class);
+		String que = "from MissionTheme where status=:status";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("status", "ACTIVE");
+		return q.list();
 	}
 
 	public List<Mission> loadAllMission() {
@@ -139,7 +143,10 @@ public class MissionLoaderDao implements MissionLoaderInterface {
 	}
 
 	public List<Skill> loadAllSkillOnSearch() {
-		return this.hibernateTemplate.loadAll(Skill.class);
+		String que = "from Skill where status=:status";
+		Query q = hibernateTemplate.getSessionFactory().openSession().createQuery(que);
+		q.setParameter("status", Status.ACTIVE);
+		return q.list();
 	}
 
 	public List<User> loadAllUserOnSearch() {

@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.print.DocFlavor.STRING;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,17 +68,24 @@ public class HomeController {
 	}
 
 	@RequestMapping(path = "/homeGrid")
-	public String homeGrid() {
-		return "homeGrid";
+	public String homeGrid(HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		if(user!=null) {
+			System.out.println(user.getUser_id());
+			return "homeGrid";
+		}
+		return "login";
 	}
 
 	@RequestMapping(path = "/verifyuser", method = RequestMethod.POST)
-	public String myUserverifier(@RequestParam("email") String email, @RequestParam("password") String password,Model m) {
+	public String myUserverifier(@RequestParam("email") String email, @RequestParam("password") String password,Model m,HttpServletRequest request) {
+		
 		String vr = "";
 		vr = this.registrationDao.verifyuser(email, password);
 		if (vr == "true") {
 			
 			User userdetail = this.landingpageDao.getuserdetails(email);
+			request.getSession(true).setAttribute("user",userdetail);
 			m.addAttribute("user" , userdetail);
 			m.addAttribute("first_name" , userdetail.getFirst_name());
 			m.addAttribute("user_id" , userdetail.getUser_id());

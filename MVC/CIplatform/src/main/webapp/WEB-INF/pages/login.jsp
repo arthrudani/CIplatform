@@ -72,12 +72,12 @@
 								<form action="verifyuser" method="post" name="login" id="loginForm">
 									<div class="form-group">
 										<label for="exampleInputEmail1" class="box">Email
-											address</label> <input type="email" name="email" class="form-control"
+											address*</label> <input type="email" name="email" class="form-control"
 											id="email" aria-describedby="emailHelp"
 											placeholder="Enter email" required>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1" class="box">Password</label> <input
+										<label for="exampleInputEmail1" class="box">Password*</label> <input
 											type="password" name="password" id="password"
 											class="form-control password" aria-describedby="emailHelp"
 											placeholder="Enter Password" required>
@@ -145,7 +145,6 @@
 	$(".loginButton").click(function(e){
 		e.preventDefault();
 		if($('.password').val().length>7){
-			console.log("submitted");
 			$("#loginForm").submit();
 		}
 		else if($('.warning').val()!=""){

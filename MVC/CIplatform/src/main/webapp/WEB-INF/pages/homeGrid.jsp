@@ -38,7 +38,7 @@
 </head>
 
 <body>
-	<jsp:include page="Loader.jsp"></jsp:include>
+<%-- 	<jsp:include page="Loader.jsp"></jsp:include> --%>
 	<!-- modal for recommend mission -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,7 +158,7 @@
 	</div>
 
 	<!-- upper nav bar -->
-	<div class="container-fluid borderH2 d-flex ">
+	<div class="container-fluid borderH2 d-flex " style="border: 0;"> 
 		<div class="container d-flex justify-content-around  ">
 
 			<div class="d-flex ">
@@ -253,7 +253,7 @@
 
 	<!-- lower nav bar -->
 	<div class="container-fluid borderH2">
-		<div class="d-flex justify-content-around">
+		<div class="d-flex justify-content-around" style="height:50px;">
 
 			<div class="d-flex">
 
@@ -281,9 +281,8 @@
 					aria-labelledby="dropdownMenuButton1" name="city">
 				</ul>
 				<br /> <select name="country" id="country" class="countrySelect">
-					<input type="text" class="defaultCountry" hidden
-					value="${user.country.country_id}">
-					<option value="country" hidden>Country</option>
+					<input type="text" class="defaultCountry" hidden value="${user.country.country_id}">
+					<option hidden>Country</option>
 				</select> <br />
 
 
@@ -300,7 +299,7 @@
 
 
 				<button class="btn btn-secondary dropdown-toggle" type="button"
-					id="dropdownMenuButton1" data-bs-toggle="dropdown"
+					id="dropdownMenuButton2" data-bs-toggle="dropdown"
 					aria-expanded="false">
 					Skills <img src="images/drop-down.png">
 				</button>
@@ -321,16 +320,14 @@
 	<!-- missions sort and grid list button-->
 	<div class="container mb-3 mt-3 d-flex justify-content-end">
 
-		<div style="padding-right: 25px">
-
-			<select name="sortby" id="sortby"
-				class="sortby btn dropdown-toggle sortbybutton dropdown">
-				<option hidden>Sort by</option>
+		<div style="padding-right: 25px; height: 35px;">
+			<select name="sortby" id="sortby" aria-label="Default select example"
+				class="sortby form-select sortbybutton">
+				<option value="sortBy" hidden>Sort by</option>
 				<option value="Newest">Newest</option>
 				<option value="Oldest">Oldest</option>
 				<option value="LowestAvailable">Lowest available seats</option>
 				<option value="HighestAvailable">Highest available seats</option>
-				<option value="Favourites">My favourites</option>
 				<option value="RegistrationDeadline">Registration deadline</option>
 			</select> <br />
 		</div>
@@ -351,8 +348,12 @@
 		</p>
 	</div>
 
+	<!-- clearall button  -->
+	<div class="container">
+		<div class="clearAll d-flex justify-content-end"></div>
+	</div>
+	
 	<!-- 	total missions -->
-	<div id="spinner-div" class="pt-5">hello</div>
 	<div class="container grid-container gridListView">
 		<div class="row" id="listgrid"></div>
 		<div class="row" id="gridlist"></div>
@@ -510,6 +511,7 @@
 		    });
 	        
 		});
+		
 		function addSlugs(slugs){
 	     	var data="";
 	     	for(var i in slugs){
@@ -629,6 +631,20 @@
 		    $(".skillSelector").append(data);
 		    $(".skillSelectorSidebar").append(data);
 		}
+		function clearAllFilters(){
+			CheckedCountry="";
+			$('.citySelector input').prop('checked',false);
+			$('.themeSelector input').prop('checked',false);
+			$('.skillSelector input').prop('checked',false);
+			$('.countrySelect').val('Country');
+			$('.sortby').val('sortBy');
+	        selectedCity.length=0;
+			selectedTheme.length=0;
+			selectedSkill.length=0;
+			CheckedSortby="";
+			$('.clearAll').html("");
+			updateMissionsOnChange();
+		}
 		function  updateMissionsOnChange(){
        	let searchWord=$('.mySearchInput').val();
        	var selectedchips=""
@@ -654,43 +670,14 @@
                	for(var a in income){
                		totalMission=a;
                		missions=income[a];
-               	}               
-               	
-//                	if(FilterObject.country_id!="")
-//                	{
-//                		selectedchips+=`<div class="col filter justify-content-between">
-//         				<span>`+FilterObject.country.name+`
-//         					<button type="button" class="btn-close" aria-label="Close"></button>
-//         				</span>
-//         			</div>`
-//                	}
-//                	for (let i = 0; i <Object.keys(FilterObject.searchedcities).length; i++)
-//                	{
-//         	       	selectedchips+=`<div class="col filter justify-content-between">
-//         				<span>`+response[i].city.name+`
-//         					<button type="button" class="btn-close" aria-label="Close"></button>
-//         				</span>
-//         			</div>`
-//         		}
-//                	for (let i = 0; i <Object.keys(FilterObject.searchedthemes).length; i++)
-//                	{
-//         	       	selectedchips+=`<div class="col filter justify-content-between">
-//         				<span>`+response[i].mission_theme.title+`
-//         					<button type="button" class="btn-close" aria-label="Close"></button>
-//         				</span>
-//         			</div>`
-//         		}
-//                	for (let i = 0; i <Object.keys(FilterObject.searchedskills).length; i++)
-//                	{
-//         	       	selectedchips+=`<div class="col filter justify-content-between">
-//         				<span>`+response[i].mission_skill.skill_id+`
-//         					<button type="button" class="btn-close" aria-label="Close"></button>
-//         				</span>
-//         			</div>`
-//         		}
-               	
-//         		console.log(selectedchips);
-//         		$(".chips").html(selectedchips);
+               	}
+               	if(FilterObject.searchedcities.length>0 || FilterObject.searchedskills.length>0 || FilterObject.searchedthemes.length>0 || FilterObject.sortby!="" || FilterObject.country_id!=""){
+					let data=`<button class="clearAllButton" onclick="clearAllFilters()">Clear all<i class="bi bi-x"></i></button>`;
+               		$('.clearAll').html(data);
+               	}
+               	else{
+               		$('.clearAll').html("");
+               	}
 				editpagination(a);
                	editUpdatedMission(a);
                	loopForFetchingMissionDetails(missions);
@@ -727,7 +714,9 @@
         	let perPageMission=3;
         	let totalPages=totalMissions/perPageMission;
         	if(totalMissions>perPageMission){
-        		pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage-1)+`,`+totalMissions+`)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>`;
+        		if(currentPage>0){
+        			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage-1)+`,`+totalMissions+`)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>`;
+        		}
         		for(i=1;i<totalPages+1;i++){
         			if(i==currentPage+1){
         				pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)" style="background-color: #f88634; color: white;">`+i+`</a></li>`;		
@@ -736,20 +725,16 @@
 	        			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(i-1)+`,`+totalMissions+`)">`+i+`</a></li>`;		
         			}
         		}
-				pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage+1)+`,`+totalMissions+`)" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
+        		if(currentPage<totalPages-1){
+        			pagination+=`<li class="page-item"><a class="page-link" onclick="setcurrentpage(`+(currentPage+1)+`,`+totalMissions+`)" aria-label="Next"><span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>`;
+        		}
         	}
         	$(".pagination").html(pagination);
         }
         function setcurrentpage(CP,totalMissions){
         	currentPage=CP;
-        	if(currentPage<0){
-        		swal("Warning!", "Reached at the start of missions!", "error");
-        	}
-        	else if(currentPage<totalMissions/3){
+        	if(currentPage<totalMissions/3){
         		updateMissionsOnChange(); 
-        	}
-        	else{
-        		swal("Warning!", "Reached at the end of missions!", "error");
         	}
         }
         
@@ -759,6 +744,7 @@
         
         function addCountryList(country){
         	var data="";
+        	data+='<option value="Country" hidden> Country</option>';
         	for(var i in country){
         		data+='<option value="'+country[i].country_id+'"> '+country[i].name+'</option>';
         	}
@@ -1056,6 +1042,17 @@
 	                
 	            });
 				
+				var fromDate = new Date(missions[i].start_date);
+				var toDate = new Date(missions[i].end_date);
+				var fromyear = fromDate.getFullYear();
+				var toyear = toDate.getFullYear();
+				var frommonth = ("0" + (fromDate.getMonth() + 1)).slice(-2);
+				var tomonth = ("0" + (fromDate.getMonth() + 1)).slice(-2);
+				var fromdate = ("0" + toDate.getDate()).slice(-2);
+				var todate = ("0" + toDate.getDate()).slice(-2);
+				let finalFromDate=fromyear+"-"+frommonth+"-"+fromdate;
+				let finalToDate=toyear+"-"+tomonth+"-"+todate;
+				
 				htmlPageGrid+=
 				`<div class="col-12 col-md-6 col-lg-4">
 				<div class="card ">
@@ -1069,13 +1066,15 @@
 						</p>
 					</div>
 					<div class="appliedOrClosed"></div>
-					<div class="posAbsolute likeBox"><button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
-						<input type="text" class="userid" name="mid" value="${user_id}" hidden>
-						`+mytag+`</button>
-					</div>
-					<div class="posAbsolute addBox " data-bs-toggle="modal" data-bs-target="#exampleModal1">
-						<i class="bi bi-person-plus recommendButton"></i>
-					</div>
+					
+					<div class="Favourite">
+                	<button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
+						<input type="text" class="userid" id="userid" name="uid" value="${user_id}" hidden>
+					`+mytag+`</button>
+                	</div>
+                	<div class="Recommend " data-bs-toggle="modal" data-bs-target="#exampleModal1">
+	                    <img src="images/user.png" alt="Favourite" srcset="">
+	                </div>
 					<div class="card-body">
 					<div class="d-flex justify-content-center">
 						<div class="category">
@@ -1103,9 +1102,9 @@
 							<div>
 								<p>
 									from
-									21-04-2023
+									`+finalFromDate+`
 									untill
-									21-05-2023
+									`+finalToDate+`
 								</p>
 							</div>
 						</div>
@@ -1115,7 +1114,7 @@
 							`+TimeOrGoal+`
 						</div>
 						<hr class="cardfooterline">
-						<div class="d-flex justify-content-center">
+						<div class="d-flex justify-content-center mt-3">
 							<form action="VolunteeringMission" method="GET" name="VolunteeringMission">
 								<button class="d-flex apply " type="submit" style="min-width:120px";>
 									<input type="text" class="missionIdforNextpage" name="mid" value="`+missions[i].mission_id+`" hidden>
@@ -1140,7 +1139,6 @@
 							<i class="bi bi-geo-alt"></i>
 							`+missions[i].city.name+`
 						</p>
-						
 						<div class="missionLikeListView d-flex flex-column">
 							<button onclick="likeMission(`+missions[i].mission_id+`,`+${user_id}+`)" style="border:0; background:none;">
 							<input type="text" class="userid" name="mid" value="${user_id}" hidden>
@@ -1155,8 +1153,7 @@
 							class="d-flex justify-content-center missionCategoryListView">
 						`+missions[i].mission_theme.title+`
 						</div>
-						<img
-							src="images/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+						<img src="images/`+imagepath+`"
 							class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-9">
@@ -1167,7 +1164,7 @@
 										class="row d-flex justify-content-start firstInfoContainerListView">
 										<div class="col d-flex">
 											<i class="bi bi-geo-alt"> </i>
-											<p>Atlanta</p>
+											<p>`+missions[i].city.name+`</p>
 										</div>
 										<div class="col d-flex">
 											<i class="bi bi-globe"> </i>
@@ -1175,7 +1172,7 @@
 										</div>
 										<div class="col d-flex">
 											<i class="bi bi-people"> </i>
-											<p>Smith Caring Foundation</p>
+											<p>`+missions[i].organization_name+`</p>
 										</div>
 									</div>
 								</div>
@@ -1200,33 +1197,22 @@
 								class="d-flex justify-content-between viewdetailsandfourbutton"
 								style="margin-top: 7%;">
 								<div class="d-flex justify-content-between">
-									<div class="d-flex align-items-center HLfouricon">
-										<img src="images/Seats-left.png" alt="">
-									</div>
-									<div class="HLfouricontext">
-										<div>397</div>
-										<div>seats left</div>
-									</div>
-									<div class="d-flex align-items-center HLfouricon">
-										<img src="images/achieved.png" alt="">
-									</div>
-									<div class="HLfouricontext">
-										<div>397</div>
-										<div>Achieved</div>
+									<div class="d-flex justify-content-between TimeOrGoal"
+										style="margin-top: 2%;">
+										`+TimeOrGoal+`
 									</div>
 									<div class="d-flex align-items-center HLfouricon">
 										<img src="images/calender.png" alt="">
 									</div>
 									<div class="HLfouricontext">
 										<div>
-											from
-											<fmt:formatDate pattern="dd-MM-yyyy"
-												value="${mission.start_date}" />
+										from
+										`+finalFromDate+`
+										
 										</div>
 										<div>
-											untill
-											<fmt:formatDate pattern="dd-MM-yyyy"
-												value="${mission.end_date}" />
+										untill
+										`+finalToDate+`
 										</div>
 									</div>
 									<div class="d-flex align-items-center HLfouricon">
@@ -1243,7 +1229,7 @@
 											<input type="text" class="missionIdforNextpage"  name="mid" value="`+missions[i].mission_id+`" hidden>
 											<input type="text" class="userIdforNextpage" name="uid" value="${user_id}" hidden>
 											<div>View Details</div>
-											<div>
+											<div style="min-width: fit-content;">
 												<img src="images/right-arrow.png" alt="">
 											</div>
 										</button>
@@ -1258,7 +1244,6 @@
 			}
 			$("#listgrid").html(htmlPageGrid);
 			$("#gridlist").html(htmlPageList);
-			$("#spinner-div").hide();
 			$('.recommendButton').click(function(){
 	        	missionIdForRecommendation=$('.missionIdForRecommendation').val();
 	        });
