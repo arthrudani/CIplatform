@@ -1288,8 +1288,6 @@
 					                       	<form action="VolunteeringMission" class="d-flex justify-content-center" method="GET" name="VolunteeringMission">
 						                        <button class="d-flex apply Apply__Mission" type="submit" style="min-width:120px";>
 													<input type="text" class="missionIdforNextpage" id="mid" name="mid" value="`+missions[i].mission_id+`" hidden>
-													<input type="text" class="userIdforNextpage" id="uid" name="uid" value="${user_id}" hidden>
-													
 													<div>Apply</div>
 													<div>
 														<img src="images/right-arrow.png" alt="">

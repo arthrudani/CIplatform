@@ -175,18 +175,21 @@ public class MissionController {
 	}
 	
 	@RequestMapping(path = "/VolunteeringMission", method = RequestMethod.GET)
-	public String myFormHandler(@RequestParam("mid") int missionId,@RequestParam("uid") int userId,Model m) {
-		Mission mission=this.service.getMissionById(missionId);
-		User user=this.service.getUserById(userId);
-		Double rating=this.service.getRatings(mission);
-		List<MissionMedia> media=this.service.getMissionMedia(mission);
-		m.addAttribute("mission",mission);
-		m.addAttribute("user",user);
-		m.addAttribute("rating",rating);
-		m.addAttribute("user_id",user.getUser_id());
-		m.addAttribute("avgrating",rating);
-		m.addAttribute("medias",media);
-		return "VolunteeringMission";
+	public String myFormHandler(@RequestParam("mid") int missionId,HttpSession session,Model m) {
+		User user=(User) session.getAttribute("user");
+		if(user!=null) {
+			Mission mission=this.service.getMissionById(missionId);
+			Double rating=this.service.getRatings(mission);
+			List<MissionMedia> media=this.service.getMissionMedia(mission);
+			m.addAttribute("mission",mission);
+			m.addAttribute("user",user);
+			m.addAttribute("rating",rating);
+			m.addAttribute("user_id",user.getUser_id());
+			m.addAttribute("avgrating",rating);
+			m.addAttribute("medias",media);
+			return "VolunteeringMission";
+		}
+		return "login";
 	}
 	
 	@RequestMapping(path = "/likemission", method = RequestMethod.GET)
