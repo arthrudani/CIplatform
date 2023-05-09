@@ -19,7 +19,8 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;900&display=swap"
 	rel="stylesheet">
 <title>Home Grid</title>
- <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+<link rel="stylesheet" type="text/css"
+	href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 <link rel='stylesheet'
 	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
 <link
@@ -38,7 +39,7 @@
 </head>
 
 <body>
-<%-- 	<jsp:include page="Loader.jsp"></jsp:include> --%>
+	<%-- 	<jsp:include page="Loader.jsp"></jsp:include> --%>
 	<!-- modal for recommend mission -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -56,8 +57,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn changepass"
-						data-bs-dismiss="modal"
-						onclick="recommend()">Recommend</button>
+						data-bs-dismiss="modal" onclick="recommend()">Recommend</button>
 				</div>
 			</div>
 		</div>
@@ -158,7 +158,7 @@
 	</div>
 
 	<!-- upper nav bar -->
-	<div class="container-fluid borderH2 d-flex " style="border: 0;"> 
+	<div class="container-fluid borderH2 d-flex " style="border: 0;">
 		<div class="container d-flex justify-content-around  ">
 
 			<div class="d-flex ">
@@ -184,18 +184,23 @@
 								<li class="nav-item upperButtons blocking">Stories</li>
 							</button>
 						</form>
-						<li class="nav-item dropdown upperButtons blocking">
-							<a
+						<li class="nav-item dropdown upperButtons blocking"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"> &nbsp;Policy
 								&nbsp; <img src="images/drop-down.png">
-							</a>
+						</a>
 							<ul class="dropdown-menu slugs posAbsolute"
 								aria-labelledby="navbarDropdownMenuLink">
-								
-							</ul>
-						</li>
+
+							</ul></li>
+						<select name="sortby" id="explore" aria-label="Default select example" class="form-select exploreButton">
+							<option value="sortBy" hidden>Explore</option>
+							<option value="topTheme">Top themes</option>
+							<option value="mostRanked">Most ranked</option>
+							<option value="topFavourite">Top favourite</option>
+							<option value="random">Random</option>
+						</select>
 					</ul>
 				</div>
 
@@ -253,7 +258,7 @@
 
 	<!-- lower nav bar -->
 	<div class="container-fluid borderH2">
-		<div class="d-flex justify-content-around" style="height:50px;">
+		<div class="d-flex justify-content-around" style="height: 50px;">
 
 			<div class="d-flex">
 
@@ -280,8 +285,10 @@
 				<ul class="dropdown-menu posStatic citySelector"
 					aria-labelledby="dropdownMenuButton1" name="city">
 				</ul>
-				<br /> <select name="country" id="country" class="countrySelect">
-					<input type="text" class="defaultCountry" hidden value="${user.country.country_id}">
+				<br /> 
+				<select name="country" id="country" class="countrySelect">
+					<input type="text" class="defaultCountry" hidden
+					value="${user.country.country_id}">
 					<option hidden>Country</option>
 				</select> <br />
 
@@ -352,7 +359,7 @@
 	<div class="container">
 		<div class="clearAll d-flex justify-content-end"></div>
 	</div>
-	
+
 	<!-- 	total missions -->
 	<div class="container grid-container gridListView">
 		<div class="row" id="listgrid"></div>
@@ -382,7 +389,8 @@
 		</div>
 	</div>
 
-    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+	<script
+		src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 	<script
@@ -409,6 +417,7 @@
 		let country="";
 		let CheckedCountry="";
 		let CheckedSortby="";
+		let CheckedExplore="";
 		let cityList="";
 		let themeList=[];
 		let skills=[];
@@ -506,6 +515,11 @@
 	            
 	        $('.sortby, .sortbySidebar').on('change', function () {
 		        CheckedSortby = $(this).find("option:selected").val();
+		       	currentPage=0;
+		        updateMissionsOnChange();
+		    });
+	        $('.exploreButton').on('change', function () {
+	        	CheckedExplore = $(this).find("option:selected").val();
 		       	currentPage=0;
 		        updateMissionsOnChange();
 		    });
@@ -656,6 +670,7 @@
    			 	searchedthemes:selectedTheme,
    				searchedskills:selectedSkill,
    				sortby:CheckedSortby,
+   				explore:CheckedExplore,
    				currentPage:currentPage
    		}
        		
@@ -1057,8 +1072,7 @@
 				`<div class="col-12 col-md-6 col-lg-4">
 				<div class="card ">
 				<input type="text" class="missionIdForRecommendation" value="`+missions[i].mission_id+`" hidden>
-					<img class="card-img-top" style="height:250px"
-						src="images/`+imagepath+`">
+					<img class="card-img-top mainimage" src="images/`+imagepath+`">
 					<div class="posAbsolute locationBox d-flex ">
 						<i class="bi bi-geo-alt locicon"></i>
 						<p>

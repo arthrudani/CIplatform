@@ -3,6 +3,9 @@ package com.CIplatform.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -357,10 +360,16 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/usersLoader")
-	public String usersLoader(@RequestParam("uid") int uid,Model m) {
-		User user=this.hibernateTemplate.get(User.class,uid);
-		m.addAttribute("user",user);
-		return "AdminUser";
+	public String usersLoader(HttpSession session) {
+		User user=(User) session.getAttribute("admin");
+//		User user=this.hibernateTemplate.get(User.class,uid);
+//		m.addAttribute("user",user);
+		if(user!=null) {
+			return "AdminUser";
+		}
+		else {
+			return "login";
+		}
 	}
 	@RequestMapping(value = "/cmsPageLoader")
 	public String cmsPageLoader(@RequestParam("uid") int uid,Model m) {

@@ -31,6 +31,7 @@ import com.entities.MissionSkill;
 import com.entities.MissionTheme;
 import com.entities.Skill;
 import com.entities.Skill.Status;
+import com.entities.Story.status;
 import com.entities.User;
 import com.entities.MissionApplication.approval;
 
@@ -43,6 +44,7 @@ public class MissionLoaderDao implements MissionLoaderInterface {
 
 		Session s = this.hibernateTemplate.getSessionFactory().openSession();
 		Criteria c = s.createCriteria(Mission.class);
+		Criteria f = s.createCriteria(FavouriteMission.class);
 		c.setResultTransformer(c.DISTINCT_ROOT_ENTITY);
 		if (filters.getSearchedKeyword() != "") {
 			c.add(Restrictions.like("title", "%" + filters.getSearchedKeyword() + "%"));
@@ -77,6 +79,9 @@ public class MissionLoaderDao implements MissionLoaderInterface {
 		if (filters.getSortby().equals("RegistrationDeadline")) {
 			c.addOrder(Order.desc("deadline"));
 			c.add(Restrictions.in("mission_type", mission_type.TIME));
+		}
+		if(filters.getExplore().equals("topFavourite")) {
+			c.createAlias("favouriteMission", "fm");
 		}
 		int firstresultcount = ((filters.getCurrentPage() - 1) * 3) + 3;
 		c.setFirstResult(firstresultcount);

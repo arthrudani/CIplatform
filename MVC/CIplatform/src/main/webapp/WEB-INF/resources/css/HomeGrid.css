@@ -29,9 +29,32 @@
 	flex-direction: row !important;
 	align-items: flex-start;
 }
+.exploreButton{
+	border:0;
+	width:34%;
+}
+.mainimage{
+	height:250px;
+}
+.mainimage:hover{
+/* 	border-radius:25px; */
+	margin-top:-8px;
+	margin-left:-10px;
+	position:relative;
+	height:270px;
+	width:370px;
+	transition:0.3s;
+	border-radius:5px;
+}
+.card{
+	height:580px !important;
+}
 .activePage{
 	background-color: #f88634;
     color: white;
+}
+.navbar-nav .dropdown-menu{
+	position:absolute !important;
 }
 .pagination>li>a, .pagination>li>span{
 	color: #f88634;

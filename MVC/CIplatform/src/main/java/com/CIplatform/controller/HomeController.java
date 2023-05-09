@@ -83,9 +83,8 @@ public class HomeController {
 		String vr = "";
 		vr = this.registrationDao.verifyuser(email, password);
 		if (vr == "true") {
-			
+
 			User userdetail = this.landingpageDao.getuserdetails(email);
-			request.getSession(true).setAttribute("user",userdetail);
 			m.addAttribute("user" , userdetail);
 			m.addAttribute("first_name" , userdetail.getFirst_name());
 			m.addAttribute("user_id" , userdetail.getUser_id());
@@ -96,9 +95,11 @@ public class HomeController {
 			m.addAttribute("missionlist" ,  missiondetail);
 			m.addAttribute("usercountry" ,  userdetail.getCountry().getName());
 			if(userdetail.getType()==type.VOLUNTEER) {
+				request.getSession(false).setAttribute("user",userdetail);
 				return "homeGrid";
 			}
 			else {
+				request.getSession(false).setAttribute("admin",userdetail);
 				return "AdminUser";
 			}
 		}

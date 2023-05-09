@@ -9,6 +9,7 @@ public class Filters {
 	private List<Integer> searchedthemes;
 	private List<Integer> searchedskills;
 	private String sortby;
+	private String explore;
 	private int currentPage;
 	
 	public Filters() {
@@ -26,6 +27,16 @@ public class Filters {
 		this.searchedskills = searchedskills;
 		this.sortby = sortby;
 		this.currentPage = currentPage;
+	}
+
+	
+
+	public String getExplore() {
+		return explore;
+	}
+
+	public void setExplore(String explore) {
+		this.explore = explore;
 	}
 
 	public String getSearchedKeyword() {
