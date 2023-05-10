@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Controller;
@@ -38,8 +40,11 @@ public class StoryController {
 	MissionLoader service1;
 	
 	@RequestMapping(path = "/storiesLoader", method = RequestMethod.POST)
-	public String myFormHandler(@RequestParam("uid") int userId,Model m) {
-		User user=this.service1.getUserById(userId);
+	public String myFormHandler(@RequestParam("uid") int userId,HttpSession session,Model m) {
+		User user=(User) session.getAttribute("user");
+		if(user==null) {
+			return "login";
+		}
 		m.addAttribute("user",user);
 		return "story";
 	}

@@ -28,6 +28,7 @@ import com.entities.MissionMedia;
 import com.entities.MissionRating;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
+import com.entities.Notifications;
 import com.entities.Skill;
 import com.entities.Story;
 import com.entities.Timesheet;
@@ -70,6 +71,23 @@ public class MissionLoaderService implements MissionLoader {
 	public List<CmsPage> loadAllSlugs() {
 		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from CmsPage where (deletedAt is null)");
 		return query.list();
+	}
+	public List<Notifications> loadAllNotifications(int userId) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from Notifications where (deletedAt is null) and user_id=:userId");
+		query.setParameter("userId", userId);
+		return query.list();
+	}
+	@Transactional
+	public boolean clearAllNotification(int userId) {
+		Query query = this.hibernateTemplate.getSessionFactory().openSession().createQuery("from Notifications where (deletedAt is null) and user_id=:userId");
+		query.setParameter("userId", userId);
+		List<Notifications> notifications= query.list();
+		for(int i=0;i<notifications.size();i++) {
+			Notifications notifications2=notifications.get(i);
+			notifications2.setDeletedAt(new Date());
+			this.hibernateTemplate.saveOrUpdate(notifications2);
+		}
+		return true;
 	}
 
 	public String loadAllMissionOnSearch(Filters filters) {

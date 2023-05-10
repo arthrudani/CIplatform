@@ -135,6 +135,9 @@
 				<value>
 					com.entities.Admin
 				</value>
+				<value>
+					com.entities.Notifications
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -145,8 +148,7 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<bean
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+	<bean class="org.springframework.orm.hibernate5.HibernateTransactionManager"
 		name="transactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>

@@ -156,7 +156,9 @@
 									<input type="text" class="userIdforNextpage" name="uid" value="${user.user_id}" hidden>
 									<li><button type="submit" class="dropdown-item">Volunteering timesheet</button></li>
 								</form>
-								<li><a class="dropdown-item" href="login">Logout</a></li>
+								<form action="logout" method="POST" name="storiesLoader">
+									<li><button type="submit" class="dropdown-item">Logout</button></li>
+								</form>
 							</ul>
 						</li>
 					</div>
@@ -641,8 +643,11 @@
     						    text: "Mission edited successfully!",
     						    type: "success"
     						}).then(function() {
-    							window.location.reload();
+    							setTimeout(function() {
+        							window.location.href = "missionLoader";
+        						}, 3000);
     						});
+    						
     					}
     				}
     			});

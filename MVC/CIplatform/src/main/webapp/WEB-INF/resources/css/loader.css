@@ -9,7 +9,7 @@
 	z-index: 9999;
 }
 .loader {
-  border: 2px solid #FFF;
+  border: 0.5px solid #FFF;
   width: 48px;
   height: 48px;
   background:#f88634;

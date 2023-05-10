@@ -3,6 +3,7 @@ package com.CIplatform.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.management.Notification;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -30,6 +31,7 @@ import com.entities.MissionMedia;
 import com.entities.MissionMedia.defaultype;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
+import com.entities.Notifications;
 import com.entities.Skill;
 import com.entities.Story;
 import com.entities.StoryMedia;
@@ -72,6 +74,12 @@ public class AdminService implements AdminInterface{
 	@Transactional
 	public void approveMissionApplication(int applicationID) {
 		MissionApplication missionApplication=this.hibernateTemplate.get(MissionApplication.class, applicationID);
+		Notifications notifications=new Notifications();
+		notifications.setCreatedAt(new Date());
+		notifications.setMission(missionApplication.getMission());
+		notifications.setUser(missionApplication.getUser());
+		notifications.setApproval_status(approval.ONE);
+		this.hibernateTemplate.save(notifications);
 		if(missionApplication!=null) {
 			Mission mission=missionApplication.getMission();
 			if(mission.getMission_type()==mission_type.GOAL) {
@@ -100,6 +108,12 @@ public class AdminService implements AdminInterface{
 	@Transactional
 	public void rejectMissionApplication(int applicationID) {
 		MissionApplication missionApplication=this.hibernateTemplate.get(MissionApplication.class, applicationID);
+		Notifications notifications=new Notifications();
+		notifications.setCreatedAt(new Date());
+		notifications.setMission(missionApplication.getMission());
+		notifications.setUser(missionApplication.getUser());
+		notifications.setApproval_status(approval.ZERO);
+		this.hibernateTemplate.save(notifications);
 		if(missionApplication!=null) {
 			missionApplication.setApproval_status(approval.ZERO);;
 			this.hibernateTemplate.saveOrUpdate(missionApplication);

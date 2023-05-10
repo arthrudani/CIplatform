@@ -276,6 +276,7 @@ public class AdminController {
 	public String editCmsPage(@RequestParam("cmsid") int cmsid,HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			CmsPage cmsPage=this.hibernateTemplate.get(CmsPage.class, cmsid);
 			m.addAttribute("cms",cmsPage);
 			return "AdminEditCMS";
@@ -287,8 +288,10 @@ public class AdminController {
 	@RequestMapping(value = "/editUserPage")
 	public String editUserPage(@RequestParam("uid") int uid,HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
+		User user2=this.hibernateTemplate.get(User.class, uid);
 		if(user!=null) {
-			m.addAttribute("edituser",user);
+			m.addAttribute("edituser",user2);
+			m.addAttribute("user",user);
 			return "AdminEditUser";
 		}
 		else {
@@ -300,18 +303,19 @@ public class AdminController {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
 			Mission mission=this.hibernateTemplate.get(Mission.class, mid);
+			m.addAttribute("user",user);
 			m.addAttribute("mission",mission);
 			return "AdminEditMission";
 		}
 		else {
 			return "login";
-		}
-		
+		}		
 	}
 	@RequestMapping(value = "/editMissionThemePage")
 	public String editMissionThemePage(@RequestParam("mtid") int muid,HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			MissionTheme missionTheme=this.hibernateTemplate.get(MissionTheme.class,muid);
 			m.addAttribute("missionTheme",missionTheme);
 			return "AdminEditTheme";
@@ -324,6 +328,7 @@ public class AdminController {
 	public String editSkillPage(@RequestParam("sid") int sid,HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			Skill skill=this.hibernateTemplate.get(Skill.class,sid);
 			m.addAttribute("skill",skill);
 			return "AdminEditSkill";
@@ -336,6 +341,7 @@ public class AdminController {
 	public String editBannerPage(@RequestParam("bid") int bid,HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			Banner banner=this.hibernateTemplate.get(Banner.class,bid);
 			m.addAttribute("banner",banner);
 			return "AdminEditBanner";
@@ -348,9 +354,10 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/addNewUserPage")
-	public String addNewUserPage(HttpSession session) {
+	public String addNewUserPage(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminAddUser";
 		}
 		else {
@@ -358,9 +365,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/addCMS")
-	public String addCMS(HttpSession session) {
+	public String addCMS(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminAddCMS";
 		}
 		else {
@@ -368,9 +376,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/addNewMissionPage")
-	public String addNewMissionPage(HttpSession session) {
+	public String addNewMissionPage(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminAddMission";
 		}
 		else {
@@ -378,9 +387,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/addNewThemePage")
-	public String addNewThemePage(HttpSession session) {
+	public String addNewThemePage(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminAddTheme";
 		}
 		else {
@@ -388,9 +398,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/addNewSkillPage")
-	public String addNewSkillPage(HttpSession session) {
+	public String addNewSkillPage(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminAddSkill";
 		}
 		else {
@@ -398,9 +409,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/addNewBannerPage")
-	public String addNewBannerPage(HttpSession session) {
+	public String addNewBannerPage(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminAddBanner";
 		}
 		else {
@@ -413,9 +425,10 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/usersLoader")
-	public String usersLoader(HttpSession session) {
+	public String usersLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminUser";
 		}
 		else {
@@ -423,9 +436,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/cmsPageLoader")
-	public String cmsPageLoader(HttpSession session) {
+	public String cmsPageLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminCMS";
 		}
 		else {
@@ -433,9 +447,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/missionLoader")
-	public String missionLoader(HttpSession session) {
+	public String missionLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminMission";
 		}
 		else {
@@ -443,9 +458,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/missionThemeLoader")
-	public String missionThemeLoader(HttpSession session) {
+	public String missionThemeLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminMissionTheme";
 		}
 		else {
@@ -453,9 +469,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/missionSkillLoader")
-	public String missionSkillLoader(HttpSession session) {
+	public String missionSkillLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminMissionSkill";
 		}
 		else {
@@ -463,9 +480,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/missionApplicationLoader")
-	public String missionApplicationLoader(HttpSession session) {
+	public String missionApplicationLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminMissionApplication";
 		}
 		else {
@@ -473,9 +491,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/storyLoader")
-	public String storyLoader(HttpSession session) {
+	public String storyLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminStory";
 		}
 		else {
@@ -483,9 +502,10 @@ public class AdminController {
 		}
 	}
 	@RequestMapping(value = "/bannerManagementLoader")
-	public String bannerManagementLoader(HttpSession session) {
+	public String bannerManagementLoader(HttpSession session,Model m) {
 		User user=(User) session.getAttribute("admin");
 		if(user!=null) {
+			m.addAttribute("user",user);
 			return "AdminBannerManagement";
 		}
 		else {

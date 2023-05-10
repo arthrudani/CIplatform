@@ -16,8 +16,15 @@
 .clearAllButton{
 	background: none;
     border: 1px solid black;
-    border-radius: 25px;
+    border-radius: 3px;
     padding: 3px;
+}
+.clearAllNotificcations{
+	font-size:9px;
+	background: none;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 1px;
 }
 .progress{
 	margin-bottom:3px;
@@ -35,6 +42,7 @@
 }
 .mainimage{
 	height:250px;
+	border-radius:5px !important;
 }
 .mainimage:hover{
 /* 	border-radius:25px; */
@@ -44,7 +52,7 @@
 	height:270px;
 	width:370px;
 	transition:0.3s;
-	border-radius:5px;
+	border-radius:0px !important;
 }
 .card{
 	height:580px !important;

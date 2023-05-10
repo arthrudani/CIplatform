@@ -11,6 +11,7 @@ import com.entities.FavouriteMission;
 import com.entities.Mission;
 import com.entities.MissionSkill;
 import com.entities.MissionTheme;
+import com.entities.Notifications;
 import com.entities.Skill;
 import com.entities.Story;
 import com.entities.Timesheet;
@@ -53,4 +54,6 @@ public interface MissionLoader {
 	public String checkEmail(String email);
 	public List<MissionMedia> getMissionMedia(Mission mission);
 	public boolean loadAppliedMissions(User user, Mission mission);
+	public List<Notifications> loadAllNotifications(int userId);
+	public boolean clearAllNotification(int userId);
 }

@@ -26,6 +26,7 @@ import com.entities.GoalMission;
 import com.entities.Mission;
 import com.entities.MissionDocument;
 import com.entities.MissionTheme;
+import com.entities.Notifications;
 import com.entities.Skill;
 import com.entities.Timesheet;
 import com.entities.User;
@@ -135,6 +136,15 @@ public class MissionController {
 	public @ResponseBody List<CmsPage> loadAllSlugs() {
 		List<CmsPage> mylist = this.service.loadAllSlugs();
 		return mylist;
+	}
+	@RequestMapping(value = "/loadAllNotifications")
+	public @ResponseBody List<Notifications> loadAllNotifications(@RequestParam("uid") int userId) {
+		List<Notifications> mylist = this.service.loadAllNotifications(userId);
+		return mylist;
+	}
+	@RequestMapping(value = "/clearAllNotification")
+	public @ResponseBody boolean clearAllNotification(@RequestParam("uid") int userId) {
+		return this.service.clearAllNotification(userId);
 	}
 	@RequestMapping(value = "/loadGoalMission")
 	public @ResponseBody GoalMission loadGoalMission(@RequestParam("mid") int missionId) {

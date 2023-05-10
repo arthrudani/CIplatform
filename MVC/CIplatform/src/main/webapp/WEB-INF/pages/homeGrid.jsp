@@ -39,7 +39,7 @@
 </head>
 
 <body>
-	<%-- 	<jsp:include page="Loader.jsp"></jsp:include> --%>
+	<jsp:include page="Loader.jsp"></jsp:include>
 	<!-- modal for recommend mission -->
 	<div class="modal " id="exampleModal1" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -194,7 +194,9 @@
 								aria-labelledby="navbarDropdownMenuLink">
 
 							</ul></li>
-						<select name="sortby" id="explore" aria-label="Default select example" class="form-select exploreButton">
+						<select name="sortby" id="explore"
+							aria-label="Default select example"
+							class="form-select blocking exploreButton">
 							<option value="sortBy" hidden>Explore</option>
 							<option value="topTheme">Top themes</option>
 							<option value="mostRanked">Most ranked</option>
@@ -204,16 +206,32 @@
 					</ul>
 				</div>
 
-				<ul class="d-flex navbar-nav rightHeader align-items-between">
+				<ul class="d-flex navbar-nav rightHeader align-items-center gap-3">
 					<img class="rightbutton "
 						style="padding-top: 22% !important; padding-right: 10%;"
 						src="images/search.png">
 
+					<div class="ifNotiNotNull">
+						<li class="nav-item dropdown upperButtons blocking "><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+								<div>
+									<img src="images/notification-icon.svg">
+								</div>
+						</a>
+							<ul class="dropdown-menu notifications posAbsolute"
+								aria-labelledby="navbarDropdownMenuLink">
+
+							</ul></li>
+					</div>
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+						class="nav-link dropdown-toggle d-flex align-items-center gap-3"
 						href="#" id="navbarDropdownMenuLink" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"
 						style="display: flex !important">
+
+
 							<div>
 								<img src="images/<c:out value="${avatar}"></c:out>"
 									class="userimage ">
@@ -244,7 +262,9 @@
 										timesheet</button></li>
 							</form>
 
-							<li><a class="dropdown-item" href="login">Logout</a></li>
+							<form action="logout" method="POST" name="storiesLoader">
+								<li><button type="submit" class="dropdown-item">Logout</button></li>
+							</form>
 						</ul></li>
 				</ul>
 
@@ -285,8 +305,7 @@
 				<ul class="dropdown-menu posStatic citySelector"
 					aria-labelledby="dropdownMenuButton1" name="city">
 				</ul>
-				<br /> 
-				<select name="country" id="country" class="countrySelect">
+				<br /> <select name="country" id="country" class="countrySelect">
 					<input type="text" class="defaultCountry" hidden
 					value="${user.country.country_id}">
 					<option hidden>Country</option>
@@ -388,7 +407,7 @@
 			</div>
 		</div>
 	</div>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script
 		src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
 	<script
@@ -407,7 +426,7 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+	<script src="js/spinner.js"></script>
 
 	<!-- 	search filter scripts -->
 	<script>
@@ -437,6 +456,7 @@
 		let missionIdForRecommendation="";
 	 
 		$(document).ready(function() {
+// 			location.reload();
 			$("#gridlist").hide();
 			getLikedMission();
 			updateMissionsOnChange();
@@ -496,6 +516,8 @@
                 }
             });
 	       	
+	       	loadAllNotifications();
+	       	
 
 	       	/* Search Mission Logic */
 			$('.mySearchInput').keyup(function(){
@@ -525,13 +547,50 @@
 		    });
 	        
 		});
-		
+		function loadAllNotifications(){
+			$.ajax({
+	            url: "loadAllNotifications",
+	            data:{'uid':userId},
+	            dataType: 'json',
+	            success: function(response){
+            		console.log(response);
+           			addNotification(response);
+            	}
+        	});
+		}
+		function clearAllNotification(){
+			$.ajax({
+	            url: "clearAllNotification",
+	            data:{'uid':userId},
+	            dataType: 'json',
+	            success: function(response){
+	            	loadAllNotifications();
+            	}
+        	});
+		}
 		function addSlugs(slugs){
 	     	var data="";
 	     	for(var i in slugs){
 	     		data+=`<li><a class="dropdown-item" href="PrivacyPolicy?uid=${user.user_id}">`+slugs[i].title+`</a></li>`;
 	     	}
 	     	$(".slugs").html(data);
+	     }
+		function addNotification(notifications){
+			var data="";
+			if(notifications!=""){
+				data+=`<div class="d-flex justify-content-end me-2 mb-2"><button class="clearAllNotificcations" onclick="clearAllNotification()">Clear all</button></div>`;
+			}
+	     	let status="";
+	     	for(var i in notifications){
+	     		if(notifications[i].approval_status=="ONE"){
+	     			status="approved";
+	     		}
+	     		else{
+	     			status="rejected";
+	     		}
+	     		data+=`<li style="width:250px"><p class="ms-2" style="font-size:9px"> Application for mission `+notifications[i].mission.title+` is `+status+`</p></li>`;
+	     	}
+	     	$(".notifications").html(data);
 	     }
 		function getLikedMission(){
 			let LikedMission=[];
@@ -1263,6 +1322,7 @@
 		}
        
 	</script>
+		
 </body>
 
 </html>

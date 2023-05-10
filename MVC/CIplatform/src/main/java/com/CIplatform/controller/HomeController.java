@@ -61,6 +61,11 @@ public class HomeController {
 	public String mylogin() {
 		return "login";
 	}
+	@RequestMapping(path = "/logout")
+	public String mylogout(HttpSession session) {
+		session.invalidate();
+		return "login";
+	}
 
 	@RequestMapping(path = "/ForgotPass")
 	public String myForgotPass() {
@@ -71,7 +76,6 @@ public class HomeController {
 	public String homeGrid(HttpSession session) {
 		User user=(User)session.getAttribute("user");
 		if(user!=null) {
-			System.out.println(user.getUser_id());
 			return "homeGrid";
 		}
 		return "login";
@@ -83,7 +87,6 @@ public class HomeController {
 		String vr = "";
 		vr = this.registrationDao.verifyuser(email, password);
 		if (vr == "true") {
-
 			User userdetail = this.landingpageDao.getuserdetails(email);
 			m.addAttribute("user" , userdetail);
 			m.addAttribute("first_name" , userdetail.getFirst_name());
